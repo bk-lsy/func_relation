@@ -14,6 +14,21 @@ SPEC.loader.exec_module(func_relation)
 
 
 class FuncRelationTest(unittest.TestCase):
+    def test_semantic_rules_are_dynamically_loaded(self):
+        self.assertEqual(
+            ["dead_initializer", "static_pure_constant"],
+            [rule.name for rule in func_relation.semantic_rules()],
+        )
+
+    def test_all_rules_are_dynamically_loaded(self):
+        self.assertEqual(
+            [
+                "call_classification", "dead_initializer", "function_discovery",
+                "function_order", "static_pure_constant",
+            ],
+            [rule.name for rule in func_relation.rules()],
+        )
+
     def test_load_config_and_resolve_its_relative_paths(self):
         with tempfile.TemporaryDirectory() as directory:
             config_file = Path(directory) / "config.yaml"

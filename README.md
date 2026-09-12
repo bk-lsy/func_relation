@@ -44,6 +44,10 @@ Profiles are part of the evidence: a result applies only to that macro set.
 `config.yaml` 中的 `raw_hash`、`structural_hash`、`semantic_hash` 可分别设为
 `true` 或 `false`，控制对应哈希字段是否写入报告。每个配置项旁均有中文说明。
 
+语义展示过滤规则位于 [`rules/`](rules/README.md)，程序启动时会动态扫描并加载
+该目录的规则文件；每条规则均包含中文说明和保守性边界。当前动态规则还负责
+本地函数可达范围、函数排序与本地/外部调用分类。
+
 ## Report fields
 
 Each function gets a `raw_hash`, a conservative `structural_hash`, its direct

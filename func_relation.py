@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import difflib
 import hashlib
+import importlib.util
 import json
 import re
 import subprocess
@@ -18,6 +19,18 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterable, List, Tuple
+
+from rules.api import (
+    CallClassificationContext,
+    CallClassificationRule,
+    FunctionDiscoveryContext,
+    FunctionDiscoveryRule,
+    FunctionOrderRule,
+    Rule,
+    SemanticRule,
+    SemanticRuleContext,
+    SemanticRuleResult,
+)
 
 
 DIRECTIVE = re.compile(r"^\s*#\s*(\w+)(?:\s+(.*?))?\s*$")
@@ -78,6 +91,7 @@ CONFIG_FIELDS = {
     "max_semantic_lines", "call_depth", "raw_hash", "structural_hash", "semantic_hash",
 }
 HASH_FIELDS = ("raw_hash", "structural_hash", "semantic_hash")
+_RULES: List[Rule] | None = None
 
 
 def load_config(path: Path) -> Dict[str, str]:
@@ -126,6 +140,62 @@ def parse_bool(value: str, setting: str) -> bool:
 def hash_options(config: Dict[str, str]) -> Dict[str, bool]:
     """Return the optional report fields selected in config.yaml."""
     return {name: parse_bool(config.get(name, "true"), name) for name in HASH_FIELDS}
+
+
+def load_rules() -> List[Rule]:
+    """动态扫描 rules/*.py 并加载声明为 RULE 的规则。"""
+    rules_dir = Path(__file__).with_name("rules")
+    loaded: List[Rule] = []
+    for path in sorted(rules_dir.glob("*.py")):
+        if path.name in {"__init__.py", "api.py"}:
+            continue
+        module_name = f"func_relation_dynamic_rule_{path.stem}"
+        spec = importlib.util.spec_from_file_location(module_name, path)
+        if spec is None or spec.loader is None:
+            raise ValueError(f"cannot load rule module: {path}")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        rule = getattr(module, "RULE", None)
+        if not isinstance(rule, (SemanticRule, FunctionDiscoveryRule, FunctionOrderRule, CallClassificationRule)):
+            raise ValueError(f"{path}: RULE must implement a supported rule interface")
+        if not rule.name or not rule.description_zh:
+            raise ValueError(f"{path}: rule name and Chinese description are required")
+        loaded.append(rule)
+    names = [rule.name for rule in loaded]
+    if len(names) != len(set(names)):
+        raise ValueError("duplicate rule name")
+    return loaded
+
+
+def rules() -> List[Rule]:
+    """每个进程动态加载一次，避免为每个函数重复执行插件文件。"""
+    global _RULES
+    if _RULES is None:
+        _RULES = load_rules()
+    return _RULES
+
+
+def semantic_rules() -> List[SemanticRule]:
+    return [rule for rule in rules() if isinstance(rule, SemanticRule)]
+
+
+def single_rule(rule_type: type, label: str) -> Rule:
+    selected = [rule for rule in rules() if isinstance(rule, rule_type)]
+    if len(selected) != 1:
+        raise ValueError(f"expected exactly one {label} rule, found {len(selected)}")
+    return selected[0]
+
+
+def function_discovery_rule() -> FunctionDiscoveryRule:
+    return single_rule(FunctionDiscoveryRule, "function discovery")  # type: ignore[return-value]
+
+
+def function_order_rule() -> FunctionOrderRule:
+    return single_rule(FunctionOrderRule, "function order")  # type: ignore[return-value]
+
+
+def call_classification_rule() -> CallClassificationRule:
+    return single_rule(CallClassificationRule, "call classification")  # type: ignore[return-value]
 
 
 def eval_condition(expression: str, macros: Dict[str, int]) -> bool:
@@ -507,46 +577,6 @@ def local_write_counts(tokens: List[str], local_names: set[str]) -> Dict[str, in
     return counts
 
 
-def is_pure_constant(token: str) -> bool:
-    """Only values whose evaluation cannot read memory or invoke code qualify."""
-    return bool(
-        re.fullmatch(r"(?:0[xX][0-9a-fA-F]+|\d+)", token)
-        or re.fullmatch(r"[A-Z][A-Z0-9_]*", token)
-        or (len(token) >= 2 and token[0] in {'"', "'"} and token[-1] == token[0])
-    )
-
-
-def classify_pure_local_initializers(tokens: List[str], local_names: set[str], write_counts: Dict[str, int]) -> Tuple[set[str], Dict[str, str]]:
-    """Find top-level pure constant declarations; everything else stays temporal."""
-    dead: set[str] = set()
-    static: Dict[str, str] = {}
-    depth = 0
-    for index, token in enumerate(tokens[:-2]):
-        if token == "{":
-            depth += 1
-            continue
-        if token == "}":
-            depth = max(0, depth - 1)
-            continue
-        if token != "=" or tokens[index - 1] not in local_names:
-            continue
-        if depth != 0:
-            continue
-        target = tokens[index - 1]
-        right_end = statement_end(tokens, index + 1, len(tokens)) - 1
-        right = tokens[index + 1:right_end]
-        # A declaration must have at least one type token before its local name.
-        if (index < 2 or not right or len(right) != 1 or not is_pure_constant(right[0])
-                or write_counts.get(target, 0) != 1):
-            continue
-        if tokens[index - 2] in {";", "{", "}"}:
-            continue
-        # It is written exactly once, so recording this outer-scope constant
-        # declaration in `static` loses no ordering edge.
-        static[target] = right[0]
-    return dead, static
-
-
 def parameter_aliases(function: Function) -> set[str]:
     """Return non-volatile parameter names after local-name normalization."""
     rename = declared_names(function.params, function.body)
@@ -562,68 +592,23 @@ def parameter_aliases(function: Function) -> set[str]:
     return result
 
 
-def dead_initializers(function: Function, tokens: List[str], local_names: set[str]) -> set[str]:
-    """Find only provably unread, side-effect-free local initializations.
-
-    This intentionally recognizes a narrow form: ``TYPE local = parameter;``
-    at function scope, followed by an unconditional top-level ``local = ...``
-    before any textual reference to ``local``. Loops and jumps between the two
-    assignments make the proof ambiguous and are rejected.
-    """
-    parameter_names = parameter_aliases(function)
-    depths: List[int] = []
-    depth = 0
-    for token in tokens:
-        depths.append(depth)
-        if token == "{":
-            depth += 1
-        elif token == "}":
-            depth = max(0, depth - 1)
-
-    result: set[str] = set()
-    for index, token in enumerate(tokens[:-2]):
-        if token != "=" or depths[index] != 0:
-            continue
-        target = tokens[index - 1]
-        if target not in local_names:
-            continue
-        statement_start = index - 1
-        while statement_start > 0 and tokens[statement_start - 1] not in {";", "{", "}"}:
-            statement_start -= 1
-        declaration = tokens[statement_start:index]
-        # A single type token avoids guessing through pointers, multiple
-        # declarators, typedef combinations, and other declaration forms.
-        if len(declaration) != 2 or declaration[1] != target or not re.fullmatch(r"[A-Za-z_]\w*", declaration[0]):
-            continue
-        end = statement_end(tokens, index + 1, len(tokens)) - 1
-        initializer = tokens[index + 1:end]
-        # Reading one non-volatile parameter or a numeric literal has no side
-        # effect in C. Enum-like macros are deliberately excluded here because
-        # this source-only analyzer cannot prove their definitions.
-        if (len(initializer) != 1
-                or (initializer[0] not in parameter_names
-                    and not re.fullmatch(r"(?:0[xX][0-9a-fA-F]+|\d+)", initializer[0]))):
-            continue
-
-        unsafe = False
-        replacement = -1
-        for position in range(end + 1, len(tokens)):
-            if tokens[position] in {"goto", "for", "while", "do", "switch", "case"}:
-                unsafe = True
-                break
-            if tokens[position] != target:
-                continue
-            # The first reference must be a standalone, top-level overwrite.
-            previous = tokens[position - 1] if position else ""
-            if (depths[position] == 0 and position + 1 < len(tokens)
-                    and tokens[position + 1] == "=" and previous in {";", "}"}):
-                replacement = position
-            else:
-                unsafe = True
-            break
-        if not unsafe and replacement >= 0:
-            result.add(target)
-    return result
+def apply_semantic_rules(function: Function, tokens: List[str], local_names: set[str], write_counts: Dict[str, int]) -> SemanticRuleResult:
+    """合并动态规则的结果；冲突时由 dead 初始化过滤优先。"""
+    context = SemanticRuleContext(
+        function_params=function.params,
+        tokens=tokens,
+        local_names=local_names,
+        parameter_names=parameter_aliases(function),
+        write_counts=write_counts,
+    )
+    combined = SemanticRuleResult()
+    for rule in semantic_rules():
+        result = rule.apply(context)
+        if not isinstance(result, SemanticRuleResult):
+            raise ValueError(f"rule {rule.name} must return SemanticRuleResult")
+        combined.dead_initializers.update(result.dead_initializers)
+        combined.static_initializers.update(result.static_initializers)
+    return combined
 
 
 def semantic_lines(function: Function, local_functions: Dict[str, Function], call_depth: int, line_limit: int) -> Dict[str, object]:
@@ -634,19 +619,14 @@ def semantic_lines(function: Function, local_functions: Dict[str, Function], cal
     truncated = False
 
     def reachable_functions() -> List[str]:
-        """Find each local callee once, up to the configured call depth."""
-        distances: Dict[str, int] = {function.name: 0}
-        pending = [function.name]
-        while pending:
-            caller = pending.pop(0)
-            distance = distances[caller]
-            if distance >= call_depth:
-                continue
-            for callee in unique_in_order(effects(local_functions[caller])):
-                if callee in local_functions and callee not in distances:
-                    distances[callee] = distance + 1
-                    pending.append(callee)
-        return sorted(distances)
+        """Delegate reachability and display order to dynamically loaded rules."""
+        discovered = function_discovery_rule().discover(FunctionDiscoveryContext(
+            root_name=function.name,
+            call_depth=call_depth,
+            local_function_names=set(local_functions),
+            direct_effects=lambda name: unique_in_order(effects(local_functions[name])),
+        ))
+        return function_order_rule().order(discovered)
 
     def emit(indent: int, text: str) -> None:
         nonlocal truncated
@@ -694,10 +674,16 @@ def semantic_lines(function: Function, local_functions: Dict[str, Function], cal
             if re.fullmatch(r"[A-Za-z_]\w*", name) and part[position + 1] == "(" and name not in KEYWORDS:
                 close = token_close(part, position + 1, "(", ")")
                 arguments = render(part[position + 2:close], aliases)
-                if name in local_functions:
+                classification = call_classification_rule().classify(CallClassificationContext(
+                    call_name=name,
+                    local_function_names=set(local_functions),
+                ))
+                if classification == "LOCAL":
                     emit(indent, f"CALL_LOCAL {name}({arguments})")
-                else:
+                elif classification == "EXTERNAL":
                     emit(indent, f"CALL_EXTERNAL {name}({arguments})")
+                else:
+                    raise ValueError(f"call classification rule returned unsupported value: {classification!r}")
                 position = close
             position += 1
 
@@ -733,8 +719,9 @@ def semantic_lines(function: Function, local_functions: Dict[str, Function], cal
         target_tokens, target_local_names, _ = canonical_body(target)
         writes = local_write_counts(target_tokens, target_local_names)
         aliasable = {name for name, count in writes.items() if count == 1}
-        unused_initializers = dead_initializers(target, target_tokens, target_local_names)
-        static_initializers = classify_pure_local_initializers(target_tokens, target_local_names, writes)[1] if collect_static else {}
+        rule_result = apply_semantic_rules(target, target_tokens, target_local_names, writes)
+        unused_initializers = rule_result.dead_initializers
+        static_initializers = rule_result.static_initializers if collect_static else {}
         walk_range(target_tokens, 0, len(target_tokens), indent, remaining_depth, target_local_names, aliasable, {}, unused_initializers, static_initializers, collect_static)
 
     for name in reachable_functions():
