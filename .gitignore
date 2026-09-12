@@ -1,0 +1,7 @@
+# Local comparison target and generated reports.
+config.yaml
+outputs/
+
+# Python bytecode.
+__pycache__/
+*.py[cod]

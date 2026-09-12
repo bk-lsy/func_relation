@@ -1,0 +1,9 @@
+# Always-on/AC source view.  BC_ON_AC is required by the current merged source.
+AC_ON_BC: true
+BC_ON_AC: true
+DUAL_ALGO_ENABLE: true
+HUB_MANAGE_SUPPORT: true
+TAPO_DOORBELL: true
+FLOODLIGHT_DET_TYPE_SEPARATE_SUPPORT: true
+LED_PWM: true
+CAMERA_OPERATION_LOG_SUPPORT: true

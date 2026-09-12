@@ -1,0 +1,21 @@
+# 使用前复制为 config.yaml，并按本地仓库和比较目标修改。
+# 路径相对于本 config.yaml 所在目录。
+base_dir: ../NVMP/nvmp/tp_package/cap
+
+# 填写 Git 提交 ID；填写 WORKTREE 表示读取当前工作区。
+before: <before-commit-id>
+after: WORKTREE
+source_path: src/modules/cd_alarm/
+
+# 选择需要的宏配置。
+profile: profiles/ac.yaml
+output_dir: outputs
+max_semantic_lines: 160
+call_depth: 0
+
+# 是否输出 raw_hash：函数去注释后的原始 Token 指纹，可识别细微源码改动。
+raw_hash: true
+# 是否输出 structural_hash：局部变量名归一化后的结构 Token 指纹，可忽略单纯改名。
+structural_hash: true
+# 是否输出 semantic_hash：基于控制流、状态写入和调用效果摘要的语义指纹。
+semantic_hash: true

@@ -1,0 +1,4 @@
+# Default battery-camera/BC source view.
+AC_ON_BC: false
+BC_ON_AC: false
+MODULE_LOG_CONTROL: false
