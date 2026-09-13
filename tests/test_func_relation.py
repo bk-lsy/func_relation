@@ -16,7 +16,7 @@ SPEC.loader.exec_module(func_relation)
 class FuncRelationTest(unittest.TestCase):
     def test_semantic_rules_are_dynamically_loaded(self):
         self.assertEqual(
-            ["dead_initializer", "static_pure_constant"],
+            ["dead_initializer", "immediate_condition_alias", "static_pure_constant", "unobservable_pure_initializer"],
             [rule.name for rule in func_relation.semantic_rules()],
         )
 
@@ -24,7 +24,8 @@ class FuncRelationTest(unittest.TestCase):
         self.assertEqual(
             [
                 "call_classification", "dead_initializer", "function_discovery",
-                "function_order", "static_pure_constant",
+                "function_order", "immediate_condition_alias", "static_pure_constant",
+                "unobservable_pure_initializer",
             ],
             [rule.name for rule in func_relation.rules()],
         )
@@ -97,6 +98,56 @@ class FuncRelationTest(unittest.TestCase):
         """)["f"]
         semantic = func_relation.semantic_lines(function, {"f": function}, 0, 40)
         self.assertEqual([], semantic["static"])
+
+    def test_unobservable_pure_initializer_is_omitted_across_a_return_guard(self):
+        function = func_relation.extract_functions("""
+            int f(int input) {
+                int status = MODE_IDLE;
+                if (input) { return 1; }
+                status = compute_status();
+                return status;
+            }
+        """)["f"]
+        temporal = "\n".join(func_relation.semantic_lines(function, {"f": function}, 0, 40)["temporal"])
+        self.assertNotIn("MODE_IDLE", temporal)
+        self.assertIn("SET_LOCAL v1 = compute_status ( )", temporal)
+
+    def test_pure_initializer_is_retained_without_an_unconditional_overwrite(self):
+        function = func_relation.extract_functions("""
+            int f(int input) {
+                int status = MODE_IDLE;
+                if (input) { status = MODE_ACTIVE; }
+                return status;
+            }
+        """)["f"]
+        temporal = "\n".join(func_relation.semantic_lines(function, {"f": function}, 0, 40)["temporal"])
+        self.assertIn("SET_LOCAL int v1 = MODE_IDLE", temporal)
+
+    def test_deferred_declaration_uses_the_first_effective_write(self):
+        function = func_relation.extract_functions("""
+            int f(int input) {
+                int status = input;
+                if (input) { return 1; }
+                status = input + 1;
+                return status;
+            }
+        """)["f"]
+        temporal = "\n".join(func_relation.semantic_lines(function, {"f": function}, 0, 40)["temporal"])
+        self.assertNotIn("SET_LOCAL int v1 = v0", temporal)
+        self.assertIn("SET_LOCAL int v1 = v0 + 1", temporal)
+
+    def test_immediate_condition_alias_is_folded(self):
+        function = func_relation.extract_functions("""
+            int f(int input) {
+                int should_stop = 0;
+                should_stop = check_input(input);
+                if (should_stop) { return 1; }
+                return 0;
+            }
+        """)["f"]
+        temporal = "\n".join(func_relation.semantic_lines(function, {"f": function}, 0, 40)["temporal"])
+        self.assertNotIn("should_stop", temporal)
+        self.assertIn("IF check_input ( v0 )", temporal)
 
     def test_flatten_selects_profile_branch(self):
         source = """\
