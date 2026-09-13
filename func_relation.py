@@ -899,8 +899,9 @@ def main() -> int:
     output_dir.mkdir(parents=True, exist_ok=True)
     before_output = output_dir / "before.json"
     after_output = output_dir / "after.json"
-    before_output.write_text(json.dumps(before, indent=2, sort_keys=True) + "\n")
-    after_output.write_text(json.dumps(after, indent=2, sort_keys=True) + "\n")
+    # 保留 semantic 中 bindings 的来源顺序；文件和函数在收集阶段已显式排序。
+    before_output.write_text(json.dumps(before, indent=2) + "\n")
+    after_output.write_text(json.dumps(after, indent=2) + "\n")
     print(f"before: {before_output}")
     print(f"after:  {after_output}")
     return 0
