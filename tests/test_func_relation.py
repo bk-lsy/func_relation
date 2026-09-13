@@ -191,8 +191,24 @@ int selected(void) { return 2; }
     def test_declaration_after_control_block_is_a_local(self):
         source = "int f(int input) { if (input) { return 1; } int later = 0; return later; }"
         function = func_relation.extract_functions(source)["f"]
-        bindings = func_relation.semantic_lines(function, {"f": function}, 0, 40)["bindings"]
+        semantic = func_relation.semantic_lines(function, {"f": function}, 0, 40)
+        bindings = semantic["bindings"]
         self.assertIn("later", bindings)
+        self.assertEqual({"input": "v0"}, semantic["binding_groups"]["parameters"])
+        self.assertEqual({"later": "v1"}, semantic["binding_groups"]["locals"])
+
+    def test_bindings_keep_source_groups_and_static_locals(self):
+        source = "int f(int first, int second) { int local = 0; static int cached = 1; return local + cached; }"
+        function = func_relation.extract_functions(source)["f"]
+        semantic = func_relation.semantic_lines(function, {"f": function}, 0, 40)
+        self.assertEqual(
+            ["first", "second", "local", "cached"],
+            list(semantic["bindings"]),
+        )
+        self.assertEqual({"first": "v0", "second": "v1"}, semantic["binding_groups"]["parameters"])
+        self.assertEqual({"local": "v2"}, semantic["binding_groups"]["locals"])
+        self.assertEqual({"cached": "v3"}, semantic["binding_groups"]["static_locals"])
+        self.assertEqual({}, semantic["binding_groups"]["globals"])
 
     def test_pure_constant_declaration_is_static_not_temporal(self):
         source = "int f(int input) { int mode = MODE_DEFAULT; if (input) return 1; return mode; }"
