@@ -608,6 +608,7 @@ def apply_semantic_rules(function: Function, tokens: List[str], local_names: set
             raise ValueError(f"rule {rule.name} must return SemanticRuleResult")
         combined.dead_initializers.update(result.dead_initializers)
         combined.static_initializers.update(result.static_initializers)
+        combined.condition_aliases.update(result.condition_aliases)
     return combined
 
 
@@ -641,7 +642,7 @@ def semantic_lines(function: Function, local_functions: Dict[str, Function], cal
             rendered.extend(aliases.get(item, [item]))
         return expression_text(rendered)
 
-    def simple_statement(part: List[str], indent: int, remaining_depth: int, active_local_names: set[str], aliasable: set[str], aliases: Dict[str, List[str]], dead_initializers: set[str], static_initializers: Dict[str, str], collect_static: bool) -> None:
+    def simple_statement(part: List[str], indent: int, remaining_depth: int, active_local_names: set[str], aliasable: set[str], aliases: Dict[str, List[str]], dead_initializers: set[str], static_initializers: Dict[str, str], condition_aliases: Dict[str, List[str]], deferred_types: Dict[str, str], collect_static: bool) -> None:
         if not part:
             return
         if part[0] == "return":
@@ -657,11 +658,16 @@ def semantic_lines(function: Function, local_functions: Dict[str, Function], cal
             is_declaration = bool(target and part[:assignment] and part[assignment - 1] == target and len(part[:assignment]) > 1)
             if kind == "SET_LOCAL" and is_declaration and target in dead_initializers:
                 dead_initializers.remove(target)
+                deferred_types[target] = left[:left.rfind(target)].rstrip()
                 return
             if kind == "SET_LOCAL" and is_declaration and target in static_initializers:
                 if collect_static:
                     static_entries.append((bindings.get(target, target), f"STATIC_LOCAL {bindings.get(target, target)} [{target}] = {static_initializers[target]}"))
                 return
+            if kind == "SET_LOCAL" and not is_declaration and target in condition_aliases:
+                return
+            if kind == "SET_LOCAL" and not is_declaration and target in deferred_types:
+                left = f"{deferred_types.pop(target)} {target}"
             if kind == "SET_LOCAL" and is_declaration and target in aliasable and len(right) == 1:
                 aliases[target] = aliases.get(right[0], [right[0]])
                 alias_kind = "CONST" if re.fullmatch(r"(?:0[xX][0-9a-fA-F]+|\d+)", right[0]) else "ALIAS"
@@ -687,7 +693,7 @@ def semantic_lines(function: Function, local_functions: Dict[str, Function], cal
                 position = close
             position += 1
 
-    def walk_range(items: List[str], start: int, end: int, indent: int, remaining_depth: int, active_local_names: set[str], aliasable: set[str], aliases: Dict[str, List[str]], dead_initializers: set[str], static_initializers: Dict[str, str], collect_static: bool) -> None:
+    def walk_range(items: List[str], start: int, end: int, indent: int, remaining_depth: int, active_local_names: set[str], aliasable: set[str], aliases: Dict[str, List[str]], dead_initializers: set[str], static_initializers: Dict[str, str], condition_aliases: Dict[str, List[str]], deferred_types: Dict[str, str], collect_static: bool) -> None:
         position = start
         while position < end and not truncated:
             token = items[position]
@@ -696,15 +702,18 @@ def semantic_lines(function: Function, local_functions: Dict[str, Function], cal
                 continue
             if token in {"if", "while", "for", "switch"} and position + 1 < end and items[position + 1] == "(":
                 close = token_close(items, position + 1, "(", ")")
-                emit(indent, f"{token.upper()} {render(items[position + 2:close], aliases)}")
+                condition = items[position + 2:close]
+                if token == "if" and len(condition) == 1 and condition[0] in condition_aliases:
+                    condition = condition_aliases.pop(condition[0])
+                emit(indent, f"{token.upper()} {render(condition, aliases)}")
                 body_start = close + 1
                 if body_start < end and items[body_start] == "{":
                     body_end = token_close(items, body_start, "{", "}")
-                    walk_range(items, body_start + 1, min(body_end, end), indent + 1, remaining_depth, active_local_names, aliasable, aliases, dead_initializers, static_initializers, collect_static)
+                    walk_range(items, body_start + 1, min(body_end, end), indent + 1, remaining_depth, active_local_names, aliasable, aliases, dead_initializers, static_initializers, condition_aliases, deferred_types, collect_static)
                     position = body_end + 1
                 else:
                     body_end = statement_end(items, body_start, end)
-                    walk_range(items, body_start, body_end, indent + 1, remaining_depth, active_local_names, aliasable, aliases, dead_initializers, static_initializers, collect_static)
+                    walk_range(items, body_start, body_end, indent + 1, remaining_depth, active_local_names, aliasable, aliases, dead_initializers, static_initializers, condition_aliases, deferred_types, collect_static)
                     position = body_end
                 continue
             if token == "else":
@@ -712,7 +721,7 @@ def semantic_lines(function: Function, local_functions: Dict[str, Function], cal
                 position += 1
                 continue
             finish = statement_end(items, position, end)
-            simple_statement(items[position:finish - 1] if finish > position and items[finish - 1] == ";" else items[position:finish], indent, remaining_depth, active_local_names, aliasable, aliases, dead_initializers, static_initializers, collect_static)
+            simple_statement(items[position:finish - 1] if finish > position and items[finish - 1] == ";" else items[position:finish], indent, remaining_depth, active_local_names, aliasable, aliases, dead_initializers, static_initializers, condition_aliases, deferred_types, collect_static)
             position = max(finish, position + 1)
 
     def walk_function(target: Function, indent: int, remaining_depth: int, collect_static: bool) -> None:
@@ -722,7 +731,9 @@ def semantic_lines(function: Function, local_functions: Dict[str, Function], cal
         rule_result = apply_semantic_rules(target, target_tokens, target_local_names, writes)
         unused_initializers = rule_result.dead_initializers
         static_initializers = rule_result.static_initializers if collect_static else {}
-        walk_range(target_tokens, 0, len(target_tokens), indent, remaining_depth, target_local_names, aliasable, {}, unused_initializers, static_initializers, collect_static)
+        condition_aliases = dict(rule_result.condition_aliases)
+        deferred_types: Dict[str, str] = {}
+        walk_range(target_tokens, 0, len(target_tokens), indent, remaining_depth, target_local_names, aliasable, {}, unused_initializers, static_initializers, condition_aliases, deferred_types, collect_static)
 
     for name in reachable_functions():
         emit(0, f"FUNCTION {name}")

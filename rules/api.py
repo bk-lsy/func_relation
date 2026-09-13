@@ -19,10 +19,11 @@ class SemanticRuleContext:
 
 @dataclass
 class SemanticRuleResult:
-    """规则可隐藏的初始化，以及可移至 static 区的初始化。"""
+    """规则可隐藏的初始化、可移至 static 区的初始化和条件折叠。"""
 
     dead_initializers: Set[str] = field(default_factory=set)
     static_initializers: Dict[str, str] = field(default_factory=dict)
+    condition_aliases: Dict[str, List[str]] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
