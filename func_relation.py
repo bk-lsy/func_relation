@@ -546,6 +546,40 @@ def canonical_body(function: Function) -> Tuple[List[str], set[str], Dict[str, s
     return [rename.get(token, token) for token in TOKEN.findall(function.body)], set(rename.values()), bindings
 
 
+def binding_groups(function: Function, bindings: Dict[str, str]) -> Dict[str, Dict[str, str]]:
+    """按声明来源展示已规范化的变量；不猜测未绑定的全局符号。"""
+    parameter_names: set[str] = set()
+    for part in function.params.split(","):
+        candidates = IDENT.findall(part)
+        if candidates:
+            name = candidates[-1]
+            if name not in TYPE_WORDS and name != "void":
+                parameter_names.add(name)
+
+    static_names = {
+        original for original in bindings.values()
+        if re.search(
+            rf"(?:^|[;{{}}])\s*(?:[A-Za-z_]\w*\s+)*static(?:\s+[A-Za-z_]\w*|\s*\*)*\s+{re.escape(original)}\s*(?=[=;,\[])",
+            function.body,
+        )
+    }
+    groups: Dict[str, Dict[str, str]] = {
+        "parameters": {},
+        "locals": {},
+        "static_locals": {},
+        # 全局对象不会被改名为 vN；在 source-only 模型中不能把宏、函数和字段误报为全局变量。
+        "globals": {},
+    }
+    for canonical, original in bindings.items():
+        if original in parameter_names:
+            groups["parameters"][original] = canonical
+        elif original in static_names:
+            groups["static_locals"][original] = canonical
+        else:
+            groups["locals"][original] = canonical
+    return groups
+
+
 def expression_text(tokens: List[str]) -> str:
     """A stable, compact presentation of an expression; it is not a C pretty-printer."""
     return " ".join(tokens).strip()
@@ -743,9 +777,15 @@ def semantic_lines(function: Function, local_functions: Dict[str, Function], cal
         walk_function(local_functions[name], 1, call_depth, name == function.name)
     if truncated:
         lines.append(f"... semantic expansion truncated at {line_limit} lines")
-    display_bindings = {name: identifier for identifier, name in bindings.items()}
+    grouped_bindings = binding_groups(function, bindings)
+    display_bindings = {
+        name: identifier
+        for group in ("parameters", "locals", "static_locals", "globals")
+        for name, identifier in grouped_bindings[group].items()
+    }
     return {
-        "bindings": dict(sorted(display_bindings.items())),
+        "bindings": display_bindings,
+        "binding_groups": grouped_bindings,
         "static": [entry for _, entry in sorted(static_entries)],
         "temporal": lines,
         "truncated": truncated,
