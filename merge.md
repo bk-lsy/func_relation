@@ -1,4 +1,6 @@
 # cd_alarm 合并口径
+仓库： NVMP/nvmp/tp_package/cap
+
 
 ## 原始提交基线与责任
 
