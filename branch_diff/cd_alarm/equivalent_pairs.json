@@ -1,0 +1,28 @@
+{
+  "pairs": [
+    {
+      "ac": {"repo": "CAP", "commit": "aff72f87"},
+      "bc": {"repo": "CAP", "commit": "21d661c3"},
+      "basis": "stable patch-id 完全相同",
+      "confirm": 1
+    },
+    {
+      "ac": {"repo": "CAP", "commit": "f64246e5"},
+      "bc": {"repo": "CAP", "commit": "abedc8c3"},
+      "basis": "同一推送过滤需求在 AC/BC 的 CAP 部分",
+      "confirm": 1
+    },
+    {
+      "ac": {"repo": "CAP", "commit": "19da8326"},
+      "bc": {"repo": "CAP", "commit": "4a180adc"},
+      "basis": "两侧均删除 TP_TAPO 相关冗余逻辑",
+      "confirm": 1
+    },
+    {
+      "ac": {"repo": "CAP", "commit": "3f74974b"},
+      "bc": {"repo": "CAP", "commit": "3c54793d"},
+      "basis": "两侧 manufacturer name 变更需求对应",
+      "confirm": 1
+    }
+  ]
+}

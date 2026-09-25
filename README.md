@@ -92,3 +92,21 @@ reported in `diagnostics`; do not treat a report with diagnostics as proof.
 This is an MVP.  Its next safe extension is a real C parser (Tree-sitter) for
 more complete local declaration/CFG extraction, while keeping the same profile
 and JSON-report interfaces.
+
+## AC/BC 提交拓扑
+
+各模块的分支差异信息保存在 `branch_diff/<任务>/`。根目录脚本自动扫描所有包含
+`scope.json` 的任务，只读取本地 Git 元数据，从共同祖先开始动态搜索 AC、BC
+各自的独有提交，并分别生成两张提交图。
+
+```bash
+python3 generate_branch_diff.py
+```
+
+输出保持任务相对路径，统一写入 `outputs/branch_diff/<任务>/`。例如
+[`branch_diff/cd_alarm/`](branch_diff/cd_alarm/README.md) 对应
+`outputs/branch_diff/cd_alarm/`。
+
+人工维护内容只包含迁入对向分支时的刚需关系
+`dependencies.json`，以及带 `confirm: 0|1` 的 AC/BC 等价提交候选
+`equivalent_pairs.json`；提交集合和分支拓扑不在配置中固化。

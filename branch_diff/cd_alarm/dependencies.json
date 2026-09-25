@@ -1,0 +1,148 @@
+{
+  "dependencies": [
+    {
+      "source": {"side": "AC", "repo": "CAP", "commit": "a2f413bd"},
+      "target_side": "BC",
+      "required_commits": [
+        {"repo": "NVMP", "commit": "ce9818ab", "reason": "LED 消息与公共定义"}
+      ],
+      "external_requirements": [
+        "电池 LED rule 消费端支持 LED_TRIGGER_MID 与 CROSS_DETECTED 掩码"
+      ]
+    },
+    {
+      "source": {"side": "AC", "repo": "CAP", "commit": "701274af"},
+      "target_side": "BC",
+      "required_commits": [
+        {"repo": "NSD", "commit": "e1c25f79", "reason": "智能动作事件消费契约"}
+      ],
+      "external_requirements": [
+        "确认 BC 云端/智能动作消费端接受 pushable，关闭通知后仍上传事件"
+      ]
+    },
+    {
+      "source": {"side": "AC", "repo": "CAP", "commit": "4de4909c"},
+      "target_side": "BC",
+      "required_commits": [
+        {"repo": "NVMP", "commit": "8bd5b952", "reason": "libdms 自动亮灯消息定义"}
+      ]
+    },
+    {
+      "source": {"side": "AC", "repo": "CAP", "commit": "8526ade2"},
+      "target_side": "BC",
+      "external_requirements": [
+        "BC 夜视能力和消息消费者支持智能全彩模式及通道化 start 事件"
+      ]
+    },
+    {
+      "source": {"side": "AC", "repo": "CAP", "commit": "af4e8b58"},
+      "target_side": "BC",
+      "required_commits": [
+        {"repo": "NVMP", "commit": "b9e3f092", "reason": "Hub 公共模型与消息定义 1/4"},
+        {"repo": "NSD", "commit": "4aedc564", "reason": "Hub 管理与通信 2/4"},
+        {"repo": "AVTS", "commit": "e91f0cd8", "reason": "Hub 存储消费 3/4"}
+      ],
+      "external_requirements": [
+        "BC Hub 存储模型提供 HUB_MANAGE_STORAGE_INFO_PATH",
+        "扩展告警消费者接受 MSGID_ALARM_EXT"
+      ]
+    },
+    {
+      "source": {"side": "AC", "repo": "CAP", "commit": "cca64bf2"},
+      "target_side": "BC",
+      "required_commits": [
+        {"repo": "NVMP", "commit": "706cee9d", "reason": "泛光灯消息、DS 和数据模型 2/2"}
+      ],
+      "external_requirements": [
+        "BC SDK/能力提供方与消息消费者支持 FLOODLIGHT_ALARM_REGISTER_MID 和 notify-list 字段"
+      ]
+    },
+    {
+      "source": {"side": "AC", "repo": "CAP", "commit": "b80d8b0b"},
+      "target_side": "BC",
+      "required_commits": [
+        {"repo": "NVMP", "commit": "c744e4ba", "reason": "双路 CD/OD 数据模型"},
+        {"repo": "CAP", "commit": "3277c703", "reason": "区域长度统一"},
+        {"repo": "CAP", "commit": "bab37c3a", "reason": "第一通道配置修复"},
+        {"repo": "CAP", "commit": "67925cdb", "reason": "通道化函数签名与构建修复"},
+        {"repo": "CAP", "commit": "a4580195", "reason": "双路接口验证修复"},
+        {"repo": "CAP", "commit": "39ff9df8", "reason": "双路区域接口验证修复"}
+      ],
+      "external_requirements": [
+        "PRODUCT 补齐 DUAL_ALGO_ENABLE 机型配置",
+        "AMS/VDR 按 VDR_CD_RELOAD_MSG.chn 重载对应通道区域",
+        "电池 VDR 在 AMS_VDR_CD_CROSS_LINE 中填充 CD_RESULT.chn",
+        "录像模块按 EVENT_CHANGE_MSG.chn 隔离状态并保留告警 chn_id"
+      ]
+    },
+    {
+      "source": {"side": "AC", "repo": "CAP", "commit": "d2b0d47a"},
+      "target_side": "BC",
+      "required_commits": [
+        {"repo": "NVMP", "commit": "66b92aaf", "reason": "逐通道 PTZ 能力字段 1/3"}
+      ],
+      "external_requirements": [
+        "PRODUCT/能力提供方逐通道输出 chn_with_ptz",
+        "确认 BC motor/PTZ 抑制策略后再启用逐通道筛选"
+      ]
+    },
+    {
+      "source": {"side": "AC", "repo": "CAP", "commit": "6a3fda13"},
+      "target_side": "BC",
+      "required_commits": [
+        {"repo": "NVMP", "commit": "1fa29353", "reason": "双目同方向日夜切换模型 1/3"}
+      ],
+      "external_requirements": [
+        "PRODUCT 提供双目同方向角度/视场配置"
+      ]
+    },
+    {
+      "source": {"side": "AC", "repo": "CAP", "commit": "593c131a"},
+      "target_side": "BC",
+      "required_commits": [
+        {"repo": "NVMP", "commit": "bb20d972", "reason": "接口能力 core 1/5"},
+        {"repo": "NVMP", "commit": "f2593ca2", "reason": "接口能力 non-core 2/5"},
+        {"repo": "NSD", "commit": "42a751d1", "reason": "接口能力消费 4/5"},
+        {"repo": "AVTS", "commit": "555e44dd", "reason": "接口能力消费 5/5"}
+      ]
+    },
+    {
+      "source": {"side": "AC", "repo": "CAP", "commit": "ea731c1c"},
+      "target_side": "BC",
+      "required_commits": [
+        {"repo": "NVMP", "commit": "584a9296", "reason": "门铃夜灯消息定义 2/2"}
+      ],
+      "external_requirements": [
+        "BC 门铃夜灯消费者支持 DOORBELL_NIGHT_REGISTER_MID"
+      ]
+    },
+    {
+      "source": {"side": "AC", "repo": "CAP", "commit": "dd2600fb"},
+      "target_side": "BC",
+      "required_commits": [
+        {"repo": "AVTS", "commit": "5e548aea", "reason": "操作日志存储端 1/4"},
+        {"repo": "NSD", "commit": "2a24aea3", "reason": "操作日志云端/系统端 2/4"},
+        {"repo": "NVMP", "commit": "a4f35a77", "reason": "操作日志数据模型 4/4"}
+      ],
+      "external_requirements": [
+        "BC DS 提供 camera-log context/参数并接通操作日志接收端"
+      ]
+    },
+    {
+      "source": {"side": "AC", "repo": "CAP", "commit": "14378dec"},
+      "target_side": "BC",
+      "required_commits": [
+        {"repo": "AVTS", "commit": "ced86222", "reason": "storage pre_set 1/2"}
+      ]
+    },
+    {
+      "source": {"side": "BC", "repo": "CAP", "commit": "ea33fe4d"},
+      "target_side": "AC",
+      "required_commits": [
+        {"repo": "NVMP", "commit": "c78e7daf", "reason": "DS 安全公共层 1/4"},
+        {"repo": "AVTS", "commit": "9f80d81d", "reason": "DS 安全 AVTS 2/4"},
+        {"repo": "NSD", "commit": "11735a04", "reason": "DS 安全 NSD 4/4"}
+      ]
+    }
+  ]
+}

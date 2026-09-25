@@ -1,0 +1,41 @@
+{
+  "title": "cd_alarm AC/BC 分支独有提交",
+  "repositories": [
+    {
+      "name": "NVMP",
+      "path": "../../../NVMP",
+      "ac_ref": "origin/develop/nvmp_release_1.9.2",
+      "bc_ref": "origin/develop/bc_develop_220927"
+    },
+    {
+      "name": "CAP",
+      "path": "../../../NVMP/nvmp/tp_package/cap",
+      "ac_ref": "origin/develop/nvmp_release_1.9.2",
+      "bc_ref": "origin/develop/bc_develop_220927"
+    },
+    {
+      "name": "AVTS",
+      "path": "../../../NVMP/nvmp/tp_package/avts",
+      "ac_ref": "origin/develop/nvmp_release_1.9.2",
+      "bc_ref": "origin/develop/bc_develop_220927"
+    },
+    {
+      "name": "NSD",
+      "path": "../../../NVMP/nvmp/tp_package/nsd",
+      "ac_ref": "origin/develop/nvmp_release_1.9.2",
+      "bc_ref": "origin/develop/bc_develop_220927"
+    }
+  ],
+  "anchor": {
+    "repository": "CAP",
+    "paths": ["src/modules/cd_alarm"]
+  },
+  "annotations": [
+    {
+      "repo": "CAP",
+      "commit": "c7f0be052c",
+      "tag": "excluded-pilot",
+      "note": "物理合并试点，不属于本次依赖分析范畴"
+    }
+  ]
+}
