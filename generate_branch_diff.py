@@ -5,7 +5,8 @@ Each directory containing scope.json is one task. Git refs and the focal path
 come from that task's scope.json. Unique commits are discovered from each
 repository's merge base on every run. dependencies.json contains manually
 reviewed merge dependencies (information 1), while equivalent_pairs.json
-contains candidate AC/BC equivalents (information 2).
+contains candidate AC/BC equivalents (information 2). relation_confirms.json
+stores the confirmation state of each directed commit dependency.
 """
 
 from __future__ import annotations
@@ -139,7 +140,38 @@ def load_pairs(data: dict, repos: dict[str, Repo]) -> tuple[list[dict], dict[str
     return pairs, by_key
 
 
-def load_dependencies(data: dict, repos: dict[str, Repo]) -> dict[str, dict]:
+def load_relation_confirms(data: dict, repos: dict[str, Repo]) -> dict[str, dict]:
+    confirmations: dict[str, dict] = {}
+    for section in ("ac", "bc"):
+        side = section.upper()
+        for index, item in enumerate(data.get(section, []), 1):
+            confirm = item.get("relation_confirm")
+            if confirm not in (0, 1):
+                raise ValueError(
+                    f"{section} relation {index}: relation_confirm must be 0 or 1"
+                )
+            source_oid = resolve(repos, item["source"])
+            source_key = f"{item['source']['repo']}:{source_oid}"
+            if source_key in confirmations:
+                raise ValueError(f"duplicate relation confirmation source: {source_key}")
+            related_chain = []
+            for related in item.get("related_chain", []):
+                related_oid = resolve(repos, related)
+                related_chain.append(f"{related['repo']}:{related_oid}")
+            confirmations[source_key] = {
+                "side": side,
+                "source": source_key,
+                "related_chain": related_chain,
+                "relation_confirm": confirm,
+            }
+    return confirmations
+
+
+def load_dependencies(
+    data: dict,
+    repos: dict[str, Repo],
+    relation_confirms: dict[str, dict],
+) -> dict[str, dict]:
     dependencies: dict[str, dict] = {}
     for index, item in enumerate(data.get("dependencies", []), 1):
         side = item["source"]["side"]
@@ -149,19 +181,30 @@ def load_dependencies(data: dict, repos: dict[str, Repo]) -> dict[str, dict]:
         source_key = f"{item['source']['repo']}:{source_oid}"
         if source_key in dependencies:
             raise ValueError(f"duplicate dependency source: {source_key}")
+        confirmation = relation_confirms.get(source_key)
+        if not confirmation or confirmation["side"] != side:
+            raise ValueError(f"missing {side} relation confirmation: {source_key}")
         required = []
+        related_chain = []
         for dependency in item.get("required_commits", []):
+            related_oid = resolve(repos, dependency)
+            related_chain.append(f"{dependency['repo']}:{related_oid}")
             required.append({
                 "repo": dependency["repo"],
-                "commit": resolve(repos, dependency),
+                "commit": related_oid,
                 "reason": dependency.get("reason", ""),
             })
+        if related_chain != confirmation["related_chain"]:
+            raise ValueError(f"related chain mismatch: {source_key}")
         dependencies[source_key] = {
             "source_side": side,
             "target_side": item["target_side"],
             "required_commits": required,
             "external_requirements": item.get("external_requirements", []),
         }
+    for source_key, confirmation in relation_confirms.items():
+        if source_key not in dependencies and confirmation["related_chain"]:
+            raise ValueError(f"related chain has no dependency definition: {source_key}")
     return dependencies
 
 
@@ -178,6 +221,7 @@ def side_report(
     focal: list[Commit],
     repos: dict[str, Repo],
     dependencies: dict[str, dict],
+    relation_confirms: dict[str, dict],
     pair_by_key: dict[str, dict],
     annotations: dict[str, dict],
     merge_base: str,
@@ -185,28 +229,56 @@ def side_report(
 ) -> dict:
     focal_by_key = {commit.key: commit for commit in focal}
     selected: dict[str, Commit] = dict(focal_by_key)
-    adjacency: dict[str, list[tuple[str, str, str]]] = {}
+    adjacency: dict[str, list[tuple[str, str, str, int | None]]] = {}
     external_labels: dict[str, str] = {}
+    dependency_relations: list[dict] = []
 
     for source_key, relation in dependencies.items():
         if relation["source_side"] != side or source_key not in focal_by_key:
             continue
         children = []
         for dependency in relation["required_commits"]:
-            repo = repos[dependency["repo"]]
-            commit = commit_info(repo, dependency["commit"], side, focal=False)
-            selected[commit.key] = commit
-            children.append((commit.key, "commit", dependency["reason"]))
+            dependency_key = f"{dependency['repo']}:{dependency['commit']}"
+            if dependency_key in selected:
+                commit = selected[dependency_key]
+            else:
+                repo = repos[dependency["repo"]]
+                commit = commit_info(repo, dependency["commit"], side, focal=False)
+                selected[commit.key] = commit
+            children.append((
+                commit.key, "commit", dependency["reason"],
+                None,
+            ))
+            confirmation = relation_confirms[source_key]
+            dependency_relations.append({
+                "source": source_key, "related": commit.key,
+                "reason": dependency["reason"],
+                "relation_confirm": confirmation["relation_confirm"],
+            })
         for index, requirement in enumerate(relation["external_requirements"], 1):
             key = f"external:{source_key}:{index}"
             external_labels[key] = requirement
-            children.append((key, "external", requirement))
+            children.append((key, "external", requirement, None))
         adjacency[source_key] = children
 
     traversal: list[dict] = []
     visited: set[str] = set()
+    focal_numbers = {commit.key: index for index, commit in enumerate(focal, 1)}
+    dependency_numbers = {index: 0 for index in focal_numbers.values()}
 
-    def visit(key: str, depth: int, parent: str | None, reason: str) -> None:
+    def next_dependency_id(group: int) -> str:
+        dependency_numbers[group] += 1
+        return f"{group}.{dependency_numbers[group]}"
+
+    def visit(
+        key: str,
+        depth: int,
+        parent: str | None,
+        reason: str,
+        group: int,
+        dfs_id: str,
+        relation_confirm: int | None,
+    ) -> None:
         if key in visited:
             return
         visited.add(key)
@@ -214,10 +286,12 @@ def side_report(
             traversal.append({
                 "rank": len(traversal) + 1, "type": "external", "key": key,
                 "label": external_labels[key], "depth": depth, "parent": parent,
-                "reason": reason,
+                "reason": reason, "dfs_id": dfs_id,
+                "relation_confirm": relation_confirm,
             })
             return
         commit = selected[key]
+        relation_confirmation = relation_confirms.get(key) if commit.focal else None
         pair = pair_by_key.get(key)
         counterpart = None
         if pair:
@@ -227,17 +301,36 @@ def side_report(
             "repo": commit.repo, "commit": commit.oid, "short": commit.short,
             "date": commit.date, "subject": commit.subject, "side": side,
             "focal": commit.focal, "depth": depth, "parent": parent,
-            "reason": reason, "annotation": annotations.get(key),
+            "reason": reason, "dfs_id": dfs_id,
+            "relation_confirm": (
+                relation_confirmation["relation_confirm"]
+                if relation_confirmation else relation_confirm
+            ),
+            "annotation": annotations.get(key),
             "equivalent_pair": None if not pair else {
                 "id": pair["id"], "confirm": pair["confirm"],
                 "basis": pair["basis"], "counterpart": counterpart,
             },
         })
-        for child, _, child_reason in adjacency.get(key, []):
-            visit(child, depth + 1, key, child_reason)
+        for child, _, child_reason, child_confirm in adjacency.get(key, []):
+            if child in focal_numbers:
+                child_group = focal_numbers[child]
+                visit(
+                    child, 0, key, child_reason, child_group,
+                    f"{child_group}.0", child_confirm,
+                )
+            else:
+                visit(
+                    child, depth + 1, key, child_reason, group,
+                    next_dependency_id(group), child_confirm,
+                )
 
     for commit in focal:
-        visit(commit.key, 0, None, "branch-unique focal commit")
+        group = focal_numbers[commit.key]
+        visit(
+            commit.key, 0, None, "branch-unique focal commit",
+            group, f"{group}.0", None,
+        )
 
     return {
         "side": side,
@@ -245,6 +338,10 @@ def side_report(
         "unique_commit_count": len(focal),
         "strategy": "dynamic branch difference, then depth-first dependencies",
         "branch_edges": branch_edges,
+        "dependency_relations": dependency_relations,
+        "relation_confirmations": [
+            relation_confirms[commit.key] for commit in focal
+        ],
         "commits": [
             {
                 "key": commit.key, "repo": commit.repo, "commit": commit.oid,
@@ -267,7 +364,7 @@ def render_svg(report: dict, title: str) -> str:
         '<style>text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}.title{font-size:22px;font-weight:700}.meta{font-size:11px;fill:#374151}.subject{font-size:12px}.branch{stroke:#2563eb;stroke-width:1.8;fill:none}.dep{stroke:#dc2626;stroke-width:1.8;fill:none}.node{stroke:#9ca3af;stroke-width:1}</style>',
         '<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#dc2626"/></marker></defs>',
         f'<text x="24" y="34" class="title">{html.escape(title)} · {report["side"]} 独有提交图</text>',
-        f'<text x="24" y="58" class="meta">动态独有提交 {report["unique_commit_count"]} 个；蓝线=Git祖先拓扑，红线=信息1依赖；PAIR confirm=0 为待人工确认。</text>',
+        f'<text x="24" y="58" class="meta">动态独有提交 {report["unique_commit_count"]} 个；N.0=cd_alarm提交，N.x=关联依赖；蓝线=Git祖先拓扑，红线=信息1。</text>',
     ]
     positions: dict[str, tuple[int, int]] = {}
     for index, item in enumerate(steps):
@@ -279,14 +376,16 @@ def render_svg(report: dict, title: str) -> str:
             out.append(f'<path class="dep" marker-end="url(#arrow)" d="M {px+270} {py+34} C {px+285} {py+34}, {x-15} {y+34}, {x} {y+34}"/>')
         if item["type"] == "external":
             fill, stroke_dash = "#f3f4f6", ' stroke-dasharray="5 4"'
-            heading, subject = "EXTERNAL", item["label"]
+            heading, subject = f"DFS #{item['dfs_id']} · EXTERNAL", item["label"]
         else:
             annotation = item.get("annotation")
             fill = "#e5e7eb" if annotation and annotation["tag"] == "excluded-pilot" else side_color if item["focal"] else "#dcfce7"
             stroke_dash = ' stroke-dasharray="5 4"' if annotation else ""
             pair = item.get("equivalent_pair")
             pair_text = f" · PAIR confirm={pair['confirm']}" if pair else ""
-            heading = f"DFS #{item['rank']} · {item['repo']} · {item['short']}{pair_text}"
+            relation = item.get("relation_confirm")
+            relation_text = f" · RELATION confirm={relation}" if relation is not None else ""
+            heading = f"DFS #{item['dfs_id']} · {item['repo']} · {item['short']}{pair_text}{relation_text}"
             subject = item["subject"]
         out.append(f'<rect class="node" x="{x}" y="{y}" width="270" height="68" rx="8" fill="{fill}"{stroke_dash}/>')
         out.append(f'<text x="{x+10}" y="{y+18}" class="meta">{html.escape(heading)}</text>')
@@ -316,14 +415,19 @@ def write_side(report: dict, title: str, output_dir: Path) -> None:
     for item in report["analysis_order"]:
         indent = "  " * item["depth"]
         label = f"{item['repo']} {item['short']} {item['subject']}" if item["type"] == "commit" else f"EXTERNAL {item['label']}"
-        lines.append(f"{item['rank']:03d} {indent}{label}")
+        lines.append(f"{item['dfs_id']:>6} {indent}{label}")
     (output_dir / f"{prefix}-order.txt").write_text("\n".join(lines) + "\n")
 
 
 def generate_task(task_root: Path, output_dir: Path) -> tuple[dict, dict]:
     scope = read_json(task_root / "scope.json")
     repos = load_repos(scope, task_root)
-    dependencies = load_dependencies(read_json(task_root / "dependencies.json"), repos)
+    relation_confirms = load_relation_confirms(
+        read_json(task_root / "relation_confirms.json"), repos,
+    )
+    dependencies = load_dependencies(
+        read_json(task_root / "dependencies.json"), repos, relation_confirms,
+    )
     pairs, pair_by_key = load_pairs(read_json(task_root / "equivalent_pairs.json"), repos)
     annotations = load_annotations(scope, repos)
     anchor = scope["anchor"]
@@ -333,6 +437,18 @@ def generate_task(task_root: Path, output_dir: Path) -> tuple[dict, dict]:
     if ac_base != bc_base:
         raise ValueError("AC and BC merge-base mismatch")
     ac_keys, bc_keys = {item.key for item in ac}, {item.key for item in bc}
+    expected_confirmations = ac_keys | bc_keys
+    actual_confirmations = set(relation_confirms)
+    if actual_confirmations != expected_confirmations:
+        missing = sorted(expected_confirmations - actual_confirmations)
+        extra = sorted(actual_confirmations - expected_confirmations)
+        raise ValueError(f"relation confirmations mismatch: missing={missing}, extra={extra}")
+    for key in ac_keys:
+        if relation_confirms[key]["side"] != "AC":
+            raise ValueError(f"relation confirmation is in wrong section: {key}")
+    for key in bc_keys:
+        if relation_confirms[key]["side"] != "BC":
+            raise ValueError(f"relation confirmation is in wrong section: {key}")
     for source_key, relation in dependencies.items():
         expected = ac_keys if relation["source_side"] == "AC" else bc_keys
         if source_key not in expected:
@@ -344,8 +460,14 @@ def generate_task(task_root: Path, output_dir: Path) -> tuple[dict, dict]:
             raise ValueError(f"{pair['id']}: pair members must be dynamic focal unique commits")
     ac_edges = projected_branch_edges(anchor_repo, "AC", ac_base, ac)
     bc_edges = projected_branch_edges(anchor_repo, "BC", bc_base, bc)
-    ac_report = side_report("AC", ac, repos, dependencies, pair_by_key, annotations, ac_base, ac_edges)
-    bc_report = side_report("BC", bc, repos, dependencies, pair_by_key, annotations, bc_base, bc_edges)
+    ac_report = side_report(
+        "AC", ac, repos, dependencies, relation_confirms,
+        pair_by_key, annotations, ac_base, ac_edges,
+    )
+    bc_report = side_report(
+        "BC", bc, repos, dependencies, relation_confirms,
+        pair_by_key, annotations, bc_base, bc_edges,
+    )
     output_dir.mkdir(parents=True, exist_ok=True)
     write_side(ac_report, scope["title"], output_dir)
     write_side(bc_report, scope["title"], output_dir)

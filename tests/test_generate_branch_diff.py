@@ -35,7 +35,7 @@ class GenerateTest(unittest.TestCase):
                 {
                     "rank": 1, "type": "commit", "key": "CAP:a", "repo": "CAP",
                     "short": "a", "subject": "pilot", "focal": True, "depth": 0,
-                    "parent": None,
+                    "parent": None, "dfs_id": "1.0",
                     "annotation": {"tag": "excluded-pilot", "note": "excluded"},
                     "equivalent_pair": {"confirm": 0},
                 }
@@ -53,6 +53,7 @@ class GenerateTest(unittest.TestCase):
                 {
                     "rank": 1, "type": "external", "key": "external:1",
                     "label": "PRODUCT contract", "depth": 0, "parent": None,
+                    "dfs_id": "1.1",
                 }
             ],
         }
@@ -68,6 +69,7 @@ class GenerateTest(unittest.TestCase):
                     "rank": rank, "type": "commit", "key": f"CAP:{oid}",
                     "repo": "CAP", "short": oid, "subject": oid,
                     "focal": True, "depth": 0, "parent": None,
+                    "dfs_id": f"{rank}.0",
                     "annotation": None, "equivalent_pair": None,
                 }
                 for rank, oid in enumerate(("a", "b"), 1)
@@ -76,6 +78,51 @@ class GenerateTest(unittest.TestCase):
         svg = module.render_svg(report, "title")
         self.assertIn('class="branch"', svg)
         self.assertIn("蓝线=Git祖先拓扑", svg)
+
+    def test_focal_dependency_keeps_dot_zero_number(self):
+        focal = [
+            module.Commit("CAP", "a", "2026-01-01", "first", "AC", True),
+            module.Commit("CAP", "b", "2026-01-02", "second", "AC", True),
+        ]
+        dependencies = {
+            "CAP:a": {
+                "source_side": "AC", "target_side": "BC",
+                "required_commits": [
+                    {
+                        "repo": "CAP", "commit": "b", "reason": "follow-up",
+                        "relation_confirm": 0,
+                    },
+                ],
+                "external_requirements": ["external contract"],
+            }
+        }
+        confirmations = {
+            "CAP:a": {
+                "side": "AC", "source": "CAP:a", "related_chain": ["CAP:b"],
+                "relation_confirm": 0,
+            },
+            "CAP:b": {
+                "side": "AC", "source": "CAP:b", "related_chain": [],
+                "relation_confirm": 0,
+            },
+        }
+        report = module.side_report(
+            "AC", focal, {}, dependencies, confirmations, {}, {}, "base", [],
+        )
+        commits = [x for x in report["analysis_order"] if x["type"] == "commit"]
+        external = [x for x in report["analysis_order"] if x["type"] == "external"]
+        self.assertEqual([x["dfs_id"] for x in commits], ["1.0", "2.0"])
+        self.assertTrue(all(x["focal"] for x in commits))
+        self.assertEqual([x["dfs_id"] for x in external], ["1.1"])
+        self.assertEqual(commits[1]["relation_confirm"], 0)
+        self.assertEqual(len(report["relation_confirmations"]), 2)
+        self.assertEqual(
+            report["dependency_relations"],
+            [{
+                "source": "CAP:a", "related": "CAP:b",
+                "reason": "follow-up", "relation_confirm": 0,
+            }],
+        )
 
 
 if __name__ == "__main__":

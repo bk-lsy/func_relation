@@ -109,4 +109,7 @@ python3 generate_branch_diff.py
 
 人工维护内容只包含迁入对向分支时的刚需关系
 `dependencies.json`，以及带 `confirm: 0|1` 的 AC/BC 等价提交候选
-`equivalent_pairs.json`；提交集合和分支拓扑不在配置中固化。
+`equivalent_pairs.json`。每条“原提交 → 关联提交”关系的人工确认状态单独保存在
+`relation_confirms.json`。该文件分成 `ac`、`bc` 两部分，以“原提交 + 完整关联链”
+绑定 `relation_confirm: 0|1`；无关联提交的焦点提交也必须记录。提交集合和分支拓扑
+不在配置中固化。
