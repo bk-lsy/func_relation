@@ -2,7 +2,9 @@
 
 本记录按上层 [研究口径](../README.md) 建立可复现的阶段 A 基线及阶段 B/C/D 的已核实入口。完整的 95 笔焦点路径非合并提交、实际改动文件和增删行见 [commits.md](commits.md)。**当前没有人工等价确认、关系链完整性确认，也没有得出可直接 cherry-pick 的提交清单。** 已创建生成器输入并做隔离运行验证；未改 CAP 业务代码。
 
-生成器读取本目录的 [`scope.json`](scope.json)、[`dependencies.json`](dependencies.json)、[`equivalent_pairs.json`](equivalent_pairs.json)、[`relation_confirms.json`](relation_confirms.json)。当前 30 条 AC 与 65 条 BC `relation_confirm` 全部为 `0`；无已确认的等价对。空 `related_chain` 只表示**尚未录入关联提交**，绝不表示已查明无依赖。两条已录入跨仓链仍是未确认候选；三笔 BC 整合提交仅在 `scope.json` 标注为整合候选，不排除出图。
+生成器读取本目录的 [`scope.json`](scope.json)、[`dependencies.json`](dependencies.json)、[`equivalent_pairs.json`](equivalent_pairs.json)、[`relation_confirms.json`](relation_confirms.json)。当前 30 条 AC 与 65 条 BC `relation_confirm` 全部为 `0`；三组一对一候选与两组等价组的 `confirm` 也均为 `0`。空 `related_chain` 只表示**尚未录入关联提交**，绝不表示已查明无依赖。两条已录入跨仓链仍是未确认候选；三笔 BC 整合提交仅在 `scope.json` 标注为整合候选，不排除出图。
+
+`equivalent_pairs.json` 的 `groups` 支持多对多提交：分别列 `ac_commits`、`bc_commits`，同时记录比较的行为范围、宏/产品条件、最终状态证据和未决项。组只描述“这些物理提交可能共同达到相同的目标行为”，不转成依赖链，也不自动排除迁移。当前一组为 AC `6f4f42d77`、`2fc6094a0` 对 BC `98a8b58b1`（相同路径 patch-id）；另一组为 AC `e69adae64` 对 BC `99edff3d1`（相同 Change-Id、补丁不同）。两组仍需在各自 tip 的实际编译条件下核对后续改写与最终功能，才可人工设置 `confirm=1`。
 
 在 `func_relation/` 运行 `python3 generate_branch_diff.py` 可同时生成 `cd_alarm` 和本模块的图；本模块输出至 `outputs/branch_diff/face_snapshot/`。本次也已单独生成该目录的 AC/BC SVG、JSON 和 DFS 顺序文本。生成器现按 `--full-history <opposite>..<side>` 搜索焦点提交，避免漏掉 AC 的 `6f4f42d77`。如任一 ref 变化，先重做候选、依赖和确认状态核对，再运行生成器。
 
@@ -17,7 +19,7 @@
 | `NVMP/nvmp/tp_package/avts` | `c3a6abfba09cdaa8ff76202512e516632b8e71a8` | `bea4558c5dc87d2f57e1ec728ad769455764fc38` | `e5846273c0f1c63f1909dc3f7505d63d8d236061` |
 | `NVMP/nvmp/tp_package/nsd` | `8d9a7102fd9a36264ba7cdf381d379f0953f285a` | `4ec42ba42967aa5cfecb8f7f09ae690912287c8a` | `28f452f304e65cadf3f71791f28c4bd88602bd1d` |
 
-焦点路径是 CAP 的 `src/modules/face_snapshot/` 全部跟踪文件。共同祖先该路径为空；AC tip 31 个文件，BC tip 32 个文件。按上层口径的 `--full-history --reverse --topo-order --no-merges` 搜索并逐笔检查路径补丁，AC 30 笔、BC 65 笔，95 笔均有非空路径补丁。普通路径日志会漏掉 AC 的 `6f4f42d77fdf07a6c131bc5f864da85f3cc71a82`，它确实修改 `face_control.c`、`face_storage.c`。在这 95 笔路径补丁之间没有相同的稳定 patch-id，也没有相同的 Change-Id；这两项阴性结果不能证明没有行为等价。
+焦点路径是 CAP 的 `src/modules/face_snapshot/` 全部跟踪文件。共同祖先该路径为空；AC tip 31 个文件，BC tip 32 个文件。按上层口径的 `--full-history --reverse --topo-order --no-merges` 搜索并逐笔检查路径补丁，AC 30 笔、BC 65 笔，95 笔均有非空路径补丁。普通路径日志会漏掉 AC 的 `6f4f42d77fdf07a6c131bc5f864da85f3cc71a82`，它确实修改 `face_control.c`、`face_storage.c`。复核发现三组跨侧相同的焦点路径稳定 patch-id、七对相同 Change-Id；其中 AC `6f4f42d77` 与 `2fc6094a0` 对应同一 BC `98a8b58b1`。这些匹配是候选证据，仍不能代替目标 tip 的最终行为核对。
 
 `git diff AC BC -- src/modules/face_snapshot` 有 20 个文件条目：18 个内容不同、`ring_object.c/.h` 仅 mode 不同，另有 BC 独有 `files_ac/etc/default/face_snapshot/storage_head_info`。BC `files_ac` 的该文件 blob 与 AC `files` 的该文件相同（`9dfc5d215a83d6983a7b25e435f519eb3eb8bc50`）；BC 原 `files` 中 `sub_version=2,max_face_num=20`，AC 是 `sub_version=1,max_face_num=50`。这涉及默认存储布局，不能按普通文本配置冲突处理。
 

@@ -4,6 +4,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 
 MODULE_PATH = Path(__file__).resolve().parents[1] / "generate_branch_diff.py"
@@ -15,6 +16,42 @@ SPEC.loader.exec_module(module)
 
 
 class GenerateTest(unittest.TestCase):
+    def test_many_to_one_equivalence_group_keeps_all_physical_nodes(self):
+        data = {"groups": [{
+            "ac_commits": [{"repo": "CAP", "commit": "a"}, {"repo": "CAP", "commit": "b"}],
+            "bc_commits": [{"repo": "CAP", "commit": "c"}],
+            "scope": ["face_storage.c"],
+            "conditions": ["profile X"],
+            "final_state_evidence": ["compare both tips"],
+            "confirm": 0,
+        }]}
+        with patch.object(module, "resolve", side_effect=lambda _repos, ref: ref["commit"]):
+            groups, by_key = module.load_equivalence_groups(data, {})
+        self.assertEqual(set(by_key), {"CAP:a", "CAP:b", "CAP:c"})
+        focal = [
+            module.Commit("CAP", oid, "2026-01-01", oid, "AC", True)
+            for oid in ("a", "b")
+        ]
+        confirmations = {
+            f"CAP:{oid}": {
+                "side": "AC", "source": f"CAP:{oid}",
+                "related_chain": [], "relation_confirm": 0,
+            }
+            for oid in ("a", "b")
+        }
+        report = module.side_report(
+            "AC", focal, {}, {}, confirmations, {}, {}, "base", [], groups, by_key,
+        )
+        commits = [item for item in report["analysis_order"] if item["type"] == "commit"]
+        self.assertEqual([item["dfs_id"] for item in commits], ["1.0", "2.0"])
+        self.assertTrue(all(item["equivalence_groups"][0]["confirm"] == 0 for item in commits))
+        self.assertTrue(all(item["equivalence_groups"][0]["counterparts"] == [{"repo": "CAP", "commit": "c"}] for item in commits))
+        self.assertIn("EQUIV group-1 confirm=0", module.render_svg(report, "title"))
+        data["groups"][0]["confirm"] = 1
+        data["groups"][0]["final_state_evidence"] = []
+        with self.assertRaisesRegex(ValueError, "confirmed groups require"):
+            module.load_equivalence_groups(data, {})
+
     def test_full_history_keeps_focus_commit_hidden_by_merge_simplification(self):
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)

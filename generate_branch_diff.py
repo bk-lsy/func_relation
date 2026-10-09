@@ -5,7 +5,8 @@ Each directory containing scope.json is one task. Git refs and the focal path
 come from that task's scope.json. Physically unique focal commits are discovered
 from the opposite tip with full path history on every run. dependencies.json contains manually
 reviewed merge dependencies (information 1), while equivalent_pairs.json
-contains candidate AC/BC equivalents (information 2). relation_confirms.json
+contains candidate AC/BC pairs and many-to-many final-behavior equivalence groups
+(information 2). relation_confirms.json
 stores the confirmation state of each directed commit dependency.
 """
 
@@ -141,6 +142,47 @@ def load_pairs(data: dict, repos: dict[str, Repo]) -> tuple[list[dict], dict[str
     return pairs, by_key
 
 
+def load_equivalence_groups(data: dict, repos: dict[str, Repo]) -> tuple[list[dict], dict[str, list[dict]]]:
+    """One or more physical commits on each side may implement one final behavior."""
+    groups: list[dict] = []
+    by_key: dict[str, list[dict]] = {}
+    for index, item in enumerate(data.get("groups", []), 1):
+        if item.get("confirm") not in (0, 1):
+            raise ValueError(f"equivalence group {index}: confirm must be 0 or 1")
+        if item["confirm"] == 1 and not all(
+            item.get(field) for field in ("scope", "conditions", "final_state_evidence")
+        ):
+            raise ValueError(
+                f"equivalence group {index}: confirmed groups require scope, conditions, and final_state_evidence"
+            )
+        members = {}
+        for side in ("ac", "bc"):
+            refs = item.get(f"{side}_commits", [])
+            if not refs:
+                raise ValueError(f"equivalence group {index}: {side}_commits must be nonempty")
+            resolved = [{"repo": ref["repo"], "commit": resolve(repos, ref)} for ref in refs]
+            keys = [f"{ref['repo']}:{ref['commit']}" for ref in resolved]
+            if len(keys) != len(set(keys)):
+                raise ValueError(f"equivalence group {index}: duplicate {side} member")
+            members[side] = resolved
+        group = {
+            "id": f"group-{index}",
+            "ac_commits": members["ac"],
+            "bc_commits": members["bc"],
+            "scope": item.get("scope", []),
+            "conditions": item.get("conditions", []),
+            "basis": item.get("basis", ""),
+            "final_state_evidence": item.get("final_state_evidence", []),
+            "open_questions": item.get("open_questions", []),
+            "confirm": item["confirm"],
+        }
+        groups.append(group)
+        for side in ("ac", "bc"):
+            for ref in members[side]:
+                by_key.setdefault(f"{ref['repo']}:{ref['commit']}", []).append(group)
+    return groups, by_key
+
+
 def load_relation_confirms(data: dict, repos: dict[str, Repo]) -> dict[str, dict]:
     confirmations: dict[str, dict] = {}
     for section in ("ac", "bc"):
@@ -227,7 +269,11 @@ def side_report(
     annotations: dict[str, dict],
     merge_base: str,
     branch_edges: list[dict],
+    equivalence_groups: list[dict] | None = None,
+    group_by_key: dict[str, list[dict]] | None = None,
 ) -> dict:
+    equivalence_groups = equivalence_groups or []
+    group_by_key = group_by_key or {}
     focal_by_key = {commit.key: commit for commit in focal}
     selected: dict[str, Commit] = dict(focal_by_key)
     adjacency: dict[str, list[tuple[str, str, str, int | None]]] = {}
@@ -297,6 +343,14 @@ def side_report(
         counterpart = None
         if pair:
             counterpart = pair["bc"] if side == "AC" else pair["ac"]
+        groups_for_commit = []
+        for group in group_by_key.get(key, []):
+            groups_for_commit.append({
+                "id": group["id"], "confirm": group["confirm"],
+                "counterparts": group["bc_commits"] if side == "AC" else group["ac_commits"],
+                "scope": group["scope"], "conditions": group["conditions"],
+                "basis": group["basis"],
+            })
         traversal.append({
             "rank": len(traversal) + 1, "type": "commit", "key": key,
             "repo": commit.repo, "commit": commit.oid, "short": commit.short,
@@ -312,6 +366,7 @@ def side_report(
                 "id": pair["id"], "confirm": pair["confirm"],
                 "basis": pair["basis"], "counterpart": counterpart,
             },
+            "equivalence_groups": groups_for_commit,
         })
         for child, _, child_reason, child_confirm in adjacency.get(key, []):
             if child in focal_numbers:
@@ -340,6 +395,7 @@ def side_report(
         "strategy": "dynamic branch difference, then depth-first dependencies",
         "branch_edges": branch_edges,
         "dependency_relations": dependency_relations,
+        "equivalence_groups": equivalence_groups,
         "relation_confirmations": [
             relation_confirms[commit.key] for commit in focal
         ],
@@ -384,9 +440,13 @@ def render_svg(report: dict, title: str) -> str:
             stroke_dash = ' stroke-dasharray="5 4"' if annotation else ""
             pair = item.get("equivalent_pair")
             pair_text = f" · PAIR confirm={pair['confirm']}" if pair else ""
+            group_text = "".join(
+                f" · EQUIV {group['id']} confirm={group['confirm']}"
+                for group in item.get("equivalence_groups", [])
+            )
             relation = item.get("relation_confirm")
             relation_text = f" · RELATION confirm={relation}" if relation is not None else ""
-            heading = f"DFS #{item['dfs_id']} · {item['repo']} · {item['short']}{pair_text}{relation_text}"
+            heading = f"DFS #{item['dfs_id']} · {item['repo']} · {item['short']}{pair_text}{group_text}{relation_text}"
             subject = item["subject"]
         out.append(f'<rect class="node" x="{x}" y="{y}" width="270" height="68" rx="8" fill="{fill}"{stroke_dash}/>')
         out.append(f'<text x="{x+10}" y="{y+18}" class="meta">{html.escape(heading)}</text>')
@@ -430,6 +490,9 @@ def generate_task(task_root: Path, output_dir: Path) -> tuple[dict, dict]:
         read_json(task_root / "dependencies.json"), repos, relation_confirms,
     )
     pairs, pair_by_key = load_pairs(read_json(task_root / "equivalent_pairs.json"), repos)
+    equivalence_groups, group_by_key = load_equivalence_groups(
+        read_json(task_root / "equivalent_pairs.json"), repos,
+    )
     annotations = load_annotations(scope, repos)
     anchor = scope["anchor"]
     anchor_repo = repos[anchor["repository"]]
@@ -459,15 +522,27 @@ def generate_task(task_root: Path, output_dir: Path) -> tuple[dict, dict]:
         bc_key = f"{pair['bc']['repo']}:{pair['bc']['commit']}"
         if ac_key not in ac_keys or bc_key not in bc_keys:
             raise ValueError(f"{pair['id']}: pair members must be dynamic focal unique commits")
+    for group in equivalence_groups:
+        for side, members in (("AC", group["ac_commits"]), ("BC", group["bc_commits"])):
+            for member in members:
+                repo = repos[member["repo"]]
+                tip = repo.ac_ref if side == "AC" else repo.bc_ref
+                git(repo.path, ["merge-base", "--is-ancestor", member["commit"], tip])
+        member_keys = {
+            f"{member['repo']}:{member['commit']}"
+            for member in group["ac_commits"] + group["bc_commits"]
+        }
+        if not member_keys.intersection(ac_keys | bc_keys):
+            raise ValueError(f"{group['id']}: at least one member must be a focal commit")
     ac_edges = projected_branch_edges(anchor_repo, "AC", ac_base, ac)
     bc_edges = projected_branch_edges(anchor_repo, "BC", bc_base, bc)
     ac_report = side_report(
         "AC", ac, repos, dependencies, relation_confirms,
-        pair_by_key, annotations, ac_base, ac_edges,
+        pair_by_key, annotations, ac_base, ac_edges, equivalence_groups, group_by_key,
     )
     bc_report = side_report(
         "BC", bc, repos, dependencies, relation_confirms,
-        pair_by_key, annotations, bc_base, bc_edges,
+        pair_by_key, annotations, bc_base, bc_edges, equivalence_groups, group_by_key,
     )
     output_dir.mkdir(parents=True, exist_ok=True)
     write_side(ac_report, scope["title"], output_dir)

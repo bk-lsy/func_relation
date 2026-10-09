@@ -9,7 +9,7 @@
         "repo": "CAP",
         "commit": "9688a83c6e01899ce0b8213ca3bc0d5eab26872b"
       },
-      "basis": "同标题、同一 face_storage.c 的 fd 关闭修复；路径 patch-id 不同，需核对最终行为",
+      "basis": "同一 Change-Id Ic1ac74be3a12711d8b43b76ecfb71791caf16219；焦点路径稳定 patch-id 均为 8831d8e15dcaf5debbeb4b4058b02a01a7f46158；仍需核对后续效果",
       "confirm": 0
     },
     {
@@ -21,7 +21,7 @@
         "repo": "CAP",
         "commit": "71c4e67b2a7634e48d7d312a93bc0289ba580d3b"
       },
-      "basis": "同标题、同一 face_control.c 且增删行数相同；需核对上下文与后续效果",
+      "basis": "同一 Change-Id I58c5f584f0bf1531cfcc5d649239ddb2a6490df6；两侧补丁上下文不同，需核对最终控制/统计行为",
       "confirm": 0
     },
     {
@@ -33,7 +33,38 @@
         "repo": "CAP",
         "commit": "439b9c8b9bb4205e027a5d6fdeed5a44f0bd392c"
       },
-      "basis": "同标题、同一 face_control.c 单行更改；需核对最终行为",
+      "basis": "同一 Change-Id I752abbfd4cb70c12b4afbe03096451336886e985；稳定 patch-id 均为 7565e3e31b8514113faf153ace1bc67d6aec55b4；需核对后续效果",
+      "confirm": 0
+    }
+  ],
+  "groups": [
+    {
+      "ac_commits": [
+        {"repo": "CAP", "commit": "6f4f42d77fdf07a6c131bc5f864da85f3cc71a82"},
+        {"repo": "CAP", "commit": "2fc6094a00eb449dda03c2050e34030192d2a5e7"}
+      ],
+      "bc_commits": [
+        {"repo": "CAP", "commit": "98a8b58b1ca286996107fed5050f446f01f55a98"}
+      ],
+      "scope": ["src/modules/face_snapshot/face_control.c", "src/modules/face_snapshot/face_storage.c"],
+      "conditions": ["face_info 校验、版本升级与重建路径", "以两侧当前 tip 的最终实现为确认对象"],
+      "basis": "三笔焦点路径补丁的稳定 patch-id 均为 f463e542307d599a02cfb9d946a10dfb3781e5bd；Change-Id 均为 I86979829357c6d3f5b19b81593207a4980e05bd6。AC 两笔物理提交需分别保留节点。",
+      "final_state_evidence": ["相同路径补丁与 Change-Id 仅证明引入时高度对应；尚未完成 AC/BC tip 下逐函数和宏条件比对"],
+      "open_questions": ["后续提交是否改写校验、重建或存储恢复逻辑", "具体电池机/常电机配置是否得到同一行为"],
+      "confirm": 0
+    },
+    {
+      "ac_commits": [
+        {"repo": "CAP", "commit": "e69adae64faf5b6f1d77e897f054e7d81effe9dc"}
+      ],
+      "bc_commits": [
+        {"repo": "CAP", "commit": "99edff3d1aea0e4eb6724d5ddffb63dd6d2820ae"}
+      ],
+      "scope": ["src/modules/face_snapshot/face_control.c", "src/modules/face_snapshot/fd_statistics.c", "src/modules/face_snapshot/fd_statistics.h"],
+      "conditions": ["人脸新增与统计通知对应的产品宏路径", "以两侧当前 tip 的最终实现为确认对象"],
+      "basis": "同一 Change-Id I5432aabc9ef96b11abea1a28420c783eee21832d，改动文件相交，但稳定 patch-id 不同；按最终功能候选记录，不能按补丁等同处理。",
+      "final_state_evidence": [],
+      "open_questions": ["两侧通知时序、索引更新与统计事件是否一致", "后续提交是否覆盖或回退相关行为"],
       "confirm": 0
     }
   ]
