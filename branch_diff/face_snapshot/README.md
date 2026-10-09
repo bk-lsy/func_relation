@@ -2,9 +2,11 @@
 
 本记录按上层 [研究口径](../README.md) 建立可复现的阶段 A 基线及阶段 B/C/D 的已核实入口。完整的 95 笔焦点路径非合并提交、实际改动文件和增删行见 [commits.md](commits.md)。**当前没有人工等价确认、关系链完整性确认，也没有得出可直接 cherry-pick 的提交清单。** 已创建生成器输入并做隔离运行验证；未改 CAP 业务代码。
 
-生成器读取本目录的 [`scope.json`](scope.json)、[`dependencies.json`](dependencies.json)、[`equivalent_pairs.json`](equivalent_pairs.json)、[`relation_confirms.json`](relation_confirms.json)。当前 30 条 AC 与 65 条 BC `relation_confirm` 全部为 `0`；三组一对一候选与两组等价组的 `confirm` 也均为 `0`。空 `related_chain` 只表示**尚未录入关联提交**，绝不表示已查明无依赖。两条已录入跨仓链仍是未确认候选；三笔 BC 整合提交仅在 `scope.json` 标注为整合候选，不排除出图。
+生成器读取本目录的 [`scope.json`](scope.json)、[`dependencies.json`](dependencies.json)、[`equivalent_pairs.json`](equivalent_pairs.json)、[`relation_confirms.json`](relation_confirms.json)。当前 30 条 AC 与 65 条 BC `relation_confirm` 全部为 `0`；三组一对一候选与三组等价组的 `confirm` 也均为 `0`。空 `related_chain` 只表示**尚未录入关联提交**，绝不表示已查明无依赖。两条已录入跨仓链仍是未确认候选；三笔 BC 整合提交仅在 `scope.json` 标注为整合候选，不排除出图。
 
-`equivalent_pairs.json` 的 `groups` 支持多对多提交：分别列 `ac_commits`、`bc_commits`，同时记录比较的行为范围、宏/产品条件、最终状态证据和未决项。组只描述“这些物理提交可能共同达到相同的目标行为”，不转成依赖链，也不自动排除迁移。当前一组为 AC `6f4f42d77`、`2fc6094a0` 对 BC `98a8b58b1`（相同路径 patch-id）；另一组为 AC `e69adae64` 对 BC `99edff3d1`（相同 Change-Id、补丁不同）。两组仍需在各自 tip 的实际编译条件下核对后续改写与最终功能，才可人工设置 `confirm=1`。
+`equivalent_pairs.json` 的 `groups` 支持多对多提交：分别列 `ac_commits`、`bc_commits`，同时记录比较的行为范围、宏/产品条件、最终状态证据和未决项。组只描述“这些物理提交可能共同达到相同的目标行为”，不转成依赖链，也不自动排除迁移。另两组分别为 AC `6f4f42d77`、`2fc6094a0` 对 BC `98a8b58b1`（相同路径 patch-id），以及 AC `e69adae64` 对 BC `99edff3d1`（相同 Change-Id、补丁不同）。这些组仍需在各自 tip 的实际编译条件下核对后续改写与最终功能，才可人工设置 `confirm=1`。
+
+AC 1.0 `531e616242` 已补录为 `group-1` 的焦点提交，对应 BC `54f4acfb`、`450a0bbe`、`be46f651`、`f96c4216`，范围仅为基础人脸数据模型、`fss.c` 的相关 AC 路径及 AC 默认配置。最初两笔提交并非字节等同：AC 初始 `feature_code/fss_pic_cfg/fss_rule` 为 `on`，BC 初始为 `off`，`storage_head_info.max_face_num` 分别为 40/20。AC 与 BC 后续提交改变了这些默认值；当前 tip 的 `files/` 中其余 8 个默认文件逐字节一致，BC 的 `files_ac/storage_head_info` 与 AC 对应文件同 blob，且 BC Makefile 在同时定义 `AC_ON_BC`、`BC_ON_AC` 时选择 AC 覆盖文件。该组因此是**限定 AC 构建条件、按当前最终效果比较的候选**，并非称 `54f4acfb` 单独等于 `531e616242`，也不称 BC 常规电池机构建等于 AC；`fss.c` 的最终函数行为和设备安装结果尚待核对，`confirm=0`。
 
 生成图和 `*-unique-order.txt` 会在每个有等价关系的焦点提交**紧后面**列出对侧仓库、完整 SHA、关系编号和 `confirm` 状态。例如 AC 19.0/20.0 后均标出 BC `98a8b58b1ca286996107fed5050f446f01f55a98`；BC 30.0 后分别列出两笔 AC 提交。等价标注不使用红色依赖边，也不改变各自的 `N.0` 编号。
 
@@ -37,7 +39,7 @@ BC 的三笔非合并“整合 AC 逻辑”提交仍是 BC 物理独有焦点提
 
 | 行为域 | 文件/已见证据 | 当前判断 |
 | --- | --- | --- |
-| 数据模型及管理 | `fss.c`、`face_control.*`；AC 1.0/2.0 与 BC 1.0/3.0 分别引入基础实现 | 两侧初始功能同类，提交对象与后续行为已分叉；不能按标题配对确认。 |
+| 数据模型及管理 | `fss.c`、`face_control.*`；AC 1.0/2.0 与 BC 1.0/3.0 分别引入基础实现 | AC 1.0 已按限定范围录入对侧多提交等价候选；初始默认值有差异，最终函数行为未确认。 |
 | 特征与识别 | `face_feature.*`、`face_control.c`；BC 有 iqa 阈值、场景特征更新、PSS 识别后打合格标签，AC 有 telemetry 与相机日志路径 | 需按宏、签名、阈值和最终调用链比较。 |
 | 存储/升级 | `face_storage.*`、`fd_stg_version/*`、`pss_enhance/*`、默认 `storage_head_info` | `FD_SUB_VERSION`、`fd_fixed_faceinfo` 布局、回调返回值和默认容量有分支差异；迁移和掉电恢复需单独验证。 |
 | 统计/上报 | `fd_statistics*`；BC 对电池机有 `TP_TAPO_BATTERY_CAM` 条件，整合提交保留 AC 非电池机上报路径 | 条件编译影响类型、定时器和上报 API 是否存在。 |

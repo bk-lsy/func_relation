@@ -167,6 +167,7 @@ def load_equivalence_groups(data: dict, repos: dict[str, Repo]) -> tuple[list[di
             members[side] = resolved
         group = {
             "id": f"group-{index}",
+            "label": item.get("label", ""),
             "ac_commits": members["ac"],
             "bc_commits": members["bc"],
             "scope": item.get("scope", []),
@@ -347,6 +348,7 @@ def side_report(
         for group in group_by_key.get(key, []):
             groups_for_commit.append({
                 "id": group["id"], "confirm": group["confirm"],
+                "label": group["label"],
                 "counterparts": group["bc_commits"] if side == "AC" else group["ac_commits"],
                 "scope": group["scope"], "conditions": group["conditions"],
                 "basis": group["basis"],
@@ -361,6 +363,7 @@ def side_report(
             for member in group["counterparts"]:
                 equivalent_counterparts.append({
                     "relation": group["id"], "confirm": group["confirm"],
+                    "label": group["label"],
                     "side": "BC" if side == "AC" else "AC", **member,
                 })
         traversal.append({
@@ -495,6 +498,8 @@ def render_svg(report: dict, title: str) -> str:
                     f'{link["side"]} {status} confirm={link["confirm"]} · '
                     f'{link["repo"]} {link["commit"]} · {link["relation"]}'
                 )
+                if link.get("label"):
+                    label += f' · {link["label"]}'
                 out.append(
                     f'<text x="{panel_x+10}" y="{y+36+offset*18}" '
                     f'class="meta">{html.escape(label)}</text>'
@@ -521,9 +526,10 @@ def write_side(report: dict, title: str, output_dir: Path) -> None:
         lines.append(f"{item['dfs_id']:>6} {indent}{label}")
         for link in item.get("equivalent_counterparts", []):
             status = "已确认" if link["confirm"] == 1 else "候选"
+            scope_label = f" · {link['label']}" if link.get("label") else ""
             lines.append(
                 f"       {indent}↔ {link['side']} 等价{status} confirm={link['confirm']}: "
-                f"{link['repo']} {link['commit']} ({link['relation']})"
+                f"{link['repo']} {link['commit']} ({link['relation']}{scope_label})"
             )
     (output_dir / f"{prefix}-order.txt").write_text("\n".join(lines) + "\n")
 

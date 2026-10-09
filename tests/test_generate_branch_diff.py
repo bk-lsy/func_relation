@@ -20,6 +20,7 @@ class GenerateTest(unittest.TestCase):
         data = {"groups": [{
             "ac_commits": [{"repo": "CAP", "commit": "a"}, {"repo": "CAP", "commit": "b"}],
             "bc_commits": [{"repo": "CAP", "commit": "c"}],
+            "label": "scoped behavior",
             "scope": ["face_storage.c"],
             "conditions": ["profile X"],
             "final_state_evidence": ["compare both tips"],
@@ -49,6 +50,7 @@ class GenerateTest(unittest.TestCase):
         self.assertTrue(all(item["equivalent_counterparts"][0]["commit"] == "c" for item in commits))
         self.assertIn("EQUIV group-1 confirm=0", module.render_svg(report, "title"))
         self.assertIn("BC 候选 confirm=0 · CAP c · group-1", module.render_svg(report, "title"))
+        self.assertIn("group-1 · scoped behavior", module.render_svg(report, "title"))
         with tempfile.TemporaryDirectory() as directory:
             module.write_side(report, "title", Path(directory))
             order = (Path(directory) / "ac-unique-order.txt").read_text()

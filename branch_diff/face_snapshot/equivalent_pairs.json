@@ -40,31 +40,114 @@
   "groups": [
     {
       "ac_commits": [
-        {"repo": "CAP", "commit": "6f4f42d77fdf07a6c131bc5f864da85f3cc71a82"},
-        {"repo": "CAP", "commit": "2fc6094a00eb449dda03c2050e34030192d2a5e7"}
+        {
+          "repo": "CAP",
+          "commit": "531e61624272f64fb8e0d0fc09af286e6f52a180"
+        }
       ],
       "bc_commits": [
-        {"repo": "CAP", "commit": "98a8b58b1ca286996107fed5050f446f01f55a98"}
+        {
+          "repo": "CAP",
+          "commit": "54f4acfb6671f2fb3aeaaff4128cee45e04647a0"
+        },
+        {
+          "repo": "CAP",
+          "commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6"
+        },
+        {
+          "repo": "CAP",
+          "commit": "be46f65124e1a38b0538e0a1096c8846e80feff3"
+        },
+        {
+          "repo": "CAP",
+          "commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6"
+        }
       ],
-      "scope": ["src/modules/face_snapshot/face_control.c", "src/modules/face_snapshot/face_storage.c"],
-      "conditions": ["face_info 校验、版本升级与重建路径", "以两侧当前 tip 的最终实现为确认对象"],
+      "scope": [
+        "src/modules/face_snapshot/fss.c 的基础数据模型与初始化路径",
+        "src/modules/face_snapshot/files/etc/default/face_snapshot/ 的默认文件及 Makefile 安装结果"
+      ],
+      "conditions": [
+        "比较 AC 与 BC 当前 tip 的最终效果，而非只比较 531e616242 和 54f4acfb 的引入瞬间",
+        "BC 选用 AC_ON_BC=1 且 BC_ON_AC=1 的 AC 构建/安装路径；具体产品宏集仍待核对"
+      ],
+      "basis": "AC 531e616242 与 BC 54f4acfb 均引入同一组 11 个焦点文件和基础人脸数据模型；BC 450a0bbe、be46f651、f96c4216 后续改动使当前 AC 构建路径具备对应配置与代码。AC 的 34bee47fb、1f57bf37e 后续改动也影响最终默认值，但它们的其余行为不纳入本组等价判断。",
+      "final_state_evidence": [
+        "两侧当前 tip 的 files/ 中除 storage_head_info 外，其余 8 个默认文件逐字节一致",
+        "BC files_ac/etc/default/face_snapshot/storage_head_info 的 blob 与 AC files 对应文件相同（9dfc5d215a83d6983a7b25e435f519eb3eb8bc50）",
+        "BC f96c42168 的 Makefile 在 AC_ON_BC 路径复制 files/ 后以 files_ac/ 覆盖 storage_head_info；BC be46f6512 引入 fss.c 的 AC 条件路径"
+      ],
+      "open_questions": [
+        "按选定产品宏展开的 fss.c 最终函数行为、DS 接口与安装结果尚未逐项验证",
+        "BC 常规构建的 storage_head_info 仍为 sub_version=2/max_face_num=20，不应视为无条件等价",
+        "AC 后续 34bee47fb、1f57bf37e 对默认值的改动需与本组最终状态一并核对，但这两笔提交的其他改动不在本组范围内"
+      ],
+      "confirm": 0,
+      "label": "基础人脸数据模型与 AC 默认配置"
+    },
+    {
+      "ac_commits": [
+        {
+          "repo": "CAP",
+          "commit": "6f4f42d77fdf07a6c131bc5f864da85f3cc71a82"
+        },
+        {
+          "repo": "CAP",
+          "commit": "2fc6094a00eb449dda03c2050e34030192d2a5e7"
+        }
+      ],
+      "bc_commits": [
+        {
+          "repo": "CAP",
+          "commit": "98a8b58b1ca286996107fed5050f446f01f55a98"
+        }
+      ],
+      "scope": [
+        "src/modules/face_snapshot/face_control.c",
+        "src/modules/face_snapshot/face_storage.c"
+      ],
+      "conditions": [
+        "face_info 校验、版本升级与重建路径",
+        "以两侧当前 tip 的最终实现为确认对象"
+      ],
       "basis": "三笔焦点路径补丁的稳定 patch-id 均为 f463e542307d599a02cfb9d946a10dfb3781e5bd；Change-Id 均为 I86979829357c6d3f5b19b81593207a4980e05bd6。AC 两笔物理提交需分别保留节点。",
-      "final_state_evidence": ["相同路径补丁与 Change-Id 仅证明引入时高度对应；尚未完成 AC/BC tip 下逐函数和宏条件比对"],
-      "open_questions": ["后续提交是否改写校验、重建或存储恢复逻辑", "具体电池机/常电机配置是否得到同一行为"],
+      "final_state_evidence": [
+        "相同路径补丁与 Change-Id 仅证明引入时高度对应；尚未完成 AC/BC tip 下逐函数和宏条件比对"
+      ],
+      "open_questions": [
+        "后续提交是否改写校验、重建或存储恢复逻辑",
+        "具体电池机/常电机配置是否得到同一行为"
+      ],
       "confirm": 0
     },
     {
       "ac_commits": [
-        {"repo": "CAP", "commit": "e69adae64faf5b6f1d77e897f054e7d81effe9dc"}
+        {
+          "repo": "CAP",
+          "commit": "e69adae64faf5b6f1d77e897f054e7d81effe9dc"
+        }
       ],
       "bc_commits": [
-        {"repo": "CAP", "commit": "99edff3d1aea0e4eb6724d5ddffb63dd6d2820ae"}
+        {
+          "repo": "CAP",
+          "commit": "99edff3d1aea0e4eb6724d5ddffb63dd6d2820ae"
+        }
       ],
-      "scope": ["src/modules/face_snapshot/face_control.c", "src/modules/face_snapshot/fd_statistics.c", "src/modules/face_snapshot/fd_statistics.h"],
-      "conditions": ["人脸新增与统计通知对应的产品宏路径", "以两侧当前 tip 的最终实现为确认对象"],
+      "scope": [
+        "src/modules/face_snapshot/face_control.c",
+        "src/modules/face_snapshot/fd_statistics.c",
+        "src/modules/face_snapshot/fd_statistics.h"
+      ],
+      "conditions": [
+        "人脸新增与统计通知对应的产品宏路径",
+        "以两侧当前 tip 的最终实现为确认对象"
+      ],
       "basis": "同一 Change-Id I5432aabc9ef96b11abea1a28420c783eee21832d，改动文件相交，但稳定 patch-id 不同；按最终功能候选记录，不能按补丁等同处理。",
       "final_state_evidence": [],
-      "open_questions": ["两侧通知时序、索引更新与统计事件是否一致", "后续提交是否覆盖或回退相关行为"],
+      "open_questions": [
+        "两侧通知时序、索引更新与统计事件是否一致",
+        "后续提交是否覆盖或回退相关行为"
+      ],
       "confirm": 0
     }
   ]
