@@ -6,6 +6,8 @@
 
 `equivalent_pairs.json` 的 `groups` 支持多对多提交：分别列 `ac_commits`、`bc_commits`，同时记录比较的行为范围、宏/产品条件、最终状态证据和未决项。组只描述“这些物理提交可能共同达到相同的目标行为”，不转成依赖链，也不自动排除迁移。当前一组为 AC `6f4f42d77`、`2fc6094a0` 对 BC `98a8b58b1`（相同路径 patch-id）；另一组为 AC `e69adae64` 对 BC `99edff3d1`（相同 Change-Id、补丁不同）。两组仍需在各自 tip 的实际编译条件下核对后续改写与最终功能，才可人工设置 `confirm=1`。
 
+生成图和 `*-unique-order.txt` 会在每个有等价关系的焦点提交**紧后面**列出对侧仓库、完整 SHA、关系编号和 `confirm` 状态。例如 AC 19.0/20.0 后均标出 BC `98a8b58b1ca286996107fed5050f446f01f55a98`；BC 30.0 后分别列出两笔 AC 提交。等价标注不使用红色依赖边，也不改变各自的 `N.0` 编号。
+
 在 `func_relation/` 运行 `python3 generate_branch_diff.py` 可同时生成 `cd_alarm` 和本模块的图；本模块输出至 `outputs/branch_diff/face_snapshot/`。本次也已单独生成该目录的 AC/BC SVG、JSON 和 DFS 顺序文本。生成器现按 `--full-history <opposite>..<side>` 搜索焦点提交，避免漏掉 AC 的 `6f4f42d77`。如任一 ref 变化，先重做候选、依赖和确认状态核对，再运行生成器。
 
 ## 1. 固定输入

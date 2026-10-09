@@ -351,6 +351,18 @@ def side_report(
                 "scope": group["scope"], "conditions": group["conditions"],
                 "basis": group["basis"],
             })
+        equivalent_counterparts = []
+        if pair:
+            equivalent_counterparts.append({
+                "relation": pair["id"], "confirm": pair["confirm"],
+                "side": "BC" if side == "AC" else "AC", **counterpart,
+            })
+        for group in groups_for_commit:
+            for member in group["counterparts"]:
+                equivalent_counterparts.append({
+                    "relation": group["id"], "confirm": group["confirm"],
+                    "side": "BC" if side == "AC" else "AC", **member,
+                })
         traversal.append({
             "rank": len(traversal) + 1, "type": "commit", "key": key,
             "repo": commit.repo, "commit": commit.oid, "short": commit.short,
@@ -367,6 +379,7 @@ def side_report(
                 "basis": pair["basis"], "counterpart": counterpart,
             },
             "equivalence_groups": groups_for_commit,
+            "equivalent_counterparts": equivalent_counterparts,
         })
         for child, _, child_reason, child_confirm in adjacency.get(key, []):
             if child in focal_numbers:
@@ -413,8 +426,12 @@ def side_report(
 
 def render_svg(report: dict, title: str) -> str:
     steps = report["analysis_order"]
-    width, row_h = 1540, 92
-    height = 100 + len(steps) * row_h + 40
+    width = 1540
+    row_heights = [
+        max(92, 48 + 18 * len(item.get("equivalent_counterparts", [])))
+        for item in steps
+    ]
+    height = 140 + sum(row_heights)
     side_color = "#dbeafe" if report["side"] == "AC" else "#ffedd5"
     out = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
@@ -424,8 +441,8 @@ def render_svg(report: dict, title: str) -> str:
         f'<text x="24" y="58" class="meta">动态独有提交 {report["unique_commit_count"]} 个；N.0=焦点提交，N.x=关联依赖；蓝线=Git祖先拓扑，红线=信息1。</text>',
     ]
     positions: dict[str, tuple[int, int]] = {}
+    y = 82
     for index, item in enumerate(steps):
-        y = 82 + index * row_h
         x = 40 + item["depth"] * 300
         positions[item["key"]] = (x, y)
         if item["parent"] and item["parent"] in positions:
@@ -457,7 +474,32 @@ def render_svg(report: dict, title: str) -> str:
             out.append(f'<text x="{x+10}" y="{y+56}" class="subject">{html.escape(second)}</text>')
         if item["type"] == "commit" and item.get("annotation"):
             note = item["annotation"]["note"][:54]
-            out.append(f'<text x="{x+285}" y="{y+36}" class="meta">{html.escape(note)}</text>')
+            note_x = x + (1080 if item.get("equivalent_counterparts") else 285)
+            out.append(f'<text x="{note_x}" y="{y+36}" class="meta">{html.escape(note)}</text>')
+        counterparts = item.get("equivalent_counterparts", [])
+        if counterparts:
+            panel_x = x + 300
+            panel_h = max(68, 25 + 18 * len(counterparts))
+            out.append(
+                f'<rect x="{panel_x}" y="{y}" width="760" height="{panel_h}" rx="8" '
+                'fill="#f5f3ff" stroke="#7c3aed" stroke-dasharray="5 4"/>'
+            )
+            opposite = "BC" if report["side"] == "AC" else "AC"
+            out.append(
+                f'<text x="{panel_x+10}" y="{y+17}" class="meta">'
+                f'{opposite} 等价提交（逐条标记确认状态，非依赖边）</text>'
+            )
+            for offset, link in enumerate(counterparts):
+                status = "已确认" if link["confirm"] == 1 else "候选"
+                label = (
+                    f'{link["side"]} {status} confirm={link["confirm"]} · '
+                    f'{link["repo"]} {link["commit"]} · {link["relation"]}'
+                )
+                out.append(
+                    f'<text x="{panel_x+10}" y="{y+36+offset*18}" '
+                    f'class="meta">{html.escape(label)}</text>'
+                )
+        y += row_heights[index]
     for edge in report.get("branch_edges", []):
         if edge["parent"] not in positions or edge["child"] not in positions:
             continue
@@ -477,6 +519,12 @@ def write_side(report: dict, title: str, output_dir: Path) -> None:
         indent = "  " * item["depth"]
         label = f"{item['repo']} {item['short']} {item['subject']}" if item["type"] == "commit" else f"EXTERNAL {item['label']}"
         lines.append(f"{item['dfs_id']:>6} {indent}{label}")
+        for link in item.get("equivalent_counterparts", []):
+            status = "已确认" if link["confirm"] == 1 else "候选"
+            lines.append(
+                f"       {indent}↔ {link['side']} 等价{status} confirm={link['confirm']}: "
+                f"{link['repo']} {link['commit']} ({link['relation']})"
+            )
     (output_dir / f"{prefix}-order.txt").write_text("\n".join(lines) + "\n")
 
 

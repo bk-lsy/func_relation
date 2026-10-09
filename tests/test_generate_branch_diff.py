@@ -46,7 +46,13 @@ class GenerateTest(unittest.TestCase):
         self.assertEqual([item["dfs_id"] for item in commits], ["1.0", "2.0"])
         self.assertTrue(all(item["equivalence_groups"][0]["confirm"] == 0 for item in commits))
         self.assertTrue(all(item["equivalence_groups"][0]["counterparts"] == [{"repo": "CAP", "commit": "c"}] for item in commits))
+        self.assertTrue(all(item["equivalent_counterparts"][0]["commit"] == "c" for item in commits))
         self.assertIn("EQUIV group-1 confirm=0", module.render_svg(report, "title"))
+        self.assertIn("BC 候选 confirm=0 · CAP c · group-1", module.render_svg(report, "title"))
+        with tempfile.TemporaryDirectory() as directory:
+            module.write_side(report, "title", Path(directory))
+            order = (Path(directory) / "ac-unique-order.txt").read_text()
+            self.assertEqual(order.count("↔ BC 等价候选 confirm=0: CAP c"), 2)
         data["groups"][0]["confirm"] = 1
         data["groups"][0]["final_state_evidence"] = []
         with self.assertRaisesRegex(ValueError, "confirmed groups require"):
@@ -114,6 +120,22 @@ class GenerateTest(unittest.TestCase):
         svg = module.render_svg(report, "title")
         self.assertIn("PAIR confirm=0", svg)
         self.assertIn("excluded", svg)
+
+    def test_pair_displays_opposite_commit_after_focal_node(self):
+        focal = [module.Commit("CAP", "ac123", "2026-01-01", "fix", "AC", True)]
+        pair = {
+            "id": "pair-1", "confirm": 0, "basis": "same behavior",
+            "ac": {"repo": "CAP", "commit": "ac123"},
+            "bc": {"repo": "CAP", "commit": "bc456"},
+        }
+        confirmations = {"CAP:ac123": {
+            "side": "AC", "source": "CAP:ac123", "related_chain": [],
+            "relation_confirm": 0,
+        }}
+        report = module.side_report(
+            "AC", focal, {}, {}, confirmations, {"CAP:ac123": pair}, {}, "base", [],
+        )
+        self.assertIn("BC 候选 confirm=0 · CAP bc456 · pair-1", module.render_svg(report, "title"))
 
     def test_external_dependency_is_rendered_as_leaf(self):
         report = {
