@@ -2,13 +2,17 @@
 
 本记录按上层 [研究口径](../README.md) 建立可复现的阶段 A 基线及阶段 B/C/D 的已核实入口。完整的 95 笔焦点路径非合并提交、实际改动文件和增删行见 [commits.md](commits.md)。**当前没有人工等价确认、关系链完整性确认，也没有得出可直接 cherry-pick 的提交清单。** 已创建生成器输入并做隔离运行验证；未改 CAP 业务代码。
 
-生成器读取本目录的 [`scope.json`](scope.json)、[`dependencies.json`](dependencies.json)、[`equivalent_pairs.json`](equivalent_pairs.json)、[`relation_confirms.json`](relation_confirms.json)。当前 30 条 AC 与 65 条 BC `relation_confirm` 全部为 `0`；三组一对一候选与三组等价组的 `confirm` 也均为 `0`。空 `related_chain` 只表示**尚未录入关联提交**，绝不表示已查明无依赖。两条已录入跨仓链仍是未确认候选；三笔 BC 整合提交仅在 `scope.json` 标注为整合候选，不排除出图。
+生成器读取本目录的 [`scope.json`](scope.json)、[`dependencies.json`](dependencies.json)、[`equivalent_pairs.json`](equivalent_pairs.json)、[`equivalence_reviews.json`](equivalence_reviews.json)、[`relation_confirms.json`](relation_confirms.json)。当前 30 条 AC 与 65 条 BC `relation_confirm` 全部为 `0`；四组一对一候选与十四组限定范围的等价候选组的 `confirm` 也均为 `0`。空 `related_chain` 只表示**尚未录入关联提交**，绝不表示已查明无依赖。两条已录入跨仓链仍是未确认候选；三笔 BC 整合提交仍保留物理独有节点。
 
-`equivalent_pairs.json` 的 `groups` 支持多对多提交：分别列 `ac_commits`、`bc_commits`，同时记录比较的行为范围、宏/产品条件、最终状态证据和未决项。组只描述“这些物理提交可能共同达到相同的目标行为”，不转成依赖链，也不自动排除迁移。另两组分别为 AC `6f4f42d77`、`2fc6094a0` 对 BC `98a8b58b1`（相同路径 patch-id），以及 AC `e69adae64` 对 BC `99edff3d1`（相同 Change-Id、补丁不同）。这些组仍需在各自 tip 的实际编译条件下核对后续改写与最终功能，才可人工设置 `confirm=1`。
+`equivalent_pairs.json` 的 `groups` 支持多对多提交：分别列 `ac_commits`、`bc_commits`，同时记录比较的行为范围、宏/产品条件、最终状态证据和未决项。组只描述“这些物理提交可能共同达到相同的目标行为”，不转成依赖链，也不自动排除迁移。包括 AC `6f4f42d77`、`2fc6094a0` 对 BC `98a8b58b1`（相同路径 patch-id），以及 AC `e69adae64` 对 BC `99edff3d1`（相同 Change-Id、补丁不同）。新补录 AC `2d0a17e388` 对 BC `41903f2d38`，两者同 Change-Id 且均把统计链表初始化移到存储初始化之前。所有候选仍需在各自 tip 的实际编译条件下核对后续改写与最终功能，才可人工设置 `confirm=1`。
 
 AC 1.0 `531e616242` 已补录为 `group-1` 的焦点提交，对应 BC `54f4acfb`、`450a0bbe`、`be46f651`、`f96c4216`，范围仅为基础人脸数据模型、`fss.c` 的相关 AC 路径及 AC 默认配置。最初两笔提交并非字节等同：AC 初始 `feature_code/fss_pic_cfg/fss_rule` 为 `on`，BC 初始为 `off`，`storage_head_info.max_face_num` 分别为 40/20。AC 与 BC 后续提交改变了这些默认值；当前 tip 的 `files/` 中其余 8 个默认文件逐字节一致，BC 的 `files_ac/storage_head_info` 与 AC 对应文件同 blob，且 BC Makefile 在同时定义 `AC_ON_BC`、`BC_ON_AC` 时选择 AC 覆盖文件。该组因此是**限定 AC 构建条件、按当前最终效果比较的候选**，并非称 `54f4acfb` 单独等于 `531e616242`，也不称 BC 常规电池机构建等于 AC；`fss.c` 的最终函数行为和设备安装结果尚待核对，`confirm=0`。
 
-生成图和 `*-unique-order.txt` 会在每个有等价关系的焦点提交**紧后面**列出对侧仓库、完整 SHA、关系编号和 `confirm` 状态。例如 AC 19.0/20.0 后均标出 BC `98a8b58b1ca286996107fed5050f446f01f55a98`；BC 30.0 后分别列出两笔 AC 提交。等价标注不使用红色依赖边，也不改变各自的 `N.0` 编号。
+`equivalence_reviews.json` 对 95 个焦点提交逐项写明当前 tip 下的审查状态、具体对侧 SHA、补丁/Change-Id/标题筛查结果和排除过的近似线索。当前 AC 19 笔、BC 14 笔存在**限定行为范围的候选关系**；其余 AC 11 笔、BC 51 笔为“未证实有等价提交”，**不是已证明无等价行为或必须迁入**。记录包含 CAP/NVMP/AVTS/NSD 两侧 tip；ref 变化时生成器拒绝沿用旧审查。每一笔关系的 SHA 在审查文件和 `equivalent_pairs.json` 中相互校验。
+
+复核不只按标题：逐笔查焦点路径稳定 patch-id、Change-Id、修改文件和两侧当前 tip 的代码留存，并对高度重叠的 AC 变更用 BC 当前行的 `git blame` 追溯引入提交。因此另标出了 AC `91713aef6e`、`2900128f10`、`0fac6a5d2b`、`7bbf5e9a4a`、`1ab5298910` 对 BC `bb3085b88f` 的范围限定候选，AC `593c131a45` 对 BC `ea33fe4d4a`，AC `dd2600fb39`/`14378dec6d` 对 BC `be46f65124`。AC `98a66a726b`、`34bee47fb3`、`747e518a37` 的大量代码在 BC 最终树保留，分别记录了多提交候选；这**只覆盖各组声明的重叠代码**，不证明整个大提交或产品运行效果相同。标题近似但补丁不同的例子（AC `d86eea00d8`/BC `ca53b60a4c`、AC `0fac6a5d2b`/BC `e61493059d`）已记入排除线索。
+
+生成图和 `*-unique-order.txt` 会在**每个焦点提交紧后面**标当前审查状态；有候选关系时逐条列出对侧仓库、完整 SHA、关系编号和 `confirm`。例如 AC 19.0/20.0 后均标出 BC `98a8b58b1ca286996107fed5050f446f01f55a98`；BC 30.0 后分别列出两笔 AC 提交。等价标注不使用红色依赖边，也不改变各自的 `N.0` 编号。
 
 在 `func_relation/` 运行 `python3 generate_branch_diff.py` 可同时生成 `cd_alarm` 和本模块的图；本模块输出至 `outputs/branch_diff/face_snapshot/`。本次也已单独生成该目录的 AC/BC SVG、JSON 和 DFS 顺序文本。生成器现按 `--full-history <opposite>..<side>` 搜索焦点提交，避免漏掉 AC 的 `6f4f42d77`。如任一 ref 变化，先重做候选、依赖和确认状态核对，再运行生成器。
 
@@ -33,7 +37,7 @@ AC 1.0 `531e616242` 已补录为 `group-1` 的焦点提交，对应 BC `54f4acfb
 
 BC 的三笔非合并“整合 AC 逻辑”提交仍是 BC 物理独有焦点提交：`be46f65124e1a38b0538e0a1096c8846e80feff3`（索引 BC 60.0，特征/存储基础、头文件、`fss.c`）、`f96c42168ed1262f07bb1afb6240645ad4e24ff6`（BC 61.0，统计/图像存储、默认配置）、`bb3085b88fbccd3b515d2ee7859417e807b7180f`（BC 62.0，`face_control.c`）。提交正文均说明通过 `AC_ON_BC` 和 `BC_ON_AC` 保留两侧版本，但所引的 AC 节点 `e08351f06c0a24ad6b1c98ed0b8376a36dc1007b` **不是当前 AC tip 的祖先**。因此正文中的当时逐文件对齐自测不能外推为当前 AC tip 已整合。后续 BC 63.0、64.0、65.0 又修改了 `face_control.c`；尤其 BC 65.0 改动 PSS 识别与合格事件上报，必须以最终 BC tree 核对。
 
-三个整合提交的路径补丁都已入 [索引](commits.md)，但与 AC 各提交的逐函数、逐条件等价关系仍待建立；当前没有将它们硬配为一对一等价提交，也无人工确认依据。
+三个整合提交的路径补丁都已入 [索引](commits.md)，并已按代码留存及 `git blame` 与部分 AC 提交建立限定范围的多提交候选；逐函数、逐条件的完整等价核对仍未完成，也无人工确认依据。
 
 ## 3. 模块行为域与编译/安装边界
 

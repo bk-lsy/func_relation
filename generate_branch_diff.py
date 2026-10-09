@@ -260,6 +260,49 @@ def load_annotations(scope: dict, repos: dict[str, Repo]) -> dict[str, dict]:
     return annotations
 
 
+def load_equivalence_reviews(
+    path: Path, repos: dict[str, Repo], focal_keys: set[str],
+) -> tuple[dict[str, dict], dict[str, dict[str, str]]]:
+    """A tip-bound, exhaustive assessment of the physical focal commits."""
+    if not path.exists():
+        return {}, {}
+    data = read_json(path)
+    tips: dict[str, dict[str, str]] = {}
+    for name, repo in repos.items():
+        recorded = data["tips"][name]
+        actual = {
+            "AC": git(repo.path, ["rev-parse", repo.ac_ref]).strip(),
+            "BC": git(repo.path, ["rev-parse", repo.bc_ref]).strip(),
+        }
+        if recorded != actual:
+            raise ValueError(f"equivalence review is stale for {name}: {recorded} != {actual}")
+        tips[name] = actual
+    reviews = {}
+    for item in data["reviews"]:
+        ref = item["source"]
+        key = f"{ref['repo']}:{resolve(repos, ref)}"
+        if key in reviews:
+            raise ValueError(f"duplicate equivalence review: {key}")
+        if item["status"] not in ("candidate", "not_established"):
+            raise ValueError(f"invalid equivalence review status: {key}")
+        reviews[key] = {
+            "status": item["status"],
+            "note": item["note"],
+            "counterparts": [
+                {"repo": ref["repo"], "commit": resolve(repos, ref)}
+                for ref in item.get("counterparts", [])
+            ],
+            "screening": item.get("screening", {}),
+            "rejected_leads": item.get("rejected_leads", []),
+        }
+    if set(reviews) != focal_keys:
+        raise ValueError(
+            f"equivalence review coverage mismatch: missing={sorted(focal_keys-set(reviews))}, "
+            f"extra={sorted(set(reviews)-focal_keys)}"
+        )
+    return reviews, tips
+
+
 def side_report(
     side: str,
     focal: list[Commit],
@@ -272,9 +315,12 @@ def side_report(
     branch_edges: list[dict],
     equivalence_groups: list[dict] | None = None,
     group_by_key: dict[str, list[dict]] | None = None,
+    equivalence_reviews: dict[str, dict] | None = None,
+    reviewed_tips: dict[str, dict[str, str]] | None = None,
 ) -> dict:
     equivalence_groups = equivalence_groups or []
     group_by_key = group_by_key or {}
+    equivalence_reviews = equivalence_reviews or {}
     focal_by_key = {commit.key: commit for commit in focal}
     selected: dict[str, Commit] = dict(focal_by_key)
     adjacency: dict[str, list[tuple[str, str, str, int | None]]] = {}
@@ -345,13 +391,13 @@ def side_report(
         if pair:
             counterpart = pair["bc"] if side == "AC" else pair["ac"]
         groups_for_commit = []
-        for group in group_by_key.get(key, []):
+        for equiv_group in group_by_key.get(key, []):
             groups_for_commit.append({
-                "id": group["id"], "confirm": group["confirm"],
-                "label": group["label"],
-                "counterparts": group["bc_commits"] if side == "AC" else group["ac_commits"],
-                "scope": group["scope"], "conditions": group["conditions"],
-                "basis": group["basis"],
+                "id": equiv_group["id"], "confirm": equiv_group["confirm"],
+                "label": equiv_group["label"],
+                "counterparts": equiv_group["bc_commits"] if side == "AC" else equiv_group["ac_commits"],
+                "scope": equiv_group["scope"], "conditions": equiv_group["conditions"],
+                "basis": equiv_group["basis"],
             })
         equivalent_counterparts = []
         if pair:
@@ -359,11 +405,11 @@ def side_report(
                 "relation": pair["id"], "confirm": pair["confirm"],
                 "side": "BC" if side == "AC" else "AC", **counterpart,
             })
-        for group in groups_for_commit:
-            for member in group["counterparts"]:
+        for equiv_group in groups_for_commit:
+            for member in equiv_group["counterparts"]:
                 equivalent_counterparts.append({
-                    "relation": group["id"], "confirm": group["confirm"],
-                    "label": group["label"],
+                    "relation": equiv_group["id"], "confirm": equiv_group["confirm"],
+                    "label": equiv_group["label"],
                     "side": "BC" if side == "AC" else "AC", **member,
                 })
         traversal.append({
@@ -383,6 +429,7 @@ def side_report(
             },
             "equivalence_groups": groups_for_commit,
             "equivalent_counterparts": equivalent_counterparts,
+            "equivalence_review": equivalence_reviews.get(key) if commit.focal else None,
         })
         for child, _, child_reason, child_confirm in adjacency.get(key, []):
             if child in focal_numbers:
@@ -412,6 +459,7 @@ def side_report(
         "branch_edges": branch_edges,
         "dependency_relations": dependency_relations,
         "equivalence_groups": equivalence_groups,
+        "reviewed_tips": reviewed_tips or {},
         "relation_confirmations": [
             relation_confirms[commit.key] for commit in focal
         ],
@@ -443,6 +491,11 @@ def render_svg(report: dict, title: str) -> str:
         f'<text x="24" y="34" class="title">{html.escape(title)} · {report["side"]} 独有提交图</text>',
         f'<text x="24" y="58" class="meta">动态独有提交 {report["unique_commit_count"]} 个；N.0=焦点提交，N.x=关联依赖；蓝线=Git祖先拓扑，红线=信息1。</text>',
     ]
+    tips = report.get("reviewed_tips", {}).get("CAP")
+    if tips:
+        out.append(
+            f'<text x="24" y="75" class="meta">当前审查快照 CAP AC={tips["AC"]} BC={tips["BC"]}</text>'
+        )
     positions: dict[str, tuple[int, int]] = {}
     y = 82
     for index, item in enumerate(steps):
@@ -480,11 +533,18 @@ def render_svg(report: dict, title: str) -> str:
             note_x = x + (1080 if item.get("equivalent_counterparts") else 285)
             out.append(f'<text x="{note_x}" y="{y+36}" class="meta">{html.escape(note)}</text>')
         counterparts = item.get("equivalent_counterparts", [])
+        review = item.get("equivalence_review")
+        if review and not counterparts:
+            panel_x = x + 300
+            out.append(
+                f'<text x="{panel_x+10}" y="{y+30}" class="meta">'
+                '当前 tip：未证实对侧等价提交（不是功能缺失结论）</text>'
+            )
         if counterparts:
             panel_x = x + 300
             panel_h = max(68, 25 + 18 * len(counterparts))
             out.append(
-                f'<rect x="{panel_x}" y="{y}" width="760" height="{panel_h}" rx="8" '
+                f'<rect x="{panel_x}" y="{y}" width="1080" height="{panel_h}" rx="8" '
                 'fill="#f5f3ff" stroke="#7c3aed" stroke-dasharray="5 4"/>'
             )
             opposite = "BC" if report["side"] == "AC" else "AC"
@@ -524,6 +584,15 @@ def write_side(report: dict, title: str, output_dir: Path) -> None:
         indent = "  " * item["depth"]
         label = f"{item['repo']} {item['short']} {item['subject']}" if item["type"] == "commit" else f"EXTERNAL {item['label']}"
         lines.append(f"{item['dfs_id']:>6} {indent}{label}")
+        review = item.get("equivalence_review")
+        if review:
+            status = "有待确认的等价候选" if review["status"] == "candidate" else "未证实有对侧等价提交"
+            lines.append(f"       {indent}当前 tip 等价审查：{status}；{review['note']}")
+            for lead in review.get("rejected_leads", []):
+                lines.append(
+                    f"       {indent}≠ 已排除标题/代码线索：{lead['repo']} "
+                    f"{lead['commit']}；{lead['reason']}"
+                )
         for link in item.get("equivalent_counterparts", []):
             status = "已确认" if link["confirm"] == 1 else "候选"
             scope_label = f" · {link['label']}" if link.get("label") else ""
@@ -555,6 +624,9 @@ def generate_task(task_root: Path, output_dir: Path) -> tuple[dict, dict]:
     if ac_base != bc_base:
         raise ValueError("AC and BC merge-base mismatch")
     ac_keys, bc_keys = {item.key for item in ac}, {item.key for item in bc}
+    equivalence_reviews, reviewed_tips = load_equivalence_reviews(
+        task_root / "equivalence_reviews.json", repos, ac_keys | bc_keys,
+    )
     expected_confirmations = ac_keys | bc_keys
     actual_confirmations = set(relation_confirms)
     if actual_confirmations != expected_confirmations:
@@ -588,15 +660,35 @@ def generate_task(task_root: Path, output_dir: Path) -> tuple[dict, dict]:
         }
         if not member_keys.intersection(ac_keys | bc_keys):
             raise ValueError(f"{group['id']}: at least one member must be a focal commit")
+    if equivalence_reviews:
+        related_keys = set(pair_by_key) | set(group_by_key)
+        for key, review in equivalence_reviews.items():
+            expected = "candidate" if key in related_keys else "not_established"
+            if review["status"] != expected:
+                raise ValueError(f"equivalence review disagrees with recorded relations: {key}")
+            side = "AC" if key in ac_keys else "BC"
+            counterparts = set()
+            if key in pair_by_key:
+                pair = pair_by_key[key]
+                ref = pair["bc"] if side == "AC" else pair["ac"]
+                counterparts.add((ref["repo"], ref["commit"]))
+            for group in group_by_key.get(key, []):
+                for ref in group["bc_commits"] if side == "AC" else group["ac_commits"]:
+                    counterparts.add((ref["repo"], ref["commit"]))
+            recorded = {(ref["repo"], ref["commit"]) for ref in review["counterparts"]}
+            if recorded != counterparts:
+                raise ValueError(f"equivalence review counterpart mismatch: {key}")
     ac_edges = projected_branch_edges(anchor_repo, "AC", ac_base, ac)
     bc_edges = projected_branch_edges(anchor_repo, "BC", bc_base, bc)
     ac_report = side_report(
         "AC", ac, repos, dependencies, relation_confirms,
         pair_by_key, annotations, ac_base, ac_edges, equivalence_groups, group_by_key,
+        equivalence_reviews, reviewed_tips,
     )
     bc_report = side_report(
         "BC", bc, repos, dependencies, relation_confirms,
         pair_by_key, annotations, bc_base, bc_edges, equivalence_groups, group_by_key,
+        equivalence_reviews, reviewed_tips,
     )
     output_dir.mkdir(parents=True, exist_ok=True)
     write_side(ac_report, scope["title"], output_dir)

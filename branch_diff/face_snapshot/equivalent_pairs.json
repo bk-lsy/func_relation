@@ -35,6 +35,18 @@
       },
       "basis": "同一 Change-Id I752abbfd4cb70c12b4afbe03096451336886e985；稳定 patch-id 均为 7565e3e31b8514113faf153ace1bc67d6aec55b4；需核对后续效果",
       "confirm": 0
+    },
+    {
+      "ac": {
+        "repo": "CAP",
+        "commit": "2d0a17e388210e52eb936889836840532ff59f69"
+      },
+      "bc": {
+        "repo": "CAP",
+        "commit": "41903f2d380f07ad02842bf6ba53bbe7ac862739"
+      },
+      "basis": "同一 Change-Id；两侧提交均将 g_ctl_hdl.hourly_data.fdata_head 和 g_occur_time_list 的 INIT_LIST_HEAD 移至 fd_statistics_init 的 fds_storage_init_storage_space 之前。当前 tip 的条件编译与后续改动仍需核对。",
+      "confirm": 0
     }
   ],
   "groups": [
@@ -147,6 +159,369 @@
       "open_questions": [
         "两侧通知时序、索引更新与统计事件是否一致",
         "后续提交是否覆盖或回退相关行为"
+      ],
+      "confirm": 0
+    },
+    {
+      "ac_commits": [
+        {
+          "repo": "CAP",
+          "commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20"
+        }
+      ],
+      "bc_commits": [
+        {
+          "repo": "CAP",
+          "commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6"
+        },
+        {
+          "repo": "CAP",
+          "commit": "1403e6830e471144cf71112c23175731edee6025"
+        },
+        {
+          "repo": "CAP",
+          "commit": "be46f65124e1a38b0538e0a1096c8846e80feff3"
+        },
+        {
+          "repo": "CAP",
+          "commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f"
+        }
+      ],
+      "label": "人脸识别基础控制、特征和存储代码",
+      "scope": [
+        "src/modules/face_snapshot/face_control.c 的所述行为范围"
+      ],
+      "conditions": [
+        "仅对两侧已选定的对应产品宏和当前 tip 最终代码作候选比对"
+      ],
+      "basis": "AC 此提交的有效新增行中 1541/1776 行在 BC tip 同路径仍存在；BC 450a 初始引入控制/特征/存储，1403 引入 PSS，be46/bb308 后续整合 AC 逻辑",
+      "final_state_evidence": [
+        "AC 此提交的有效新增行中 1541/1776 行在 BC tip 同路径仍存在；BC 450a 初始引入控制/特征/存储，1403 引入 PSS，be46/bb308 后续整合 AC 逻辑"
+      ],
+      "open_questions": [
+        "其余新增行、修改/删除行和条件宏尚未完成逐函数对照；不能据此认定整笔提交等价"
+      ],
+      "confirm": 0
+    },
+    {
+      "ac_commits": [
+        {
+          "repo": "CAP",
+          "commit": "747e518a37f12c26f4ea872e98a8d3a7363aad4c"
+        }
+      ],
+      "bc_commits": [
+        {
+          "repo": "CAP",
+          "commit": "1403e6830e471144cf71112c23175731edee6025"
+        },
+        {
+          "repo": "CAP",
+          "commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6"
+        },
+        {
+          "repo": "CAP",
+          "commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f"
+        }
+      ],
+      "label": "PSS、统计与 face_control 第二段合入代码",
+      "scope": [
+        "src/modules/face_snapshot/face_control.c 的所述行为范围"
+      ],
+      "conditions": [
+        "仅对两侧已选定的对应产品宏和当前 tip 最终代码作候选比对"
+      ],
+      "basis": "AC 有效新增行 122/127 在 BC tip 同路径存在；BC blame 主要落于 f96c42168e 和 bb3085b88f",
+      "final_state_evidence": [
+        "AC 有效新增行 122/127 在 BC tip 同路径存在；BC blame 主要落于 f96c42168e 和 bb3085b88f"
+      ],
+      "open_questions": [
+        "更改的旧行、PSS 存储格式与宏路径尚未验证"
+      ],
+      "confirm": 0
+    },
+    {
+      "ac_commits": [
+        {
+          "repo": "CAP",
+          "commit": "91713aef6e078ddf179afca70ea060bcfaf9fe6b"
+        }
+      ],
+      "bc_commits": [
+        {
+          "repo": "CAP",
+          "commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f"
+        }
+      ],
+      "label": "face_control 配置修复",
+      "scope": [
+        "src/modules/face_snapshot/face_control.c 的所述行为范围"
+      ],
+      "conditions": [
+        "仅对两侧已选定的对应产品宏和当前 tip 最终代码作候选比对"
+      ],
+      "basis": "AC 有效新增行 12/12 在 BC tip 存在且归属 bb3085b88f",
+      "final_state_evidence": [
+        "AC 有效新增行 12/12 在 BC tip 存在且归属 bb3085b88f"
+      ],
+      "open_questions": [
+        "需核对函数完整行为、调用路径及条件编译"
+      ],
+      "confirm": 0
+    },
+    {
+      "ac_commits": [
+        {
+          "repo": "CAP",
+          "commit": "2900128f10da10f075a1953a1ed814834f38dec9"
+        }
+      ],
+      "bc_commits": [
+        {
+          "repo": "CAP",
+          "commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f"
+        }
+      ],
+      "label": "hub_storage 代理事件中的 faceid/name/alias 字段",
+      "scope": [
+        "src/modules/face_snapshot/face_control.c 的所述行为范围"
+      ],
+      "conditions": [
+        "仅对两侧已选定的对应产品宏和当前 tip 最终代码作候选比对"
+      ],
+      "basis": "AC 有效新增行 5/5 在 BC tip 存在，主要归属 bb3085b88f",
+      "final_state_evidence": [
+        "AC 有效新增行 5/5 在 BC tip 存在，主要归属 bb3085b88f"
+      ],
+      "open_questions": [
+        "需核对消息字段填充条件和 AVTS 消费契约"
+      ],
+      "confirm": 0
+    },
+    {
+      "ac_commits": [
+        {
+          "repo": "CAP",
+          "commit": "0fac6a5d2bc057c06c4eb7720cb4e972fedfab1f"
+        }
+      ],
+      "bc_commits": [
+        {
+          "repo": "CAP",
+          "commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f"
+        }
+      ],
+      "label": "face_control 中 fd_handle_fds_event 返回值处理",
+      "scope": [
+        "src/modules/face_snapshot/face_control.c 的所述行为范围"
+      ],
+      "conditions": [
+        "仅对两侧已选定的对应产品宏和当前 tip 最终代码作候选比对"
+      ],
+      "basis": "AC 两处错误处理的有效新增行 4/4 在 BC tip 存在且归属 bb3085b88f；同名编译修复 e61493059d 触及不同文件",
+      "final_state_evidence": [
+        "AC 两处错误处理的有效新增行 4/4 在 BC tip 存在且归属 bb3085b88f；同名编译修复 e61493059d 触及不同文件"
+      ],
+      "open_questions": [
+        "需核对函数调用点和宏条件"
+      ],
+      "confirm": 0
+    },
+    {
+      "ac_commits": [
+        {
+          "repo": "CAP",
+          "commit": "7bbf5e9a4a9f18aebe036de8832339ed2533def2"
+        }
+      ],
+      "bc_commits": [
+        {
+          "repo": "CAP",
+          "commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f"
+        }
+      ],
+      "label": "face_control 编译修复和规范化的新增代码",
+      "scope": [
+        "src/modules/face_snapshot/face_control.c 的所述行为范围"
+      ],
+      "conditions": [
+        "仅对两侧已选定的对应产品宏和当前 tip 最终代码作候选比对"
+      ],
+      "basis": "AC 有效新增行 3/3 在 BC tip 存在且归属 bb3085b88f",
+      "final_state_evidence": [
+        "AC 有效新增行 3/3 在 BC tip 存在且归属 bb3085b88f"
+      ],
+      "open_questions": [
+        "需核对被删除代码及完整编译条件"
+      ],
+      "confirm": 0
+    },
+    {
+      "ac_commits": [
+        {
+          "repo": "CAP",
+          "commit": "593c131a451d7c6964221854396ff59b704658b5"
+        }
+      ],
+      "bc_commits": [
+        {
+          "repo": "CAP",
+          "commit": "ea33fe4d4a27504ed9284dc8bd5daead504c6bca"
+        }
+      ],
+      "label": "DS 接口能力变量与安全优化相关代码",
+      "scope": [
+        "src/modules/face_snapshot/face_control.c 的所述行为范围"
+      ],
+      "conditions": [
+        "仅对两侧已选定的对应产品宏和当前 tip 最终代码作候选比对"
+      ],
+      "basis": "AC 有效新增行 29/29 在 BC tip 存在，其中对应行由 ea33fe4d4a 引入",
+      "final_state_evidence": [
+        "AC 有效新增行 29/29 在 BC tip 存在，其中对应行由 ea33fe4d4a 引入"
+      ],
+      "open_questions": [
+        "需核对两侧接口语义和额外 10 行 BC 修改"
+      ],
+      "confirm": 0
+    },
+    {
+      "ac_commits": [
+        {
+          "repo": "CAP",
+          "commit": "1ab529891045131033eef8f7e2b625932f15d02e"
+        }
+      ],
+      "bc_commits": [
+        {
+          "repo": "CAP",
+          "commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f"
+        },
+        {
+          "repo": "CAP",
+          "commit": "be46f65124e1a38b0538e0a1096c8846e80feff3"
+        }
+      ],
+      "label": "face_control 遥测统计与事件入口",
+      "scope": [
+        "src/modules/face_snapshot/face_control.c 的所述行为范围"
+      ],
+      "conditions": [
+        "仅对两侧已选定的对应产品宏和当前 tip 最终代码作候选比对"
+      ],
+      "basis": "AC 有效新增行 86/86 在 BC tip 存在，主要归属 bb3085b88f；相关头文件结构在 be46f65124 中引入",
+      "final_state_evidence": [
+        "AC 有效新增行 86/86 在 BC tip 存在，主要归属 bb3085b88f；相关头文件结构在 be46f65124 中引入"
+      ],
+      "open_questions": [
+        "需核对 TELEMETRY_SUPPORT 配置、上报指标和外部消费者"
+      ],
+      "confirm": 0
+    },
+    {
+      "ac_commits": [
+        {
+          "repo": "CAP",
+          "commit": "dd2600fb397771d69ddfb4d7b41484f6e6f07ca9"
+        }
+      ],
+      "bc_commits": [
+        {
+          "repo": "CAP",
+          "commit": "be46f65124e1a38b0538e0a1096c8846e80feff3"
+        }
+      ],
+      "label": "CAMERA_OPERATION_LOG_SUPPORT 下 fss 相机操作日志",
+      "scope": [
+        "src/modules/face_snapshot/fss.c 的所述行为范围"
+      ],
+      "conditions": [
+        "仅对两侧已选定的对应产品宏和当前 tip 最终代码作候选比对"
+      ],
+      "basis": "AC 有效新增行 15/17 在 BC tip 存在，主要归属 be46f65124",
+      "final_state_evidence": [
+        "AC 有效新增行 15/17 在 BC tip 存在，主要归属 be46f65124"
+      ],
+      "open_questions": [
+        "2 行未保留，需核对日志调用与宏启用场景"
+      ],
+      "confirm": 0
+    },
+    {
+      "ac_commits": [
+        {
+          "repo": "CAP",
+          "commit": "14378dec6d5e43e7deec71e79d9d732a71f1bdbb"
+        }
+      ],
+      "bc_commits": [
+        {
+          "repo": "CAP",
+          "commit": "be46f65124e1a38b0538e0a1096c8846e80feff3"
+        }
+      ],
+      "label": "CAMERA_OPERATION_LOG_SUPPORT 下 pre_set 方法",
+      "scope": [
+        "src/modules/face_snapshot/fss.c 的所述行为范围"
+      ],
+      "conditions": [
+        "仅对两侧已选定的对应产品宏和当前 tip 最终代码作候选比对"
+      ],
+      "basis": "AC 有效新增行 12/12 在 BC tip 存在且归属 be46f65124",
+      "final_state_evidence": [
+        "AC 有效新增行 12/12 在 BC tip 存在且归属 be46f65124"
+      ],
+      "open_questions": [
+        "需核对 8 行删除/改写和接口调用条件"
+      ],
+      "confirm": 0
+    },
+    {
+      "ac_commits": [
+        {
+          "repo": "CAP",
+          "commit": "34bee47fb3f416bfce4e17c0653280b98e18cd5b"
+        }
+      ],
+      "bc_commits": [
+        {
+          "repo": "CAP",
+          "commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6"
+        },
+        {
+          "repo": "CAP",
+          "commit": "3d14c077baee267afc2ee45a4a52ac0720bc888b"
+        },
+        {
+          "repo": "CAP",
+          "commit": "1403e6830e471144cf71112c23175731edee6025"
+        },
+        {
+          "repo": "CAP",
+          "commit": "be46f65124e1a38b0538e0a1096c8846e80feff3"
+        },
+        {
+          "repo": "CAP",
+          "commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6"
+        },
+        {
+          "repo": "CAP",
+          "commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f"
+        }
+      ],
+      "label": "AC 人脸检测/PSS/统计大合入的重叠代码",
+      "scope": [
+        "face_control/feature/storage/statistics/PSS 中已在 BC 当前 tip 留存的代码范围"
+      ],
+      "conditions": [
+        "AC_ON_BC、BC_ON_AC、CONFIG_FACE_PSS_SUPPORT 等宏须按产品配置核对"
+      ],
+      "basis": "AC 34bee47fb 的有效新增行 2783/2852 在 BC 当前 tip 同路径存在；BC blame 主要指向 450a0bbe、1403e683、bb3085b8、3d14c077、be46f651 等，统计及配置又涉及 f96c4216。该线索指向多提交组合而非单一等价提交。",
+      "final_state_evidence": [
+        "两侧当前 tip 同路径逐行留存筛查：2783/2852 AC 新增有效行在 BC 存在；逐行归属记录见本次审查说明"
+      ],
+      "open_questions": [
+        "尚未逐函数核对 69 行未留存部分、被替换的旧行、初始化顺序、条件宏与运行行为；不能认定整笔提交已确认等价"
       ],
       "confirm": 0
     }

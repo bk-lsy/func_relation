@@ -1,0 +1,2271 @@
+{
+  "tips": {
+    "NVMP": {
+      "AC": "e8e42a9c2a084a31a4e08125c72fb99ae765d20c",
+      "BC": "225dd89528d8633323cd83de4a3477530b933d1e"
+    },
+    "CAP": {
+      "AC": "178f33f6da6a70893faecea14b1b51ef64bc62ac",
+      "BC": "3e40aa2606ea54ff93f9b39deeddb7cd970d351b"
+    },
+    "AVTS": {
+      "AC": "c3a6abfba09cdaa8ff76202512e516632b8e71a8",
+      "BC": "bea4558c5dc87d2f57e1ec728ad769455764fc38"
+    },
+    "NSD": {
+      "AC": "8d9a7102fd9a36264ba7cdf381d379f0953f285a",
+      "BC": "4ec42ba42967aa5cfecb8f7f09ae690912287c8a"
+    }
+  },
+  "method": "全量焦点提交逐项筛查：焦点路径补丁的稳定 patch-id、Change-Id、标题和触及文件；对已登记关系按当前 tip 保留条件与未决项。not_established 表示未证实有等价提交，不代表证实功能缺失。",
+  "reviews": [
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "531e61624272f64fb8e0d0fc09af286e6f52a180"
+      },
+      "side": "AC",
+      "status": "candidate",
+      "note": "AC 531e616242 与 BC 54f4acfb 均引入同一组 11 个焦点文件和基础人脸数据模型；BC 450a0bbe、be46f651、f96c4216 后续改动使当前 AC 构建路径具备对应配置与代码。AC 的 34bee47fb、1f57bf37e 后续改动也影响最终默认值，但它们的其余行为不纳入本组等价判断。",
+      "screening": {
+        "changed_files": [
+          "Makefile",
+          "arming_schedule",
+          "feature_code",
+          "fss_gen_cfg",
+          "fss_pic_cfg",
+          "fss_rule",
+          "fss_size_cfg",
+          "region_info",
+          "size_limit",
+          "storage_head_info",
+          "fss.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": [
+          "54f4acfb6671f2fb3aeaaff4128cee45e04647a0"
+        ]
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6"
+        },
+        {
+          "repo": "CAP",
+          "commit": "54f4acfb6671f2fb3aeaaff4128cee45e04647a0"
+        },
+        {
+          "repo": "CAP",
+          "commit": "be46f65124e1a38b0538e0a1096c8846e80feff3"
+        },
+        {
+          "repo": "CAP",
+          "commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20"
+      },
+      "side": "AC",
+      "status": "candidate",
+      "note": "当前仅建立限定行为范围的候选，尚未确认整笔提交在对侧完全等价；另有范围限定候选：人脸识别基础控制、特征和存储代码。AC 此提交的有效新增行中 1541/1776 行在 BC tip 同路径仍存在；BC 450a 初始引入控制/特征/存储，1403 引入 PSS，be46/bb308 后续整合 AC 逻辑",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "face_control.h",
+          "face_feature.c",
+          "face_feature.h",
+          "face_storage.c",
+          "face_storage.h",
+          "fss.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "1403e6830e471144cf71112c23175731edee6025"
+        },
+        {
+          "repo": "CAP",
+          "commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6"
+        },
+        {
+          "repo": "CAP",
+          "commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f"
+        },
+        {
+          "repo": "CAP",
+          "commit": "be46f65124e1a38b0538e0a1096c8846e80feff3"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "1df1db390256664982d7122ee31bac45d4b9b74d"
+      },
+      "side": "AC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "0c090e6e760c94ae5fba13ce346c735a24df99e3"
+      },
+      "side": "AC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "face_control.h",
+          "fss.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "906e6b5edc7eda219ddfa55d3fd4e63fe6b4d836"
+      },
+      "side": "AC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_storage.h"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "3f74974b9241be9e969b827a5b18f04365e18c73"
+      },
+      "side": "AC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "face_control.h",
+          "face_feature.c",
+          "face_feature.h",
+          "face_storage.c",
+          "face_storage.h",
+          "fss.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "rejected_leads": [
+        {
+          "repo": "CAP",
+          "commit": "3c54793dd2751b0d1858bfa3c7839b4af2281c7a",
+          "reason": "AC 改动 7 个源/头文件的版权行，BC 这笔只改 fss.c，且两侧 tip 多个源文件版权名仍不同。"
+        }
+      ],
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "34bee47fb3f416bfce4e17c0653280b98e18cd5b"
+      },
+      "side": "AC",
+      "status": "candidate",
+      "note": "当前仅建立限定行为范围的候选，尚未确认整笔提交在对侧完全等价；另有 AC 34bee47fb 的跨提交大合入候选，仅限最终代码重叠范围。",
+      "screening": {
+        "changed_files": [
+          "Makefile",
+          "face_control.c",
+          "face_control.h",
+          "face_feature.c",
+          "face_feature.h",
+          "face_storage.c",
+          "face_storage.h",
+          "fd_statistics.c",
+          "fd_statistics.h",
+          "fd_statistics_stg.c",
+          "fd_statistics_stg.h",
+          "fd_stg_version.c",
+          "fd_stg_version.h",
+          "fss_rule",
+          "storage_head_info",
+          "fss.c",
+          "pdr_storage.c",
+          "pdr_storage.h",
+          "recog_img_stg_version.c",
+          "recog_img_stg_version.h",
+          "recog_img_storage.c",
+          "recog_img_storage.h",
+          "ring_object.c",
+          "ring_object.h"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "1403e6830e471144cf71112c23175731edee6025"
+        },
+        {
+          "repo": "CAP",
+          "commit": "3d14c077baee267afc2ee45a4a52ac0720bc888b"
+        },
+        {
+          "repo": "CAP",
+          "commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6"
+        },
+        {
+          "repo": "CAP",
+          "commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f"
+        },
+        {
+          "repo": "CAP",
+          "commit": "be46f65124e1a38b0538e0a1096c8846e80feff3"
+        },
+        {
+          "repo": "CAP",
+          "commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "747e518a37f12c26f4ea872e98a8d3a7363aad4c"
+      },
+      "side": "AC",
+      "status": "candidate",
+      "note": "当前仅建立限定行为范围的候选，尚未确认整笔提交在对侧完全等价；另有范围限定候选：PSS、统计与 face_control 第二段合入代码。AC 有效新增行 122/127 在 BC tip 同路径存在；BC blame 主要落于 f96c42168e 和 bb3085b88f",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "face_feature.c",
+          "face_feature.h",
+          "face_storage.c",
+          "fd_statistics.c",
+          "fd_statistics.h",
+          "fd_statistics_stg.c",
+          "fd_statistics_stg.h",
+          "recog_img_storage.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "1403e6830e471144cf71112c23175731edee6025"
+        },
+        {
+          "repo": "CAP",
+          "commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f"
+        },
+        {
+          "repo": "CAP",
+          "commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "12f602f96c52f1906d4baa5d0413f8dd59567ba7"
+      },
+      "side": "AC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "0f8c7c9dfceb407df8e8f49ea3d38edf57738943"
+      },
+      "side": "AC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "1f57bf37ec82e735e13b0909d98080a9a7e4407e"
+      },
+      "side": "AC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "fss_pic_cfg"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "94aef932ffa51fbac9d0cb63aab6e5d69ebc2f1b"
+      },
+      "side": "AC",
+      "status": "candidate",
+      "note": "同一 Change-Id Ic1ac74be3a12711d8b43b76ecfb71791caf16219；焦点路径稳定 patch-id 均为 8831d8e15dcaf5debbeb4b4058b02a01a7f46158；仍需核对后续效果",
+      "screening": {
+        "changed_files": [
+          "face_storage.c"
+        ],
+        "stable_patch_id_matches": [
+          "9688a83c6e01899ce0b8213ca3bc0d5eab26872b"
+        ],
+        "change_id_matches": [
+          "9688a83c6e01899ce0b8213ca3bc0d5eab26872b"
+        ],
+        "same_title_matches": [
+          "9688a83c6e01899ce0b8213ca3bc0d5eab26872b"
+        ]
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "9688a83c6e01899ce0b8213ca3bc0d5eab26872b"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "e69adae64faf5b6f1d77e897f054e7d81effe9dc"
+      },
+      "side": "AC",
+      "status": "candidate",
+      "note": "同一 Change-Id I5432aabc9ef96b11abea1a28420c783eee21832d，改动文件相交，但稳定 patch-id 不同；按最终功能候选记录，不能按补丁等同处理。",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "fd_statistics.c",
+          "fd_statistics.h"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [
+          "99edff3d1aea0e4eb6724d5ddffb63dd6d2820ae"
+        ],
+        "same_title_matches": [
+          "99edff3d1aea0e4eb6724d5ddffb63dd6d2820ae"
+        ]
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "99edff3d1aea0e4eb6724d5ddffb63dd6d2820ae"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "de1da536532c73b82b23210e732aec72ee0efc04"
+      },
+      "side": "AC",
+      "status": "candidate",
+      "note": "同一 Change-Id I58c5f584f0bf1531cfcc5d649239ddb2a6490df6；两侧补丁上下文不同，需核对最终控制/统计行为",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [
+          "71c4e67b2a7634e48d7d312a93bc0289ba580d3b"
+        ],
+        "same_title_matches": [
+          "71c4e67b2a7634e48d7d312a93bc0289ba580d3b"
+        ]
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "71c4e67b2a7634e48d7d312a93bc0289ba580d3b"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "91713aef6e078ddf179afca70ea060bcfaf9fe6b"
+      },
+      "side": "AC",
+      "status": "candidate",
+      "note": "当前仅建立限定行为范围的候选，尚未确认整笔提交在对侧完全等价；另有范围限定候选：face_control 配置修复。AC 有效新增行 12/12 在 BC tip 存在且归属 bb3085b88f",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "2d0a17e388210e52eb936889836840532ff59f69"
+      },
+      "side": "AC",
+      "status": "candidate",
+      "note": "同一 Change-Id；两侧提交均将 g_ctl_hdl.hourly_data.fdata_head 和 g_occur_time_list 的 INIT_LIST_HEAD 移至 fd_statistics_init 的 fds_storage_init_storage_space 之前。当前 tip 的条件编译与后续改动仍需核对。",
+      "screening": {
+        "changed_files": [
+          "fd_statistics.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [
+          "41903f2d380f07ad02842bf6ba53bbe7ac862739"
+        ],
+        "same_title_matches": [
+          "41903f2d380f07ad02842bf6ba53bbe7ac862739"
+        ]
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "41903f2d380f07ad02842bf6ba53bbe7ac862739"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "2900128f10da10f075a1953a1ed814834f38dec9"
+      },
+      "side": "AC",
+      "status": "candidate",
+      "note": "当前仅建立限定行为范围的候选，尚未确认整笔提交在对侧完全等价；另有范围限定候选：hub_storage 代理事件中的 faceid/name/alias 字段。AC 有效新增行 5/5 在 BC tip 存在，主要归属 bb3085b88f",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "0fac6a5d2bc057c06c4eb7720cb4e972fedfab1f"
+      },
+      "side": "AC",
+      "status": "candidate",
+      "note": "当前仅建立限定行为范围的候选，尚未确认整笔提交在对侧完全等价；另有范围限定候选：face_control 中 fd_handle_fds_event 返回值处理。AC 两处错误处理的有效新增行 4/4 在 BC tip 存在且归属 bb3085b88f；同名编译修复 e61493059d 触及不同文件",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "rejected_leads": [
+        {
+          "repo": "CAP",
+          "commit": "e61493059dff8202b1d4f8ecd2523aa0b21079a4",
+          "reason": "前者修改 face_control.c 的 fd_handle_fds_event 错误处理；后者仅在 fd_statistics.c 加条件编译，标题相似而补丁不同。"
+        }
+      ],
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "6f4f42d77fdf07a6c131bc5f864da85f3cc71a82"
+      },
+      "side": "AC",
+      "status": "candidate",
+      "note": "三笔焦点路径补丁的稳定 patch-id 均为 f463e542307d599a02cfb9d946a10dfb3781e5bd；Change-Id 均为 I86979829357c6d3f5b19b81593207a4980e05bd6。AC 两笔物理提交需分别保留节点。",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "face_storage.c"
+        ],
+        "stable_patch_id_matches": [
+          "98a8b58b1ca286996107fed5050f446f01f55a98"
+        ],
+        "change_id_matches": [
+          "98a8b58b1ca286996107fed5050f446f01f55a98"
+        ],
+        "same_title_matches": [
+          "98a8b58b1ca286996107fed5050f446f01f55a98"
+        ]
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "98a8b58b1ca286996107fed5050f446f01f55a98"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "2fc6094a00eb449dda03c2050e34030192d2a5e7"
+      },
+      "side": "AC",
+      "status": "candidate",
+      "note": "三笔焦点路径补丁的稳定 patch-id 均为 f463e542307d599a02cfb9d946a10dfb3781e5bd；Change-Id 均为 I86979829357c6d3f5b19b81593207a4980e05bd6。AC 两笔物理提交需分别保留节点。",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "face_storage.c"
+        ],
+        "stable_patch_id_matches": [
+          "98a8b58b1ca286996107fed5050f446f01f55a98"
+        ],
+        "change_id_matches": [
+          "98a8b58b1ca286996107fed5050f446f01f55a98"
+        ],
+        "same_title_matches": [
+          "98a8b58b1ca286996107fed5050f446f01f55a98"
+        ]
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "98a8b58b1ca286996107fed5050f446f01f55a98"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "7bbf5e9a4a9f18aebe036de8832339ed2533def2"
+      },
+      "side": "AC",
+      "status": "candidate",
+      "note": "当前仅建立限定行为范围的候选，尚未确认整笔提交在对侧完全等价；另有范围限定候选：face_control 编译修复和规范化的新增代码。AC 有效新增行 3/3 在 BC tip 存在且归属 bb3085b88f",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "c9e47da4b349dd4229c6be6dc627063ec33a049f"
+      },
+      "side": "AC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_storage.h"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "593c131a451d7c6964221854396ff59b704658b5"
+      },
+      "side": "AC",
+      "status": "candidate",
+      "note": "当前仅建立限定行为范围的候选，尚未确认整笔提交在对侧完全等价；另有范围限定候选：DS 接口能力变量与安全优化相关代码。AC 有效新增行 29/29 在 BC tip 存在，其中对应行由 ea33fe4d4a 引入",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "fd_statistics.c",
+          "fss.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "ea33fe4d4a27504ed9284dc8bd5daead504c6bca"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "d86eea00d832658f90e55bb82ed00653dc9f0015"
+      },
+      "side": "AC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "fd_statistics.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "rejected_leads": [
+        {
+          "repo": "CAP",
+          "commit": "ca53b60a4cc53ac4902401092709428702a3f668",
+          "reason": "两笔都设置 SEARCH_DAYCNT_MAX，但 face_info 的 out_len 分别是 strlen(face_info)*3/4 与 face_info_len，不能整体判等。"
+        }
+      ],
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "f76e5b845823c16e4fde0f0b7baefc629830ebbe"
+      },
+      "side": "AC",
+      "status": "candidate",
+      "note": "同一 Change-Id I752abbfd4cb70c12b4afbe03096451336886e985；稳定 patch-id 均为 7565e3e31b8514113faf153ace1bc67d6aec55b4；需核对后续效果",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [
+          "439b9c8b9bb4205e027a5d6fdeed5a44f0bd392c"
+        ],
+        "change_id_matches": [
+          "439b9c8b9bb4205e027a5d6fdeed5a44f0bd392c"
+        ],
+        "same_title_matches": [
+          "439b9c8b9bb4205e027a5d6fdeed5a44f0bd392c"
+        ]
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "439b9c8b9bb4205e027a5d6fdeed5a44f0bd392c"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "1ab529891045131033eef8f7e2b625932f15d02e"
+      },
+      "side": "AC",
+      "status": "candidate",
+      "note": "当前仅建立限定行为范围的候选，尚未确认整笔提交在对侧完全等价；另有范围限定候选：face_control 遥测统计与事件入口。AC 有效新增行 86/86 在 BC tip 存在，主要归属 bb3085b88f；相关头文件结构在 be46f65124 中引入",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "face_control.h"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f"
+        },
+        {
+          "repo": "CAP",
+          "commit": "be46f65124e1a38b0538e0a1096c8846e80feff3"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "ebb0da210c6c5270f059715b454b2b64328ce82c"
+      },
+      "side": "AC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "face_control.h"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "dd2600fb397771d69ddfb4d7b41484f6e6f07ca9"
+      },
+      "side": "AC",
+      "status": "candidate",
+      "note": "当前仅建立限定行为范围的候选，尚未确认整笔提交在对侧完全等价；另有范围限定候选：CAMERA_OPERATION_LOG_SUPPORT 下 fss 相机操作日志。AC 有效新增行 15/17 在 BC tip 存在，主要归属 be46f65124",
+      "screening": {
+        "changed_files": [
+          "fss.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "be46f65124e1a38b0538e0a1096c8846e80feff3"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "14378dec6d5e43e7deec71e79d9d732a71f1bdbb"
+      },
+      "side": "AC",
+      "status": "candidate",
+      "note": "当前仅建立限定行为范围的候选，尚未确认整笔提交在对侧完全等价；另有范围限定候选：CAMERA_OPERATION_LOG_SUPPORT 下 pre_set 方法。AC 有效新增行 12/12 在 BC tip 存在且归属 be46f65124",
+      "screening": {
+        "changed_files": [
+          "fss.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "be46f65124e1a38b0538e0a1096c8846e80feff3"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "178f33f6da6a70893faecea14b1b51ef64bc62ac"
+      },
+      "side": "AC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "recog_img_storage.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "54f4acfb6671f2fb3aeaaff4128cee45e04647a0"
+      },
+      "side": "BC",
+      "status": "candidate",
+      "note": "AC 531e616242 与 BC 54f4acfb 均引入同一组 11 个焦点文件和基础人脸数据模型；BC 450a0bbe、be46f651、f96c4216 后续改动使当前 AC 构建路径具备对应配置与代码。AC 的 34bee47fb、1f57bf37e 后续改动也影响最终默认值，但它们的其余行为不纳入本组等价判断。",
+      "screening": {
+        "changed_files": [
+          "Makefile",
+          "arming_schedule",
+          "feature_code",
+          "fss_gen_cfg",
+          "fss_pic_cfg",
+          "fss_rule",
+          "fss_size_cfg",
+          "region_info",
+          "size_limit",
+          "storage_head_info",
+          "fss.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": [
+          "531e61624272f64fb8e0d0fc09af286e6f52a180"
+        ]
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "531e61624272f64fb8e0d0fc09af286e6f52a180"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "3c54793dd2751b0d1858bfa3c7839b4af2281c7a"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "fss.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6"
+      },
+      "side": "BC",
+      "status": "candidate",
+      "note": "AC 531e616242 与 BC 54f4acfb 均引入同一组 11 个焦点文件和基础人脸数据模型；BC 450a0bbe、be46f651、f96c4216 后续改动使当前 AC 构建路径具备对应配置与代码。AC 的 34bee47fb、1f57bf37e 后续改动也影响最终默认值，但它们的其余行为不纳入本组等价判断。；另有范围限定候选：人脸识别基础控制、特征和存储代码。AC 此提交的有效新增行中 1541/1776 行在 BC tip 同路径仍存在；BC 450a 初始引入控制/特征/存储，1403 引入 PSS，be46/bb308 后续整合 AC 逻辑；另有 AC 34bee47fb 的跨提交大合入候选，仅限最终代码重叠范围。",
+      "screening": {
+        "changed_files": [
+          "Makefile",
+          "face_control.c",
+          "face_control.h",
+          "face_feature.c",
+          "face_feature.h",
+          "face_storage.c",
+          "face_storage.h",
+          "fd_statistics.c",
+          "fd_statistics.h",
+          "fd_statistics_stg.c",
+          "fd_statistics_stg.h",
+          "fd_stg_version.c",
+          "fd_stg_version.h",
+          "feature_code",
+          "storage_head_info",
+          "fss.c",
+          "ring_object.c",
+          "ring_object.h"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "34bee47fb3f416bfce4e17c0653280b98e18cd5b"
+        },
+        {
+          "repo": "CAP",
+          "commit": "531e61624272f64fb8e0d0fc09af286e6f52a180"
+        },
+        {
+          "repo": "CAP",
+          "commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "3d14c077baee267afc2ee45a4a52ac0720bc888b"
+      },
+      "side": "BC",
+      "status": "candidate",
+      "note": "当前仅建立限定行为范围的候选，尚未确认整笔提交在对侧完全等价；另有 AC 34bee47fb 的跨提交大合入候选，仅限最终代码重叠范围。",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "face_feature.c",
+          "face_feature.h",
+          "fss.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "34bee47fb3f416bfce4e17c0653280b98e18cd5b"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "7a5ee0dfba0152e57e4f89dc6865a2ad1a608bde"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "face_storage.h"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "26843acc363708ee4975ef04a9b87b23215a60ec"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "fd_statistics.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "b49a124e00f5f79db64923bb3ad6d164068b0879"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "bceb7fbc8a32b40d7ec29ed88f9f61560b181f1c"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "9688a83c6e01899ce0b8213ca3bc0d5eab26872b"
+      },
+      "side": "BC",
+      "status": "candidate",
+      "note": "同一 Change-Id Ic1ac74be3a12711d8b43b76ecfb71791caf16219；焦点路径稳定 patch-id 均为 8831d8e15dcaf5debbeb4b4058b02a01a7f46158；仍需核对后续效果",
+      "screening": {
+        "changed_files": [
+          "face_storage.c"
+        ],
+        "stable_patch_id_matches": [
+          "94aef932ffa51fbac9d0cb63aab6e5d69ebc2f1b"
+        ],
+        "change_id_matches": [
+          "94aef932ffa51fbac9d0cb63aab6e5d69ebc2f1b"
+        ],
+        "same_title_matches": [
+          "94aef932ffa51fbac9d0cb63aab6e5d69ebc2f1b"
+        ]
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "94aef932ffa51fbac9d0cb63aab6e5d69ebc2f1b"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "fcda83d10c63d9ee7a64d7fd6f487eb692d146e7"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "fd_statistics.c",
+          "fd_statistics.h",
+          "fd_statistics_stg.c",
+          "fd_statistics_stg.h"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "7b54cd2e9f4f1ecdbe467d8d57df7294d98b4c12"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "fd_statistics.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "e61493059dff8202b1d4f8ecd2523aa0b21079a4"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "fd_statistics.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "22c12edfc09bcceee973ccdfafc30a90436f57cb"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "fss.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "285018e33f5d633df02e7d24621432b0e78b0af4"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "d161ecab8a886dde5f153763e0fb4874c56be083"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "96438c16882e200327e93e317dc4d4451ba36667"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "645eb8f0acaafdb55b06f81b0c0801191432b3db"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "face_control.h",
+          "fd_statistics.c",
+          "fss.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "cd9bc9160cd18b212a5c5de17b5255db8aa58381"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "99edff3d1aea0e4eb6724d5ddffb63dd6d2820ae"
+      },
+      "side": "BC",
+      "status": "candidate",
+      "note": "同一 Change-Id I5432aabc9ef96b11abea1a28420c783eee21832d，改动文件相交，但稳定 patch-id 不同；按最终功能候选记录，不能按补丁等同处理。",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "fd_statistics.c",
+          "fd_statistics.h"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [
+          "e69adae64faf5b6f1d77e897f054e7d81effe9dc"
+        ],
+        "same_title_matches": [
+          "e69adae64faf5b6f1d77e897f054e7d81effe9dc"
+        ]
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "e69adae64faf5b6f1d77e897f054e7d81effe9dc"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "71c4e67b2a7634e48d7d312a93bc0289ba580d3b"
+      },
+      "side": "BC",
+      "status": "candidate",
+      "note": "同一 Change-Id I58c5f584f0bf1531cfcc5d649239ddb2a6490df6；两侧补丁上下文不同，需核对最终控制/统计行为",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [
+          "de1da536532c73b82b23210e732aec72ee0efc04"
+        ],
+        "same_title_matches": [
+          "de1da536532c73b82b23210e732aec72ee0efc04"
+        ]
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "de1da536532c73b82b23210e732aec72ee0efc04"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "3178a777405af52717e7f932d23e183856c9a4e3"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "95abd9522ccadcc3f6250f159213a2bd73e74ad5"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "41903f2d380f07ad02842bf6ba53bbe7ac862739"
+      },
+      "side": "BC",
+      "status": "candidate",
+      "note": "同一 Change-Id；两侧提交均将 g_ctl_hdl.hourly_data.fdata_head 和 g_occur_time_list 的 INIT_LIST_HEAD 移至 fd_statistics_init 的 fds_storage_init_storage_space 之前。当前 tip 的条件编译与后续改动仍需核对。",
+      "screening": {
+        "changed_files": [
+          "fd_statistics.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [
+          "2d0a17e388210e52eb936889836840532ff59f69"
+        ],
+        "same_title_matches": [
+          "2d0a17e388210e52eb936889836840532ff59f69"
+        ]
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "2d0a17e388210e52eb936889836840532ff59f69"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "ea1f1e58e27219d43e466ec8c5c06d2e9006d6bc"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_feature.c",
+          "face_feature.h",
+          "fss.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "0bb947224bc08bdfc400aaa353d437f29e573e64"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "fss.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "bad5f512f868b751170c565d1abd90bf5cde1b62"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "e20c27274731bf2c7f749083439a8c824bab8844"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "fd_statistics_stg.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "8afda7b47cc26866765f0cd081f65a428a1a6da3"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_feature.c",
+          "face_feature.h",
+          "fss.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "0cc155658dbd4c2850d31fdefb4420404c96ee0f"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "fd_statistics.c",
+          "fd_statistics.h",
+          "fd_statistics_stg.h"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "98a8b58b1ca286996107fed5050f446f01f55a98"
+      },
+      "side": "BC",
+      "status": "candidate",
+      "note": "三笔焦点路径补丁的稳定 patch-id 均为 f463e542307d599a02cfb9d946a10dfb3781e5bd；Change-Id 均为 I86979829357c6d3f5b19b81593207a4980e05bd6。AC 两笔物理提交需分别保留节点。",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "face_storage.c"
+        ],
+        "stable_patch_id_matches": [
+          "6f4f42d77fdf07a6c131bc5f864da85f3cc71a82",
+          "2fc6094a00eb449dda03c2050e34030192d2a5e7"
+        ],
+        "change_id_matches": [
+          "6f4f42d77fdf07a6c131bc5f864da85f3cc71a82",
+          "2fc6094a00eb449dda03c2050e34030192d2a5e7"
+        ],
+        "same_title_matches": [
+          "6f4f42d77fdf07a6c131bc5f864da85f3cc71a82",
+          "2fc6094a00eb449dda03c2050e34030192d2a5e7"
+        ]
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "2fc6094a00eb449dda03c2050e34030192d2a5e7"
+        },
+        {
+          "repo": "CAP",
+          "commit": "6f4f42d77fdf07a6c131bc5f864da85f3cc71a82"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "63f6159460300afafb0a3feac3279c116d855daf"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_storage.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "49cc1cd51e7fd157c88b98815d271040cd70b45b"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_storage.c",
+          "face_storage.h"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "9aec74acb24a15a79d0bc0f67bb7aca395d78c0e"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "fd_statistics_stg.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "1403e6830e471144cf71112c23175731edee6025"
+      },
+      "side": "BC",
+      "status": "candidate",
+      "note": "当前仅建立限定行为范围的候选，尚未确认整笔提交在对侧完全等价；另有范围限定候选：人脸识别基础控制、特征和存储代码。AC 此提交的有效新增行中 1541/1776 行在 BC tip 同路径仍存在；BC 450a 初始引入控制/特征/存储，1403 引入 PSS，be46/bb308 后续整合 AC 逻辑；另有范围限定候选：PSS、统计与 face_control 第二段合入代码。AC 有效新增行 122/127 在 BC tip 同路径存在；BC blame 主要落于 f96c42168e 和 bb3085b88f；另有 AC 34bee47fb 的跨提交大合入候选，仅限最终代码重叠范围。",
+      "screening": {
+        "changed_files": [
+          "Makefile",
+          "face_control.c",
+          "face_control.h",
+          "face_feature.c",
+          "face_feature.h",
+          "face_storage.h",
+          "pdr_storage.c",
+          "pdr_storage.h",
+          "recog_img_stg_version.c",
+          "recog_img_stg_version.h",
+          "recog_img_storage.c",
+          "recog_img_storage.h"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "34bee47fb3f416bfce4e17c0653280b98e18cd5b"
+        },
+        {
+          "repo": "CAP",
+          "commit": "747e518a37f12c26f4ea872e98a8d3a7363aad4c"
+        },
+        {
+          "repo": "CAP",
+          "commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "caab424ca6830e1250f42ebf36686eba8c9ef0fd"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "pdr_storage.h"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "6b0eefe8e1f3510c79d0800fb481cf90bb15c7aa"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_feature.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "0bb585cbc73137e4e67680d37092d93f5055b182"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "1a03e63298ff39ec1b1890dce4999fea31322b10"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "fss.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "be139db67a4bad56399516ccefd4c83018810add"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_storage.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "d8eb1b19e29eacd3950dcfa550aba9564863593a"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "7e7c0f156c2970259929cf60784af3631dcdc0b9"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "08fd905b3a589373d76af5d46a5fd854a316d7c3"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_storage.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "ea33fe4d4a27504ed9284dc8bd5daead504c6bca"
+      },
+      "side": "BC",
+      "status": "candidate",
+      "note": "当前仅建立限定行为范围的候选，尚未确认整笔提交在对侧完全等价；另有范围限定候选：DS 接口能力变量与安全优化相关代码。AC 有效新增行 29/29 在 BC tip 存在，其中对应行由 ea33fe4d4a 引入",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "fd_statistics.c",
+          "fss.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "593c131a451d7c6964221854396ff59b704658b5"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "bb3848b5598b600095f3665859111b6d59f7b9b6"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "face_feature.c",
+          "face_feature.h",
+          "face_storage.c",
+          "face_storage.h"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "ca53b60a4cc53ac4902401092709428702a3f668"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "fd_statistics.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "439b9c8b9bb4205e027a5d6fdeed5a44f0bd392c"
+      },
+      "side": "BC",
+      "status": "candidate",
+      "note": "同一 Change-Id I752abbfd4cb70c12b4afbe03096451336886e985；稳定 patch-id 均为 7565e3e31b8514113faf153ace1bc67d6aec55b4；需核对后续效果",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [
+          "f76e5b845823c16e4fde0f0b7baefc629830ebbe"
+        ],
+        "change_id_matches": [
+          "f76e5b845823c16e4fde0f0b7baefc629830ebbe"
+        ],
+        "same_title_matches": [
+          "f76e5b845823c16e4fde0f0b7baefc629830ebbe"
+        ]
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "f76e5b845823c16e4fde0f0b7baefc629830ebbe"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "7012ac55e8970c87146e8e5f740454d2c4d84350"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "ce7ab9a6169954d89f0a86379e75321c1baa2fa6"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "fd_statistics.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "e933738e1f6b75a20eb2323aa0796c04fa1194f0"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "fd_statistics.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "6bf25ceb87ec8e0967db1f54f6802149f3e38d79"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "b8e8a80294fc5f063c82dffb2f4d4620f4e5baeb"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "3ec3c0ef990abb98e4b4afa30070c6f5fe7cda9e"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "fd_statistics.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "a8aed44ebc4b24f0cc45584ad64f1eba52edac21"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_storage.h"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "80f2e265321dd11e085d7b8dfdeec64d70c351a8"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c",
+          "face_feature.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "1186c1861d4eadc7a933b85c688130213c933d16"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "03c33af88e5fdf6302bebcce676e9a0081ed3d2f"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_storage.h"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "8f72dafca02825230827e9c2f212a3fd833bbb45"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_storage.h"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "b9ede40350c03b0fb404b0a6505722232ffd2c0b"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "48e74a2785dc75597636ea35f1e8e7d180036d5c"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "be46f65124e1a38b0538e0a1096c8846e80feff3"
+      },
+      "side": "BC",
+      "status": "candidate",
+      "note": "AC 531e616242 与 BC 54f4acfb 均引入同一组 11 个焦点文件和基础人脸数据模型；BC 450a0bbe、be46f651、f96c4216 后续改动使当前 AC 构建路径具备对应配置与代码。AC 的 34bee47fb、1f57bf37e 后续改动也影响最终默认值，但它们的其余行为不纳入本组等价判断。；另有范围限定候选：人脸识别基础控制、特征和存储代码。AC 此提交的有效新增行中 1541/1776 行在 BC tip 同路径仍存在；BC 450a 初始引入控制/特征/存储，1403 引入 PSS，be46/bb308 后续整合 AC 逻辑；另有范围限定候选：face_control 遥测统计与事件入口。AC 有效新增行 86/86 在 BC tip 存在，主要归属 bb3085b88f；相关头文件结构在 be46f65124 中引入；另有范围限定候选：CAMERA_OPERATION_LOG_SUPPORT 下 fss 相机操作日志。AC 有效新增行 15/17 在 BC tip 存在，主要归属 be46f65124；另有范围限定候选：CAMERA_OPERATION_LOG_SUPPORT 下 pre_set 方法。AC 有效新增行 12/12 在 BC tip 存在且归属 be46f65124；另有 AC 34bee47fb 的跨提交大合入候选，仅限最终代码重叠范围。",
+      "screening": {
+        "changed_files": [
+          "face_control.h",
+          "face_feature.c",
+          "face_feature.h",
+          "face_storage.c",
+          "face_storage.h",
+          "fd_statistics.h",
+          "fd_statistics_stg.h",
+          "fd_stg_version.c",
+          "fss.c",
+          "pdr_storage.h"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "14378dec6d5e43e7deec71e79d9d732a71f1bdbb"
+        },
+        {
+          "repo": "CAP",
+          "commit": "1ab529891045131033eef8f7e2b625932f15d02e"
+        },
+        {
+          "repo": "CAP",
+          "commit": "34bee47fb3f416bfce4e17c0653280b98e18cd5b"
+        },
+        {
+          "repo": "CAP",
+          "commit": "531e61624272f64fb8e0d0fc09af286e6f52a180"
+        },
+        {
+          "repo": "CAP",
+          "commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20"
+        },
+        {
+          "repo": "CAP",
+          "commit": "dd2600fb397771d69ddfb4d7b41484f6e6f07ca9"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6"
+      },
+      "side": "BC",
+      "status": "candidate",
+      "note": "AC 531e616242 与 BC 54f4acfb 均引入同一组 11 个焦点文件和基础人脸数据模型；BC 450a0bbe、be46f651、f96c4216 后续改动使当前 AC 构建路径具备对应配置与代码。AC 的 34bee47fb、1f57bf37e 后续改动也影响最终默认值，但它们的其余行为不纳入本组等价判断。；另有范围限定候选：PSS、统计与 face_control 第二段合入代码。AC 有效新增行 122/127 在 BC tip 同路径存在；BC blame 主要落于 f96c42168e 和 bb3085b88f；另有 AC 34bee47fb 的跨提交大合入候选，仅限最终代码重叠范围。",
+      "screening": {
+        "changed_files": [
+          "Makefile",
+          "fd_statistics.c",
+          "fd_statistics_stg.c",
+          "storage_head_info",
+          "recog_img_storage.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "34bee47fb3f416bfce4e17c0653280b98e18cd5b"
+        },
+        {
+          "repo": "CAP",
+          "commit": "531e61624272f64fb8e0d0fc09af286e6f52a180"
+        },
+        {
+          "repo": "CAP",
+          "commit": "747e518a37f12c26f4ea872e98a8d3a7363aad4c"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f"
+      },
+      "side": "BC",
+      "status": "candidate",
+      "note": "当前仅建立限定行为范围的候选，尚未确认整笔提交在对侧完全等价；另有范围限定候选：人脸识别基础控制、特征和存储代码。AC 此提交的有效新增行中 1541/1776 行在 BC tip 同路径仍存在；BC 450a 初始引入控制/特征/存储，1403 引入 PSS，be46/bb308 后续整合 AC 逻辑；另有范围限定候选：PSS、统计与 face_control 第二段合入代码。AC 有效新增行 122/127 在 BC tip 同路径存在；BC blame 主要落于 f96c42168e 和 bb3085b88f；另有范围限定候选：face_control 配置修复。AC 有效新增行 12/12 在 BC tip 存在且归属 bb3085b88f；另有范围限定候选：hub_storage 代理事件中的 faceid/name/alias 字段。AC 有效新增行 5/5 在 BC tip 存在，主要归属 bb3085b88f；另有范围限定候选：face_control 中 fd_handle_fds_event 返回值处理。AC 两处错误处理的有效新增行 4/4 在 BC tip 存在且归属 bb3085b88f；同名编译修复 e61493059d 触及不同文件；另有范围限定候选：face_control 编译修复和规范化的新增代码。AC 有效新增行 3/3 在 BC tip 存在且归属 bb3085b88f；另有范围限定候选：face_control 遥测统计与事件入口。AC 有效新增行 86/86 在 BC tip 存在，主要归属 bb3085b88f；相关头文件结构在 be46f65124 中引入；另有 AC 34bee47fb 的跨提交大合入候选，仅限最终代码重叠范围。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "0fac6a5d2bc057c06c4eb7720cb4e972fedfab1f"
+        },
+        {
+          "repo": "CAP",
+          "commit": "1ab529891045131033eef8f7e2b625932f15d02e"
+        },
+        {
+          "repo": "CAP",
+          "commit": "2900128f10da10f075a1953a1ed814834f38dec9"
+        },
+        {
+          "repo": "CAP",
+          "commit": "34bee47fb3f416bfce4e17c0653280b98e18cd5b"
+        },
+        {
+          "repo": "CAP",
+          "commit": "747e518a37f12c26f4ea872e98a8d3a7363aad4c"
+        },
+        {
+          "repo": "CAP",
+          "commit": "7bbf5e9a4a9f18aebe036de8832339ed2533def2"
+        },
+        {
+          "repo": "CAP",
+          "commit": "91713aef6e078ddf179afca70ea060bcfaf9fe6b"
+        },
+        {
+          "repo": "CAP",
+          "commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20"
+        }
+      ]
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "13f832c751368d15618ae7d9209634f6657d7429"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "1c851e9523057d6166204f99e78859a994527e2b"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    },
+    {
+      "source": {
+        "repo": "CAP",
+        "commit": "3e40aa2606ea54ff93f9b39deeddb7cd970d351b"
+      },
+      "side": "BC",
+      "status": "not_established",
+      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "screening": {
+        "changed_files": [
+          "face_control.c"
+        ],
+        "stable_patch_id_matches": [],
+        "change_id_matches": [],
+        "same_title_matches": []
+      },
+      "counterparts": []
+    }
+  ]
+}

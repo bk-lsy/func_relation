@@ -16,6 +16,32 @@ SPEC.loader.exec_module(module)
 
 
 class GenerateTest(unittest.TestCase):
+    def test_equivalence_review_requires_exact_tip_and_focal_coverage(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "equivalence_reviews.json"
+            repo = module.Repo("CAP", Path(directory), "ac", "bc")
+            data = {
+                "tips": {"CAP": {"AC": "a-tip", "BC": "b-tip"}},
+                "reviews": [{
+                    "source": {"repo": "CAP", "commit": "a"},
+                    "status": "not_established", "note": "screened",
+                }],
+            }
+            import json
+            path.write_text(json.dumps(data))
+            with patch.object(module, "git", side_effect=["a-tip", "b-tip"]), \
+                    patch.object(module, "resolve", return_value="a"):
+                reviews, tips = module.load_equivalence_reviews(path, {"CAP": repo}, {"CAP:a"})
+            self.assertEqual(reviews["CAP:a"]["status"], "not_established")
+            self.assertEqual(tips["CAP"]["BC"], "b-tip")
+            with patch.object(module, "git", side_effect=["a-tip", "b-tip"]), \
+                    patch.object(module, "resolve", return_value="a"):
+                with self.assertRaisesRegex(ValueError, "coverage mismatch"):
+                    module.load_equivalence_reviews(path, {"CAP": repo}, {"CAP:a", "CAP:b"})
+            with patch.object(module, "git", side_effect=["new-tip", "b-tip"]):
+                with self.assertRaisesRegex(ValueError, "stale"):
+                    module.load_equivalence_reviews(path, {"CAP": repo}, {"CAP:a"})
+
     def test_many_to_one_equivalence_group_keeps_all_physical_nodes(self):
         data = {"groups": [{
             "ac_commits": [{"repo": "CAP", "commit": "a"}, {"repo": "CAP", "commit": "b"}],
@@ -51,6 +77,15 @@ class GenerateTest(unittest.TestCase):
         self.assertIn("EQUIV group-1 confirm=0", module.render_svg(report, "title"))
         self.assertIn("BC 候选 confirm=0 · CAP c · group-1", module.render_svg(report, "title"))
         self.assertIn("group-1 · scoped behavior", module.render_svg(report, "title"))
+        with_dependency = module.side_report(
+            "AC", focal, {}, {
+                "CAP:a": {
+                    "source_side": "AC", "target_side": "BC",
+                    "required_commits": [], "external_requirements": ["external API"],
+                },
+            }, confirmations, {}, {}, "base", [], groups, by_key,
+        )
+        self.assertIn("1.1", [item["dfs_id"] for item in with_dependency["analysis_order"]])
         with tempfile.TemporaryDirectory() as directory:
             module.write_side(report, "title", Path(directory))
             order = (Path(directory) / "ac-unique-order.txt").read_text()
