@@ -2,8 +2,8 @@
 """Generate AC/BC commit graphs for every task under branch_diff/.
 
 Each directory containing scope.json is one task. Git refs and the focal path
-come from that task's scope.json. Unique commits are discovered from each
-repository's merge base on every run. dependencies.json contains manually
+come from that task's scope.json. Physically unique focal commits are discovered
+from the opposite tip with full path history on every run. dependencies.json contains manually
 reviewed merge dependencies (information 1), while equivalent_pairs.json
 contains candidate AC/BC equivalents (information 2). relation_confirms.json
 stores the confirmation state of each directed commit dependency.
@@ -83,10 +83,11 @@ def commit_info(repo: Repo, oid: str, side: str, focal: bool = False) -> Commit:
 
 def unique_commits(repo: Repo, side: str, paths: list[str]) -> tuple[str, list[Commit]]:
     ref = repo.ac_ref if side == "AC" else repo.bc_ref
+    opposite = repo.bc_ref if side == "AC" else repo.ac_ref
     base = git(repo.path, ["merge-base", repo.ac_ref, repo.bc_ref]).strip()
     oids = git(
         repo.path,
-        ["rev-list", "--reverse", "--topo-order", "--no-merges", f"{base}..{ref}", "--", *paths],
+        ["rev-list", "--full-history", "--reverse", "--topo-order", "--no-merges", f"{opposite}..{ref}", "--", *paths],
     ).splitlines()
     return base, [commit_info(repo, oid, side, focal=True) for oid in oids]
 
@@ -364,7 +365,7 @@ def render_svg(report: dict, title: str) -> str:
         '<style>text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}.title{font-size:22px;font-weight:700}.meta{font-size:11px;fill:#374151}.subject{font-size:12px}.branch{stroke:#2563eb;stroke-width:1.8;fill:none}.dep{stroke:#dc2626;stroke-width:1.8;fill:none}.node{stroke:#9ca3af;stroke-width:1}</style>',
         '<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#dc2626"/></marker></defs>',
         f'<text x="24" y="34" class="title">{html.escape(title)} · {report["side"]} 独有提交图</text>',
-        f'<text x="24" y="58" class="meta">动态独有提交 {report["unique_commit_count"]} 个；N.0=cd_alarm提交，N.x=关联依赖；蓝线=Git祖先拓扑，红线=信息1。</text>',
+        f'<text x="24" y="58" class="meta">动态独有提交 {report["unique_commit_count"]} 个；N.0=焦点提交，N.x=关联依赖；蓝线=Git祖先拓扑，红线=信息1。</text>',
     ]
     positions: dict[str, tuple[int, int]] = {}
     for index, item in enumerate(steps):

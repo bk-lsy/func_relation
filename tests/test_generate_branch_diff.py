@@ -1,5 +1,7 @@
 import importlib.util
+import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -13,6 +15,37 @@ SPEC.loader.exec_module(module)
 
 
 class GenerateTest(unittest.TestCase):
+    def test_full_history_keeps_focus_commit_hidden_by_merge_simplification(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+
+            def git(*args):
+                return subprocess.check_output(
+                    ["git", "-C", str(repo), *args], text=True,
+                ).strip()
+
+            git("init", "-q", "-b", "ac")
+            git("config", "user.name", "Test")
+            git("config", "user.email", "test@example.com")
+            (repo / "seed").write_text("seed")
+            git("add", ".")
+            git("commit", "-q", "-m", "base")
+            git("branch", "bc")
+            git("branch", "side")
+            git("checkout", "-q", "side")
+            (repo / "focus").write_text("side")
+            git("add", ".")
+            git("commit", "-q", "-m", "side focus")
+            focus_commit = git("rev-parse", "HEAD")
+            git("checkout", "-q", "ac")
+            git("merge", "-q", "-s", "ours", "--no-ff", "side", "-m", "merge side")
+
+            self.assertEqual(git("rev-list", "--no-merges", "bc..ac", "--", "focus"), "")
+            _, commits = module.unique_commits(
+                module.Repo("TEST", repo, "ac", "bc"), "AC", ["focus"],
+            )
+            self.assertEqual([commit.oid for commit in commits], [focus_commit])
+
     def test_discovers_nested_task_directories(self):
         import tempfile
 

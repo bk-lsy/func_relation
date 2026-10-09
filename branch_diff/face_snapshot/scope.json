@@ -1,0 +1,55 @@
+{
+  "title": "face_snapshot AC/BC 分支独有提交",
+  "repositories": [
+    {
+      "name": "NVMP",
+      "path": "../../../NVMP",
+      "ac_ref": "origin/develop/nvmp_release_1.9.2",
+      "bc_ref": "origin/develop/bc_develop_220927"
+    },
+    {
+      "name": "CAP",
+      "path": "../../../NVMP/nvmp/tp_package/cap",
+      "ac_ref": "origin/develop/nvmp_release_1.9.2",
+      "bc_ref": "origin/develop/bc_develop_220927"
+    },
+    {
+      "name": "AVTS",
+      "path": "../../../NVMP/nvmp/tp_package/avts",
+      "ac_ref": "origin/develop/nvmp_release_1.9.2",
+      "bc_ref": "origin/develop/bc_develop_220927"
+    },
+    {
+      "name": "NSD",
+      "path": "../../../NVMP/nvmp/tp_package/nsd",
+      "ac_ref": "origin/develop/nvmp_release_1.9.2",
+      "bc_ref": "origin/develop/bc_develop_220927"
+    }
+  ],
+  "anchor": {
+    "repository": "CAP",
+    "paths": [
+      "src/modules/face_snapshot"
+    ]
+  },
+  "annotations": [
+    {
+      "repo": "CAP",
+      "commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
+      "tag": "integration-candidate",
+      "note": "BC 整合 AC 特征/存储候选；非等价确认"
+    },
+    {
+      "repo": "CAP",
+      "commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6",
+      "tag": "integration-candidate",
+      "note": "BC 整合 AC 统计/配置候选；非等价确认"
+    },
+    {
+      "repo": "CAP",
+      "commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f",
+      "tag": "integration-candidate",
+      "note": "BC 整合 AC face_control 候选；非等价确认"
+    }
+  ]
+}

@@ -7,7 +7,7 @@
 - `equivalent_pairs.json`：信息2。定义 AC/BC 候选等价提交；每项 `confirm` 初始为 `0`，人工确认后改成 `1`。
 - `relation_confirms.json`：分成 `ac`、`bc` 两部分，为两侧每个 `N.0` 焦点提交记录完整 `related_chain`；没有关联提交时链为空。`relation_confirm` 绑定“原提交 + 完整关联链”，初始为 `0`，人工确认后改成 `1`。
 
-仓库根目录的 `generate_branch_diff.py` 会自动扫描 `branch_diff/**/scope.json`。它从各仓库 AC/BC 共同祖先开始动态搜索焦点路径的独有非合并提交，并从完整 Git DAG 计算最近焦点祖先边；形成提交图后，再按信息1深度优先展开依赖。
+仓库根目录的 `generate_branch_diff.py` 会自动扫描 `branch_diff/**/scope.json`。它从对侧 tip 到本侧 tip 的完整路径历史动态搜索焦点路径的物理独有非合并提交，另计算共同祖先，并从完整 Git DAG 计算最近焦点祖先边；形成提交图后，再按信息1深度优先展开依赖。
 
 运行：
 

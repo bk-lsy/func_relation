@@ -1,0 +1,47 @@
+{
+  "dependencies": [
+    {
+      "source": {
+        "side": "AC",
+        "repo": "CAP",
+        "commit": "1ab529891045131033eef8f7e2b625932f15d02e"
+      },
+      "target_side": "BC",
+      "required_commits": [
+        {
+          "repo": "NVMP",
+          "commit": "369f7ce4520c154095c26ec647cb07c5acdc8c85",
+          "reason": "telemetry 动态数据 ID；需核对 BC 是否存在等价定义"
+        },
+        {
+          "repo": "NSD",
+          "commit": "027937816da2c88a0652fadba720a6129d27707e",
+          "reason": "采集端发送 getFaceTelemetryInfo 并解析人脸统计字段"
+        }
+      ],
+      "external_requirements": [
+        "仅在 TELEMETRY_SUPPORT 对应产品配置下验证 CAP DS 方法与 NSD 请求/响应结构",
+        "确认目标侧 DS 方法定义和注册/调用路径及 15 分钟采集行为"
+      ]
+    },
+    {
+      "source": {
+        "side": "BC",
+        "repo": "CAP",
+        "commit": "1403e6830e471144cf71112c23175731edee6025"
+      },
+      "target_side": "AC",
+      "required_commits": [
+        {
+          "repo": "NVMP",
+          "commit": "0e20e838c139cd976e462ee813a81740d411ea9b",
+          "reason": "PSS_RESULT/SS_RESULT、PSS_REID_FEATURE_LEN、算法结果与编译配置契约"
+        }
+      ],
+      "external_requirements": [
+        "仅在 CONFIG_FACE_PSS_SUPPORT=y / FACE_PSS_SUPPORT 产品配置下验证",
+        "算法/SDK 提供与 PSS_RESULT 相符的 SS_RESULT 数据、ReID 特征及图像缓冲区生命周期"
+      ]
+    }
+  ]
+}

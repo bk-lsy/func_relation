@@ -1,0 +1,40 @@
+{
+  "pairs": [
+    {
+      "ac": {
+        "repo": "CAP",
+        "commit": "94aef932ffa51fbac9d0cb63aab6e5d69ebc2f1b"
+      },
+      "bc": {
+        "repo": "CAP",
+        "commit": "9688a83c6e01899ce0b8213ca3bc0d5eab26872b"
+      },
+      "basis": "同标题、同一 face_storage.c 的 fd 关闭修复；路径 patch-id 不同，需核对最终行为",
+      "confirm": 0
+    },
+    {
+      "ac": {
+        "repo": "CAP",
+        "commit": "de1da536532c73b82b23210e732aec72ee0efc04"
+      },
+      "bc": {
+        "repo": "CAP",
+        "commit": "71c4e67b2a7634e48d7d312a93bc0289ba580d3b"
+      },
+      "basis": "同标题、同一 face_control.c 且增删行数相同；需核对上下文与后续效果",
+      "confirm": 0
+    },
+    {
+      "ac": {
+        "repo": "CAP",
+        "commit": "f76e5b845823c16e4fde0f0b7baefc629830ebbe"
+      },
+      "bc": {
+        "repo": "CAP",
+        "commit": "439b9c8b9bb4205e027a5d6fdeed5a44f0bd392c"
+      },
+      "basis": "同标题、同一 face_control.c 单行更改；需核对最终行为",
+      "confirm": 0
+    }
+  ]
+}
