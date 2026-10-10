@@ -524,6 +524,38 @@
         "尚未逐函数核对 69 行未留存部分、被替换的旧行、初始化顺序、条件宏与运行行为；不能认定整笔提交已确认等价"
       ],
       "confirm": 0
+    },
+    {
+      "ac_commits": [
+        {
+          "repo": "CAP",
+          "commit": "1df1db390256664982d7122ee31bac45d4b9b74d"
+        }
+      ],
+      "bc_commits": [
+        {
+          "repo": "CAP",
+          "commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6"
+        }
+      ],
+      "label": "仅修改熟人 tag 的同名豁免及相似组日志关闭",
+      "scope": [
+        "AC 1df1db3902 的全部两处修改：set_faces_info_callbcak 的自身名字冲突豁免；get_face_similarity_info_callbcak 的 group num 日志关闭；不声称 BC 450a0bbe 整笔基础功能提交与 AC 小修复等价"
+      ],
+      "conditions": [
+        "设备本地人脸管理路径通过原有开关、参数和 HUB 管理等前置检查",
+        "当前 AC tip 与 BC tip；BC 的 AC_ON_BC/BC_ON_AC 两个宏均定义或均不定义时，这两处效果均保留"
+      ],
+      "basis": "逐 hunk 检查 AC 补丁并追溯 BC：450a0bbe 初次引入 face_control.c 时已包含两处改动；BC tip 两处 git blame 均指向 450a0bbe，而非后来的 bb3085b88f 整合提交。两者为大提交包含小修复关系，标题、Change-Id 和整笔 patch-id 不同。",
+      "final_state_evidence": [
+        "BC 450a0bbe:face_control.c 第 2240 行已有 is_exist_face_name(set_data.name, &name_idx) && name_idx != get_index_from_face_id(ori_id)，第 2688 行已注释 group num 日志",
+        "BC 3e40aa2606 当前 face_control.c 第 4559、5104 行仍保留上述两处改动；第 4572 行继续调用 local_change_face(ori_id, &set_data)，其 name/tag 比较及复制路径支持 tag 更新",
+        "AC 178f33f6 与 BC 3e40aa2606 按仓库 ac.yaml/bc.yaml 源码宏展开核对：对应函数保留自身名字豁免，日志无活动调用，条件解析 diagnostics 为空；这不是产品构建或设备验证"
+      ],
+      "open_questions": [
+        "人工等价确认尚未登记；未执行真实产品构建或 APP/设备联调"
+      ],
+      "confirm": 0
     }
   ]
 }

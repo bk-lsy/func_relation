@@ -2,13 +2,13 @@
 
 本记录按上层 [研究口径](../README.md) 建立可复现的阶段 A 基线及阶段 B/C/D 的已核实入口。完整的 95 笔焦点路径非合并提交、实际改动文件和增删行见 [commits.md](commits.md)。**当前没有人工等价确认、关系链完整性确认，也没有得出可直接 cherry-pick 的提交清单。** 已创建生成器输入并做隔离运行验证；未改 CAP 业务代码。
 
-生成器读取本目录的 [`scope.json`](scope.json)、[`dependencies.json`](dependencies.json)、[`equivalent_pairs.json`](equivalent_pairs.json)、[`equivalence_reviews.json`](equivalence_reviews.json)、[`relation_confirms.json`](relation_confirms.json)。当前 30 条 AC 与 65 条 BC `relation_confirm` 全部为 `0`；四组一对一候选与十四组限定范围的等价候选组的 `confirm` 也均为 `0`。空 `related_chain` 只表示**尚未录入关联提交**，绝不表示已查明无依赖。两条已录入跨仓链仍是未确认候选；三笔 BC 整合提交仍保留物理独有节点。
+生成器读取本目录的 [`scope.json`](scope.json)、[`dependencies.json`](dependencies.json)、[`equivalent_pairs.json`](equivalent_pairs.json)、[`equivalence_reviews.json`](equivalence_reviews.json)、[`relation_confirms.json`](relation_confirms.json)。当前 30 条 AC 与 65 条 BC `relation_confirm` 全部为 `0`；四组一对一候选与十五组限定范围的等价候选组的 `confirm` 也均为 `0`。空 `related_chain` 只表示**尚未录入关联提交**，绝不表示已查明无依赖。两条已录入跨仓链仍是未确认候选；三笔 BC 整合提交仍保留物理独有节点。
 
 `equivalent_pairs.json` 的 `groups` 支持多对多提交：分别列 `ac_commits`、`bc_commits`，同时记录比较的行为范围、宏/产品条件、最终状态证据和未决项。组只描述“这些物理提交可能共同达到相同的目标行为”，不转成依赖链，也不自动排除迁移。包括 AC `6f4f42d77`、`2fc6094a0` 对 BC `98a8b58b1`（相同路径 patch-id），以及 AC `e69adae64` 对 BC `99edff3d1`（相同 Change-Id、补丁不同）。新补录 AC `2d0a17e388` 对 BC `41903f2d38`，两者同 Change-Id 且均把统计链表初始化移到存储初始化之前。所有候选仍需在各自 tip 的实际编译条件下核对后续改写与最终功能，才可人工设置 `confirm=1`。
 
 AC 1.0 `531e616242` 已补录为 `group-1` 的焦点提交，对应 BC `54f4acfb`、`450a0bbe`、`be46f651`、`f96c4216`，范围仅为基础人脸数据模型、`fss.c` 的相关 AC 路径及 AC 默认配置。最初两笔提交并非字节等同：AC 初始 `feature_code/fss_pic_cfg/fss_rule` 为 `on`，BC 初始为 `off`，`storage_head_info.max_face_num` 分别为 40/20。AC 与 BC 后续提交改变了这些默认值；当前 tip 的 `files/` 中其余 8 个默认文件逐字节一致，BC 的 `files_ac/storage_head_info` 与 AC 对应文件同 blob，且 BC Makefile 在同时定义 `AC_ON_BC`、`BC_ON_AC` 时选择 AC 覆盖文件。该组因此是**限定 AC 构建条件、按当前最终效果比较的候选**，并非称 `54f4acfb` 单独等于 `531e616242`，也不称 BC 常规电池机构建等于 AC；`fss.c` 的最终函数行为和设备安装结果尚待核对，`confirm=0`。
 
-`equivalence_reviews.json` 对 95 个焦点提交逐项写明当前 tip 下的审查状态、具体对侧 SHA、补丁/Change-Id/标题筛查结果和排除过的近似线索。当前 AC 19 笔、BC 14 笔存在**限定行为范围的候选关系**；其余 AC 11 笔、BC 51 笔为“未证实有等价提交”，**不是已证明无等价行为或必须迁入**。记录包含 CAP/NVMP/AVTS/NSD 两侧 tip；ref 变化时生成器拒绝沿用旧审查。每一笔关系的 SHA 在审查文件和 `equivalent_pairs.json` 中相互校验。
+`equivalence_reviews.json` 对 95 个焦点提交逐项写明当前 tip 下的审查状态、具体对侧 SHA、补丁/Change-Id/标题筛查结果和排除过的近似线索。当前 AC 20 笔、BC 14 笔存在**限定行为范围的候选关系**；其余 AC 10 笔、BC 51 笔为“未证实有等价提交”，**不是已证明无等价行为或必须迁入**。记录包含 CAP/NVMP/AVTS/NSD 两侧 tip；ref 变化时生成器拒绝沿用旧审查。每一笔关系的 SHA 在审查文件和 `equivalent_pairs.json` 中相互校验。
 
 复核不只按标题：逐笔查焦点路径稳定 patch-id、Change-Id、修改文件和两侧当前 tip 的代码留存，并对高度重叠的 AC 变更用 BC 当前行的 `git blame` 追溯引入提交。因此另标出了 AC `91713aef6e`、`2900128f10`、`0fac6a5d2b`、`7bbf5e9a4a`、`1ab5298910` 对 BC `bb3085b88f` 的范围限定候选，AC `593c131a45` 对 BC `ea33fe4d4a`，AC `dd2600fb39`/`14378dec6d` 对 BC `be46f65124`。AC `98a66a726b`、`34bee47fb3`、`747e518a37` 的大量代码在 BC 最终树保留，分别记录了多提交候选；这**只覆盖各组声明的重叠代码**，不证明整个大提交或产品运行效果相同。标题近似但补丁不同的例子（AC `d86eea00d8`/BC `ca53b60a4c`、AC `0fac6a5d2b`/BC `e61493059d`）已记入排除线索。
 
@@ -77,3 +77,14 @@ AC 30.0 `178f33f6da6a70893faecea14b1b51ef64bc62ac` 把 `pss_enhance/recog_img_st
 | BC→AC | CAP 65 笔物理独有；BC PSS、统计、电池机、存储升级及新的人脸识别/推送行为有明确差异；PSS 与 NVMP 结构/编译契约相连 | 不能把 65 笔都当待迁入。AC 已有部分 PSS 代码；最终差异及产品启用条件需逐项确认。 |
 
 下一段优先从 [索引](commits.md) 按拓扑和行为域深度优先核对：先分别还原两侧产品宏集与预处理源码；再逐笔检查三笔 BC 整合提交前后和后续 63.0–65.0；接着对存储版本、默认配置、PSS 消息结构、telemetry、FD 统计、HUB/AVTS/NSD 消费端建立完整跨仓链。每条链需记录触发代码、目标侧可达性或等价实现、缺失后果及适用宏/产品。没有完成此项、模拟应用冲突解决、路径树比较、编译与设备验证前，不给出合入顺序或 `confirm=1` / `relation_confirm=1`。
+
+## 6. AC 3.0 漏标复核（2026-10-10）
+
+AC `1df1db390256664982d7122ee31bac45d4b9b74d` 的两处修改，均已包含在 BC 3.0 `450a0bbeeca02def4872e72949adcb95d33fa3b6` 的基础实现中：
+
+- `set_faces_info_callbcak`：只有名字属于其他人脸时才报冲突；当前人脸保持名字、仅修改 tag 可继续进入 `local_change_face`。
+- `get_face_similarity_info_callbcak`：注释 `group num / item num` 日志。
+
+BC 引入版本对应第 2240、2688 行，当前 BC tip 对应第 4559、5104 行，当前行的 blame 均指向 `450a0bbe`。两处不依赖后来的 `bb3085b88f` AC 整合。按现有 AC/BC profile 展开源码后效果均保留；没有执行产品构建或设备联调。
+
+此前 AC 3.0 审查记录为 `not_established`，仅留下 patch-id、Change-Id、同标题均无匹配的筛查结果，遗漏了“大提交包含小修复”的源码覆盖证据。现补录 `group-15` 并同步双向审查及生成图。该关系覆盖 AC 小提交的全部两处修改，不表示 BC 大提交整体等价于 AC 小提交；人工 `confirm` 保持 `0`，依赖链确认不变。

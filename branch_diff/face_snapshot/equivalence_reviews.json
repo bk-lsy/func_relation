@@ -113,8 +113,8 @@
         "commit": "1df1db390256664982d7122ee31bac45d4b9b74d"
       },
       "side": "AC",
-      "status": "not_established",
-      "note": "已按焦点补丁、Change-Id、标题和两侧当前路径结果交叉筛查；未建立可证实的对侧等价提交，不能据此断言功能缺失。",
+      "status": "candidate",
+      "note": "2026-10-10 逐 hunk 复核纠正漏标：AC 本提交两处修改均由 BC 450a0bbe 基础提交包含，且当前 tip 保留；源码层面确认覆盖。此前仅记录 patch-id/Change-Id/标题无匹配，漏记大提交包含小修复的关系。人工 confirm 仍为 0。",
       "screening": {
         "changed_files": [
           "face_control.c"
@@ -123,7 +123,12 @@
         "change_id_matches": [],
         "same_title_matches": []
       },
-      "counterparts": []
+      "counterparts": [
+        {
+          "repo": "CAP",
+          "commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6"
+        }
+      ]
     },
     {
       "source": {
@@ -893,7 +898,7 @@
       },
       "side": "BC",
       "status": "candidate",
-      "note": "AC 531e616242 与 BC 54f4acfb 均引入同一组 11 个焦点文件和基础人脸数据模型；BC 450a0bbe、be46f651、f96c4216 后续改动使当前 AC 构建路径具备对应配置与代码。AC 的 34bee47fb、1f57bf37e 后续改动也影响最终默认值，但它们的其余行为不纳入本组等价判断。；另有范围限定候选：人脸识别基础控制、特征和存储代码。AC 此提交的有效新增行中 1541/1776 行在 BC tip 同路径仍存在；BC 450a 初始引入控制/特征/存储，1403 引入 PSS，be46/bb308 后续整合 AC 逻辑；另有 AC 34bee47fb 的跨提交大合入候选，仅限最终代码重叠范围。",
+      "note": "AC 531e616242 与 BC 54f4acfb 均引入同一组 11 个焦点文件和基础人脸数据模型；BC 450a0bbe、be46f651、f96c4216 后续改动使当前 AC 构建路径具备对应配置与代码。AC 的 34bee47fb、1f57bf37e 后续改动也影响最终默认值，但它们的其余行为不纳入本组等价判断。；另有范围限定候选：人脸识别基础控制、特征和存储代码。AC 此提交的有效新增行中 1541/1776 行在 BC tip 同路径仍存在；BC 450a 初始引入控制/特征/存储，1403 引入 PSS，be46/bb308 后续整合 AC 逻辑；另有 AC 34bee47fb 的跨提交大合入候选，仅限最终代码重叠范围。；2026-10-10 补核：初始实现已完整包含 AC 1df1db3902 的自身名字冲突豁免与关闭相似组日志两处修复，当前 tip 保留；不表示本基础提交全部行为与该小修复等价。",
       "screening": {
         "changed_files": [
           "Makefile",
@@ -931,6 +936,10 @@
         {
           "repo": "CAP",
           "commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20"
+        },
+        {
+          "repo": "CAP",
+          "commit": "1df1db390256664982d7122ee31bac45d4b9b74d"
         }
       ]
     },
