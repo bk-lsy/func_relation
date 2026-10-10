@@ -8,7 +8,7 @@
 - 收敛起点：本地 `develop/bc_develop_220927`，`3e40aa2606ea54ff93f9b39deeddb7cd970d351b`
 - AC 原始 tip：`develop/nvmp_release_1.9.2`，`178f33f6da6a70893faecea14b1b51ef64bc62ac`
 - BC 原始 tip：`develop/bc_develop_220927`，`3e40aa2606ea54ff93f9b39deeddb7cd970d351b`
-- 当前分支相对 BC 有 4 笔本地收敛提交，工作区干净，未推送。
+- 当前分支相对 BC 有 6 笔本地收敛提交，工作区干净，未推送；最新两笔为 `34edf47b`、`57628f49`。
 - CAP 独特焦点提交仍按既有表统计为 AC 30 笔、BC 65 笔；本批只处理 AC 前 5 个编号的已覆盖或明确子范围，没有声称整批功能已经闭合。
 
 ## 化学合并口径
@@ -21,6 +21,9 @@
 4. `AC_ON_BC`、`BC_ON_AC` 必须按各自语义单独使用；本次已回退 FSS-LOG 收敛提交，不保留类似 `#if defined(AC_ON_BC) || defined(MODULE_LOG_CONTROL)` 的组合条件。
 5. 平台、协议、存储布局和外部能力差异不能只为消宏而覆盖；复杂差异需保留最小分支并记录原因。
 6. `confirm`、`relation_confirm` 仍不自动设置；源码覆盖、提交等价、依赖链完整、可编译和设备行为是不同证据。
+7. 逻辑合并必须从 AC/BC 原始提交、实际补丁和 BC 已有物理合并出发，不能凭当前代码中发现的一般缺陷另起修复。等价类型别名、函数定义及头文件声明应一起核对；差异只在拼写或重复赋值且语义相同时直接共用。
+8. 同一 `[ALL]` 原因或同一机制的相邻收敛范围合为一笔提交；先追溯两侧来源。若机制同时适用于 AC/BC，应移除误设的产品分支，让两侧共用完整的初始化、入口和退出路径；核对所有早退分支与锁、资源所有权。
+9. 用户要求 rebase 时重写本地未推送提交，合并相同原因的提交，并同步更新源码、声明、测试和审查记录。不得把原先仅保持两侧原样的 token 对比误称为新增共用行为已经验证。
 
 ## 已完成的 4 笔本地提交
 
@@ -52,13 +55,23 @@
 
 AC #4 的通知间隔、陌生人次数、HUB/云端消息策略仍未闭环。
 
+## 后续两笔本地逻辑合并
+
+### 5. `34edf47b`
+
+`refactor(face_snapshot): share similarity group score selection`。AC #2 的 `fd_feature_get_group_similarity()` 与 BC 基础实现经 `be46f651` 物理合并后保留了重复的最高分赋值及 `uint16_t`/`U16` 双份类型写法。现共用最高分选择，并将实现和头文件声明统一为 `U16 *`。保留阈值及图像质量的真实差异。
+
+### 6. `57628f49`
+
+`refactor(face_snapshot): share faceinfo file synchronization`。AC `63f615946` 与 BC `6fa54768b` 是相同 `[ALL]` 同步锁补丁；BC 物理合并 `be46f651` 只在 BC 宏展开中保留加锁。现把同一 `l_face_info_lock` 的头文件、四个函数入口和退出路径共用于 AC/BC，并合并 `set_faceinfo()` 与 `sync_storage_structure()` 的重复错误出口。初始化函数只在实际取得锁后解锁。存储布局与升级回调仍保留差异。
+
 ## FSS-LOG 状态
 
 原本的第 5 笔 FSS-LOG 收敛提交 `10f72793918754815589060c004773d58c552541` 已整体回退。当前不修改 FSS-LOG，也不保留其测试和文档变更。后续如处理日志，`AC_ON_BC`、`BC_ON_AC` 必须分别判断，不能使用用户明确禁止的组合形式。
 
 ## 验证状态
 
-- 当前 CAP 仓库运行 `python3 tests/face_snapshot/verify_batch1.py`：6 项测试通过。
+- 当前 CAP 仓库运行 `python3 tests/face_snapshot/verify_batch1.py`：8 项测试通过。
 - `git diff --check develop/bc_develop_220927 HEAD` 通过。
 - 测试使用主机 GCC 和 fixture，覆盖 AC/BC 宏、优化宏、tag-only 更新、图片大小边界、分配失败及日志之外的已完成范围；不等于产品交叉编译、链接、设备、APP 或云端联调。
 - 当前环境没有产品 `.config`、SDK staging/build 目录和交叉工具链，因此暂不宣称固件构建通过。
