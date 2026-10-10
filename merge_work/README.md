@@ -8,7 +8,7 @@
 - 收敛起点：本地 `develop/bc_develop_220927`，`3e40aa2606ea54ff93f9b39deeddb7cd970d351b`
 - AC 原始 tip：`develop/nvmp_release_1.9.2`，`178f33f6da6a70893faecea14b1b51ef64bc62ac`
 - BC 原始 tip：`develop/bc_develop_220927`，`3e40aa2606ea54ff93f9b39deeddb7cd970d351b`
-- 当前分支相对 BC 有 6 笔本地收敛提交，工作区干净，未推送；最新两笔为 `34edf47b`、`57628f49`。
+- 当前分支相对 BC 有 16 笔本地收敛提交，工作区干净，未推送；本轮新增 10 笔，最新为 `88db05a4`。
 - CAP 独特焦点提交仍按既有表统计为 AC 30 笔、BC 65 笔；本批只处理 AC 前 5 个编号的已覆盖或明确子范围，没有声称整批功能已经闭合。
 
 ## 化学合并口径
@@ -65,13 +65,30 @@ AC #4 的通知间隔、陌生人次数、HUB/云端消息策略仍未闭环。
 
 `refactor(face_snapshot): share faceinfo file synchronization`。AC `63f615946` 与 BC `6fa54768b` 是相同 `[ALL]` 同步锁补丁；BC 物理合并 `be46f651` 只在 BC 宏展开中保留加锁。现把同一 `l_face_info_lock` 的头文件、四个函数入口和退出路径共用于 AC/BC，并合并 `set_faceinfo()` 与 `sync_storage_structure()` 的重复错误出口。初始化函数只在实际取得锁后解锁。存储布局与升级回调仍保留差异。
 
+## 本轮新增 10 笔 CAP 提交（到此暂停）
+
+详细来源、宏范围和证据见 CAP `docs/face_snapshot_converge_1010/batch3.md`。
+
+1. `0d922409`：AC #2 特征图分配共用 BC 大图修复。
+2. `71b47a19`：AC #9 陌生人默认名共用平台随机源，保留两侧时间戳差异。
+3. `b09513d8`：AC #2 存储文件辅助函数去除仅初始化/诊断差异。
+4. `48a65b3b`：AC #2 相似度阈值 getter 及头文件、调用点共用。
+5. `7bcd7645`：AC #30 的 PSS 复制 fd 修复沿两侧共用路径落地，覆盖 fd 0。
+6. `fbe5fdf4`：核实 AC #16 统计链表初始化已由 BC 同补丁覆盖。
+7. `bf58a0dc`：核实 AC #25 最新出现时间修复已由 BC 同补丁覆盖。
+8. `2fa6382e`：核实 AC #12 faceinfo fd 修复已由 BC 同补丁覆盖。
+9. `04ab21d0`：核实 AC #19/#20 存储头校验子范围已由 BC 同补丁覆盖。
+10. `88db05a4`：AC #7 / BC #34 PSS 存储四个等价偏移函数及 16 个调用点共用。
+
+第 6～9 笔为已覆盖范围的实际生产函数验证，没有重复迁入代码；不表示这些原始大提交整体等价。`confirm`、`relation_confirm` 均未自动更改。
+
 ## FSS-LOG 状态
 
 原本的第 5 笔 FSS-LOG 收敛提交 `10f72793918754815589060c004773d58c552541` 已整体回退。当前不修改 FSS-LOG，也不保留其测试和文档变更。后续如处理日志，`AC_ON_BC`、`BC_ON_AC` 必须分别判断，不能使用用户明确禁止的组合形式。
 
 ## 验证状态
 
-- 当前 CAP 仓库运行 `python3 tests/face_snapshot/verify_batch1.py`：8 项测试通过。
+- 当前 CAP 仓库运行 `python3 tests/face_snapshot/verify_batch1.py`：17 项测试通过。
 - `git diff --check develop/bc_develop_220927 HEAD` 通过。
 - 测试使用主机 GCC 和 fixture，覆盖 AC/BC 宏、优化宏、tag-only 更新、图片大小边界、分配失败及日志之外的已完成范围；不等于产品交叉编译、链接、设备、APP 或云端联调。
 - 当前环境没有产品 `.config`、SDK staging/build 目录和交叉工具链，因此暂不宣称固件构建通过。
