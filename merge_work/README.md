@@ -8,7 +8,7 @@
 - 收敛起点：本地 `develop/bc_develop_220927`，`3e40aa2606ea54ff93f9b39deeddb7cd970d351b`
 - AC 原始 tip：`develop/nvmp_release_1.9.2`，`178f33f6da6a70893faecea14b1b51ef64bc62ac`
 - BC 原始 tip：`develop/bc_develop_220927`，`3e40aa2606ea54ff93f9b39deeddb7cd970d351b`
-- 当前分支相对 BC 有 31 笔本地收敛提交，工作区干净，未推送；本轮再推进 3 笔含生产代码改动的提交，最新为 `284535b2`。
+- 当前分支相对 BC 有 34 笔本地收敛提交，工作区干净，未推送；本轮再推进 3 笔含生产代码改动的提交，最新为 `2f0fc518`。
 - CAP 独特焦点提交仍按既有表统计为 AC 30 笔、BC 65 笔；本批只处理下文列出的已覆盖或明确子范围，AC #9 跳过，没有声称整批功能已经闭合。
 
 ## 化学合并口径
@@ -139,6 +139,16 @@ AC #4 的通知间隔、陌生人次数、HUB/云端消息策略仍未闭环。
 25. `284535b2`：依据 AC `e69adae64f`、BC `99edff3d1a`，共用 50 项 FDS 队列容量定义，并将事件对象声明置于函数开头；队列读取和 IoT 报告流程保持原样。
 
 这三笔均修改生产代码；`confirm`、`relation_confirm` 未自动设置。
+
+## 继续推进的 3 笔生产代码提交（到此暂停）
+
+详细原始补丁、物理合并和保留的产品差异见 CAP `docs/face_snapshot_converge_1010/batch9.md`。
+
+26. `e84bb50f`：依据 AC `34bee47fb3`、BC `450a0bbeec`，共用 ringbuffer 事件非空检查及 `fd_control_notify_new_detection()` 调用；下游 AC/BC 处理不变。
+27. `1ee05b0c`：依据 AC `34bee47fb3`、BC `d161ecab8a`，共用 HUB AI 配置监听及重载判断；AC 存储监听和 BC 电池统计监听的顺序保持原样。相关函数各宏组合的预处理结果与提交前一致。
+28. `2f0fc518`：依据 AC `dd2600fb39`、BC `450a0bbeec`，共用 `face_detection` 模块注册描述符；只有 AC 且启用 `CAMERA_OPERATION_LOG_SUPPORT` 时设置 `face_init`，其余情况仍为 `NULL`。
+
+三笔均修改生产代码；`confirm`、`relation_confirm` 未自动设置。
 
 ## FSS-LOG 状态
 
