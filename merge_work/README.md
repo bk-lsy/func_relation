@@ -8,7 +8,7 @@
 - 收敛起点：本地 `develop/bc_develop_220927`，`3e40aa2606ea54ff93f9b39deeddb7cd970d351b`
 - AC 原始 tip：`develop/nvmp_release_1.9.2`，`178f33f6da6a70893faecea14b1b51ef64bc62ac`
 - BC 原始 tip：`develop/bc_develop_220927`，`3e40aa2606ea54ff93f9b39deeddb7cd970d351b`
-- 当前分支相对 BC 有 41 笔本地收敛提交，工作区干净，未推送；本轮再推进 5 笔含生产代码改动的提交，最新为 `626817ec`。
+- 当前分支相对 BC 有 38 笔本地提交，工作区干净，未推送；本轮原五笔经用户复核后保留一笔生产代码提交和一笔暂缓记录提交，最新为 `96929d1d`。
 - CAP 独特焦点提交仍按既有表统计为 AC 30 笔、BC 65 笔；本批只处理下文列出的已覆盖或明确子范围，AC #9 跳过，没有声称整批功能已经闭合。
 
 ## 化学合并口径
@@ -159,17 +159,16 @@ AC #4 的通知间隔、陌生人次数、HUB/云端消息策略仍未闭环。
 
 三笔均修改生产代码；`confirm`、`relation_confirm` 未自动设置。
 
-## 继续推进的 5 笔生产代码提交（到此暂停）
+## 第十一批复核：保留一笔，暂缓四笔
 
 详细来源、物理合并依据及产品分支边界见 CAP `docs/face_snapshot_converge_1010/batch11.md`。
 
-31. `6daae2ae`：依据 AC `98a66a726bd8182d1b2e84347eae5c4dc4472d20`、BC `450a0bbeeca02def4872e72949adcb95d33fa3b6` 及物理合并 `bb3085b88fbccd3b515d2ee7859417e807b7180f`，无 PSS 时共用入口空人脸拒绝；PSS 的零人脸转人形路径不变。
-32. `e71577cc`：依据 AC `34bee47fb3f416bfce4e17c0653280b98e18cd5b`、BC `450a0bbeeca02def4872e72949adcb95d33fa3b6` 及物理合并 `bb3085b88fbccd3b515d2ee7859417e807b7180f`，共用检测结果 `void *` 入口；内部仍按 PSS 开关转换结构类型。
-33. `ab524f8a`：依据 BC `cd9bc9160cd18b212a5c5de17b5255db8aa58381` 及物理合并 `bb3085b88fbccd3b515d2ee7859417e807b7180f`，共用人脸数据加载的三处诊断日志；原提交的 ringbuffer 外部回调仍按产品分流。
-34. `fa9b49ea`：依据 AC `98a66a726bd8182d1b2e84347eae5c4dc4472d20`、BC `bb3848b5598b600095f3665859111b6d59f7b9b6` 及物理合并 `be46f65124e1a38b0538e0a1096c8846e80feff3`，共用 `get_dn_status()` 定义与头文件声明；场景特征更新仍是 BC 产品逻辑。
-35. `626817ec`：依据 AC `98a66a726bd8182d1b2e84347eae5c4dc4472d20`、BC `7a5ee0dfba0152e57e4f89dc6865a2ad1a608bde` 及物理合并 `bb3085b88fbccd3b515d2ee7859417e807b7180f`，共用相似度搜索内部匹配标志；AC 调用忽略返回值，BC 的熟人优先及外部最佳匹配入口不变。
+31. `5b309fb4`：依据 AC `34bee47fb3f416bfce4e17c0653280b98e18cd5b`、BC `450a0bbeeca02def4872e72949adcb95d33fa3b6` 及物理合并 `bb3085b88fbccd3b515d2ee7859417e807b7180f`，共用检测结果 `void *` 入口；内部仍按 PSS 开关转换结构类型。
+32. `96929d1d`：记录以下四笔从 CAP 当前分支移除及其原始来源；仅修改审查文档。
 
-五笔均修改生产代码；`confirm`、`relation_confirm` 未自动设置。
+原 `6daae2ae` 空人脸入口校验按用户要求暂缓，AC/BC 原判断不变。原 `ab524f8a` 只合了 BC `cd9bc9160cd18b212a5c5de17b5255db8aa58381` 的三处加载日志，遗漏同一原提交的 ringbuffer 回调、首次读取和启动日志；用户选择整笔暂缓，已撤回局部日志更改。该机制依赖 NVMP `libutils` 原提交 `54df1282d`；当前物理合并下 AC 宏展开不提供 `ringbuffer_attach_with_cb()`。原 `fa9b49ea` 关联 BC `bb3848b5598b600095f3665859111b6d59f7b9b6` 的场景特征新功能，原 `626817ec` 关联 BC `7a5ee0dfba0152e57e4f89dc6865a2ad1a608bde` 的最佳匹配新功能，均按用户要求暂缓，保留产品分支。
+
+四笔旧 SHA 仅用于定位已移除提交，不代表当前 HEAD 已合入；`confirm`、`relation_confirm` 未自动设置。
 
 ## FSS-LOG 状态
 
