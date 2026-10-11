@@ -8,7 +8,7 @@
 - 收敛起点：本地 `develop/bc_develop_220927`，`3e40aa2606ea54ff93f9b39deeddb7cd970d351b`
 - AC 原始 tip：`develop/nvmp_release_1.9.2`，`178f33f6da6a70893faecea14b1b51ef64bc62ac`
 - BC 原始 tip：`develop/bc_develop_220927`，`3e40aa2606ea54ff93f9b39deeddb7cd970d351b`
-- 当前分支相对 BC 有 19 笔本地收敛提交，工作区干净，未推送；上轮第 10 笔现为 `6db07dd7`，本轮再推进 3 笔，最新为 `bd41e9fb`。
+- 当前分支相对 BC 有 22 笔本地收敛提交，工作区干净，未推送；本轮再推进 3 笔含生产代码改动的提交，最新为 `c127b4dd`。
 - CAP 独特焦点提交仍按既有表统计为 AC 30 笔、BC 65 笔；本批只处理下文列出的已覆盖或明确子范围，AC #9 跳过，没有声称整批功能已经闭合。
 
 ## 化学合并口径
@@ -100,13 +100,23 @@ AC #4 的通知间隔、陌生人次数、HUB/云端消息策略仍未闭环。
 
 本批只收敛有明确 AC/BC 原始依据的等价代码，或为对侧已覆盖的范围补源级校验；没有改动 PSS 原提交既有迁移公式。`confirm`、`relation_confirm` 继续保持未确认。
 
+## 本轮 3 笔生产代码提交（到此暂停）
+
+详细原始补丁、BC 物理合并来源及保留差异见 CAP `docs/face_snapshot_converge_1010/batch5.md`。本轮已覆盖、无需改生产代码的候选不计入三笔。
+
+14. `0669e92e`：AC #2 `get_similar_score_and_idx()` 的 `uint16_t` 图片索引与 BC `U16` 等价，统一参数和局部变量类型；两侧不同的返回类型及分数选择逻辑保持原样。
+15. `565ad246`：AC `de1da536` 与 BC `71c4e67b` 的 FDS/FSS 索引新增事件函数签名及 `0x0`/`0` 清零语句直接共用；事件起始时间的真实产品差异仍分流。
+16. `c127b4dd`：将 BC `9aec74acb2` 对 `fds_clean_stg_dir()` 的空路径与两处 `chdir()` 检查完整共用于 AC/BC；主机测试覆盖空路径和进入目录失败，不改成功时的删除流程。
+
+本批未修改原 AC/BC 特有的阈值、数据布局、通知消息时序或跨模块能力。`confirm`、`relation_confirm` 未自动设置。
+
 ## FSS-LOG 状态
 
 原本的第 5 笔 FSS-LOG 收敛提交 `10f72793918754815589060c004773d58c552541` 已整体回退。当前不修改 FSS-LOG，也不保留其测试和文档变更。后续如处理日志，`AC_ON_BC`、`BC_ON_AC` 必须分别判断，不能使用用户明确禁止的组合形式。
 
 ## 验证状态
 
-- 当前 CAP 仓库运行 `python3 tests/face_snapshot/verify_batch1.py`：22 项测试通过。
+- 当前 CAP 仓库运行 `python3 tests/face_snapshot/verify_batch1.py`：23 项测试通过。
 - `git diff --check develop/bc_develop_220927 HEAD` 通过。
 - 测试使用主机 GCC 和 fixture，覆盖 AC/BC 宏、优化宏、tag-only 更新、图片大小边界、分配失败及日志之外的已完成范围；不等于产品交叉编译、链接、设备、APP 或云端联调。
 - 当前环境没有产品 `.config`、SDK staging/build 目录和交叉工具链，因此暂不宣称固件构建通过。
