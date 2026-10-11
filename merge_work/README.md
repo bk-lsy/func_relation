@@ -8,7 +8,7 @@
 - 收敛起点：本地 `develop/bc_develop_220927`，`3e40aa2606ea54ff93f9b39deeddb7cd970d351b`
 - AC 原始 tip：`develop/nvmp_release_1.9.2`，`178f33f6da6a70893faecea14b1b51ef64bc62ac`
 - BC 原始 tip：`develop/bc_develop_220927`，`3e40aa2606ea54ff93f9b39deeddb7cd970d351b`
-- 当前分支相对 BC 有 34 笔本地收敛提交，工作区干净，未推送；本轮再推进 3 笔含生产代码改动的提交，最新为 `2f0fc518`。
+- 当前分支相对 BC 有 36 笔本地收敛提交，工作区干净，未推送；本轮再推进 3 笔含生产代码改动的提交，最新为 `ded2a030`。
 - CAP 独特焦点提交仍按既有表统计为 AC 30 笔、BC 65 笔；本批只处理下文列出的已覆盖或明确子范围，AC #9 跳过，没有声称整批功能已经闭合。
 
 ## 化学合并口径
@@ -140,13 +140,22 @@ AC #4 的通知间隔、陌生人次数、HUB/云端消息策略仍未闭环。
 
 这三笔均修改生产代码；`confirm`、`relation_confirm` 未自动设置。
 
-## 继续推进的 3 笔生产代码提交（到此暂停）
+## 第九批保留的 2 笔生产代码提交
 
 详细原始补丁、物理合并和保留的产品差异见 CAP `docs/face_snapshot_converge_1010/batch9.md`。
 
 26. `e84bb50f`：依据 AC `34bee47fb3`、BC `450a0bbeec`，共用 ringbuffer 事件非空检查及 `fd_control_notify_new_detection()` 调用；下游 AC/BC 处理不变。
 27. `1ee05b0c`：依据 AC `34bee47fb3`、BC `d161ecab8a`，共用 HUB AI 配置监听及重载判断；AC 存储监听和 BC 电池统计监听的顺序保持原样。相关函数各宏组合的预处理结果与提交前一致。
-28. `2f0fc518`：依据 AC `dd2600fb39`、BC `450a0bbeec`，共用 `face_detection` 模块注册描述符；只有 AC 且启用 `CAMERA_OPERATION_LOG_SUPPORT` 时设置 `face_init`，其余情况仍为 `NULL`。
+
+原 `2f0fc518fcfea7d4b1742a1a5b3547335a170478` 涉及摄像头操作日志的跨模块能力，用户已从 CAP 分支删除；**暂缓，未合入**。`confirm`、`relation_confirm` 未自动设置。
+
+## 继续推进的 3 笔生产代码提交（到此暂停）
+
+详细原始补丁及物理合并依据见 CAP `docs/face_snapshot_converge_1010/batch10.md`。
+
+28. `43bf37c2`：依据 BC `6b0eefe8e`，共用人形特征数量写回 `pdr_img_cnt`，修复 AC 上电加载人形数据时覆盖人脸图片数量的问题。
+29. `bd2d47a7`：依据 BC `7e7c0f156`，删除 AC 新增人脸时先于 `fd_storage_add_face()` 的重复正式图片写入；保留后者的图片与 face info 保存。
+30. `ded2a030`：依据 BC `be139db67`，共用可选调试 JPEG 的路径处理；AC 的额外检查及 `mkdir()` 分支移除，正常存储写入不变。
 
 三笔均修改生产代码；`confirm`、`relation_confirm` 未自动设置。
 
