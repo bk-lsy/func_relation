@@ -8,7 +8,7 @@
 - 收敛起点：本地 `develop/bc_develop_220927`，`3e40aa2606ea54ff93f9b39deeddb7cd970d351b`
 - AC 原始 tip：`develop/nvmp_release_1.9.2`，`178f33f6da6a70893faecea14b1b51ef64bc62ac`
 - BC 原始 tip：`develop/bc_develop_220927`，`3e40aa2606ea54ff93f9b39deeddb7cd970d351b`
-- 当前分支相对 BC 有 25 笔本地收敛提交，工作区干净，未推送；本轮再推进 3 笔含生产代码改动的提交，最新为 `3c6831f2`。
+- 当前分支相对 BC 有 28 笔本地收敛提交，工作区干净，未推送；本轮再推进 3 笔含生产代码改动的提交，最新为 `9f724d45`。
 - CAP 独特焦点提交仍按既有表统计为 AC 30 笔、BC 65 笔；本批只处理下文列出的已覆盖或明确子范围，AC #9 跳过，没有声称整批功能已经闭合。
 
 ## 化学合并口径
@@ -116,9 +116,19 @@ AC #4 的通知间隔、陌生人次数、HUB/云端消息策略仍未闭环。
 
 17. `27e794f4`：BC `7b54cd2e9f` 的统计变量初始化补丁在 AC/BC 公共路径完整共用；时区字符设为 0，出现统计的 `tm/index/found_faceid_flag` 声明和初始化合一，取索引仍在持锁后。
 18. `6910c675`：按 BC 基础实现共用 `update_last_time != 0` 的限频条件，修复 AC 启动初期首次出现事件被误抑制；已有记录的间隔规则不变。
-19. `3c6831f2`：按 BC `0cc155658d` 的定时长度子范围共用每日回收公式及三个常量，将 AC 首次设定处的 `* 100` 改为秒到毫秒的 `* 1000`；不合并原 BC 提交的跨模块电源管理调用或锁状态接口。
+19. `7c762a07`：按 BC `0cc155658d` 的定时长度子范围共用每日回收公式及三个常量，将 AC 首次设定处的 `* 100` 改为秒到毫秒的 `* 1000`；不合并原 BC 提交的跨模块电源管理调用或锁状态接口。该提交已在本轮开始前由本地改写为 `[High Risk](not-complate)` 标记，保留现有版本，风险标记仍有效。
 
 本批未改变 AC/BC 特有的统计上报能力及电池机路径。`confirm`、`relation_confirm` 未自动设置。
+
+## 继续推进的 3 笔生产代码提交（到此暂停）
+
+详细原始补丁和两侧行为见 CAP `docs/face_snapshot_converge_1010/batch7.md`。
+
+20. `1e75e589`：依据 BC `d8eb1b19e`，共用 `fd_control_udsd_usr_add_face()` 的加锁后解锁出口，AC 的参数错误路径不再解未持有的锁。
+21. `0d001ee9`：依据 BC `0bb585cbc`，共用无效相似度重算、普通最高分的上界筛选、临时 JPEG 短写和特征更新失败后的释放；BC 熟人优先入口保持原样。
+22. `9f724d45`：依据 BC `49cc1cd51`，共用 face info 迁移回调返回值与有修改才写回的判断；AC/BC 的版本号和回调表保留各自配置。
+
+这三笔均修改生产代码；此前已覆盖且无需修改的候选仍不计入本轮三笔。`confirm`、`relation_confirm` 未自动设置。
 
 ## FSS-LOG 状态
 
@@ -126,7 +136,7 @@ AC #4 的通知间隔、陌生人次数、HUB/云端消息策略仍未闭环。
 
 ## 验证状态
 
-- 当前 CAP 仓库运行 `python3 tests/face_snapshot/verify_batch1.py`：24 项测试通过。
+- 当前 CAP 仓库运行 `python3 tests/face_snapshot/verify_batch1.py`：25 项测试通过。
 - `git diff --check develop/bc_develop_220927 HEAD` 通过。
 - 测试使用主机 GCC 和 fixture，覆盖 AC/BC 宏、优化宏、tag-only 更新、图片大小边界、分配失败及日志之外的已完成范围；不等于产品交叉编译、链接、设备、APP 或云端联调。
 - 当前环境没有产品 `.config`、SDK staging/build 目录和交叉工具链，因此暂不宣称固件构建通过。
