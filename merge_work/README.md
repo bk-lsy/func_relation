@@ -1,6 +1,6 @@
 # face_snapshot 分支收敛当前口径与进度
 
-更新时间：2026-10-11
+更新时间：2026-10-12
 
 ## 当前基线
 
@@ -8,7 +8,7 @@
 - 收敛起点：本地 `develop/bc_develop_220927`，`3e40aa2606ea54ff93f9b39deeddb7cd970d351b`
 - AC 原始 tip：`develop/nvmp_release_1.9.2`，`178f33f6da6a70893faecea14b1b51ef64bc62ac`
 - BC 原始 tip：`develop/bc_develop_220927`，`3e40aa2606ea54ff93f9b39deeddb7cd970d351b`
-- 当前分支相对 BC 有 36 笔本地收敛提交，工作区干净，未推送；本轮再推进 3 笔含生产代码改动的提交，最新为 `ded2a030`。
+- 当前分支相对 BC 有 41 笔本地收敛提交，工作区干净，未推送；本轮再推进 5 笔含生产代码改动的提交，最新为 `626817ec`。
 - CAP 独特焦点提交仍按既有表统计为 AC 30 笔、BC 65 笔；本批只处理下文列出的已覆盖或明确子范围，AC #9 跳过，没有声称整批功能已经闭合。
 
 ## 化学合并口径
@@ -158,6 +158,18 @@ AC #4 的通知间隔、陌生人次数、HUB/云端消息策略仍未闭环。
 30. `ded2a030`：依据 BC `be139db67`，共用可选调试 JPEG 的路径处理；AC 的额外检查及 `mkdir()` 分支移除，正常存储写入不变。
 
 三笔均修改生产代码；`confirm`、`relation_confirm` 未自动设置。
+
+## 继续推进的 5 笔生产代码提交（到此暂停）
+
+详细来源、物理合并依据及产品分支边界见 CAP `docs/face_snapshot_converge_1010/batch11.md`。
+
+31. `6daae2ae`：依据 AC `98a66a726bd8182d1b2e84347eae5c4dc4472d20`、BC `450a0bbeeca02def4872e72949adcb95d33fa3b6` 及物理合并 `bb3085b88fbccd3b515d2ee7859417e807b7180f`，无 PSS 时共用入口空人脸拒绝；PSS 的零人脸转人形路径不变。
+32. `e71577cc`：依据 AC `34bee47fb3f416bfce4e17c0653280b98e18cd5b`、BC `450a0bbeeca02def4872e72949adcb95d33fa3b6` 及物理合并 `bb3085b88fbccd3b515d2ee7859417e807b7180f`，共用检测结果 `void *` 入口；内部仍按 PSS 开关转换结构类型。
+33. `ab524f8a`：依据 BC `cd9bc9160cd18b212a5c5de17b5255db8aa58381` 及物理合并 `bb3085b88fbccd3b515d2ee7859417e807b7180f`，共用人脸数据加载的三处诊断日志；原提交的 ringbuffer 外部回调仍按产品分流。
+34. `fa9b49ea`：依据 AC `98a66a726bd8182d1b2e84347eae5c4dc4472d20`、BC `bb3848b5598b600095f3665859111b6d59f7b9b6` 及物理合并 `be46f65124e1a38b0538e0a1096c8846e80feff3`，共用 `get_dn_status()` 定义与头文件声明；场景特征更新仍是 BC 产品逻辑。
+35. `626817ec`：依据 AC `98a66a726bd8182d1b2e84347eae5c4dc4472d20`、BC `7a5ee0dfba0152e57e4f89dc6865a2ad1a608bde` 及物理合并 `bb3085b88fbccd3b515d2ee7859417e807b7180f`，共用相似度搜索内部匹配标志；AC 调用忽略返回值，BC 的熟人优先及外部最佳匹配入口不变。
+
+五笔均修改生产代码；`confirm`、`relation_confirm` 未自动设置。
 
 ## FSS-LOG 状态
 
