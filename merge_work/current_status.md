@@ -4,8 +4,8 @@
 
 ## 基线与证据边界
 
-- CAP 工作分支 `face_snapshot_converge_1010`，从 BC `develop/bc_develop_220927` 的 `3e40aa2606ea54ff93f9b39deeddb7cd970d351b` 起步；当前 HEAD `570294be0bbef9890db9c52e1c4b63cc811d33e5`，相对 BC 有 42 笔本地提交，未推送。
-- 对照原始 AC tip `178f33f6da6a70893faecea14b1b51ef64bc62ac` 和 BC tip `3e40aa2606ea54ff93f9b39deeddb7cd970d351b`。第十一批保留生产代码提交 `5b309fb4a96655dcebf49d178a49766080978314`，另有暂缓记录提交 `96929d1d`；第十二批 `7b229a3c` 共用 PSS 输入检查、转处理入口和简单诊断日志；第十三批 `c3d6c9d7`、`6e89eab5`、`570294be` 分别处理 HUB 状态声明、存储重建准备/日志和空宏块。既有暂缓范围不变。
+- CAP 工作分支 `face_snapshot_converge_1010`，从 BC `develop/bc_develop_220927` 的 `3e40aa2606ea54ff93f9b39deeddb7cd970d351b` 起步；当前 HEAD `b8c82c32e94b2ed3e4f25423dafa58a7405ab379`，相对 BC 有 42 笔本地提交，未推送。
+- 对照原始 AC tip `178f33f6da6a70893faecea14b1b51ef64bc62ac` 和 BC tip `3e40aa2606ea54ff93f9b39deeddb7cd970d351b`。第十一批保留生产代码提交 `5b309fb4a96655dcebf49d178a49766080978314`，另有暂缓记录提交 `96929d1d`；第十二批 `7b229a3c` 共用 PSS 输入检查、转处理入口和简单诊断日志；第十三批 `c3d6c9d7` 共用 HUB 状态声明，`c7f78f29` 清理空宏块，`b8c82c32` 记录 BC 存储挂载修复的适用性。原 `6e89eab5` 局部收敛已撤销，既有其他暂缓范围不变。
 - AC 独特焦点提交 30 笔、BC 65 笔是既有索引口径，并非已完成数。`confirm`、`relation_confirm` 均未自动设置；源级覆盖、宏展开、依赖闭环、固件编译和设备行为须分别取证。最近一次 CAP 主机用例 26 项通过，差异空白检查通过；没有固件或设备验证结论。
 
 ## 执行口径
@@ -28,6 +28,7 @@
 | BC `cd9bc9160cd18b212a5c5de17b5255db8aa58381`；旧本地 `ab524f8a` | 原提交包含 ringbuffer 回调、首次读取、加载日志和启动日志。仅合三处日志的本地提交已撤销；用户选择整笔暂缓。依赖 NVMP `libutils` `54df1282ddb8342c3f78c982553be946e525423d`；当前物理合并的 AC 宏展开下无 `ringbuffer_attach_with_cb()`。BC 原产品路径保留。 |
 | BC `bb3848b5598b600095f3665859111b6d59f7b9b6`；旧本地 `fa9b49ea` | `get_dn_status()` 公开接口关联场景特征更新新功能；高风险，按用户要求暂缓共用定义和声明。 |
 | BC `7a5ee0dfba0152e57e4f89dc6865a2ad1a608bde`；旧本地 `626817ec` | 相似度搜索返回值关联 BC 最佳匹配新功能；高风险，按用户要求暂缓共用，熟人优先策略及 BC 入口保持原分支。 |
+| BC `08fd905b3a589373d76af5d46a5fd854a316d7c3`；旧本地 `6e89eab5bde7c3d69f7bf7dc21596a21c52c081b` | 原修复针对电池机 `usr_record` 挂载时序；完整等待和重挂载依赖 BC 的 `urdev=` 引导参数及 `get_mnt_info()`。AC 使用固定设备预初始化挂载，缺少该接口，故原机制保留 BC、AC 不迁入；旧本地只共用声明/日志的局部提交已撤销。`cp()` 路径诊断由更早的 AC #2 收敛独立覆盖。详见 CAP `batch13.md`。 |
 | 旧本地 `10f72793918754815589060c004773d58c552541` | FSS-LOG 收敛已整体回退；不保留其测试或文档变更，也不使用合并 `AC_ON_BC` 与 `MODULE_LOG_CONTROL` 的组合条件。 |
 
 “暂缓”只表示尚未做 AC/BC 逻辑收敛；不表示原 AC/BC 产品实现已删除。已撤销的本地 SHA 不应出现在后续“已合入”统计中。
