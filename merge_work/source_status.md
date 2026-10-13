@@ -1,6 +1,6 @@
 # face_snapshot 原始提交逐笔进度标记
 
-核对时间：2026-10-14。基线为 CAP `face_snapshot_converge_1010` / `c044bebe571bdefb600fa682d37735c7903e3234`。AC/BC 编号、完整 SHA 和原始标题见 [`commits.md`](../branch_diff/face_snapshot/commits.md)。依据为当前 CAP 源码、现存 44 笔本地提交、[`README.md`](README.md)、[`current_status.md`](current_status.md)、CAP `docs/face_snapshot_converge_1010/batch1.md`～`batch14.md` 及既有原始补丁索引。本表不修改 CAP 源码或 `confirm` / `relation_confirm`。
+本表是 2026-10-14 的**初始盘点快照**；后续动态进度以 [`merge_status.json`](../branch_diff/face_snapshot/merge_status.json) 为准，针对 face_snapshot 的每次动作后均须更新该 JSON。基线为 CAP `face_snapshot_converge_1010` / `c044bebe571bdefb600fa682d37735c7903e3234`。AC/BC 编号、完整 SHA 和原始标题见 [`commits.md`](../branch_diff/face_snapshot/commits.md)。依据为当时 CAP 源码、现存 44 笔本地提交、[`README.md`](README.md)、[`current_status.md`](current_status.md)、CAP `docs/face_snapshot_converge_1010/batch1.md`～`batch14.md` 及既有原始补丁索引。本表不修改 CAP 源码或 `confirm` / `relation_confirm`。
 
 ## 状态口径
 

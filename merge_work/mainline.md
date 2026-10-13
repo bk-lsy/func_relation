@@ -1,6 +1,6 @@
 # face_snapshot 逻辑合并：完成度与后续方向
 
-更新时间：2026-10-14。目标为 CAP `face_snapshot_converge_1010`，当前 HEAD `c044bebe571bdefb600fa682d37735c7903e3234`。原始 AC 30 笔、BC 65 笔焦点提交及顺序见 [`commits.md`](../branch_diff/face_snapshot/commits.md)，逐笔状态见 [来源状态清单](source_status.md)；BC #60～#62 是已经存在的三笔物理整合提交。此前十四批的源码、测试和暂缓记录仍是审查依据，不从头重做。
+更新时间：2026-10-14。目标为 CAP `face_snapshot_converge_1010`，当前 HEAD `c044bebe571bdefb600fa682d37735c7903e3234`。原始 AC 30 笔、BC 65 笔焦点提交及顺序见 [`commits.md`](../branch_diff/face_snapshot/commits.md)，动态逐笔状态见 [`merge_status.json`](../branch_diff/face_snapshot/merge_status.json)；BC #60～#62 是已经存在的三笔物理整合提交。此前十四批的源码、测试和暂缓记录仍是审查依据，不从头重做。
 
 ## 当前完成度怎样读
 
@@ -10,7 +10,7 @@
 | 已核实的整笔来源例子 | AC #3 的两处修改由 BC 基础覆盖；AC #10 的 HUB 判断回退、AC #12 的 fd 修复、AC #16 的统计初始化、AC #25 的最新出现时间修复已有对应的源级覆盖记录。BC 的部分独有修复也已有共用记录，详见逐批索引。 | 这些结论只对应各自原补丁；不推出同组大型基础提交或整条产品链已等价。 |
 | 已处理但尚未闭环 | AC #1 的模型和普通默认文件、AC #2 的特征/存储/阈值子范围、AC #4 的主图和通知配置子范围、AC #7/#8 的多个 CAP:1/2、CAP:2/2 子范围已有处理。BC 的同步锁、统计、通知、PSS 等也有局部共用或验证。 | AC #1 的实际安装宏/存储布局、AC #2 的完整七文件补丁、AC #4 的推送消息链，以及 AC #7/#8 对应的三个 BC 物理整合提交仍需完整去向表。不能把已有子范围相加称为整笔完成。 |
 | 已明确暂缓或撤销 | AC #9 随机源、BC ringbuffer 回调、场景特征、最佳匹配、BC 电池机存储挂载跨仓系列等见 [`current_status.md`](current_status.md)；无明确来源的 `0a833bbe` 已撤销。 | 暂缓只表示尚未跨侧收敛；原产品路径仍按现有分支保留。 |
-| 其余来源 | [来源状态清单](source_status.md) 已给 95 笔原始焦点提交保守分类，`equivalence_reviews.json` 仍保留限定范围候选。 | 状态清单是粗略进度，不是所有原补丁均已做完整等价审计；不能给出可信的产品完成率，`confirm` 和 `relation_confirm` 均未确认。 |
+| 其余来源 | [`merge_status.json`](../branch_diff/face_snapshot/merge_status.json) 记录 95 笔原始焦点提交的保守分类，`equivalence_reviews.json` 仍保留限定范围候选。 | 进度分类不是所有原补丁的完整等价审计；不能给出可信的产品完成率，`confirm` 和 `relation_confirm` 均未确认。 |
 
 ## 选题依据
 
@@ -25,4 +25,4 @@
 3. **接着闭环通知链。** AC #4 `0c090e6e760c94ae5fba13ce346c735a24df99e3` 的主图和配置已有子范围证据；余下推送间隔、陌生人次数、HUB/云端消息要连同 BC #15/#17/#58/#59 等后续机制及相关消费端审查。可共用的同一修复一次合入，产品策略保留有依据的分支。
 4. **核对大型整合与后续独特机制。** 将 AC #7/#8 的 CAP:1/2、CAP:2/2 与 BC #34、#60～#62 及后续 #63～#65 按函数、配置和 PSS 迁移列完整去向；已有 `recog_img_storage.c` 两类改动和用户审定的代码作为起点。之后沿 `commits.md` 审查尚未处置的 AC/BC 来源；拓扑顺序解决同优先级先后和来源归属，跨仓依赖决定是否暂缓。
 
-每个阶段结束都更新来源处置和剩余范围，而不是只记本地提交数量。主机用例与预处理证据只说明对应路径；产品编译、安装和设备行为仍各自取证。
+每次审查、合入、确认覆盖、暂缓、撤销或 rebase 动作后都立即更新 [`merge_status.json`](../branch_diff/face_snapshot/merge_status.json) 中受影响来源的处置、依据和剩余范围，并记录目标 HEAD 与 `last_action`；状态不变的审查也记结论。主机用例与预处理证据只说明对应路径；产品编译、安装和设备行为仍各自取证。

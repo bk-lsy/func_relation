@@ -1,5 +1,11 @@
 # face_snapshot：AC/BC 摸排记录（2026-10-09）
 
+## 动态合入状态
+
+[`merge_status.json`](merge_status.json) 是 AC/BC 95 笔原始焦点提交的**当前逻辑合并进度记录**，以 `AC#编号` / `BC#编号` 对应 [`commits.md`](commits.md) 的完整来源 SHA。状态分别为 `merged_complete`（已修复合入完全）、`merged_partial`（已有修复但未完全）、`preexisting_coverage`（物理合并前或对侧基础已有覆盖）、`deferred`（暂缓）、`no_merge_fix`（尚无有效跨侧合入修复或完整覆盖证据）。后两种状态不表示原产品路径失效，也不自动要求改代码。
+
+**每次针对本模块执行审查、合入、确认已有覆盖、标记暂缓、撤销或 rebase 后，都要立即更新此 JSON**：核对目标 HEAD；修改受影响来源的状态与依据或剩余边界；填写 `last_action` 的日期、动作、涉及编号和结果。即使审查后状态不变，也记录这次结论。发现新增来源或原索引变化时，先核对完整 SHA、顺序及总数。不能只改批次文档或 commit log 而漏改此 JSON。这里的合入进度与下述候选等价/依赖确认是两套独立证据，不自动改动 `confirm` 或 `relation_confirm`。
+
 本记录按上层 [研究口径](../README.md) 建立可复现的阶段 A 基线及阶段 B/C/D 的已核实入口。完整的 95 笔焦点路径非合并提交、实际改动文件和增删行见 [commits.md](commits.md)。**当前没有人工等价确认、关系链完整性确认，也没有得出可直接 cherry-pick 的提交清单。** 已创建生成器输入并做隔离运行验证；未改 CAP 业务代码。
 
 生成器读取本目录的 [`scope.json`](scope.json)、[`dependencies.json`](dependencies.json)、[`equivalent_pairs.json`](equivalent_pairs.json)、[`equivalence_reviews.json`](equivalence_reviews.json)、[`relation_confirms.json`](relation_confirms.json)。当前 30 条 AC 与 65 条 BC `relation_confirm` 全部为 `0`；四组一对一候选与十五组限定范围的等价候选组的 `confirm` 也均为 `0`。空 `related_chain` 只表示**尚未录入关联提交**，绝不表示已查明无依赖。两条已录入跨仓链仍是未确认候选；三笔 BC 整合提交仍保留物理独有节点。
