@@ -1,6 +1,6 @@
 # face_snapshot 逻辑合并：当前口径与标记快照
 
-核对日期：2026-10-14。此文件只记录**当前有效状态**；逐批补丁、物理合并依据和验证细节见本目录的 [README](README.md) 及 CAP `docs/face_snapshot_converge_1010/batch1.md`～`batch14.md`。后续选题按 [逻辑合并主线](mainline.md) 的原始提交拓扑和审查游标执行。旧本地 SHA 用于定位审查历史，不代表仍在当前分支。
+核对日期：2026-10-14。此文件只记录**当前有效状态**；逐批补丁、物理合并依据和验证细节见本目录的 [README](README.md) 及 CAP `docs/face_snapshot_converge_1010/batch1.md`～`batch14.md`。后续选题依据 [完成度与后续方向](mainline.md)，结合已有成果、未闭合机制、原始提交拓扑和依赖链。旧本地 SHA 用于定位审查历史，不代表仍在当前分支。
 
 ## 基线与证据边界
 
