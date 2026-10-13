@@ -1,6 +1,6 @@
 # face_snapshot 逻辑合并：完成度与后续方向
 
-更新时间：2026-10-14。目标为 CAP `face_snapshot_converge_1010`，当前 HEAD `c044bebe571bdefb600fa682d37735c7903e3234`。原始 AC 30 笔、BC 65 笔焦点提交及顺序见 [`commits.md`](../branch_diff/face_snapshot/commits.md)；BC #60～#62 是已经存在的三笔物理整合提交。此前十四批的源码、测试和暂缓记录仍是审查依据，不从头重做。
+更新时间：2026-10-14。目标为 CAP `face_snapshot_converge_1010`，当前 HEAD `c044bebe571bdefb600fa682d37735c7903e3234`。原始 AC 30 笔、BC 65 笔焦点提交及顺序见 [`commits.md`](../branch_diff/face_snapshot/commits.md)，逐笔状态见 [来源状态清单](source_status.md)；BC #60～#62 是已经存在的三笔物理整合提交。此前十四批的源码、测试和暂缓记录仍是审查依据，不从头重做。
 
 ## 当前完成度怎样读
 
@@ -10,7 +10,7 @@
 | 已核实的整笔来源例子 | AC #3 的两处修改由 BC 基础覆盖；AC #10 的 HUB 判断回退、AC #12 的 fd 修复、AC #16 的统计初始化、AC #25 的最新出现时间修复已有对应的源级覆盖记录。BC 的部分独有修复也已有共用记录，详见逐批索引。 | 这些结论只对应各自原补丁；不推出同组大型基础提交或整条产品链已等价。 |
 | 已处理但尚未闭环 | AC #1 的模型和普通默认文件、AC #2 的特征/存储/阈值子范围、AC #4 的主图和通知配置子范围、AC #7/#8 的多个 CAP:1/2、CAP:2/2 子范围已有处理。BC 的同步锁、统计、通知、PSS 等也有局部共用或验证。 | AC #1 的实际安装宏/存储布局、AC #2 的完整七文件补丁、AC #4 的推送消息链，以及 AC #7/#8 对应的三个 BC 物理整合提交仍需完整去向表。不能把已有子范围相加称为整笔完成。 |
 | 已明确暂缓或撤销 | AC #9 随机源、BC ringbuffer 回调、场景特征、最佳匹配、BC 电池机存储挂载跨仓系列等见 [`current_status.md`](current_status.md)；无明确来源的 `0a833bbe` 已撤销。 | 暂缓只表示尚未跨侧收敛；原产品路径仍按现有分支保留。 |
-| 其余来源 | `commits.md`、`equivalence_reviews.json` 和既有批次给出原始节点及部分限定范围候选。 | 目前没有逐笔完整处置台账，也没有足够证据给出可信的全局完成率；`confirm` 和 `relation_confirm` 均未确认。 |
+| 其余来源 | [来源状态清单](source_status.md) 已给 95 笔原始焦点提交保守分类，`equivalence_reviews.json` 仍保留限定范围候选。 | 状态清单是粗略进度，不是所有原补丁均已做完整等价审计；不能给出可信的产品完成率，`confirm` 和 `relation_confirm` 均未确认。 |
 
 ## 选题依据
 
