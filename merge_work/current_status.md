@@ -4,8 +4,8 @@
 
 ## 基线与证据边界
 
-- CAP 工作分支 `face_snapshot_converge_1010`，从 BC `develop/bc_develop_220927` 的 `3e40aa2606ea54ff93f9b39deeddb7cd970d351b` 起步；当前分支 tip `0a833bbe054f1736c6b5bd09cf336e3f95a12eed`，相对 BC 有 45 笔本地提交，未推送。CAP 主工作目录当前检出 `secure/face_snapshot_converge_1010`，目标分支由独立 worktree 更新。
-- 对照原始 AC tip `178f33f6da6a70893faecea14b1b51ef64bc62ac` 和 BC tip `3e40aa2606ea54ff93f9b39deeddb7cd970d351b`。第十一批保留生产代码提交 `5b309fb4a96655dcebf49d178a49766080978314`，另有暂缓记录提交 `96929d1d`；第十二批 `7b229a3c` 共用 PSS 输入检查、转处理入口和简单诊断日志；第十三批 `c3d6c9d7` 共用 HUB 状态声明，`c7f78f29` 清理空宏块，`b437a05a` 带 `[Deferred]` 标记记录 BC 存储挂载修复整组适用性；第十四批 `92e9ed68`、`c044bebe`、`0a833bbe` 分别处理共用名称长度、匹配日志和周期报表声明。原 `6e89eab5` 局部收敛已撤销，既有其他暂缓范围不变。
+- CAP 工作分支 `face_snapshot_converge_1010`，从 BC `develop/bc_develop_220927` 的 `3e40aa2606ea54ff93f9b39deeddb7cd970d351b` 起步；当前 HEAD `c044bebe571bdefb600fa682d37735c7903e3234`，相对 BC 有 44 笔本地提交，未推送。
+- 对照原始 AC tip `178f33f6da6a70893faecea14b1b51ef64bc62ac` 和 BC tip `3e40aa2606ea54ff93f9b39deeddb7cd970d351b`。第十一批保留生产代码提交 `5b309fb4a96655dcebf49d178a49766080978314`，另有暂缓记录提交 `96929d1d`；第十二批 `7b229a3c` 共用 PSS 输入检查、转处理入口和简单诊断日志；第十三批 `c3d6c9d7` 共用 HUB 状态声明，`c7f78f29` 清理空宏块，`b437a05a` 带 `[Deferred]` 标记记录 BC 存储挂载修复整组适用性；第十四批保留 `92e9ed68` 的共用名称长度和 `c044bebe` 的匹配日志。原 `6e89eab5` 与 `0a833bbe` 的局部收敛均已撤销，既有其他暂缓范围不变。
 - AC 独特焦点提交 30 笔、BC 65 笔是既有索引口径，并非已完成数。`confirm`、`relation_confirm` 均未自动设置；源级覆盖、宏展开、依赖闭环、固件编译和设备行为须分别取证。最近一次 CAP 主机用例 26 项通过，差异空白检查通过；没有固件或设备验证结论。
 
 ## 执行口径
@@ -30,6 +30,7 @@
 | BC `bb3848b5598b600095f3665859111b6d59f7b9b6`；旧本地 `fa9b49ea` | `get_dn_status()` 公开接口关联场景特征更新新功能；高风险，按用户要求暂缓共用定义和声明。 |
 | BC `7a5ee0dfba0152e57e4f89dc6865a2ad1a608bde`；旧本地 `626817ec` | 相似度搜索返回值关联 BC 最佳匹配新功能；高风险，按用户要求暂缓共用，熟人优先策略及 BC 入口保持原分支。 |
 | **[Deferred: BC-only]** BC CAP `(1/2)` `08fd905b3a589373d76af5d46a5fd854a316d7c3`、NVMP `libutils` `(2/2)` `caa29a0f9475ef50cca472370a72dbfde2564025`；旧本地 `6e89eab5bde7c3d69f7bf7dc21596a21c52c081b` | 整组暂缓跨入 AC，不计作已完成共用提交。原修复针对电池机 `usr_record` 挂载时序；CAP 挂载等待和重挂载依赖 BC 的 `urdev=` 引导参数，配套 NVMP 提交将 `get_mnt_info()` 公开并补声明。AC 使用固定设备预初始化挂载，缺少该接口；BC 原机制保留。旧本地只共用声明/日志的局部提交已撤销。`cp()` 路径诊断由更早的 AC #2 收敛独立覆盖。详见 CAP `batch13.md`。 |
+| 旧本地 `0a833bbe054f1736c6b5bd09cf336e3f95a12eed` | 周期报表头文件声明收敛缺少清晰的原始提交依据和合并边界；按用户意见从目标分支撤销，AC/BC 原声明均恢复。暂不计作完成的逻辑合并。 |
 | 旧本地 `10f72793918754815589060c004773d58c552541` | FSS-LOG 收敛已整体回退；不保留其测试或文档变更，也不使用合并 `AC_ON_BC` 与 `MODULE_LOG_CONTROL` 的组合条件。 |
 
 “暂缓”只表示尚未做 AC/BC 逻辑收敛；不表示原 AC/BC 产品实现已删除。已撤销的本地 SHA 不应出现在后续“已合入”统计中。
