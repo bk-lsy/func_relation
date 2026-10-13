@@ -10,7 +10,7 @@
 - 收敛起点：本地 `develop/bc_develop_220927`，`3e40aa2606ea54ff93f9b39deeddb7cd970d351b`
 - AC 原始 tip：`develop/nvmp_release_1.9.2`，`178f33f6da6a70893faecea14b1b51ef64bc62ac`
 - BC 原始 tip：`develop/bc_develop_220927`，`3e40aa2606ea54ff93f9b39deeddb7cd970d351b`
-- 当前分支相对 BC 有 39 笔本地提交，工作区干净，未推送；最新为 `7b229a3c`。第十一批复核后保留一笔生产代码提交和一笔暂缓记录提交，第十二批继续推进一笔生产代码提交。
+- 当前分支相对 BC 有 42 笔本地提交，工作区干净，未推送；最新为 `570294be`。第十三批再推进三笔源码提交，其中第三笔仅清理空宏块，不改变预处理结果。
 - CAP 独特焦点提交仍按既有表统计为 AC 30 笔、BC 65 笔；本批只处理下文列出的已覆盖或明确子范围，AC #9 跳过，没有声称整批功能已经闭合。
 
 ## 化学合并口径
@@ -175,6 +175,16 @@ AC #4 的通知间隔、陌生人次数、HUB/云端消息策略仍未闭环。
 ## 第十二批：PSS 输入检查共用
 
 `7b229a3c`：依据 AC `34bee47fb3f416bfce4e17c0653280b98e18cd5b`、BC `1403e6830e471144cf71112c23175731edee6025` 及物理合并 `bb3085b88fbccd3b515d2ee7859417e807b7180f`，共用 PSS 人数校验和零人脸转 `pss_process` 的原有入口；按用户复核，AC 的简单诊断日志也直接共用于 BC，第十一批暂缓的空人脸入口判断不动。AC 两种 PSS 配置及 BC 无 PSS 的完整函数与提交前 token 一致；BC 启用 PSS 时只增加该日志。详情见 CAP `docs/face_snapshot_converge_1010/batch12.md`。
+
+## 第十三批：继续推进三笔源码提交
+
+详细原始补丁及宏展开证据见 CAP `docs/face_snapshot_converge_1010/batch13.md`。
+
+33. `c3d6c9d7`：依据 AC `34bee47fb3f416bfce4e17c0653280b98e18cd5b`、BC 基础 `450a0bbeeca02def4872e72949adcb95d33fa3b6` 与 BC `99edff3d1aea0e4eb6724d5ddffb63dd6d2820ae`，共用 HUB 配置状态变量声明；BC 的消息状态仍限 BC。
+34. `6e89eab5`：依据 AC `34bee47fb3f416bfce4e17c0653280b98e18cd5b`、BC `08fd905b3a589373d76af5d46a5fd854a316d7c3`，共用存储初始化的 `i/j` 声明和简单重建日志；BC 电池机挂载等待与重挂载保持原分支。
+35. `570294be`：依据 BC `1c851e9523057d6166204f99e78859a994527e2b` 的空宏块清理范围，删除 `face_control.c` 的七处空 `AC_ON_BC` 块与一处空 `BC_ON_AC` 块；八种 AC/BC、PSS、HUB 组合的整文件预处理输出逐字节不变，不将原提交其他子范围算作本笔完成。
+
+三笔都修改 CAP 源文件；第三笔仅为源码结构清理，没有运行时行为变化。`confirm`、`relation_confirm` 未自动设置。
 
 ## FSS-LOG 状态
 

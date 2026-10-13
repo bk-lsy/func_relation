@@ -1,11 +1,11 @@
 # face_snapshot 逻辑合并：当前口径与标记快照
 
-核对日期：2026-10-13。此文件只记录**当前有效状态**；逐批补丁、物理合并依据和验证细节见本目录的 [README](README.md) 及 CAP `docs/face_snapshot_converge_1010/batch1.md`～`batch12.md`。旧本地 SHA 用于定位审查历史，不代表仍在当前分支。
+核对日期：2026-10-13。此文件只记录**当前有效状态**；逐批补丁、物理合并依据和验证细节见本目录的 [README](README.md) 及 CAP `docs/face_snapshot_converge_1010/batch1.md`～`batch13.md`。旧本地 SHA 用于定位审查历史，不代表仍在当前分支。
 
 ## 基线与证据边界
 
-- CAP 工作分支 `face_snapshot_converge_1010`，从 BC `develop/bc_develop_220927` 的 `3e40aa2606ea54ff93f9b39deeddb7cd970d351b` 起步；当前 HEAD `7b229a3c303c8ca53e75e10173f94b4e8e31581c`，相对 BC 有 39 笔本地提交，未推送。
-- 对照原始 AC tip `178f33f6da6a70893faecea14b1b51ef64bc62ac` 和 BC tip `3e40aa2606ea54ff93f9b39deeddb7cd970d351b`。第十一批保留生产代码提交 `5b309fb4a96655dcebf49d178a49766080978314`，另有暂缓记录提交 `96929d1d`；第十二批 `7b229a3c` 共用 PSS 输入检查、转处理入口和简单诊断日志，第十一批暂缓的入口判断不变。
+- CAP 工作分支 `face_snapshot_converge_1010`，从 BC `develop/bc_develop_220927` 的 `3e40aa2606ea54ff93f9b39deeddb7cd970d351b` 起步；当前 HEAD `570294be0bbef9890db9c52e1c4b63cc811d33e5`，相对 BC 有 42 笔本地提交，未推送。
+- 对照原始 AC tip `178f33f6da6a70893faecea14b1b51ef64bc62ac` 和 BC tip `3e40aa2606ea54ff93f9b39deeddb7cd970d351b`。第十一批保留生产代码提交 `5b309fb4a96655dcebf49d178a49766080978314`，另有暂缓记录提交 `96929d1d`；第十二批 `7b229a3c` 共用 PSS 输入检查、转处理入口和简单诊断日志；第十三批 `c3d6c9d7`、`6e89eab5`、`570294be` 分别处理 HUB 状态声明、存储重建准备/日志和空宏块。既有暂缓范围不变。
 - AC 独特焦点提交 30 笔、BC 65 笔是既有索引口径，并非已完成数。`confirm`、`relation_confirm` 均未自动设置；源级覆盖、宏展开、依赖闭环、固件编译和设备行为须分别取证。最近一次 CAP 主机用例 26 项通过，差异空白检查通过；没有固件或设备验证结论。
 
 ## 执行口径
