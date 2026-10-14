@@ -14,8 +14,8 @@
   "last_action": {
     "date": "2026-10-14",
     "kind": "file_pair_review",
-    "unit_id": "pss_enhance/pdr_storage",
-    "summary": "pdr_storage.c/.h 绑定审查，剩余三组容量配置属于存储布局差异，未修改 CAP。"
+    "unit_id": "pss_enhance/recog_img_stg_version",
+    "summary": "recog_img_stg_version.c/.h 绑定审查，无 AC/BC 分支，未修改 CAP。"
   },
   "units": [
     {
@@ -97,8 +97,9 @@
         "pss_enhance/recog_img_stg_version.c",
         "pss_enhance/recog_img_stg_version.h"
       ],
-      "status": "pending",
-      "reviewed_against": null
+      "status": "reviewed_no_change",
+      "reviewed_against": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
+      "finding": "已绑定审查 pss_enhance/recog_img_stg_version.c/.h。两文件均没有 AC_ON_BC/BC_ON_AC 分支，现有版本回调与声明已是共用代码；本轮无可收敛的分支，CAP 未改。"
     },
     {
       "id": "pss_enhance/recog_img_storage",

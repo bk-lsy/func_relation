@@ -21,10 +21,10 @@
   "last_action": {
     "date": "2026-10-14",
     "kind": "file_pair_review",
-    "summary": "pss_enhance/pdr_storage.c/.h 绑定审查并更新 file_review_progress.json；实现无宏分支，头文件容量差异影响存储布局；来源状态、CAP HEAD 与关系图不变。",
+    "summary": "pss_enhance/recog_img_stg_version.c/.h 绑定审查并更新 file_review_progress.json；两文件无 AC/BC 分支，来源状态、CAP HEAD 与关系图不变。",
     "affected": [
       "AC#7",
-      "BC#35"
+      "BC#34"
     ]
   },
   "entries": [
