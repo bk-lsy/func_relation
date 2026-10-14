@@ -4,7 +4,7 @@
   "module_root": "src/modules/face_snapshot",
   "target": {
     "branch": "face_snapshot_converge_1010",
-    "head": "89b1621106b49a13ba27cfd8da8dd0a4aa13cd23"
+    "head": "8f8fea6bb525bf3533b1e126e0c795f616f16b7d"
   },
   "status_definitions": {
     "pending": "该文件组尚未按本轮不改变逻辑或仅涉及简单逻辑的口径逐段审查。",
@@ -13,8 +13,8 @@
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "target_rebase",
-    "summary": "目标分支已重放到 BC 新基础 102ba4b17；各单元 reviewed_against 保留原审核快照，文件逐段审查结论尚未针对上游新增 43 笔提交重新复核。"
+    "kind": "target_followup_fix",
+    "summary": "目标新增 faceinfo 锁声明共用修复；此前按文件审查的 reviewed_against 保持原快照，未重新逐段复核。"
   },
   "units": [
     {

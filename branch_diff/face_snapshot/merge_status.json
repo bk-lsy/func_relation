@@ -8,7 +8,7 @@
   },
   "target": {
     "branch": "face_snapshot_converge_1010",
-    "head": "89b1621106b49a13ba27cfd8da8dd0a4aa13cd23"
+    "head": "8f8fea6bb525bf3533b1e126e0c795f616f16b7d"
   },
   "baseline_date": "2026-10-14",
   "status_definitions": {
@@ -20,12 +20,12 @@
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "rebase_onto_updated_bc",
-    "summary": "将既有 45 笔本地提交重放到 BC 新基础 102ba4b17；保留上游 43 笔提交原样。冲突按新基础合并，PSS 迁移保留上游活动文件路径；增加 1 笔测试适配提交。来源处置状态沿用先前审查，未对上游 43 笔重新逐项判定。",
+    "kind": "complete_faceinfo_mutex_declaration",
+    "summary": "按用户口径补齐 64da2a34 的遗漏：将 l_face_info_lock 静态声明移出 BC_ON_AC 条件宏，保证 AC/BC 两种宏展开都具备锁变量；新增预处理回归检查，其他逻辑不变。",
     "affected": [
-      "CAP rebase",
-      "relation graph",
-      "test fixtures"
+      "BC#31",
+      "CAP 64da2a34",
+      "8f8fea6b"
     ]
   },
   "entries": [
@@ -576,7 +576,7 @@
       "source_commit": "63f6159460300afafb0a3feac3279c116d855daf",
       "source_title": "[ALL] Add a synchronization access mechanism for active face info and inactive face info files",
       "status": "merged_complete",
-      "note": "`64da2a34` 共用 active/inactive face info 同步锁的入口、退出及声明。"
+      "note": "`64da2a34` 共用 active/inactive face info 同步锁的入口和退出；`8f8fea6b` 将遗漏的 l_face_info_lock 声明移出 BC_ON_AC 条件宏，使 AC/BC 两侧均可使用该锁，并增加双配置声明检查。"
     },
     {
       "id": "BC#32",

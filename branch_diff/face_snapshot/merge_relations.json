@@ -2,7 +2,7 @@
   "schema_version": 1,
   "scope": "CAP face_snapshot current local commits to AC/BC original focus commits; multi-to-multi, scoped evidence only",
   "target_branch": "face_snapshot_converge_1010",
-  "target_head": "89b1621106b49a13ba27cfd8da8dd0a4aa13cd23",
+  "target_head": "8f8fea6bb525bf3533b1e126e0c795f616f16b7d",
   "local_base": "102ba4b17bb1eac7eff0f89c52d8b1700e1ae378",
   "source_index": "merge_status.json",
   "relation_definitions": {
@@ -766,6 +766,12 @@
       "title": "test(face_snapshot): align rebase checks with updated BC base",
       "kind": "integration",
       "scope": "Adapt PSS repair fixture and HUB loader comparison to updated BC base"
+    },
+    {
+      "commit": "8f8fea6bb525bf3533b1e126e0c795f616f16b7d",
+      "title": "fix(face_snapshot): expose shared faceinfo mutex declaration",
+      "kind": "source_fix",
+      "scope": "Complete 64da2a34 faceinfo mutex convergence: shared declaration visible to AC and BC"
     }
   ],
   "edges": [
@@ -2141,6 +2147,17 @@
           "tests/face_snapshot/verify_batch1.py"
         ]
       }
+    },
+    {
+      "local_commit": "8f8fea6bb525bf3533b1e126e0c795f616f16b7d",
+      "source_id": "BC#31",
+      "source_commit": "63f6159460300afafb0a3feac3279c116d855daf",
+      "relation": "merged_scope",
+      "scope": "Expose existing l_face_info_lock declaration to both product profiles after shared lock calls",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "8f8fea6bb525bf3533b1e126e0c795f616f16b7d"
+      }
     }
   ],
   "unindexed_references": [
@@ -2161,6 +2178,12 @@
       "repo": "NVMP libutils",
       "commit": "caa29a0f9475ef50cca472370a72dbfde2564025",
       "role": "usr_record mount interface dependency; deferred"
+    },
+    {
+      "local_commit": "8f8fea6bb525bf3533b1e126e0c795f616f16b7d",
+      "repo": "CAP",
+      "commit": "6fa54768b37d3003be395bf446577169f35af0c3",
+      "role": "same-reason source commit cited by local log; outside the 95 focus-node index"
     }
   ],
   "unlinked_source_ids": [
@@ -2212,5 +2235,5 @@
     "BC#63",
     "BC#65"
   ],
-  "unlinked_meaning": "本地 46 笔提交及其批次记录中没有可证实的直接映射边；不等于该来源缺功能、必须合入，或状态为未处理。"
+  "unlinked_meaning": "本地 47 笔提交及其批次记录中没有可证实的直接映射边；不等于该来源缺功能、必须合入，或状态为未处理。"
 }
