@@ -20,13 +20,19 @@
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "source_review",
-    "summary": "继续核对四笔未处理来源：AC #15 的配置修复缺少目标 Makefile 启用条件及 (2/2) 配套，BC #14/#16 是电池机唤醒后 RTOS 时间修复，BC #22 依赖 AOV 休眠时序和 AVTS 事件同步；均暂缓跨侧合并，不修改 CAP 源码。",
+    "kind": "record_consolidation",
+    "summary": "按用户要求，以本 JSON 保留十笔未处理来源的逐项状态、补丁依据及剩余边界；移除 merge_work 中重复的本轮复核文字。来源状态与 CAP 目标 HEAD 未变。",
     "affected": [
       "AC#15",
+      "AC#27",
+      "BC#6",
+      "BC#13",
       "BC#14",
       "BC#16",
-      "BC#22"
+      "BC#22",
+      "BC#38",
+      "BC#49",
+      "BC#63"
     ]
   },
   "entries": [

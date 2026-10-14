@@ -2,9 +2,9 @@
 
 ## 动态合入状态
 
-[`merge_status.json`](merge_status.json) 是 AC/BC 95 笔原始焦点提交的**当前逻辑合并进度记录**，以 `AC#编号` / `BC#编号` 对应 [`commits.md`](commits.md) 的完整来源 SHA。状态分别为 `merged_complete`（已修复合入完全）、`merged_partial`（已有修复但未完全）、`preexisting_coverage`（物理合并前或对侧基础已有覆盖）、`deferred`（暂缓）、`no_merge_fix`（尚无有效跨侧合入修复或完整覆盖证据）。后两种状态不表示原产品路径失效，也不自动要求改代码。
+[`merge_status.json`](merge_status.json) 是 AC/BC 95 笔原始焦点提交的**当前逻辑合并进度记录**，以 `AC#编号` / `BC#编号` 对应 [`commits.md`](commits.md) 的完整来源 SHA。状态分别为 `merged_complete`（已修复合入完全）、`merged_partial`（已有修复但未完全）、`preexisting_coverage`（对侧基础或物理合并已有覆盖）、`deferred`（暂缓）、`no_merge_fix`（尚无有效跨侧合入修复或完整覆盖证据）。后两种状态不表示原产品路径失效，也不自动要求改代码。
 
-**每次针对本模块执行审查、合入、确认已有覆盖、标记暂缓、撤销或 rebase 后，都要立即更新此 JSON**：核对目标 HEAD；修改受影响来源的状态与依据或剩余边界；填写 `last_action` 的日期、动作、涉及编号和结果。即使审查后状态不变，也记录这次结论。发现新增来源或原索引变化时，先核对完整 SHA、顺序及总数。不能只改批次文档或 commit log 而漏改此 JSON。这里的合入进度与下述候选等价/依赖确认是两套独立证据，不自动改动 `confirm` 或 `relation_confirm`。
+**每次针对本模块执行审查、合入、确认已有覆盖、标记暂缓、撤销或 rebase 后，都要立即更新此 JSON**：核对目标 HEAD；修改受影响来源的状态与依据或剩余边界；填写 `last_action` 的日期、动作、涉及编号和结果。即使审查后状态不变，也记录这次结论。发现新增来源或原索引变化时，先核对完整 SHA、顺序及总数。逐笔进度与依据以此 JSON 为准；其他文档只放不能在单条 JSON 说明中表达的批次证据或操作口径，不重复维护逐笔清单。这里的合入进度与下述候选等价/依赖确认是两套独立证据，不自动改动 `confirm` 或 `relation_confirm`。
 
 [`merge_relations.json`](merge_relations.json) 记录**当前 CAP 本地提交与 AC/BC 原始焦点提交的多对多关系**。45 笔本地提交均为节点，边指向 `merge_status.json` 的来源编号和完整 SHA；一笔来源可对应多笔局部修复，一笔本地提交也可对应两侧来源。边的 `relation` 明确区分 `merged_scope`（实际修复的明确子范围）、`coverage_evidence`（已有覆盖的验证）、`related_basis`（行为基础）、`physical_merge_context`（BC 物理整合背景）和 `deferred_scope`（暂缓记录）。只有 `merged_scope` 表示本地源码处理，且仍不自动代表整笔原提交完成。例如 AC #8 的 CAP:2/2 分别连接接口、PSS 复制和迁移三笔本地提交；`49851998` 同时验证 AC #19/#20 与 BC #30 的存储头修复。未连边的原始提交单列在 `unlinked_source_ids`，不能据此判定缺功能。
 
