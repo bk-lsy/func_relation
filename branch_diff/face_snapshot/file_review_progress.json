@@ -14,8 +14,8 @@
   "last_action": {
     "date": "2026-10-14",
     "kind": "file_pair_review",
-    "unit_id": "pss_enhance/recog_img_storage",
-    "summary": "recog_img_storage.c/.h 绑定审查，当前无 AC/BC 条件块，未修改 CAP。"
+    "unit_id": "ring_object",
+    "summary": "ring_object.c/.h 绑定审查，无 AC/BC 分支，未修改 CAP。"
   },
   "units": [
     {
@@ -117,8 +117,9 @@
         "ring_object.c",
         "ring_object.h"
       ],
-      "status": "pending",
-      "reviewed_against": null
+      "status": "reviewed_no_change",
+      "reviewed_against": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
+      "finding": "已绑定审查 ring_object.c/.h。循环队列实现及声明均无 AC_ON_BC/BC_ON_AC 分支，当前共用代码无可按本轮口径合并的分支；CAP 未改。"
     },
     {
       "id": "fss",

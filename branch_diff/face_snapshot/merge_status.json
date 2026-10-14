@@ -21,11 +21,10 @@
   "last_action": {
     "date": "2026-10-14",
     "kind": "file_pair_review",
-    "summary": "pss_enhance/recog_img_storage.c/.h 绑定审查并更新 file_review_progress.json；两文件当前无 AC/BC 条件块，既有迁移修复状态不变，CAP HEAD 与关系图不变。",
+    "summary": "ring_object.c/.h 绑定审查并更新 file_review_progress.json；循环队列实现与声明无 AC/BC 分支，来源状态、CAP HEAD 与关系图不变。",
     "affected": [
       "AC#7",
-      "AC#8",
-      "BC#34"
+      "BC#3"
     ]
   },
   "entries": [
