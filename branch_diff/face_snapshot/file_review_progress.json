@@ -14,8 +14,8 @@
   "last_action": {
     "date": "2026-10-14",
     "kind": "file_pair_review",
-    "unit_id": "fd_stg_version/fd_stg_version",
-    "summary": "fd_stg_version.c/.h 绑定审查，版本迁移行为不同，未修改 CAP。"
+    "unit_id": "pss_enhance/pdr_storage",
+    "summary": "pdr_storage.c/.h 绑定审查，剩余三组容量配置属于存储布局差异，未修改 CAP。"
   },
   "units": [
     {
@@ -87,8 +87,9 @@
         "pss_enhance/pdr_storage.c",
         "pss_enhance/pdr_storage.h"
       ],
-      "status": "pending",
-      "reviewed_against": null
+      "status": "reviewed_no_change",
+      "reviewed_against": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
+      "finding": "已绑定审查 pss_enhance/pdr_storage.c/.h。实现文件没有 AC/BC 条件分支；头文件仅 PDR_IMG_OCCUPY_SIZE、PDR_FIGURE_OCCUPY_CNT、PDR_FIGURE_IMG_OCCUPY_CNT 三组容量配置不同，影响持久化空间布局和容量，不能按简单无逻辑差异收敛。CAP 未改。"
     },
     {
       "id": "pss_enhance/recog_img_stg_version",
