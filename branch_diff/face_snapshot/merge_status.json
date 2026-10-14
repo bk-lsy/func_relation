@@ -20,13 +20,10 @@
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "review_batch",
-    "summary": "复核 AC#1 安装规则、AC#2 七文件焦点、AC#18 物理整合覆盖与 AC#21 跨仓回调依赖；AC#18 改为已有覆盖，AC#21 标为暂缓。",
+    "kind": "review",
+    "summary": "核对 AC#4 原补丁及 BC #15/#17/#58/#59 通知链；确认公共配置/取主图接口，推送时序与消息契约仍未闭环，保持部分状态。",
     "affected": [
-      "AC#1",
-      "AC#2",
-      "AC#18",
-      "AC#21"
+      "AC#4"
     ]
   },
   "entries": [
@@ -64,7 +61,7 @@
       "source_commit": "0c090e6e760c94ae5fba13ce346c735a24df99e3",
       "source_title": "[all] cap|face_snapshot: support notify and send image to APP",
       "status": "merged_partial",
-      "note": "`e4f4a3aa`、`3e44e0dc` 等覆盖主图与通知配置；推送间隔、陌生人次数、HUB/云消息链未闭环。"
+      "note": "`e4f4a3aa`、`3e44e0dc` 等已覆盖主图读取容量及通知配置子范围；本次核对当前公共配置/取主图接口，并追溯 BC #15/#17/#58/#59。AC 的推送间隔、陌生人次数与 BC 唤醒/24 小时计数、pushable、HUB/包裹消息格式和消息 ID 仍属实际策略差异，通知消费链未闭环；保留部分。见 merge_work/review_20261014.md。"
     },
     {
       "id": "AC#5",
