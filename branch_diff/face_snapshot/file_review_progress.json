@@ -14,8 +14,8 @@
   "last_action": {
     "date": "2026-10-14",
     "kind": "file_pair_review",
-    "unit_id": "pss_enhance/recog_img_stg_version",
-    "summary": "recog_img_stg_version.c/.h 绑定审查，无 AC/BC 分支，未修改 CAP。"
+    "unit_id": "pss_enhance/recog_img_storage",
+    "summary": "recog_img_storage.c/.h 绑定审查，当前无 AC/BC 条件块，未修改 CAP。"
   },
   "units": [
     {
@@ -107,8 +107,9 @@
         "pss_enhance/recog_img_storage.c",
         "pss_enhance/recog_img_storage.h"
       ],
-      "status": "pending",
-      "reviewed_against": null
+      "status": "reviewed_no_change",
+      "reviewed_against": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
+      "finding": "已绑定审查 pss_enhance/recog_img_storage.c/.h。两文件当前均无 AC_ON_BC/BC_ON_AC 条件块，既有 c1e20d15/c035689c/6db07dd7 已收敛本文件的接口、复制与迁移范围。本轮按不改变实际逻辑或仅简单逻辑口径，无新的可收敛分支；CAP 未改。此记录不替代既有迁移逻辑的设备验证。"
     },
     {
       "id": "ring_object",
