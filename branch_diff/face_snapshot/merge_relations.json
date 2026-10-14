@@ -2,7 +2,7 @@
   "schema_version": 1,
   "scope": "CAP face_snapshot current local commits to AC/BC original focus commits; multi-to-multi, scoped evidence only",
   "target_branch": "face_snapshot_converge_1010",
-  "target_head": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
+  "target_head": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
   "local_base": "3e40aa2606ea54ff93f9b39deeddb7cd970d351b",
   "source_index": "merge_status.json",
   "relation_definitions": {
@@ -760,18 +760,6 @@
       "title": "[Deferred] face_snapshot: keep BC battery IoT statistics separate",
       "kind": "documentation",
       "scope": "BC battery IoT monthly/weekly statistics deferred as product difference"
-    },
-    {
-      "commit": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5",
-      "title": "refactor(face_snapshot): share periodic statistics report gate",
-      "kind": "source_change",
-      "scope": "fd_statistics.c/.h periodic report preprocessing gate; no runtime logic change"
-    },
-    {
-      "commit": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
-      "title": "refactor(face_snapshot): share statistics report storage gate",
-      "kind": "source_change",
-      "scope": "fd_statistics_stg.c/.h report storage preprocessing gate and shared definition placement"
     }
   ],
   "edges": [
@@ -2132,116 +2120,6 @@
       "evidence": {
         "kind": "cap_commit_message",
         "commit": "785e753721f12b5b9712cec319e8d9e9cf9114ea"
-      }
-    },
-    {
-      "local_commit": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5",
-      "source_id": "AC#7",
-      "source_commit": "34bee47fb3f416bfce4e17c0653280b98e18cd5b",
-      "relation": "merged_scope",
-      "scope": "AC periodic report declaration and implementation gate",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5"
-      }
-    },
-    {
-      "local_commit": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5",
-      "source_id": "BC#3",
-      "source_commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6",
-      "relation": "merged_scope",
-      "scope": "BC base periodic report declaration and implementation gate",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5"
-      }
-    },
-    {
-      "local_commit": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5",
-      "source_id": "BC#10",
-      "source_commit": "fcda83d10c63d9ee7a64d7fd6f487eb692d146e7",
-      "relation": "related_basis",
-      "scope": "BC battery camera report exclusion remains product specific; deferred feature is not merged",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5"
-      }
-    },
-    {
-      "local_commit": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5",
-      "source_id": "BC#60",
-      "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
-      "relation": "physical_merge_context",
-      "scope": "AC header report enum and declaration branch",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5"
-      }
-    },
-    {
-      "local_commit": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5",
-      "source_id": "BC#61",
-      "source_commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6",
-      "relation": "physical_merge_context",
-      "scope": "AC/BC statistics implementation report gates",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5"
-      }
-    },
-    {
-      "local_commit": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
-      "source_id": "AC#7",
-      "source_commit": "34bee47fb3f416bfce4e17c0653280b98e18cd5b",
-      "relation": "merged_scope",
-      "scope": "AC report status storage declarations and implementation",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "090a85df6d19c89dc0101fd665821bf5cdffb73f"
-      }
-    },
-    {
-      "local_commit": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
-      "source_id": "BC#3",
-      "source_commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6",
-      "relation": "merged_scope",
-      "scope": "BC base report status storage declarations and implementation",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "090a85df6d19c89dc0101fd665821bf5cdffb73f"
-      }
-    },
-    {
-      "local_commit": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
-      "source_id": "BC#10",
-      "source_commit": "fcda83d10c63d9ee7a64d7fd6f487eb692d146e7",
-      "relation": "related_basis",
-      "scope": "BC battery camera exclusion retained; deferred feature not merged",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "090a85df6d19c89dc0101fd665821bf5cdffb73f"
-      }
-    },
-    {
-      "local_commit": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
-      "source_id": "BC#60",
-      "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
-      "relation": "physical_merge_context",
-      "scope": "AC report status storage header branch",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "090a85df6d19c89dc0101fd665821bf5cdffb73f"
-      }
-    },
-    {
-      "local_commit": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
-      "source_id": "BC#61",
-      "source_commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6",
-      "relation": "physical_merge_context",
-      "scope": "AC/BC report status storage implementation gates",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "090a85df6d19c89dc0101fd665821bf5cdffb73f"
       }
     }
   ],

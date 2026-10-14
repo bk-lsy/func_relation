@@ -8,7 +8,7 @@
   },
   "target": {
     "branch": "face_snapshot_converge_1010",
-    "head": "090a85df6d19c89dc0101fd665821bf5cdffb73f"
+    "head": "785e753721f12b5b9712cec319e8d9e9cf9114ea"
   },
   "baseline_date": "2026-10-14",
   "status_definitions": {
@@ -20,13 +20,12 @@
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "single_file_review",
-    "summary": "fss.c 单文件审查并更新 file_review_progress.json；剩余条件分支涉及配置模型或已整组暂缓的摄像头操作日志系列，CAP HEAD 与来源状态/关系图不变。",
+    "kind": "non_source_file_review",
+    "summary": "在删除宏包装提交后继续按文件排查 Makefile 和默认配置；8 个普通默认文件两侧同字节，storage_head_info 两侧布局值分别由 files/files_ac 保留，CAP HEAD 与关系图不变。",
     "affected": [
+      "AC#1",
       "AC#7",
-      "AC#28",
-      "AC#29",
-      "BC#10"
+      "BC#61"
     ]
   },
   "entries": [

@@ -4,7 +4,7 @@
   "module_root": "src/modules/face_snapshot",
   "target": {
     "branch": "face_snapshot_converge_1010",
-    "head": "090a85df6d19c89dc0101fd665821bf5cdffb73f"
+    "head": "785e753721f12b5b9712cec319e8d9e9cf9114ea"
   },
   "status_definitions": {
     "pending": "该文件组尚未按本轮不改变逻辑或仅涉及简单逻辑的口径逐段审查。",
@@ -13,9 +13,9 @@
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "single_file_review",
-    "unit_id": "fss",
-    "summary": "fss.c 单文件审查，剩余分支涉及 DS 配置模型和已暂缓摄像头日志系列，未修改 CAP。"
+    "kind": "non_source_file_review",
+    "unit_id": "storage_head_info_defaults",
+    "summary": "Makefile、8 个共用默认文件及 BC/AC storage_head_info 双文件组已审；无实质合入修复，CAP 未改。"
   },
   "units": [
     {
@@ -54,11 +54,9 @@
         "fd_statistics.c",
         "fd_statistics.h"
       ],
-      "status": "reviewed_with_change",
-      "reviewed_against": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
-      "cap_commit": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5",
-      "finding": "已绑定审查 fd_statistics.c/.h。把 AC 周期报表与 BC 非电池机周期报表的声明、枚举和实现统一使用 FDS_PERIODIC_REPORT_ENABLED，移除 BC_ON_AC 与其他宏的 ||/&& 组合；8 种宏组合的预处理结果与原实现条件一致。BC 电池机月/周报产品逻辑仍保持原状，BC#10 整组暂缓状态不变。 后续 090a85df 将开关定义移入 fd_statistics_stg.h，供统计和存储共同使用。",
-      "followup_cap_commit": "090a85df6d19c89dc0101fd665821bf5cdffb73f"
+      "status": "reviewed_no_change",
+      "reviewed_against": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
+      "finding": "已绑定审查 fd_statistics.c/.h。剩余周期报表宏分歧对应 AC 常规上报与 BC 电池机月/周报条件，仅引入共用开关未改变分支逻辑；该类提交已从 CAP 历史删除。其他分支涉及报表行为和电池机策略，本轮无实质收敛改动。"
     },
     {
       "id": "fd_statistics_stg",
@@ -66,10 +64,9 @@
         "fd_statistics_stg.c",
         "fd_statistics_stg.h"
       ],
-      "status": "reviewed_with_change",
-      "reviewed_against": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
-      "cap_commit": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
-      "finding": "已绑定审查 fd_statistics_stg.c/.h。将上一组引入的 FDS_PERIODIC_REPORT_ENABLED 放到存储头文件供两组共用，合并四处同内容的 AC/BC 声明分支及七处实现预处理条件。8 种宏组合与原存储实现条件一致；BC 电池机月/周报仍保持原边界，BC#10 继续整组暂缓。"
+      "status": "reviewed_no_change",
+      "reviewed_against": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
+      "finding": "已绑定审查 fd_statistics_stg.c/.h。剩余周期报表存储条件、声明和实现与 AC/BC 报表产品边界绑定；仅以共用开关替换条件不算实质合入，相关提交已从 CAP 历史删除。本轮无实质收敛改动。"
     },
     {
       "id": "fd_stg_version/fd_stg_version",
@@ -130,6 +127,42 @@
       "reviewed_against": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
       "note": "当前模块没有同名 fss.h；作为单文件审查单元。",
       "finding": "已按单文件单元审查 fss.c（模块无同名 fss.h）。剩余条件分支涉及 AC 摄像头操作日志 pre_set 钩子（对应整组暂缓 AC#28/#29）、BC 新增的模型状态/通知计数/图片格式与 IQA 配置字段，以及数据模型注册方式；这些会改变 DS 接口、配置或产品行为，本轮不拆取。CAP 未改。"
+    },
+    {
+      "id": "Makefile",
+      "files": [
+        "Makefile"
+      ],
+      "status": "reviewed_no_change",
+      "reviewed_against": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
+      "finding": "已比较当前目标与 AC/BC tip。源文件选择与安装规则中，BC 基础路径安装 files，AC_ON_BC 路径先安装 files 再由 files_ac 覆盖。差异用于选择 AC 的存储头配置；只重排 cp/宏条件不会构成实质合入修复，本轮未改。"
+    },
+    {
+      "id": "default_configs_common",
+      "files": [
+        "files/etc/default/face_snapshot/arming_schedule",
+        "files/etc/default/face_snapshot/feature_code",
+        "files/etc/default/face_snapshot/fss_gen_cfg",
+        "files/etc/default/face_snapshot/fss_pic_cfg",
+        "files/etc/default/face_snapshot/fss_rule",
+        "files/etc/default/face_snapshot/fss_size_cfg",
+        "files/etc/default/face_snapshot/region_info",
+        "files/etc/default/face_snapshot/size_limit"
+      ],
+      "status": "reviewed_no_change",
+      "reviewed_against": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
+      "finding": "8 个普通默认文件逐字节对比当前目标、AC tip 和 BC tip 均一致，已是双方共用配置，无须重复合入。"
+    },
+    {
+      "id": "storage_head_info_defaults",
+      "files": [
+        "files/etc/default/face_snapshot/storage_head_info",
+        "files_ac/etc/default/face_snapshot/storage_head_info"
+      ],
+      "status": "reviewed_no_change",
+      "reviewed_against": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
+      "finding": "BC 默认 storage_head_info 与 BC tip 同字节（sub_version=2、max_face_num=20）；files_ac 中的文件与 AC tip 普通路径同字节（sub_version=1、max_face_num=50）。Makefile 的 AC 路径覆盖安装后保持两侧各自容量/版本，属于实际持久化布局差异，本轮未改。"
     }
-  ]
+  ],
+  "review_criteria": "只有实质合并 AC/BC 差异的源码改动才记为 reviewed_with_change；仅把原条件换成统一开关、把宏分歧隐藏到别处不算合入修复。"
 }
