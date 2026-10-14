@@ -21,10 +21,11 @@
   "last_action": {
     "date": "2026-10-15",
     "kind": "functional_review_merge_1014",
-    "summary": "依据 AC#26 及配套 NVMP/NSD 遥测提交，将人脸遥测统计和 DS 查询接口共用于 BC 的 TELEMETRY_SUPPORT 路径；pack/secure 源码树一致，26 项主机测试通过。复评 BC#24/#28/#44 时确认 NVMP 配置字段或存储版本仍有跨侧差异，保留整组待评审。",
+    "summary": "获准跨仓合入后，在新 NVMP 分支共享 BC#24/#28 的 FSS_IQA_THRESH 字段，并先完成 BC#24 CAP 自适应 IQA 合入。BC 宏展开保持不变，AC 新阈值缺省时回退原有基础阈值；pack/secure 源码树一致。",
     "affected": [
       "pack_face_snapshot_converge_1014",
-      "secure/face_snapshot_converge_1014"
+      "secure/face_snapshot_converge_1014",
+      "NVMP face_snapshot_iqa_converge_1015"
     ]
   },
   "entries": [
@@ -899,12 +900,12 @@
   },
   "packaging_1014": {
     "branch": "pack_face_snapshot_converge_1014",
-    "head": "ce63eda739950e0b5febf3d0614a2a9dd3e8a113",
+    "head": "def7998badb1f28811d27cc4ec3fd4c984473516",
     "base": "102ba4b17bb1eac7eff0f89c52d8b1700e1ae378",
     "source_branch": "secure/face_snapshot_converge_1014",
-    "source_head": "edf594e6bb582e361187ed3a7ec206e4c608e0a2",
+    "source_head": "81af94fb47058abf84669b5d7e23c92b51ce49a5",
     "module_path": "src/modules/face_snapshot",
-    "module_tree": "fed372dd6e6615e48509b743a001a5ba22a76429",
+    "module_tree": "392be69f1c3dd4935f749eea4f27739d853366b8",
     "module_tree_equal": true,
     "source_only_commits": true,
     "commits": [
@@ -980,6 +981,15 @@
           "1ab529891045131033eef8f7e2b625932f15d02e"
         ],
         "secure_commit": "edf594e6bb582e361187ed3a7ec206e4c608e0a2"
+      },
+      {
+        "pack_commit": "def7998badb1f28811d27cc4ec3fd4c984473516",
+        "kind": "functional_review_merge",
+        "source_commits": [
+          "ea1f1e58e27219d43e466ec8c5c06d2e9006d6bc"
+        ],
+        "secure_commit": "81af94fb47058abf84669b5d7e23c92b51ce49a5",
+        "nvmp_commit": "8a88fe51a668ec8637f9cca8dd62bf25669d69c1"
       }
     ]
   },
@@ -1002,6 +1012,15 @@
         "pack_commit": "ce63eda739950e0b5febf3d0614a2a9dd3e8a113",
         "secure_commit": "edf594e6bb582e361187ed3a7ec206e4c608e0a2",
         "verification": "AC+TELEMETRY_SUPPORT 和 BC 默认的预处理 token 与提交前相同；BC+TELEMETRY_SUPPORT 可见统计结构与查询接口；26 项主机测试通过；两分支模块树 fed372dd6e6615e48509b743a001a5ba22a76429 相同。未进行产品交叉编译或设备遥测联调。"
+      },
+      {
+        "id": "BC#24",
+        "source_commit": "ea1f1e58e27219d43e466ec8c5c06d2e9006d6bc",
+        "result": "低角度/高模糊阈值字段、DS 登记、阈值读取与自适应质量判断共用于 AC/BC；AC 旧配置新增字段为 0 时沿用原基础阈值。NVMP 配套模型字段已在独立分支共用。",
+        "pack_commit": "def7998badb1f28811d27cc4ec3fd4c984473516",
+        "secure_commit": "81af94fb47058abf84669b5d7e23c92b51ce49a5",
+        "nvmp_commit": "8a88fe51a668ec8637f9cca8dd62bf25669d69c1",
+        "verification": "BC 侧 CAP 三文件及 NVMP FSS_IQA_THRESH 预处理 token 与合入前相同；AC/BC 运行自适应阈值定向主机用例通过。旧 26 项测试中 25 项通过，1 项因固定要求 AC setter 与旧版逐字相同而与本次功能合入目标冲突。未做产品交叉编译或旧设备配置迁移验证。"
       }
     ],
     "assessed_still_deferred": [
@@ -1024,11 +1043,6 @@
         "id": "BC#7",
         "source_commit": "b49a124e00f5f79db64923bb3ad6d164068b0879",
         "reason": "AC 添加熟人入口已优先查熟人；把优先规则扩展到全部 AC 相似度查询会改变现有匹配语义。"
-      },
-      {
-        "id": "BC#24",
-        "source_commit": "ea1f1e58e27219d43e466ec8c5c06d2e9006d6bc",
-        "reason": "CAP 侧可消去自适应 IQA 阈值的多处 BC 宏，但 NVMP libsdm 的 FSS_IQA_THRESH 低角度/高模糊字段仍只在 BC 展开。需与 NVMP (1/2) 数据模型及旧配置布局一起处理，单改 CAP 会使 AC 编译失败。"
       },
       {
         "id": "BC#28",
