@@ -2,7 +2,7 @@
 
 更新时间：2026-10-14
 
-当前有效口径、已跳过/暂缓/撤销的来源提交及仍保留的风险标记，集中见 [当前状态快照](current_status.md)。AC/BC 95 笔原始焦点提交的**动态逐笔进度**见 [`merge_status.json`](../branch_diff/face_snapshot/merge_status.json)；[来源状态清单](source_status.md) 是 2026-10-14 的盘点快照，后续 AC #1/#2/#4/#18/#21 核对见 [本次审查记录](review_20261014.md)。本文件保留逐批推进记录与来源索引。
+当前有效口径、已跳过/暂缓/撤销的来源提交及仍保留的风险标记，集中见 [当前状态快照](current_status.md)。AC/BC 95 笔原始焦点提交的**动态逐笔进度**见 [`merge_status.json`](../branch_diff/face_snapshot/merge_status.json)；[来源状态清单](source_status.md) 是 2026-10-14 的盘点快照，后续 AC #1/#2/#4/#18/#21 核对见 [本次审查记录](review_20261014.md)，六笔未处理来源的补丁/依赖核对见 [未处理复核](review_unprocessed_20261014.md)。本文件保留逐批推进记录与来源索引。
 
 后续选题按 [完成度与后续方向](mainline.md) 执行：先评估已有合并对原始补丁的覆盖和剩余范围，再以未闭合机制、原始 AC/BC 来源及完整依赖链确定下一项。批次要求的提交数只控制暂停位置，不用于倒推选题。
 

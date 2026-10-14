@@ -13,20 +13,22 @@
   "baseline_date": "2026-10-14",
   "status_definitions": {
     "merged_complete": "有本地源码修复或收敛，且有证据覆盖原提交焦点补丁范围；不代表固件或设备验证完成。",
-    "preexisting_coverage": "焦点补丁在对侧基础、BC 物理合并前或当前共用代码中已有覆盖，无需重复提交。",
+    "preexisting_coverage": "焦点补丁在对侧基础、BC 物理合并前或物理合并中、或当前共用代码中已有覆盖，无需重复提交。",
     "merged_partial": "已有本地源码修复或收敛，但原提交仍有未闭合范围，或只取了后续修复的一部分。",
     "deferred": "用户要求跳过、跨仓依赖未闭环，或此前局部提交已撤销。",
     "no_merge_fix": "尚无有效跨侧合入修复提交或完整覆盖证据；不等于该产品路径缺功能或必须修改。"
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "defer_product_difference",
-    "summary": "按用户决定，BC #10 电池机 IoT 周/月统计为 AC/BC 固有产品差异，暂不跨侧合并；移除未推送的源码尝试 f9eb215d，并以 CAP 文档提交 785e7537 标记原提交。",
+    "kind": "source_review",
+    "summary": "按未处理来源逐笔核对 AC #27、BC #6/#13/#38/#49/#63；AC #27 和 BC #13/#49 的焦点补丁已有目标覆盖，BC #6 的 AOV 休眠调用跨 battery_manage，BC #38/#63 的包上传 API 依赖 NVMP (2/2)，分别暂缓跨侧合并；未改 CAP 源码。",
     "affected": [
-      "BC#10",
-      "AC#7",
-      "BC#60",
-      "BC#61"
+      "AC#27",
+      "BC#6",
+      "BC#13",
+      "BC#38",
+      "BC#49",
+      "BC#63"
     ]
   },
   "entries": [
@@ -270,8 +272,8 @@
       "index": 27,
       "source_commit": "ebb0da210c6c5270f059715b454b2b64328ce82c",
       "source_title": "[ALL] face_snapshot: Fix non-standard code for telemetry support of face recognition",
-      "status": "no_merge_fix",
-      "note": "telemetry 后续修复随 AC #26 链审查；尚无有效跨侧合入结论。"
+      "status": "preexisting_coverage",
+      "note": "原补丁 `ebb0da210c6c5270f059715b454b2b64328ce82c` 的 TELEMETRY_SUPPORT 宏结束注释、空参返回 SLP_EINVARG、getFaceTelemetryInfo 注册宏保护，在当前 AC 路径均可逐项找到；BC 物理整合 `bb3085b88fbccd3b515d2ee7859417e807b7180f` 已保留，不重复修复。此结论仅覆盖本笔非标准代码修复，不把 AC #26 的跨仓遥测能力算作已合入 BC。"
     },
     {
       "id": "AC#28",
@@ -351,8 +353,8 @@
       "index": 6,
       "source_commit": "26843acc363708ee4975ef04a9b87b23215a60ec",
       "source_title": "[all]cap:save face data before AOV",
-      "status": "no_merge_fix",
-      "note": "AOV 前保存统计数据的定时/锁路径无跨侧合入结论。"
+      "status": "deferred",
+      "note": "原提交 `26843acc363708ee4975ef04a9b87b23215a60ec` 同时移动 battery_manage/power_down.c 的休眠前保存调用，并在 fd_statistics_update_hourly_data() 中先删定时器再持锁以避免与 AOV 休眠并发死锁。目标 BC 路径保留该机制；AC 路径无同一电池机休眠调用。涉及跨模块电源时序与产品边界，暂缓跨入 AC，不把单独定时器改动拆出合入。"
     },
     {
       "id": "BC#7",
@@ -414,8 +416,8 @@
       "index": 13,
       "source_commit": "22c12edfc09bcceee973ccdfafc30a90436f57cb",
       "source_title": "[All] cap/fss: remove unnecessary logs",
-      "status": "no_merge_fix",
-      "note": "删除日志的原补丁未作跨侧处理。"
+      "status": "preexisting_coverage",
+      "note": "原补丁 `22c12edfc09bcceee973ccdfafc30a90436f57cb` 仅删除 fss_data_model() 启动时的分隔线 printf；当前 BC 基础与 AC tip 均无该打印，目标同样无打印，无需重复修改。"
     },
     {
       "id": "BC#14",
@@ -639,8 +641,8 @@
       "index": 38,
       "source_commit": "1a03e63298ff39ec1b1890dce4999fea31322b10",
       "source_title": "[all] face_control: Support doFaceInfoAddPacketized API (1/2)",
-      "status": "no_merge_fix",
-      "note": "Packetized API `(1/2)` 是独立接口能力，跨仓系列未核完。"
+      "status": "deferred",
+      "note": "原 CAP `1a03e63298ff39ec1b1890dce4999fea31322b10` 为电池机大图上传增加 doFaceInfoAddPacketized (1/2)；NVMP 配套 (2/2) `b4b44c924be1b804889147c764942f81e3df1d9c` 在 libds 映射 API、在 libsdm 增加 max_faceinfo_bytes。NVMP BC 当前含配套，AC 对照 ref 无这两项；CAP 当前只在 BC 路径提供包上传。跨侧依赖和产品传输需求未闭环，暂缓迁入 AC，BC 原路径保留。"
     },
     {
       "id": "BC#39",
@@ -738,8 +740,8 @@
       "index": 49,
       "source_commit": "e933738e1f6b75a20eb2323aa0796c04fa1194f0",
       "source_title": "[cap] fd_statistics: fix null pointer memset compile error in monthly mode",
-      "status": "no_merge_fix",
-      "note": "月报模式空指针编译修复尚无跨侧结论。"
+      "status": "preexisting_coverage",
+      "note": "原补丁 `e933738e1f6b75a20eb2323aa0796c04fa1194f0` 修复月报 NULL rep_infos 的 memset：原 BC 将指针改为 calloc。当前目标的 BC 物理整合 `f96c42168ed1262f07bb1afb6240645ad4e24ff6` 已改为初始化的 32 项栈数组，周报/月报 memset 均操作该数组，无原空指针问题；未改报表路径，也不撤销 BC #10 暂缓。"
     },
     {
       "id": "BC#50",
@@ -864,8 +866,8 @@
       "index": 63,
       "source_commit": "13f832c751368d15618ae7d9209634f6657d7429",
       "source_title": "[CAP] face_control: fix compile error",
-      "status": "no_merge_fix",
-      "note": "Packetized API 的编译前置声明只在 BC 路径，未有跨侧处理结论。"
+      "status": "deferred",
+      "note": "原补丁 `13f832c751368d15618ae7d9209634f6657d7429` 仅为 BC #38 的 face_info_add_req_parse / face_info_process_add_or_change 增加前置声明；当前 BC 路径已有声明且 AC 路径无对应包上传函数。随 BC #38 及 NVMP `b4b44c924be1b804889147c764942f81e3df1d9c` 一起暂缓跨侧合并，BC 编译修复保留。"
     },
     {
       "id": "BC#64",
