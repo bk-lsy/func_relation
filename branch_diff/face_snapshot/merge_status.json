@@ -20,19 +20,15 @@
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "record_consolidation",
-    "summary": "按用户要求，以本 JSON 保留十笔未处理来源的逐项状态、补丁依据及剩余边界；移除 merge_work 中重复的本轮复核文字。来源状态与 CAP 目标 HEAD 未变。",
+    "kind": "source_review",
+    "summary": "复核 BC #47/#48/#50/#51/#59/#65 六笔未处理来源：增强包裹检测和包裹历史跨模块/跨仓，NVMP AC 对照 ref 缺安全时间包装接口，HUB 消息与 PSS 标签涉及消费者契约；均暂缓跨侧合入，BC 原路径保留，CAP 未改源码。",
     "affected": [
-      "AC#15",
-      "AC#27",
-      "BC#6",
-      "BC#13",
-      "BC#14",
-      "BC#16",
-      "BC#22",
-      "BC#38",
-      "BC#49",
-      "BC#63"
+      "BC#47",
+      "BC#48",
+      "BC#50",
+      "BC#51",
+      "BC#59",
+      "BC#65"
     ]
   },
   "entries": [
@@ -726,8 +722,8 @@
       "index": 47,
       "source_commit": "7012ac55e8970c87146e8e5f740454d2c4d84350",
       "source_title": "[all]cap: support enhanced package detection [2/5]",
-      "status": "no_merge_fix",
-      "note": "增强包裹检测 `[2/5]` 跨模块机制未核完。"
+      "status": "deferred",
+      "note": "原 CAP `7012ac55e8970c87146e8e5f740454d2c4d84350` `(2/5)` 新增 en_pkgd 模块并在 face_control.c 通过 EN_PKGD_SUPPORT 向其发送人脸结果；本地 NVMP 历史定位到配套 `(1/5)` `16d21a671d5d3332c47c33b5e662ad3d2973d914`。该产品能力还修改 battery_manage、mcu_proxy、msg_alarm 等，AC 无独立 en_pkgd 契约证据；整组暂缓跨侧合入，BC 原逻辑保留。"
     },
     {
       "id": "BC#48",
@@ -735,8 +731,8 @@
       "index": 48,
       "source_commit": "ce7ab9a6169954d89f0a86379e75321c1baa2fa6",
       "source_title": "[ALL]nvmp|cap: Wrap localtime_r/gmtime_r, unify time conversion APIs across NVMP platform[3/4]",
-      "status": "no_merge_fix",
-      "note": "时间转换 API `[3/4]` 依赖 NVMP 平台封装，未跨侧合入。"
+      "status": "deferred",
+      "note": "原 CAP `ce7ab9a6169954d89f0a86379e75321c1baa2fa6` `(3/4)` 将 fd_statistics.c 的 localtime 调用改用 nvmp_localtime_safe；NVMP BC 的 `(1/4)` `2691163edb0e3118d19c8ed4cfb54e2c226a7f69` 定义/声明该接口，但在本地 NVMP AC 对照 ref `origin/develop/nvmp_release_1.9.2` 的 libutils 中未找到。当前 CAP 物理合并后的共用统计路径已调用它，AC 配套编译依赖尚未闭环；整组暂缓跨侧处理，不把 CAP 单文件视为已完成合入。"
     },
     {
       "id": "BC#49",
@@ -753,8 +749,8 @@
       "index": 50,
       "source_commit": "6bf25ceb87ec8e0967db1f54f6802149f3e38d79",
       "source_title": "[cap] en_pkgd|face_snapshot: update package history when face detected (1/2)",
-      "status": "no_merge_fix",
-      "note": "增强包裹历史 `(1/2)` 依赖外部模块，未跨侧合入。"
+      "status": "deferred",
+      "note": "原 CAP `6bf25ceb87ec8e0967db1f54f6802149f3e38d79` `(1/2)` 为 EN_PKGD_SUPPORT 调整人脸 IoT pushable 与本地 pkg_history 更新，并同时修改 en_pkgd 模块。该逻辑需包裹历史模块、云端消费者及另一半系列契约；当前仅在 BC 产品路径保留，暂缓跨入 AC。后续 BC #51 改变本地维护启用条件，须同组核对。"
     },
     {
       "id": "BC#51",
@@ -762,8 +758,8 @@
       "index": 51,
       "source_commit": "b8e8a80294fc5f063c82dffb2f4d4620f4e5baeb",
       "source_title": "[cap] en_pkgd: add macro control for local package history maintainance logic",
-      "status": "no_merge_fix",
-      "note": "本地包裹历史宏控制与 BC #50 同链，未闭环。"
+      "status": "deferred",
+      "note": "原提交 `b8e8a80294fc5f063c82dffb2f4d4620f4e5baeb` 以 LOCAL_PKG_HISTORY_SUPPORT 宏控制 BC #50 的本地包裹历史维护，同时改 en_pkgd、hsr 和 face_control.c。它依附 BC #47/#50 的增强包裹机制，AC 无该模块/产品启用依据；随整组暂缓跨侧合入，BC 原宏路径保留。"
     },
     {
       "id": "BC#52",
@@ -834,8 +830,8 @@
       "index": 59,
       "source_commit": "48e74a2785dc75597636ea35f1e8e7d180036d5c",
       "source_title": "[all] face_control: include HUB fields for familiar and unfamiliar recongition events",
-      "status": "no_merge_fix",
-      "note": "HUB 事件 `msgAgent` 字段与 AC 消息格式不同，未跨侧合入。"
+      "status": "deferred",
+      "note": "原提交 `48e74a2785dc75597636ea35f1e8e7d180036d5c` 在 HUB_MANAGE_SUPPORT 下根据 hub_storage/AI 状态计算 msgAgent 并写入熟人、陌生人告警 JSON；目标 BC 路径已有，AC 的告警 JSON 不含 msgAgent。消息消费者与 AC HUB 代理协议未核对，暂缓改变 AC 消息格式。"
     },
     {
       "id": "BC#60",
@@ -888,8 +884,8 @@
       "index": 65,
       "source_commit": "3e40aa2606ea54ff93f9b39deeddb7cd970d351b",
       "source_title": "[all] face_control: add qualified face tags for pss recognition",
-      "status": "no_merge_fix",
-      "note": "PSS 合格标签与事件上报为 BC 后续机制，尚无跨侧适用性结论。"
+      "status": "deferred",
+      "note": "原提交 `3e40aa2606ea54ff93f9b39deeddb7cd970d351b` 扩展 PSS 多人选择、熟人匹配及 qualified face 事件/视频标签；目标 BC 路径保留。它影响 PSS 存储、识别结果与视频事件消费者，AC PSS 对应契约未核对，暂缓跨侧合入，不拆出局部算法变更。"
     }
   ],
   "relation_graph": "merge_relations.json"
