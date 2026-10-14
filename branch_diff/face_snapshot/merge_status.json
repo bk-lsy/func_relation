@@ -20,9 +20,14 @@
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "initial_inventory",
-    "summary": "将 merge_work/source_status.md 的 95 笔初始分类与 commits.md 的完整 SHA、标题逐项对应。",
-    "affected": "all"
+    "kind": "review_batch",
+    "summary": "复核 AC#1 安装规则、AC#2 七文件焦点、AC#18 物理整合覆盖与 AC#21 跨仓回调依赖；AC#18 改为已有覆盖，AC#21 标为暂缓。",
+    "affected": [
+      "AC#1",
+      "AC#2",
+      "AC#18",
+      "AC#21"
+    ]
   },
   "entries": [
     {
@@ -32,7 +37,7 @@
       "source_commit": "531e61624272f64fb8e0d0fc09af286e6f52a180",
       "source_title": "[all] cap|face_snapshot: support face_snapshot data model",
       "status": "merged_partial",
-      "note": "`eea101fd` 及 batch1：模型和八个普通默认文件已有覆盖；默认存储头及实际安装宏/布局仍待产品边界结论。"
+      "note": "`eea101fd`/batch1 已核实模型与八个普通默认文件；本次复核当前 CAP Makefile：AC_ON_BC 与 BC_ON_AC 均启用时先复制 files 后由 files_ac 覆盖，未启用时仅复制 files；八个默认文件与 AC tip 同字节，files_ac/storage_head_info 与 AC tip 同字节。当前仓库未找到具体产品配置或实际安装产物，产品启用宏及布局验证仍未闭环。"
     },
     {
       "id": "AC#2",
@@ -41,7 +46,7 @@
       "source_commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20",
       "source_title": "[all] cap|support face_recognition",
       "status": "merged_partial",
-      "note": "`03e9468f`、`34edf47b`、`0ffe0983`、`3edc0cbb`、`2cd5c409`、`0669e92e`、`92e9ed68` 等覆盖特征/存储/阈值子范围；七文件补丁未逐项闭环。"
+      "note": "`03e9468f`、`34edf47b`、`0ffe0983`、`3edc0cbb`、`2cd5c409`、`0669e92e`、`92e9ed68` 等已共用特征读取、相似度、存储辅助函数和阈值子范围；本次按七文件焦点核对，BC 基础 450a0bbe 与物理整合 be46f651/bb3085b8 保留大量 AC 路径。IQA 阈值/字段、存储子版本/挂载、控制通知/HUB/PSS 和后续配置能力仍有来源与产品边界，未能把整笔认定为完全。见 merge_work/review_20261014.md。"
     },
     {
       "id": "AC#3",
@@ -184,8 +189,8 @@
       "index": 18,
       "source_commit": "0fac6a5d2bc057c06c4eb7720cb4e972fedfab1f",
       "source_title": "[all]cap:fix compilation error",
-      "status": "no_merge_fix",
-      "note": "编译修复尚无本地跨侧处理记录。"
+      "status": "preexisting_coverage",
+      "note": "原补丁 0fac6a5d2bc057c06c4eb7720cb4e972fedfab1f 仅把 face_control.c 两处 handle_fds_event() 调用改为 fd_handle_fds_event() 并在失败时打印；当前两处已在 BC 物理整合 bb3085b88fbccd3b515d2ee7859417e807b7180f 中按 AC 宏路径引入，现为共同路径，声明见 fd_statistics.h。原补丁焦点范围已有覆盖，无需重复修改。"
     },
     {
       "id": "AC#19",
@@ -211,8 +216,8 @@
       "index": 21,
       "source_commit": "7bbf5e9a4a9f18aebe036de8832339ed2533def2",
       "source_title": "[cap]fss:fix compile error and standardize code",
-      "status": "no_merge_fix",
-      "note": "编译及代码规范化提交无完整处理记录。"
+      "status": "deferred",
+      "note": "原提交 7bbf5e9a4a9f18aebe036de8832339ed2533def2 注册三项 libfss 回调；当前目标 AC_ON_BC 路径已有，BC 路径没有。提交正文列出 CAP/NVMP/AVTS/NSD 关联变更，跨模块消费者与链接契约尚未核完；按既定口径暂缓跨入 BC，不改 AC 原路径。见 merge_work/review_20261014.md。"
     },
     {
       "id": "AC#22",
