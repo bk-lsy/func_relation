@@ -8,7 +8,7 @@
   },
   "target": {
     "branch": "face_snapshot_converge_1010",
-    "head": "f9eb215d83cbc5e1cce401c1a97570285f6a7bae"
+    "head": "785e753721f12b5b9712cec319e8d9e9cf9114ea"
   },
   "baseline_date": "2026-10-14",
   "status_definitions": {
@@ -20,11 +20,11 @@
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "source_merge",
-    "summary": "CAP f9eb215d 将 AC 周期报表和 BC 非电池机周期报表的条件收敛为独立嵌套产品宏，移除重复枚举与路径声明；宏展开等价，整笔来源剩余范围不变。",
+    "kind": "defer_product_difference",
+    "summary": "按用户决定，BC #10 电池机 IoT 周/月统计为 AC/BC 固有产品差异，暂不跨侧合并；移除未推送的源码尝试 f9eb215d，并以 CAP 文档提交 785e7537 标记原提交。",
     "affected": [
-      "AC#7",
       "BC#10",
+      "AC#7",
       "BC#60",
       "BC#61"
     ]
@@ -91,7 +91,7 @@
       "source_commit": "34bee47fb3f416bfce4e17c0653280b98e18cd5b",
       "source_title": "[ALL] cap: merge commit from nvmp_release_1.8_sz_250116_face_detection to other branch(CAP:1/2)",
       "status": "merged_partial",
-      "note": "第十五批 `f9eb215d` 共用周期报表启用条件及声明；AC 报表宏展开不变。CAP:1/2 的检测入口、统计、PSS 等另有多笔局部收敛；完整补丁及跨仓系列未闭环。"
+      "note": "CAP:1/2 大提交的检测入口、统计、PSS 等有多笔局部收敛；完整补丁及跨仓系列未闭环。"
     },
     {
       "id": "AC#8",
@@ -387,8 +387,8 @@
       "index": 10,
       "source_commit": "fcda83d10c63d9ee7a64d7fd6f487eb692d146e7",
       "source_title": "[all] face_snapshot: IoT Wi-Fi Monthly/Weekly FD Statistics (2/4)",
-      "status": "no_merge_fix",
-      "note": "第十五批 `f9eb215d` 将 BC 非电池机周期报表排除条件作为行为基础保留，未合入电池机 IoT 周/月统计；该 `(2/4)` 系列的跨仓/产品范围仍未核对。"
+      "status": "deferred",
+      "note": "BC 电池机 IoT Wi-Fi 周/月统计 `(2/4)` 属 AC/BC 固有产品差异，按用户决定暂缓跨侧合并；保留 BC 原机制。关联系列与依赖仍按原始提交核对，不能把 AC 周期报表当作该能力的等价合入。曾考虑的本地 f9eb215d 已移除。"
     },
     {
       "id": "BC#11",
@@ -838,7 +838,7 @@
       "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
       "source_title": "[cap] face_snapshot: merge AC logic in BC (feature/storage basis)",
       "status": "merged_partial",
-      "note": "第十五批 `f9eb215d` 去除统计头文件的重复报表枚举和路径声明，保留两侧条件；第一笔物理整合的特征/存储基础仍仅局部收敛，完整去向未闭环。"
+      "note": "第一笔物理整合 AC 特征/存储基础；后续多笔局部收敛，完整去向未闭环。"
     },
     {
       "id": "BC#61",
@@ -847,7 +847,7 @@
       "source_commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6",
       "source_title": "[cap] face_snapshot: merge AC logic in BC (fd_statistics family + pss storage + default config)",
       "status": "merged_partial",
-      "note": "第十五批 `f9eb215d` 收敛统计实现中重复的组合宏条件，周期报表展开不变；第二笔物理整合的 PSS 存储和默认配置等仍未整笔核完。"
+      "note": "第二笔物理整合统计、PSS 存储和默认配置；局部收敛不等于整笔核完。"
     },
     {
       "id": "BC#62",

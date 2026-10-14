@@ -2,7 +2,7 @@
   "schema_version": 1,
   "scope": "CAP face_snapshot current local commits to AC/BC original focus commits; multi-to-multi, scoped evidence only",
   "target_branch": "face_snapshot_converge_1010",
-  "target_head": "f9eb215d83cbc5e1cce401c1a97570285f6a7bae",
+  "target_head": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
   "local_base": "3e40aa2606ea54ff93f9b39deeddb7cd970d351b",
   "source_index": "merge_status.json",
   "relation_definitions": {
@@ -756,10 +756,10 @@
       "scope": "same-face match diagnostic"
     },
     {
-      "commit": "f9eb215d83cbc5e1cce401c1a97570285f6a7bae",
-      "title": "refactor(face_snapshot): share periodic report availability guard",
-      "kind": "source_change",
-      "scope": "periodic report availability guard and duplicate declarations"
+      "commit": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
+      "title": "[Deferred] face_snapshot: keep BC battery IoT statistics separate",
+      "kind": "documentation",
+      "scope": "BC battery IoT monthly/weekly statistics deferred as product difference"
     }
   ],
   "edges": [
@@ -2112,47 +2112,14 @@
       }
     },
     {
-      "local_commit": "f9eb215d83cbc5e1cce401c1a97570285f6a7bae",
-      "source_id": "AC#7",
-      "source_commit": "34bee47fb3f416bfce4e17c0653280b98e18cd5b",
-      "relation": "merged_scope",
-      "scope": "periodic report availability guard and duplicate declarations",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "f9eb215d83cbc5e1cce401c1a97570285f6a7bae"
-      }
-    },
-    {
-      "local_commit": "f9eb215d83cbc5e1cce401c1a97570285f6a7bae",
+      "local_commit": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
       "source_id": "BC#10",
       "source_commit": "fcda83d10c63d9ee7a64d7fd6f487eb692d146e7",
-      "relation": "related_basis",
-      "scope": "periodic report availability guard and duplicate declarations",
+      "relation": "deferred_scope",
+      "scope": "BC battery IoT monthly/weekly statistics (2/4)",
       "evidence": {
         "kind": "cap_commit_message",
-        "commit": "f9eb215d83cbc5e1cce401c1a97570285f6a7bae"
-      }
-    },
-    {
-      "local_commit": "f9eb215d83cbc5e1cce401c1a97570285f6a7bae",
-      "source_id": "BC#60",
-      "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
-      "relation": "merged_scope",
-      "scope": "periodic report availability guard and duplicate declarations",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "f9eb215d83cbc5e1cce401c1a97570285f6a7bae"
-      }
-    },
-    {
-      "local_commit": "f9eb215d83cbc5e1cce401c1a97570285f6a7bae",
-      "source_id": "BC#61",
-      "source_commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6",
-      "relation": "merged_scope",
-      "scope": "periodic report availability guard and duplicate declarations",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "f9eb215d83cbc5e1cce401c1a97570285f6a7bae"
+        "commit": "785e753721f12b5b9712cec319e8d9e9cf9114ea"
       }
     }
   ],
