@@ -20,8 +20,8 @@
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "pack_face_snapshot_1014",
-    "summary": "从 secure/face_snapshot_converge_1014 的 27 笔源码变更整理出 8 笔仅含 src/modules/face_snapshot 的 pack 提交；零散变更聚合，四笔系统性变更独立；pack 与 secure 的模块树对象一致，未改原目标分支处置状态。",
+    "kind": "repack_face_snapshot_1014",
+    "summary": "按用户要求重做 pack：22 笔零散源码改动集中为 1 笔提交，四块系统性合入各保持独立提交；5 笔提交只含 src/modules/face_snapshot，pack 与 secure 模块树对象相同，26 项源码验证通过。",
     "affected": [
       "pack_face_snapshot_converge_1014"
     ]
@@ -898,7 +898,7 @@
   },
   "packaging_1014": {
     "branch": "pack_face_snapshot_converge_1014",
-    "head": "136e6a650793c0603b8df3dbd005e0c136879e2b",
+    "head": "07b72b0f192c050429ff9e0b2ac372df12160e5f",
     "base": "102ba4b17bb1eac7eff0f89c52d8b1700e1ae378",
     "source_branch": "secure/face_snapshot_converge_1014",
     "source_head": "8f8fea6bb525bf3533b1e126e0c795f616f16b7d",
@@ -908,69 +908,22 @@
     "source_only_commits": true,
     "commits": [
       {
-        "pack_commit": "54e7d33e4f5a1cadf9d58ec017c2813bb1f49353",
+        "pack_commit": "f705717c479afe2ceee4363035ea8f2b064c0487",
         "kind": "aggregate",
         "secure_source_commits": [
           "82ac0140a3976ddd619a6319f73624cc950dc893",
           "fe5ad2b854cff4f8064d3c3953ed611be840b82d",
-          "8f47760b3f437a1052ef682e58ede042add08595"
-        ]
-      },
-      {
-        "pack_commit": "3af72d2b2e7d52b69edfa0e80c2ae4cf6aad3a03",
-        "kind": "systematic",
-        "secure_source_commits": [
-          "64da2a34c2ea2c778be46d369083e5e285180e0e",
-          "8f8fea6bb525bf3533b1e126e0c795f616f16b7d"
-        ]
-      },
-      {
-        "pack_commit": "6020bdc7ca79c209cfb6e156e3b5c95c206b6457",
-        "kind": "aggregate",
-        "secure_source_commits": [
+          "8f47760b3f437a1052ef682e58ede042add08595",
           "6ca664589d0e095668328144658eb40b47c8af37",
           "6dc8970d9e6116300b3ec7bca85de74d243da941",
-          "c0bd0e52e64170d527832c052321f90fb52c8e65"
-        ]
-      },
-      {
-        "pack_commit": "7b092a44ba2c5ac59183ebe85555d5ef2f2c30df",
-        "kind": "systematic",
-        "secure_source_commits": [
-          "8b631a413945227429b5c125000d4304ebcaebcd"
-        ]
-      },
-      {
-        "pack_commit": "091687c56bdb52d81ca4946e8a05e52a957145ae",
-        "kind": "systematic",
-        "secure_source_commits": [
-          "ce319eaf8f7b1855d44162c704580001e00650d0"
-        ]
-      },
-      {
-        "pack_commit": "5e055edebb76a8b5a053e1dd37bfb65c0d65e889",
-        "kind": "aggregate",
-        "secure_source_commits": [
+          "c0bd0e52e64170d527832c052321f90fb52c8e65",
           "8d91e1f8d4fbf23a353d58d9a645327cc89746ba",
           "cca13abc5726f930830e5126adc90d09f535c472",
           "6bbe61e3af0dc8297d60fbd043bdf1a331f28844",
           "a447f4c005e66b8f2f2f64f6d5e6ebeb9d8a5b3c",
           "0195ef985367828979729fb069cd26566e85088d",
           "b70533be0d869949f9ba01e59def082df1ca9549",
-          "30e11c678fce6a73e41d6e62f42a7203332e8bdd"
-        ]
-      },
-      {
-        "pack_commit": "9688744335653b232fde9643395ed564b2687262",
-        "kind": "systematic",
-        "secure_source_commits": [
-          "1045aa3cffe8ee7765791758cd599499084bc82b"
-        ]
-      },
-      {
-        "pack_commit": "136e6a650793c0603b8df3dbd005e0c136879e2b",
-        "kind": "aggregate",
-        "secure_source_commits": [
+          "30e11c678fce6a73e41d6e62f42a7203332e8bdd",
           "36120e630284898bf14214c1a6127fa2f0ba347b",
           "8f905183c6e6bf9c99a7fdfdaefca3b779d983ab",
           "e9b4d8b618d00bc170d3e3112db6306f6af23693",
@@ -980,6 +933,35 @@
           "48ecd95e23d63b96a36e2dcd059e5da8fffab943",
           "09e71436a6afbf5b3356266b9031f0280d28e6ca",
           "2fa01fdf1201934322ae0c332100d6ed6a5d117e"
+        ]
+      },
+      {
+        "pack_commit": "02e40b046c815d4341df89c1f36dffd4d0343c55",
+        "kind": "systematic",
+        "secure_source_commits": [
+          "64da2a34c2ea2c778be46d369083e5e285180e0e",
+          "8f8fea6bb525bf3533b1e126e0c795f616f16b7d"
+        ]
+      },
+      {
+        "pack_commit": "1676c957c9700177dda3ffde6e58342ff20d4193",
+        "kind": "systematic",
+        "secure_source_commits": [
+          "8b631a413945227429b5c125000d4304ebcaebcd"
+        ]
+      },
+      {
+        "pack_commit": "ca76b071a8a775ae3687fb889cd9111f6e4aa5a8",
+        "kind": "systematic",
+        "secure_source_commits": [
+          "ce319eaf8f7b1855d44162c704580001e00650d0"
+        ]
+      },
+      {
+        "pack_commit": "07b72b0f192c050429ff9e0b2ac372df12160e5f",
+        "kind": "systematic",
+        "secure_source_commits": [
+          "1045aa3cffe8ee7765791758cd599499084bc82b"
         ]
       }
     ]
