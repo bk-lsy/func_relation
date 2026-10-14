@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "scope": "CAP face_snapshot AC/BC 按文件审查进度；同名 .c/.h 绑定为一个审查单元",
+  "module_root": "src/modules/face_snapshot",
+  "target": {
+    "branch": "face_snapshot_converge_1010",
+    "head": "785e753721f12b5b9712cec319e8d9e9cf9114ea"
+  },
+  "status_definitions": {
+    "pending": "该文件组尚未按本轮不改变逻辑或仅涉及简单逻辑的口径逐段审查。",
+    "reviewed_no_change": "该文件组已按当前 target HEAD 审查，暂未找到符合本轮口径的安全收敛改动；不代表以后不得重新评审。",
+    "reviewed_with_change": "该文件组已审查并有符合本轮口径的 CAP 源码提交；须记录提交 SHA 与范围。"
+  },
+  "last_action": {
+    "date": "2026-10-14",
+    "kind": "file_pair_review",
+    "unit_id": "face_feature",
+    "summary": "face_feature.c/.h 绑定审查；先前 22e45409 的质量判定重构及 70112027 的撤销提交均已从 CAP 当前分支移除，工作树与 785e7537 一致；本组无符合本轮口径的新增收敛。"
+  },
+  "units": [
+    {
+      "id": "face_control",
+      "files": [
+        "face_control.c",
+        "face_control.h"
+      ],
+      "status": "pending",
+      "reviewed_against": null
+    },
+    {
+      "id": "face_feature",
+      "files": [
+        "face_feature.c",
+        "face_feature.h"
+      ],
+      "status": "reviewed_no_change",
+      "reviewed_against": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
+      "finding": "已按 AC/BC 宏分支检查 C 与 H：基础声明和接口已共用；剩余分支涉及角度/模糊度/大小质量阈值、BC 自适应 IQA 字段、get_dn_status 的可见性与场景特征接口。该组无可在不触及功能判定/接口契约的前提下安全收敛的片段；CAP 源码未修改。"
+    },
+    {
+      "id": "face_storage",
+      "files": [
+        "face_storage.c",
+        "face_storage.h"
+      ],
+      "status": "pending",
+      "reviewed_against": null
+    },
+    {
+      "id": "fd_statistics",
+      "files": [
+        "fd_statistics.c",
+        "fd_statistics.h"
+      ],
+      "status": "pending",
+      "reviewed_against": null
+    },
+    {
+      "id": "fd_statistics_stg",
+      "files": [
+        "fd_statistics_stg.c",
+        "fd_statistics_stg.h"
+      ],
+      "status": "pending",
+      "reviewed_against": null
+    },
+    {
+      "id": "fd_stg_version/fd_stg_version",
+      "files": [
+        "fd_stg_version/fd_stg_version.c",
+        "fd_stg_version/fd_stg_version.h"
+      ],
+      "status": "pending",
+      "reviewed_against": null
+    },
+    {
+      "id": "pss_enhance/pdr_storage",
+      "files": [
+        "pss_enhance/pdr_storage.c",
+        "pss_enhance/pdr_storage.h"
+      ],
+      "status": "pending",
+      "reviewed_against": null
+    },
+    {
+      "id": "pss_enhance/recog_img_stg_version",
+      "files": [
+        "pss_enhance/recog_img_stg_version.c",
+        "pss_enhance/recog_img_stg_version.h"
+      ],
+      "status": "pending",
+      "reviewed_against": null
+    },
+    {
+      "id": "pss_enhance/recog_img_storage",
+      "files": [
+        "pss_enhance/recog_img_storage.c",
+        "pss_enhance/recog_img_storage.h"
+      ],
+      "status": "pending",
+      "reviewed_against": null
+    },
+    {
+      "id": "ring_object",
+      "files": [
+        "ring_object.c",
+        "ring_object.h"
+      ],
+      "status": "pending",
+      "reviewed_against": null
+    },
+    {
+      "id": "fss",
+      "files": [
+        "fss.c"
+      ],
+      "status": "pending",
+      "reviewed_against": null,
+      "note": "当前模块没有同名 fss.h；作为单文件审查单元。"
+    }
+  ]
+}
