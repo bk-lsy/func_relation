@@ -4,7 +4,7 @@
   "module_root": "src/modules/face_snapshot",
   "target": {
     "branch": "face_snapshot_converge_1010",
-    "head": "785e753721f12b5b9712cec319e8d9e9cf9114ea"
+    "head": "89b1621106b49a13ba27cfd8da8dd0a4aa13cd23"
   },
   "status_definitions": {
     "pending": "该文件组尚未按本轮不改变逻辑或仅涉及简单逻辑的口径逐段审查。",
@@ -13,9 +13,8 @@
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "non_source_file_review",
-    "unit_id": "storage_head_info_defaults",
-    "summary": "Makefile、8 个共用默认文件及 BC/AC storage_head_info 双文件组已审；无实质合入修复，CAP 未改。"
+    "kind": "target_rebase",
+    "summary": "目标分支已重放到 BC 新基础 102ba4b17；各单元 reviewed_against 保留原审核快照，文件逐段审查结论尚未针对上游新增 43 笔提交重新复核。"
   },
   "units": [
     {
@@ -25,7 +24,7 @@
         "face_control.h"
       ],
       "status": "reviewed_no_change",
-      "reviewed_against": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
+      "reviewed_against": "ccc22dcb7f3cd1f5042a5048f4082cfd235fb097",
       "finding": "已绑定审查 face_control.c/.h。头文件差异为遥测、图片格式与推送接口；实现差异主要涉及匹配返回类型、HUB/电池机推送、时间戳、ringbuffer 回调及产品宏。人脸加载的三处日志分支可见简单文本/级别差异，但 BC 来源 cd9bc916 已按用户要求整笔暂缓，本轮不拆取。未发现其他不触及功能/接口契约的安全合并点。"
     },
     {
@@ -35,7 +34,7 @@
         "face_feature.h"
       ],
       "status": "reviewed_no_change",
-      "reviewed_against": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
+      "reviewed_against": "ccc22dcb7f3cd1f5042a5048f4082cfd235fb097",
       "finding": "已按 AC/BC 宏分支检查 C 与 H：基础声明和接口已共用；剩余分支涉及角度/模糊度/大小质量阈值、BC 自适应 IQA 字段、get_dn_status 的可见性与场景特征接口。该组无可在不触及功能判定/接口契约的前提下安全收敛的片段；CAP 源码未修改。"
     },
     {
@@ -45,7 +44,7 @@
         "face_storage.h"
       ],
       "status": "reviewed_no_change",
-      "reviewed_against": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
+      "reviewed_against": "ccc22dcb7f3cd1f5042a5048f4082cfd235fb097",
       "finding": "已绑定审查 face_storage.c/.h。剩余 AC/BC 宏差异主要是日志宏调用签名、存储子版本与迁移回调、场景特征持久化字段、BC 电池机挂载等待流程。初始化局部变量声明差异来自 BC#42 / 08fd905b，其挂载系列已整组暂缓，不拆取单行。其余无符合本轮口径且有明确来源的安全收敛点；CAP 未改。"
     },
     {
@@ -55,7 +54,7 @@
         "fd_statistics.h"
       ],
       "status": "reviewed_no_change",
-      "reviewed_against": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
+      "reviewed_against": "ccc22dcb7f3cd1f5042a5048f4082cfd235fb097",
       "finding": "已绑定审查 fd_statistics.c/.h。剩余周期报表宏分歧对应 AC 常规上报与 BC 电池机月/周报条件，仅引入共用开关未改变分支逻辑；该类提交已从 CAP 历史删除。其他分支涉及报表行为和电池机策略，本轮无实质收敛改动。"
     },
     {
@@ -65,7 +64,7 @@
         "fd_statistics_stg.h"
       ],
       "status": "reviewed_no_change",
-      "reviewed_against": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
+      "reviewed_against": "ccc22dcb7f3cd1f5042a5048f4082cfd235fb097",
       "finding": "已绑定审查 fd_statistics_stg.c/.h。剩余周期报表存储条件、声明和实现与 AC/BC 报表产品边界绑定；仅以共用开关替换条件不算实质合入，相关提交已从 CAP 历史删除。本轮无实质收敛改动。"
     },
     {
@@ -106,7 +105,7 @@
       ],
       "status": "reviewed_no_change",
       "reviewed_against": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
-      "finding": "已绑定审查 pss_enhance/recog_img_storage.c/.h。两文件当前均无 AC_ON_BC/BC_ON_AC 条件块，既有 c1e20d15/c035689c/6db07dd7 已收敛本文件的接口、复制与迁移范围。本轮按不改变实际逻辑或仅简单逻辑口径，无新的可收敛分支；CAP 未改。此记录不替代既有迁移逻辑的设备验证。"
+      "finding": "已绑定审查 pss_enhance/recog_img_storage.c/.h。两文件当前均无 AC_ON_BC/BC_ON_AC 条件块，既有 8b631a41/6b042fcf/ce319eaf 已收敛本文件的接口、复制与迁移范围。本轮按不改变实际逻辑或仅简单逻辑口径，无新的可收敛分支；CAP 未改。此记录不替代既有迁移逻辑的设备验证。"
     },
     {
       "id": "ring_object",
@@ -134,7 +133,7 @@
         "Makefile"
       ],
       "status": "reviewed_no_change",
-      "reviewed_against": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
+      "reviewed_against": "ccc22dcb7f3cd1f5042a5048f4082cfd235fb097",
       "finding": "已比较当前目标与 AC/BC tip。源文件选择与安装规则中，BC 基础路径安装 files，AC_ON_BC 路径先安装 files 再由 files_ac 覆盖。差异用于选择 AC 的存储头配置；只重排 cp/宏条件不会构成实质合入修复，本轮未改。"
     },
     {
@@ -150,7 +149,7 @@
         "files/etc/default/face_snapshot/size_limit"
       ],
       "status": "reviewed_no_change",
-      "reviewed_against": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
+      "reviewed_against": "ccc22dcb7f3cd1f5042a5048f4082cfd235fb097",
       "finding": "8 个普通默认文件逐字节对比当前目标、AC tip 和 BC tip 均一致，已是双方共用配置，无须重复合入。"
     },
     {
@@ -160,7 +159,7 @@
         "files_ac/etc/default/face_snapshot/storage_head_info"
       ],
       "status": "reviewed_no_change",
-      "reviewed_against": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
+      "reviewed_against": "ccc22dcb7f3cd1f5042a5048f4082cfd235fb097",
       "finding": "BC 默认 storage_head_info 与 BC tip 同字节（sub_version=2、max_face_num=20）；files_ac 中的文件与 AC tip 普通路径同字节（sub_version=1、max_face_num=50）。Makefile 的 AC 路径覆盖安装后保持两侧各自容量/版本，属于实际持久化布局差异，本轮未改。"
     }
   ],

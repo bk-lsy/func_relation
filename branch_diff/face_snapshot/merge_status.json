@@ -8,7 +8,7 @@
   },
   "target": {
     "branch": "face_snapshot_converge_1010",
-    "head": "785e753721f12b5b9712cec319e8d9e9cf9114ea"
+    "head": "89b1621106b49a13ba27cfd8da8dd0a4aa13cd23"
   },
   "baseline_date": "2026-10-14",
   "status_definitions": {
@@ -20,11 +20,12 @@
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "for_review_audit",
-    "summary": "逐项筛查 38 笔暂缓来源，核实 BC#48 的 CAP 共用调用与当前 NVMP libutils 定义/声明，改为 preexisting_coverage；BC#43 写明已共用子范围和 BC 专属分包残余；其余仍待评审。CAP HEAD、关系图和源码不变。",
+    "kind": "rebase_onto_updated_bc",
+    "summary": "将既有 45 笔本地提交重放到 BC 新基础 102ba4b17；保留上游 43 笔提交原样。冲突按新基础合并，PSS 迁移保留上游活动文件路径；增加 1 笔测试适配提交。来源处置状态沿用先前审查，未对上游 43 笔重新逐项判定。",
     "affected": [
-      "BC#48",
-      "BC#43"
+      "CAP rebase",
+      "relation graph",
+      "test fixtures"
     ]
   },
   "entries": [
@@ -35,7 +36,7 @@
       "source_commit": "531e61624272f64fb8e0d0fc09af286e6f52a180",
       "source_title": "[all] cap|face_snapshot: support face_snapshot data model",
       "status": "merged_partial",
-      "note": "`eea101fd`/batch1 已核实模型与八个普通默认文件；本次复核当前 CAP Makefile：AC_ON_BC 与 BC_ON_AC 均启用时先复制 files 后由 files_ac 覆盖，未启用时仅复制 files；八个默认文件与 AC tip 同字节，files_ac/storage_head_info 与 AC tip 同字节。当前仓库未找到具体产品配置或实际安装产物，产品启用宏及布局验证仍未闭环。"
+      "note": "`102974f4`/batch1 已核实模型与八个普通默认文件；本次复核当前 CAP Makefile：AC_ON_BC 与 BC_ON_AC 均启用时先复制 files 后由 files_ac 覆盖，未启用时仅复制 files；八个默认文件与 AC tip 同字节，files_ac/storage_head_info 与 AC tip 同字节。当前仓库未找到具体产品配置或实际安装产物，产品启用宏及布局验证仍未闭环。"
     },
     {
       "id": "AC#2",
@@ -44,7 +45,7 @@
       "source_commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20",
       "source_title": "[all] cap|support face_recognition",
       "status": "merged_partial",
-      "note": "`03e9468f`、`34edf47b`、`0ffe0983`、`3edc0cbb`、`2cd5c409`、`0669e92e`、`92e9ed68` 等已共用特征读取、相似度、存储辅助函数和阈值子范围；本次按七文件焦点核对，BC 基础 450a0bbe 与物理整合 be46f651/bb3085b8 保留大量 AC 路径。IQA 阈值/字段、存储子版本/挂载、控制通知/HUB/PSS 和后续配置能力仍有来源与产品边界，未能把整笔认定为完全。见 merge_work/review_20261014.md。"
+      "note": "`82ac0140`、`8f47760b`、`6dc8970d`、`c0bd0e52`、`0cdaf65d`、`8d91e1f8`、`09e71436` 等已共用特征读取、相似度、存储辅助函数和阈值子范围；本次按七文件焦点核对，BC 基础 450a0bbe 与物理整合 be46f651/bb3085b8 保留大量 AC 路径。IQA 阈值/字段、存储子版本/挂载、控制通知/HUB/PSS 和后续配置能力仍有来源与产品边界，未能把整笔认定为完全。见 merge_work/review_20261014.md。"
     },
     {
       "id": "AC#3",
@@ -53,7 +54,7 @@
       "source_commit": "1df1db390256664982d7122ee31bac45d4b9b74d",
       "source_title": "[all] cap|face_snapshot: support only change tag",
       "status": "preexisting_coverage",
-      "note": "`32a852a6` / batch1：两处 tag 与日志修改在 BC 基础 `450a0bbe` 已有。"
+      "note": "`c2293b9e` / batch1：两处 tag 与日志修改在 BC 基础 `450a0bbe` 已有。"
     },
     {
       "id": "AC#4",
@@ -62,7 +63,7 @@
       "source_commit": "0c090e6e760c94ae5fba13ce346c735a24df99e3",
       "source_title": "[all] cap|face_snapshot: support notify and send image to APP",
       "status": "merged_partial",
-      "note": "`e4f4a3aa`、`3e44e0dc` 等已覆盖主图读取容量及通知配置子范围；本次核对当前公共配置/取主图接口，并追溯 BC #15/#17/#58/#59。AC 的推送间隔、陌生人次数与 BC 唤醒/24 小时计数、pushable、HUB/包裹消息格式和消息 ID 仍属实际策略差异，通知消费链未闭环；保留部分。见 merge_work/review_20261014.md。"
+      "note": "`fe5ad2b8`、`16bacc3e` 等已覆盖主图读取容量及通知配置子范围；本次核对当前公共配置/取主图接口，并追溯 BC #15/#17/#58/#59。AC 的推送间隔、陌生人次数与 BC 唤醒/24 小时计数、pushable、HUB/包裹消息格式和消息 ID 仍属实际策略差异，通知消费链未闭环；保留部分。见 merge_work/review_20261014.md。"
     },
     {
       "id": "AC#5",
@@ -98,7 +99,7 @@
       "source_commit": "747e518a37f12c26f4ea872e98a8d3a7363aad4c",
       "source_title": "[ALL] cap: merge commit from nvmp_release_1.8_sz_250116_face_detection to other branch(CAP:2/2)",
       "status": "merged_partial",
-      "note": "`c1e20d15`、`c035689c`、`6db07dd7` 合入 CAP:2/2 多个子范围；统计随机源等跨模块残余与 PSS 设备验证仍在。"
+      "note": "`8b631a41`、`6b042fcf`、`ce319eaf` 合入 CAP:2/2 多个子范围；统计随机源等跨模块残余与 PSS 设备验证仍在。"
     },
     {
       "id": "AC#9",
@@ -116,7 +117,7 @@
       "source_commit": "0f8c7c9dfceb407df8e8f49ea3d38edf57738943",
       "source_title": "Revert \"[all]cap:turn off camera face detection when bound to face support hub\"",
       "status": "preexisting_coverage",
-      "note": "`bd41e9fb` / batch4：HUB 判断回退已由 BC 对应行为覆盖。"
+      "note": "`2a5aac94` / batch4：HUB 判断回退已由 BC 对应行为覆盖。"
     },
     {
       "id": "AC#11",
@@ -134,7 +135,7 @@
       "source_commit": "94aef932ffa51fbac9d0cb63aab6e5d69ebc2f1b",
       "source_title": "[All] fss: Fix incorrect close file descriptor 0 and file descriptor leaks",
       "status": "preexisting_coverage",
-      "note": "`ff8e12b7` / batch3：faceinfo fd 修复与 BC #9 同补丁。"
+      "note": "`f99c4e40` / batch3：faceinfo fd 修复与 BC #9 同补丁。"
     },
     {
       "id": "AC#13",
@@ -143,7 +144,7 @@
       "source_commit": "e69adae64faf5b6f1d77e897f054e7d81effe9dc",
       "source_title": "[cap]face_snapshot:fix some bugs of face snapshot",
       "status": "merged_partial",
-      "note": "原提交 e69adae64f 的统计队列 MAX_FDS_EVENT_NUM=50、Ring_Object_Get 失败跳过、FDS_IDLE 枚举，目标已覆盖；控制侧 full_status/old_faceid 传递、内部删除、合并后删除旧人脸、HUB 状态缓存及配置重载亦在当前代码。AC 的 HUB 推送现已沿 fd_control_send_msg_push 路由，原提交的独立 fd_control_send_msg_push2hub 消息构造与当前后续策略尚未做端到端等价核对，保留部分完成；既有 284535b2/c3d6c9d7 为明确子范围。"
+      "note": "原提交 e69adae64f 的统计队列 MAX_FDS_EVENT_NUM=50、Ring_Object_Get 失败跳过、FDS_IDLE 枚举，目标已覆盖；控制侧 full_status/old_faceid 传递、内部删除、合并后删除旧人脸、HUB 状态缓存及配置重载亦在当前代码。AC 的 HUB 推送现已沿 fd_control_send_msg_push 路由，原提交的独立 fd_control_send_msg_push2hub 消息构造与当前后续策略尚未做端到端等价核对，保留部分完成；既有 e9b4d8b6/04958142 为明确子范围。"
     },
     {
       "id": "AC#14",
@@ -152,7 +153,7 @@
       "source_commit": "de1da536532c73b82b23210e732aec72ee0efc04",
       "source_title": "[cap]face_snapshot:fix the issue introduced by the submission of 1cfaf2",
       "status": "merged_complete",
-      "note": "原提交 de1da536532c73b82b23210e732aec72ee0efc04 的新增通知修复已在目标覆盖：旧 face ID 在满额替换时保存，处理函数检查索引/记录并接收 add_status，仅首次识别发送索引 ADD，陌生人覆盖时先 DELETE，FDS ADD 和合格事件在同人提前退出前发送；AC 路径保留 traj_face->utc_start。既有本地 565ad246 共用 FDS ADD 构造，其余焦点代码由物理合并及后续修复保留。"
+      "note": "原提交 de1da536532c73b82b23210e732aec72ee0efc04 的新增通知修复已在目标覆盖：旧 face ID 在满额替换时保存，处理函数检查索引/记录并接收 add_status，仅首次识别发送索引 ADD，陌生人覆盖时先 DELETE，FDS ADD 和合格事件在同人提前退出前发送；AC 路径保留 traj_face->utc_start。既有本地 d75d15a3 共用 FDS ADD 构造，其余焦点代码由物理合并及后续修复保留。"
     },
     {
       "id": "AC#15",
@@ -170,7 +171,7 @@
       "source_commit": "2d0a17e388210e52eb936889836840532ff59f69",
       "source_title": "[CAP]face_report:fix segment fault when load from flash failed",
       "status": "preexisting_coverage",
-      "note": "`8a3c2ee4` / batch3：统计链表初始化已有 BC 同补丁。"
+      "note": "`fe9a0368` / batch3：统计链表初始化已有 BC 同补丁。"
     },
     {
       "id": "AC#17",
@@ -197,7 +198,7 @@
       "source_commit": "6f4f42d77fdf07a6c131bc5f864da85f3cc71a82",
       "source_title": "[all] fss: Optimize the validation process for the face_info file and fix a bug",
       "status": "preexisting_coverage",
-      "note": "`49851998` / batch3：faceinfo 头校验修复与 BC #30 对应补丁已有覆盖。"
+      "note": "`30624df9` / batch3：faceinfo 头校验修复与 BC #30 对应补丁已有覆盖。"
     },
     {
       "id": "AC#20",
@@ -251,7 +252,7 @@
       "source_commit": "f76e5b845823c16e4fde0f0b7baefc629830ebbe",
       "source_title": "[all] fss: fixed - face latest time update anomaly.",
       "status": "preexisting_coverage",
-      "note": "`94993ca8` / batch3：最新出现时间修复与 BC #46 同补丁。"
+      "note": "`f4b013eb` / batch3：最新出现时间修复与 BC #46 同补丁。"
     },
     {
       "id": "AC#26",
@@ -296,7 +297,7 @@
       "source_commit": "178f33f6da6a70893faecea14b1b51ef64bc62ac",
       "source_title": "[all]cap:Fixed the error in determining the fd in err_exit",
       "status": "merged_complete",
-      "note": "`c035689c` 等收敛后，`recog_img_storage.c::cp()` 两处 fd 退出判断均为原补丁的 `> 0`。"
+      "note": "`6b042fcf` 等收敛后，`recog_img_storage.c::cp()` 两处 fd 退出判断均为原补丁的 `> 0`。"
     },
     {
       "id": "BC#1",
@@ -368,7 +369,7 @@
       "source_commit": "bceb7fbc8a32b40d7ec29ed88f9f61560b181f1c",
       "source_title": "[all] face_snapshot: keep msgpush when unfamilar people change to familar",
       "status": "merged_complete",
-      "note": "`b34d7f35` 将陌生人转熟人时开启通知的修复共用于两侧。"
+      "note": "`8f905183` 将陌生人转熟人时开启通知的修复共用于两侧。"
     },
     {
       "id": "BC#9",
@@ -395,7 +396,7 @@
       "source_commit": "7b54cd2e9f4f1ecdbe467d8d57df7294d98b4c12",
       "source_title": "[all] face_snapshot: Fix compilation warnings",
       "status": "merged_complete",
-      "note": "`27e794f4` 共用统计变量初始化补丁。"
+      "note": "`6bbe61e3` 共用统计变量初始化补丁。"
     },
     {
       "id": "BC#12",
@@ -431,7 +432,7 @@
       "source_commit": "d161ecab8a886dde5f153763e0fb4874c56be083",
       "source_title": "[all]face_snapshot|hub:add hub support and skip tapocare msgpush when face is detected(2/2)",
       "status": "merged_partial",
-      "note": "`1ee05b0c` 等共用 HUB AI 配置重载子范围；HUB 推送策略仍有分支。"
+      "note": "`49843f82` 等共用 HUB AI 配置重载子范围；HUB 推送策略仍有分支。"
     },
     {
       "id": "BC#16",
@@ -467,7 +468,7 @@
       "source_commit": "99edff3d1aea0e4eb6724d5ddffb63dd6d2820ae",
       "source_title": "[cap]face_snapshot:fix some bugs of face snapshot",
       "status": "merged_partial",
-      "note": "原提交 99edff3d1a 的统计队列容量 50、读取失败跳过、FDS_IDLE，目标已覆盖；控制侧 full_status/old_faceid、内部删除、合并后删除旧人脸、HUB 状态缓存及配置重载也在当前 BC 路径。目标 BC 推送还受后续 FSS_MSG_PUSH、HUB/包裹消息策略影响，原提交完整控制补丁与最终行为尚未端到端核对，保留部分完成；既有 284535b2/c3d6c9d7 为明确子范围。"
+      "note": "原提交 99edff3d1a 的统计队列容量 50、读取失败跳过、FDS_IDLE，目标已覆盖；控制侧 full_status/old_faceid、内部删除、合并后删除旧人脸、HUB 状态缓存及配置重载也在当前 BC 路径。目标 BC 推送还受后续 FSS_MSG_PUSH、HUB/包裹消息策略影响，原提交完整控制补丁与最终行为尚未端到端核对，保留部分完成；既有 e9b4d8b6/04958142 为明确子范围。"
     },
     {
       "id": "BC#20",
@@ -476,7 +477,7 @@
       "source_commit": "71c4e67b2a7634e48d7d312a93bc0289ba580d3b",
       "source_title": "[cap]face_snapshot:fix the issue introduced by the submission of 1cfaf2",
       "status": "merged_complete",
-      "note": "原提交 71c4e67b2a7634e48d7d312a93bc0289ba580d3b 与 AC#14 对应的新增通知修复已在目标覆盖：索引/记录检查、add_status 首次 ADD、陌生人覆盖先 DELETE、FDS ADD 和合格事件的调用顺序均在当前函数；BC 路径起始时间采用后续修复后的 gen_timestamp。既有本地 565ad246 共用 FDS ADD 构造，其余焦点代码由 BC 基础及后续修复保留。"
+      "note": "原提交 71c4e67b2a7634e48d7d312a93bc0289ba580d3b 与 AC#14 对应的新增通知修复已在目标覆盖：索引/记录检查、add_status 首次 ADD、陌生人覆盖先 DELETE、FDS ADD 和合格事件的调用顺序均在当前函数；BC 路径起始时间采用后续修复后的 gen_timestamp。既有本地 d75d15a3 共用 FDS ADD 构造，其余焦点代码由 BC 基础及后续修复保留。"
     },
     {
       "id": "BC#21",
@@ -557,7 +558,7 @@
       "source_commit": "0cc155658dbd4c2850d31fdefb4420404c96ee0f",
       "source_title": "[all]face_snapshot:fix dead lock and timeout time",
       "status": "merged_partial",
-      "note": "`7c762a07` 只合每日回收定时长度；电源管理/锁接口未合，保留 `[High Risk](not-complate)`。"
+      "note": "`0195ef98` 只合每日回收定时长度；电源管理/锁接口未合，保留 `[High Risk](not-complate)`。"
     },
     {
       "id": "BC#30",
@@ -575,7 +576,7 @@
       "source_commit": "63f6159460300afafb0a3feac3279c116d855daf",
       "source_title": "[ALL] Add a synchronization access mechanism for active face info and inactive face info files",
       "status": "merged_complete",
-      "note": "`57628f49` 共用 active/inactive face info 同步锁的入口、退出及声明。"
+      "note": "`64da2a34` 共用 active/inactive face info 同步锁的入口、退出及声明。"
     },
     {
       "id": "BC#32",
@@ -584,7 +585,7 @@
       "source_commit": "49cc1cd51e7fd157c88b98815d271040cd70b45b",
       "source_title": "[ALL] Reduce the unnecessary operations of writing the face info file",
       "status": "merged_complete",
-      "note": "`fdb28d93` 共用迁移回调返回契约和有修改才写回的流程。"
+      "note": "`1045aa3c` 共用迁移回调返回契约和有修改才写回的流程。"
     },
     {
       "id": "BC#33",
@@ -593,7 +594,7 @@
       "source_commit": "9aec74acb24a15a79d0bc0f67bb7aca395d78c0e",
       "source_title": "[ALL] SAST: Fix sprintf, add field width specifier to fscanf(), and check rturn value of chdir()",
       "status": "merged_complete",
-      "note": "`c127b4dd` 完整共用 `fds_clean_stg_dir()` 空路径及两处 `chdir()` 检查。"
+      "note": "`cca13abc` 完整共用 `fds_clean_stg_dir()` 空路径及两处 `chdir()` 检查。"
     },
     {
       "id": "BC#34",
@@ -620,7 +621,7 @@
       "source_commit": "6b0eefe8e1f3510c79d0800fb481cf90bb15c7aa",
       "source_title": "[all] cap: Error on loading the human figure data after device restart, which led to the need to rebind the human figure to new data and affected the consistency of the facial data",
       "status": "merged_complete",
-      "note": "`43bf37c2` 共用人形特征数量写回修复。"
+      "note": "`93c81979` 共用人形特征数量写回修复。"
     },
     {
       "id": "BC#37",
@@ -629,7 +630,7 @@
       "source_commit": "0bb585cbc73137e4e67680d37092d93f5055b182",
       "source_title": "[all] cap: The failure to update the feature values of the face image through the algorithm interface leads to the generation of incorrect feature values in database, inducing high-frequency false recognization",
       "status": "merged_complete",
-      "note": "`8bcb4a18` 共用无效特征重算及更新失败清理；保留 BC 熟人优先入口。"
+      "note": "`30e11c67` 共用无效特征重算及更新失败清理；保留 BC 熟人优先入口。"
     },
     {
       "id": "BC#38",
@@ -647,7 +648,7 @@
       "source_commit": "be139db67a4bad56399516ccefd4c83018810add",
       "source_title": "[ALL] cap: delete redundant code",
       "status": "merged_complete",
-      "note": "`bd2d47a7` 去掉重复正式图片写入，`ded2a030` 共用调试图路径处理；合起来对应原存储补丁。"
+      "note": "`f65845d5` 去掉重复正式图片写入，`5f198fdc` 共用调试图路径处理；合起来对应原存储补丁。"
     },
     {
       "id": "BC#40",
@@ -656,7 +657,7 @@
       "source_commit": "d8eb1b19e29eacd3950dcfa550aba9564863593a",
       "source_title": "[ALL] Correct the logical errors in the function fd_control_udsd_usr_add_face",
       "status": "merged_complete",
-      "note": "`1e75e589` 共用 `fd_control_udsd_usr_add_face()` 锁退出修复。"
+      "note": "`b70533be` 共用 `fd_control_udsd_usr_add_face()` 锁退出修复。"
     },
     {
       "id": "BC#41",
@@ -665,7 +666,7 @@
       "source_commit": "7e7c0f156c2970259929cf60784af3631dcdc0b9",
       "source_title": "[ALL]cap: delete redundant code",
       "status": "merged_complete",
-      "note": "`bd2d47a7` 删除 AC 的重复正式图片写入，覆盖原七行删除范围。"
+      "note": "`f65845d5` 删除 AC 的重复正式图片写入，覆盖原七行删除范围。"
     },
     {
       "id": "BC#42",
@@ -782,7 +783,7 @@
       "source_commit": "80f2e265321dd11e085d7b8dfdeec64d70c351a8",
       "source_title": "[all] face_snapshot: malloc correct image size for face image",
       "status": "merged_complete",
-      "note": "原提交 80f2e265321dd11e085d7b8dfdeec64d70c351a8 的 face_feature.c 超长图片按 image_len 分配与 malloc 失败检查，已由本地 0d922409 覆盖；face_control.c 在 MD5 不同时输出旧/新 MD5 的日志也已存在于 BC 路径。焦点补丁两处均已覆盖，改为完成。"
+      "note": "原提交 80f2e265321dd11e085d7b8dfdeec64d70c351a8 的 face_feature.c 超长图片按 image_len 分配与 malloc 失败检查，已由本地 6ca66458 覆盖；face_control.c 在 MD5 不同时输出旧/新 MD5 的日志也已存在于 BC 路径。焦点补丁两处均已覆盖，改为完成。"
     },
     {
       "id": "BC#55",
@@ -791,7 +792,7 @@
       "source_commit": "1186c1861d4eadc7a933b85c688130213c933d16",
       "source_title": "[All] cap/fss: fix crash during app get snapshot that size larger than max_img_len",
       "status": "merged_complete",
-      "note": "`e4f4a3aa` 共用读取真实主图长度并按加密余量分配的完整函数修复。"
+      "note": "`fe5ad2b8` 共用读取真实主图长度并按加密余量分配的完整函数修复。"
     },
     {
       "id": "BC#56",
@@ -818,7 +819,7 @@
       "source_commit": "b9ede40350c03b0fb404b0a6505722232ffd2c0b",
       "source_title": "[fss] face_control: Save unselected familiar face detection notify list",
       "status": "merged_complete",
-      "note": "`5de3d8be` 共用取消勾选通知后逐条写回 face info。"
+      "note": "`36120e63` 共用取消勾选通知后逐条写回 face info。"
     },
     {
       "id": "BC#59",
@@ -872,7 +873,7 @@
       "source_commit": "1c851e9523057d6166204f99e78859a994527e2b",
       "source_title": "﻿[cap] face_snapshot: clean redundant macro guards and optimize function layout in face_control",
       "status": "merged_partial",
-      "note": "`c7f78f29` 仅清理空产品宏块；原提交其余布局/日志范围未闭环。"
+      "note": "`8b77f26f` 仅清理空产品宏块；原提交其余布局/日志范围未闭环。"
     },
     {
       "id": "BC#65",
