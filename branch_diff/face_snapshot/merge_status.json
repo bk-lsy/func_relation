@@ -20,12 +20,14 @@
   },
   "last_action": {
     "date": "2026-10-15",
-    "kind": "functional_review_merge_1014",
-    "summary": "获准跨仓合入后，在新 NVMP 分支共享 BC#24/#28 的 FSS_IQA_THRESH 字段，并先完成 BC#24 CAP 自适应 IQA 合入。BC 宏展开保持不变，AC 新阈值缺省时回退原有基础阈值；pack/secure 源码树一致。",
+    "kind": "functional_review_trial_1015",
+    "summary": "BC#24 已在 CAP pack/secure 和新 NVMP 分支完成。BC#28 在独立 CAP 试验分支实现并测试：AC 的 size_score 为 0 或 99 时会被默认 100 门槛拒绝；仓库未找到 AC 算法赋值来源，故暂不移入 pack/secure。",
     "affected": [
       "pack_face_snapshot_converge_1014",
       "secure/face_snapshot_converge_1014",
-      "NVMP face_snapshot_iqa_converge_1015"
+      "NVMP face_snapshot_iqa_converge_1015",
+      "NVMP face_snapshot_iqa_size_trial_1015",
+      "CAP face_snapshot_size_trial_1015"
     ]
   },
   "entries": [
@@ -908,6 +910,8 @@
     "module_tree": "392be69f1c3dd4935f749eea4f27739d853366b8",
     "module_tree_equal": true,
     "source_only_commits": true,
+    "nvmp_dependency_branch": "face_snapshot_iqa_converge_1015",
+    "nvmp_dependency_head": "8a88fe51a668ec8637f9cca8dd62bf25669d69c1",
     "commits": [
       {
         "pack_commit": "f705717c479afe2ceee4363035ea8f2b064c0487",
@@ -989,6 +993,7 @@
           "ea1f1e58e27219d43e466ec8c5c06d2e9006d6bc"
         ],
         "secure_commit": "81af94fb47058abf84669b5d7e23c92b51ce49a5",
+        "nvmp_branch": "face_snapshot_iqa_converge_1015",
         "nvmp_commit": "8a88fe51a668ec8637f9cca8dd62bf25669d69c1"
       }
     ]
@@ -1019,8 +1024,20 @@
         "result": "低角度/高模糊阈值字段、DS 登记、阈值读取与自适应质量判断共用于 AC/BC；AC 旧配置新增字段为 0 时沿用原基础阈值。NVMP 配套模型字段已在独立分支共用。",
         "pack_commit": "def7998badb1f28811d27cc4ec3fd4c984473516",
         "secure_commit": "81af94fb47058abf84669b5d7e23c92b51ce49a5",
+        "nvmp_branch": "face_snapshot_iqa_converge_1015",
         "nvmp_commit": "8a88fe51a668ec8637f9cca8dd62bf25669d69c1",
         "verification": "BC 侧 CAP 三文件及 NVMP FSS_IQA_THRESH 预处理 token 与合入前相同；AC/BC 运行自适应阈值定向主机用例通过。旧 26 项测试中 25 项通过，1 项因固定要求 AC setter 与旧版逐字相同而与本次功能合入目标冲突。未做产品交叉编译或旧设备配置迁移验证。"
+      }
+    ],
+    "trials": [
+      {
+        "id": "BC#28",
+        "source_commit": "8afda7b47cc26866765f0cd081f65a428a1a6da3",
+        "cap_branch": "face_snapshot_size_trial_1015",
+        "cap_commit": "e661d0de96b4400fd933032212a35fda3f362ca7",
+        "nvmp_branch": "face_snapshot_iqa_size_trial_1015",
+        "nvmp_commit": "47038ee63172b56667e5b1058e91d46200044a32",
+        "result": "CAP 尺寸质量门槛及 DS 模型在 AC/BC 共用，BC 宏展开与合入前相同。定向主机测试确认默认门槛 100 下 AC size_score=0/99 被拒绝、100 被接受。尚无 AC 算法侧 size_score 赋值证据，故只保留试验分支。"
       }
     ],
     "assessed_still_deferred": [
@@ -1047,7 +1064,7 @@
       {
         "id": "BC#28",
         "source_commit": "8afda7b47cc26866765f0cd081f65a428a1a6da3",
-        "reason": "size_score 在 libdms 两侧可见，但 NVMP libsdm 的 FSS_IQA_THRESH 尺寸阈值字段仍只在 BC 展开；需核对 NVMP (1/2) 及 AC 配置布局和算法分数来源，不能只放开 CAP 宏。"
+        "reason": "跨仓试验已在 face_snapshot_size_trial_1015 完成；NVMP 模型字段也已在独立分支共用。但 AC 算法 size_score 是否填充仍无来源证据，默认 100 门槛在值为 0 时会拒绝所有本可通过的脸，因此不进入 pack/secure。"
       },
       {
         "id": "BC#44",
