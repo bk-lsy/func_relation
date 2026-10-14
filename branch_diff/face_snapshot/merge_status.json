@@ -21,7 +21,7 @@
   "last_action": {
     "date": "2026-10-15",
     "kind": "functional_review_merge_1014",
-    "summary": "依据 AC#26 及配套 NVMP/NSD 遥测提交，将人脸遥测统计和 DS 查询接口共用于 BC 的 TELEMETRY_SUPPORT 路径；AC 遥测与 BC 默认预处理输出不变，pack/secure 源码树一致，26 项主机测试通过。",
+    "summary": "依据 AC#26 及配套 NVMP/NSD 遥测提交，将人脸遥测统计和 DS 查询接口共用于 BC 的 TELEMETRY_SUPPORT 路径；pack/secure 源码树一致，26 项主机测试通过。复评 BC#24/#28/#44 时确认 NVMP 配置字段或存储版本仍有跨侧差异，保留整组待评审。",
     "affected": [
       "pack_face_snapshot_converge_1014",
       "secure/face_snapshot_converge_1014"
@@ -1024,6 +1024,21 @@
         "id": "BC#7",
         "source_commit": "b49a124e00f5f79db64923bb3ad6d164068b0879",
         "reason": "AC 添加熟人入口已优先查熟人；把优先规则扩展到全部 AC 相似度查询会改变现有匹配语义。"
+      },
+      {
+        "id": "BC#24",
+        "source_commit": "ea1f1e58e27219d43e466ec8c5c06d2e9006d6bc",
+        "reason": "CAP 侧可消去自适应 IQA 阈值的多处 BC 宏，但 NVMP libsdm 的 FSS_IQA_THRESH 低角度/高模糊字段仍只在 BC 展开。需与 NVMP (1/2) 数据模型及旧配置布局一起处理，单改 CAP 会使 AC 编译失败。"
+      },
+      {
+        "id": "BC#28",
+        "source_commit": "8afda7b47cc26866765f0cd081f65a428a1a6da3",
+        "reason": "size_score 在 libdms 两侧可见，但 NVMP libsdm 的 FSS_IQA_THRESH 尺寸阈值字段仍只在 BC 展开；需核对 NVMP (1/2) 及 AC 配置布局和算法分数来源，不能只放开 CAP 宏。"
+      },
+      {
+        "id": "BC#44",
+        "source_commit": "bb3848b5598b600095f3665859111b6d59f7b9b6",
+        "reason": "场景特征更新需要持久 feature_dn_status、子版本迁移与识别回写；目标 AC 存储子版本为 1，BC 为 3，原迁移仅处理 BC 的 2→3。直接取消宏会改变 AC 文件布局且缺少 1→3 迁移链。"
       }
     ]
   }
