@@ -21,14 +21,13 @@
   "last_action": {
     "date": "2026-10-14",
     "kind": "source_review",
-    "summary": "复核 BC #47/#48/#50/#51/#59/#65 六笔未处理来源：增强包裹检测和包裹历史跨模块/跨仓，NVMP AC 对照 ref 缺安全时间包装接口，HUB 消息与 PSS 标签涉及消费者契约；均暂缓跨侧合入，BC 原路径保留，CAP 未改源码。",
+    "summary": "核对 AC #6/#17/#23/#26 与 BC #2 五笔未处理来源；AC #23 的 face_snapshot 模板迁移及 BC #2 的 fss 版权行已有目标覆盖，其他三笔涉及跨模块厂商名称、HUB/AVTS 消费者或遥测系列，暂缓跨侧合入；CAP 未改源码。",
     "affected": [
-      "BC#47",
-      "BC#48",
-      "BC#50",
-      "BC#51",
-      "BC#59",
-      "BC#65"
+      "AC#6",
+      "AC#17",
+      "AC#23",
+      "AC#26",
+      "BC#2"
     ]
   },
   "entries": [
@@ -83,8 +82,8 @@
       "index": 6,
       "source_commit": "3f74974b9241be9e969b827a5b18f04365e18c73",
       "source_title": "[all]change manufacturer name in NVMP platform code",
-      "status": "no_merge_fix",
-      "note": "厂商名称变更涉及多文件/平台；无当前跨侧合入结论。"
+      "status": "deferred",
+      "note": "原提交 `3f74974b9241be9e969b827a5b18f04365e18c73` 在 CAP 131 个文件统一版权厂商名称，face_snapshot 七文件也在内。目标 fss.c 已为 TP-Link Systems Inc.，另六个 face_* 头/实现仍保留 Lianzhou 原行；该项属跨模块批量名称归属变更，不据单模块片段重写，整笔暂缓。"
     },
     {
       "id": "AC#7",
@@ -182,8 +181,8 @@
       "index": 17,
       "source_commit": "2900128f10da10f075a1953a1ed814834f38dec9",
       "source_title": "[all] avts: fixed the issue where the iot message of hub_storage proxy lacked faceid, name, and alias fields, resulting in the failure of pushing iot for face events [1/2]  avts : 修复hub_storage代理的iot消息缺少faceid、name、alias字段导致人脸事件推送iot失败的问题[1/2]",
-      "status": "no_merge_fix",
-      "note": "AVTS HUB 消息 `(1/2)` 的消费端契约尚未闭环。"
+      "status": "deferred",
+      "note": "原 CAP `(1/2)` `2900128f10da10f075a1953a1ed814834f38dec9` 把 AC HUB 绑定时的人脸告警由同时推送改为只向 hub_storage 送带 faceid/name/alias 的消息；提交正文要求 AVTS/hub_storage `(2/2)` 同步解析。目标 AC 宏路径已有 CAP 发送分支，但消费端与 BC HUB 消息格式未核对；整组暂缓跨侧合并，不能据 CAP 代码存在宣称云端推送闭环。"
     },
     {
       "id": "AC#18",
@@ -236,8 +235,8 @@
       "index": 23,
       "source_commit": "593c131a451d7c6964221854396ff59b704658b5",
       "source_title": "[CAP] merge (non-core)commit (interface capability variable) from nvmp_release_1.8.1_secure_enhance_250707 to other branch (3/5)",
-      "status": "no_merge_fix",
-      "note": "安全增强 `(3/5)` 涉及接口能力，跨仓系列未闭环。"
+      "status": "preexisting_coverage",
+      "note": "原 CAP `593c131a451d7c6964221854396ff59b704658b5` `(3/5)` 的 face_snapshot 焦点补丁将 face_control.c 八项、fd_statistics.c 一项动作注册及 fss.c 四项配置接口转为 DS_API_TEMPLATE。当前目标三文件均保留对应模板且旧 ds_register_action 调用已移除；焦点补丁已有覆盖。原提交另修改 30 余模块，跨仓 `(3/5)` 全系列不由本状态认定闭环。"
     },
     {
       "id": "AC#24",
@@ -263,8 +262,8 @@
       "index": 26,
       "source_commit": "1ab529891045131033eef8f7e2b625932f15d02e",
       "source_title": "[ALL] telemetry:telemetry support face recognition(2/3)",
-      "status": "no_merge_fix",
-      "note": "telemetry `(2/3)` 的 NVMP/NSD 依赖已定位，尚无跨侧合入。"
+      "status": "deferred",
+      "note": "原 CAP `1ab529891045131033eef8f7e2b625932f15d02e` 为遥测系列 `(2/3)`，新增统计结构、采集和 getFaceTelemetryInfo；目标 AC 宏路径保留，BC 产品路径未启用。已在本地 NVMP 历史找到 `(1/3)` `369f7ce4520c154095c26ec647cb07c5acdc8c85`，其余消费者/产品配置未闭环；暂缓跨入 BC，AC #27 的独立编译修复已单独确认覆盖。"
     },
     {
       "id": "AC#27",
@@ -317,8 +316,8 @@
       "index": 2,
       "source_commit": "3c54793dd2751b0d1858bfa3c7839b4af2281c7a",
       "source_title": "[all]change manufacturer name in NVMP platform code[4/5]",
-      "status": "no_merge_fix",
-      "note": "厂商名称 `(4/5)` 尚无完整跨仓系列结论。"
+      "status": "preexisting_coverage",
+      "note": "原 CAP `3c54793dd2751b0d1858bfa3c7839b4af2281c7a` `(4/5)` 在 face_snapshot 焦点仅将 fss.c 版权厂商行改为 TP-Link Systems Inc.；当前目标和 AC tip 的 fss.c 均已为该行，无需重复修改。原提交在 CAP 另覆盖 127 个文件，其他仓库 `(1/5)`～`(5/5)` 的完整名称审查不计入此焦点结论。"
     },
     {
       "id": "BC#3",
