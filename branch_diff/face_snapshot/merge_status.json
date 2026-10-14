@@ -19,11 +19,12 @@
     "no_merge_fix": "尚无有效跨侧合入修复提交或完整覆盖证据；不等于该产品路径缺功能或必须修改。"
   },
   "last_action": {
-    "date": "2026-10-14",
-    "kind": "repack_face_snapshot_1014",
-    "summary": "按用户要求重做 pack：22 笔零散源码改动集中为 1 笔提交，四块系统性合入各保持独立提交；5 笔提交只含 src/modules/face_snapshot，pack 与 secure 模块树对象相同，26 项源码验证通过。",
+    "date": "2026-10-15",
+    "kind": "functional_review_merge_1014",
+    "summary": "评估暂缓的功能性来源；将 AC#9 随机数源完整应用到 BC 陌生人命名路径，pack/secure 分支源码树一致，26 项主机测试通过；BC#18 和 AC#26 仍缺跨侧依赖或消费者契约。",
     "affected": [
-      "pack_face_snapshot_converge_1014"
+      "pack_face_snapshot_converge_1014",
+      "secure/face_snapshot_converge_1014"
     ]
   },
   "entries": [
@@ -898,12 +899,12 @@
   },
   "packaging_1014": {
     "branch": "pack_face_snapshot_converge_1014",
-    "head": "07b72b0f192c050429ff9e0b2ac372df12160e5f",
+    "head": "f2d59d654a1802a3d09e649e3bb94649a72f8cbe",
     "base": "102ba4b17bb1eac7eff0f89c52d8b1700e1ae378",
     "source_branch": "secure/face_snapshot_converge_1014",
-    "source_head": "8f8fea6bb525bf3533b1e126e0c795f616f16b7d",
+    "source_head": "040d47095ffd42fe153fef7ff0ad8207bdd0fa89",
     "module_path": "src/modules/face_snapshot",
-    "module_tree": "10887e69008db00e521809219951d9400aa0a0fa",
+    "module_tree": "e2a19f817ca4cbb2da68c2aafd365334292a621a",
     "module_tree_equal": true,
     "source_only_commits": true,
     "commits": [
@@ -963,6 +964,55 @@
         "secure_source_commits": [
           "1045aa3cffe8ee7765791758cd599499084bc82b"
         ]
+      },
+      {
+        "pack_commit": "f2d59d654a1802a3d09e649e3bb94649a72f8cbe",
+        "kind": "functional_review_merge",
+        "source_commits": [
+          "12f602f96c52f1906d4baa5d0413f8dd59567ba7"
+        ],
+        "secure_commit": "040d47095ffd42fe153fef7ff0ad8207bdd0fa89"
+      }
+    ]
+  },
+  "functional_review_1014": {
+    "date": "2026-10-15",
+    "scope": "本节记录 pack/secure 1014 分支对暂缓功能提交的复评；entries 仍以 face_snapshot_converge_1010 为目标，不混用状态。",
+    "merged": [
+      {
+        "id": "AC#9",
+        "source_commit": "12f602f96c52f1906d4baa5d0413f8dd59567ba7",
+        "result": "BC 陌生人命名从 rand() 改为 nvmp_gen_rand_number()，移除同函数两处重复 srand(time(NULL))。NVMP libutils 的函数在两侧均有声明和实现。",
+        "pack_commit": "f2d59d654a1802a3d09e649e3bb94649a72f8cbe",
+        "secure_commit": "040d47095ffd42fe153fef7ff0ad8207bdd0fa89",
+        "verification": "26 项主机测试通过；AC/BC 预处理下每侧各保留一次 nvmp_gen_rand_number()，无 srand(time(NULL))；两分支模块树 e2a19f817ca4cbb2da68c2aafd365334292a621a 相同。"
+      }
+    ],
+    "assessed_still_deferred": [
+      {
+        "id": "BC#18",
+        "source_commit": "cd9bc9160cd18b212a5c5de17b5255db8aa58381",
+        "reason": "AC 路径 NVMP libutils 中 ringbuffer_attach_with_cb 的声明和实现均不可见；需与系列 (1/2) 及回调生命周期一起处理。"
+      },
+      {
+        "id": "AC#26",
+        "source_commit": "1ab529891045131033eef8f7e2b625932f15d02e",
+        "reason": "遥测接口仅在 AC 路径注册，BC 消费者和产品开关契约未证实；原提交属于 (2/3) 系列。"
+      },
+      {
+        "id": "BC#42",
+        "source_commit": "08fd905b3a589373d76af5d46a5fd854a316d7c3",
+        "reason": "BC 的 usr_record 挂载问题不对应 AC 的 /overlay 与 /tmp/usr_def_audio 存储路径。"
+      },
+      {
+        "id": "AC#15",
+        "source_commit": "91713aef6e078ddf179afca70ea060bcfaf9fe6b",
+        "reason": "旧 save_pic 配置迁移依赖产品宏和升级路径，尚无 BC 旧配置需要同一迁移的证据。"
+      },
+      {
+        "id": "BC#7",
+        "source_commit": "b49a124e00f5f79db64923bb3ad6d164068b0879",
+        "reason": "AC 添加熟人入口已优先查熟人；把优先规则扩展到全部 AC 相似度查询会改变现有匹配语义。"
       }
     ]
   }
