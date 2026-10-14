@@ -1,6 +1,6 @@
 # face_snapshot 暂缓来源合入评审清单
 
-本清单对应 [`merge_status.json`](merge_status.json) 在 2026-10-14 标记为 `deferred` 的 38 笔 AC/BC 原始提交。这里的“待评审”表示需要判断**是否跨侧合入**；暂缓不等于原分支功能缺失。原提交 SHA、标题、作者日期和改动文件数取自 CAP Git 历史；文件数统计整笔提交，括号内仅列 `face_snapshot` 焦点文件。风险是跨侧迁移的初评，尚非测试结论。状态和合入结果仍以 `merge_status.json` 为准。
+本清单对应 [`merge_status.json`](merge_status.json) 在 2026-10-14 标记为 `deferred` 的 37 笔 AC/BC 原始提交。这里的“待评审”表示需要判断**是否跨侧合入**；暂缓不等于原分支功能缺失。原提交 SHA、标题、作者日期和改动文件数取自 CAP Git 历史；文件数统计整笔提交，括号内仅列 `face_snapshot` 焦点文件。风险是跨侧迁移的初评，尚非测试结论。状态和合入结果仍以 `merge_status.json` 为准。
 
 评审时优先成组处理带 `(1/2)`、`(2/3)`、`[3/5]` 等编号的提交，并核对 NVMP、AVTS、NSD、配置与消息消费者。确认适用后再建立源码修复提交及多对多来源关系；不因目标 BC 路径已有代码，就直接判定 AC 路径可用。
 
@@ -60,7 +60,7 @@
 - 功能：调整预设方法相关处理，配合摄像头操作日志系列。
 - 风险：**中**。与 AC#28 的日志能力和跨模块 DS 接口相关；需先核对 `(1/2)` 及目标机型再评审合入。
 
-## BC 来源：29 笔
+## BC 来源：28 笔
 
 ### BC#5 · 最佳匹配接口
 
@@ -162,7 +162,7 @@
 
 - 原提交：`ea33fe4d4a27504ed9284dc8bd5daead504c6bca`，2026-05-15，`[CAP] Security Optimization for DS Interface (3/4)`；CAP 69 文件（`face_control.c`、`fd_statistics.c`、`fss.c`）。
 - 功能：为 DS 接口登记访问校验模板，限制未授权调用。
-- 风险：**高**。跨 69 模块与底层 DS 校验契约；目标 face_snapshot 模板已存在，但不能据此认定整笔完成。评审 `(1/4)` 至 `(4/4)`、权限表及兼容客户端。
+- 风险：**高**。8 项普通人脸接口及统计/配置模板当前已共用；分包上传模板仍仅在 BC 路径，依赖 BC#38。整笔还跨 69 模块；继续评审 `(1/4)` 至 `(4/4)`、权限表及兼容客户端。
 
 ### BC#44 · 场景感知特征更新
 
@@ -175,12 +175,6 @@
 - 原提交：`7012ac55e8970c87146e8e5f740454d2c4d84350`，2026-07-03，`[all]cap: support enhanced package detection [2/5]`；CAP 30 文件（`face_control.c`）。
 - 功能：建立增强包裹检测模块，并在 `EN_PKGD_SUPPORT` 下转发人脸结果。
 - 风险：**高**。跨电源、MCU、告警等模块及 NVMP `(1/5)` `16d21a671d5d3332c47c33b5e662ad3d2973d914`；评审整套 `[1/5]` 至 `[5/5]` 与 AC 产品适用性。
-
-### BC#48 · 时间转换安全包装
-
-- 原提交：`ce7ab9a6169954d89f0a86379e75321c1baa2fa6`，2026-05-28，`[ALL]nvmp|cap: Wrap localtime_r/gmtime_r, unify time conversion APIs across NVMP platform[3/4]`；CAP 13 文件（`fd_statistics.c`）。
-- 功能：把时间转换调用切到 `nvmp_localtime_safe` 等平台接口。
-- 风险：**高**。NVMP BC `(1/4)` `2691163edb0e3118d19c8ed4cfb54e2c226a7f69` 提供接口，当前 AC 对照 libutils 未见定义；目标共用统计路径已调用，需优先核对 AC 编译/链接依赖和整套系列。
 
 ### BC#50 · 包裹历史与人脸事件
 

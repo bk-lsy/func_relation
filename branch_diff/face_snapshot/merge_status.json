@@ -20,12 +20,11 @@
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "non_source_file_review",
-    "summary": "在删除宏包装提交后继续按文件排查 Makefile 和默认配置；8 个普通默认文件两侧同字节，storage_head_info 两侧布局值分别由 files/files_ac 保留，CAP HEAD 与关系图不变。",
+    "kind": "for_review_audit",
+    "summary": "逐项筛查 38 笔暂缓来源，核实 BC#48 的 CAP 共用调用与当前 NVMP libutils 定义/声明，改为 preexisting_coverage；BC#43 写明已共用子范围和 BC 专属分包残余；其余仍待评审。CAP HEAD、关系图和源码不变。",
     "affected": [
-      "AC#1",
-      "AC#7",
-      "BC#61"
+      "BC#48",
+      "BC#43"
     ]
   },
   "entries": [
@@ -684,7 +683,7 @@
       "source_commit": "ea33fe4d4a27504ed9284dc8bd5daead504c6bca",
       "source_title": "[CAP] Security Optimization for DS Interface (3/4)",
       "status": "deferred",
-      "note": "原提交 ea33fe4d4a27504ed9284dc8bd5daead504c6bca 是全 CAP DS 安全接口 (3/4)，一次修改 69 个模块；目标 face_snapshot 的 DS_API_TEMPLATE 定义已有焦点覆盖，但整笔跨模块/跨仓安全契约未审完，按跨模块整笔暂缓，不据局部覆盖判定完成。"
+      "note": "原 CAP ea33fe4d4a27504ed9284dc8bd5daead504c6bca 的 face_snapshot 焦点改动中，8 项普通 face_control DS 模板及 fd_statistics/fss 模板当前已是共用代码，旧 ds_register_action 已移除；doFaceInfoAddPacketized 模板仍在 #ifndef BC_ON_AC 下，依赖 BC#38 的分包功能。焦点子范围已有覆盖但尚未整笔跨侧完成；此外原提交跨 69 个模块，权限契约需与系列配套核对，保留待评审。"
     },
     {
       "id": "BC#44",
@@ -728,8 +727,8 @@
       "index": 48,
       "source_commit": "ce7ab9a6169954d89f0a86379e75321c1baa2fa6",
       "source_title": "[ALL]nvmp|cap: Wrap localtime_r/gmtime_r, unify time conversion APIs across NVMP platform[3/4]",
-      "status": "deferred",
-      "note": "原 CAP `ce7ab9a6169954d89f0a86379e75321c1baa2fa6` `(3/4)` 将 fd_statistics.c 的 localtime 调用改用 nvmp_localtime_safe；NVMP BC 的 `(1/4)` `2691163edb0e3118d19c8ed4cfb54e2c226a7f69` 定义/声明该接口，但在本地 NVMP AC 对照 ref `origin/develop/nvmp_release_1.9.2` 的 libutils 中未找到。当前 CAP 物理合并后的共用统计路径已调用它，AC 配套编译依赖尚未闭环；整组暂缓跨侧处理，不把 CAP 单文件视为已完成合入。"
+      "status": "preexisting_coverage",
+      "note": "原 CAP ce7ab9a6169954d89f0a86379e75321c1baa2fa6 的 face_snapshot 焦点补丁已在当前 fd_statistics.c 共用周期报表路径：两处 nvmp_localtime_safe 调用及失败处理由原提交保留（git blame 行 518/701）。当前 NVMP 工作分支 develop/bc_develop_220927 的 libutils/src/date.c 定义、nvmp_utils.h 声明均由配套 (1/4) 2691163edb0e3118d19c8ed4cfb54e2c226a7f69 提供且不受 AC/BC 宏限制。旧判断误以 origin/develop/nvmp_release_1.9.2 原始 AC ref 缺依赖，替代当前物理合并目标；焦点范围无需再合入。整笔跨模块/跨仓系列及产品构建不由此认定完成。"
     },
     {
       "id": "BC#49",
@@ -885,5 +884,17 @@
       "note": "原提交 `3e40aa2606ea54ff93f9b39deeddb7cd970d351b` 扩展 PSS 多人选择、熟人匹配及 qualified face 事件/视频标签；目标 BC 路径保留。它影响 PSS 存储、识别结果与视频事件消费者，AC PSS 对应契约未核对，暂缓跨侧合入，不拆出局部算法变更。"
     }
   ],
-  "relation_graph": "merge_relations.json"
+  "relation_graph": "merge_relations.json",
+  "for_review_audit": {
+    "date": "2026-10-14",
+    "screened_deferred_count": 38,
+    "confirmed_misregistered": [
+      "BC#48"
+    ],
+    "partially_covered_but_still_deferred": [
+      "BC#43"
+    ],
+    "remaining_deferred_count": 37,
+    "basis": "按原提交 face_snapshot 焦点补丁与当前目标逐项筛查；对疑似完整覆盖项核对宏可见性、依赖所在仓库及当前工作分支。文本命中率仅用于候选筛选，不直接决定状态。"
+  }
 }
