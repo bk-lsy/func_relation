@@ -13,10 +13,9 @@
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "file_pair_review_with_change",
-    "unit_id": "fd_statistics_stg",
-    "cap_commit": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
-    "summary": "fd_statistics_stg.c/.h 绑定审查，统一报表存储门控；8/8 宏组合一致。"
+    "kind": "file_pair_review",
+    "unit_id": "fd_stg_version/fd_stg_version",
+    "summary": "fd_stg_version.c/.h 绑定审查，版本迁移行为不同，未修改 CAP。"
   },
   "units": [
     {
@@ -78,8 +77,9 @@
         "fd_stg_version/fd_stg_version.c",
         "fd_stg_version/fd_stg_version.h"
       ],
-      "status": "pending",
-      "reviewed_against": null
+      "status": "reviewed_no_change",
+      "reviewed_against": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
+      "finding": "已绑定审查 fd_stg_version.c/.h。头文件无 AC/BC 分支；实现中 AC 的 update_v1_1_to_v1_2 会迁移旧报表文件，BC 的版本循环为空操作。收敛这些分支会改变存储迁移行为，本轮未改 CAP。"
     },
     {
       "id": "pss_enhance/pdr_storage",

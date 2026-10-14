@@ -20,14 +20,11 @@
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "file_pair_review_with_change",
-    "summary": "fd_statistics_stg.c/.h 绑定审查，CAP 090a85df 收敛报表存储声明与实现条件，并将共同门控移动至存储头文件；BC #10 整组暂缓状态不变。",
+    "kind": "file_pair_review",
+    "summary": "fd_stg_version.c/.h 绑定审查并更新 file_review_progress.json；AC 真实迁移与 BC 空版本循环不按无逻辑影响项收敛，来源状态、CAP HEAD 与关系图不变。",
     "affected": [
       "AC#7",
-      "BC#3",
-      "BC#10",
-      "BC#60",
-      "BC#61"
+      "BC#3"
     ]
   },
   "entries": [
