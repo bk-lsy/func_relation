@@ -21,16 +21,11 @@
   "last_action": {
     "date": "2026-10-14",
     "kind": "source_review",
-    "summary": "核对 BC #4/#17/#24/#25/#28/#43/#52 七笔未处理来源：#4 保留待处理（AMS 阈值跨侧契约未判定），其余六笔因配套系列、产品行为或跨模块范围暂缓；复核 BC #54 两处焦点补丁已完整覆盖，改为完成。CAP 未改源码。",
+    "summary": "复核 BC #4 阈值系列的目标公共实现及 AC tip 对应功能，改为已有覆盖；复核 AC #14/BC #20 的新增通知补丁与当前两侧调用顺序，改为完整合入。目标 CAP HEAD 未变化，关系图现有局部边仍适用，未改源码。",
     "affected": [
       "BC#4",
-      "BC#17",
-      "BC#24",
-      "BC#25",
-      "BC#28",
-      "BC#43",
-      "BC#52",
-      "BC#54"
+      "AC#14",
+      "BC#20"
     ]
   },
   "entries": [
@@ -157,8 +152,8 @@
       "index": 14,
       "source_commit": "de1da536532c73b82b23210e732aec72ee0efc04",
       "source_title": "[cap]face_snapshot:fix the issue introduced by the submission of 1cfaf2",
-      "status": "merged_partial",
-      "note": "`565ad246` 共用 FDS 新增事件入口；原控制模块修复的其余路径尚无整笔结论。"
+      "status": "merged_complete",
+      "note": "原提交 de1da536532c73b82b23210e732aec72ee0efc04 的新增通知修复已在目标覆盖：旧 face ID 在满额替换时保存，处理函数检查索引/记录并接收 add_status，仅首次识别发送索引 ADD，陌生人覆盖时先 DELETE，FDS ADD 和合格事件在同人提前退出前发送；AC 路径保留 traj_face->utc_start。既有本地 565ad246 共用 FDS ADD 构造，其余焦点代码由物理合并及后续修复保留。"
     },
     {
       "id": "AC#15",
@@ -337,8 +332,8 @@
       "index": 4,
       "source_commit": "3d14c077baee267afc2ee45a4a52ac0720bc888b",
       "source_title": "[all]cap:read ams config for fss threshold set(1/2)",
-      "status": "no_merge_fix",
-      "note": "原提交 3d14c077baee267afc2ee45a4a52ac0720bc888b 是 AMS 阈值 (1/2)，NVMP BC 配套 (2/2) 为 5f070fd4dc621d1ed598895663a5de2f32400b33。当前目标保留 BC 的 get_fd_threshold_level/face_feature_threshold_set 与 AC 的 fd_threshold_level_get/fd_feature_threshold_set；需逐项核对两侧 DS 阈值字段、日夜状态和重载时机，尚不能判定跨侧适用，继续待处理。"
+      "status": "preexisting_coverage",
+      "note": "原提交 3d14c077baee267afc2ee45a4a52ac0720bc888b 的阈值等级、AMS IQA/相似度读取、日夜状态、启动初始化及 LIGHT_STATUS 重载/监视，在目标公共 face_feature.c、face_control.c、fss.c 与头文件中均有覆盖；AC tip 原有对应阈值实现，BC 配套 NVMP (2/2) 5f070fd4dc621d1ed598895663a5de2f32400b33。目标后续额外的 BC IQA 字段由 BC#24/#28 单独标记；本笔无需另改 CAP。"
     },
     {
       "id": "BC#5",
@@ -481,8 +476,8 @@
       "index": 20,
       "source_commit": "71c4e67b2a7634e48d7d312a93bc0289ba580d3b",
       "source_title": "[cap]face_snapshot:fix the issue introduced by the submission of 1cfaf2",
-      "status": "merged_partial",
-      "note": "与 AC #14 对应；`565ad246` 只覆盖事件入口子范围。"
+      "status": "merged_complete",
+      "note": "原提交 71c4e67b2a7634e48d7d312a93bc0289ba580d3b 与 AC#14 对应的新增通知修复已在目标覆盖：索引/记录检查、add_status 首次 ADD、陌生人覆盖先 DELETE、FDS ADD 和合格事件的调用顺序均在当前函数；BC 路径起始时间采用后续修复后的 gen_timestamp。既有本地 565ad246 共用 FDS ADD 构造，其余焦点代码由 BC 基础及后续修复保留。"
     },
     {
       "id": "BC#21",
