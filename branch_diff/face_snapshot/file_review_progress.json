@@ -4,7 +4,7 @@
   "module_root": "src/modules/face_snapshot",
   "target": {
     "branch": "face_snapshot_converge_1010",
-    "head": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5"
+    "head": "090a85df6d19c89dc0101fd665821bf5cdffb73f"
   },
   "status_definitions": {
     "pending": "该文件组尚未按本轮不改变逻辑或仅涉及简单逻辑的口径逐段审查。",
@@ -14,9 +14,9 @@
   "last_action": {
     "date": "2026-10-14",
     "kind": "file_pair_review_with_change",
-    "unit_id": "fd_statistics",
-    "cap_commit": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5",
-    "summary": "fd_statistics.c/.h 绑定审查并完成周期报表预处理条件收敛；8/8 宏组合一致。"
+    "unit_id": "fd_statistics_stg",
+    "cap_commit": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
+    "summary": "fd_statistics_stg.c/.h 绑定审查，统一报表存储门控；8/8 宏组合一致。"
   },
   "units": [
     {
@@ -56,9 +56,10 @@
         "fd_statistics.h"
       ],
       "status": "reviewed_with_change",
-      "reviewed_against": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5",
+      "reviewed_against": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
       "cap_commit": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5",
-      "finding": "已绑定审查 fd_statistics.c/.h。把 AC 周期报表与 BC 非电池机周期报表的声明、枚举和实现统一使用 FDS_PERIODIC_REPORT_ENABLED，移除 BC_ON_AC 与其他宏的 ||/&& 组合；8 种宏组合的预处理结果与原实现条件一致。BC 电池机月/周报产品逻辑仍保持原状，BC#10 整组暂缓状态不变。"
+      "finding": "已绑定审查 fd_statistics.c/.h。把 AC 周期报表与 BC 非电池机周期报表的声明、枚举和实现统一使用 FDS_PERIODIC_REPORT_ENABLED，移除 BC_ON_AC 与其他宏的 ||/&& 组合；8 种宏组合的预处理结果与原实现条件一致。BC 电池机月/周报产品逻辑仍保持原状，BC#10 整组暂缓状态不变。 后续 090a85df 将开关定义移入 fd_statistics_stg.h，供统计和存储共同使用。",
+      "followup_cap_commit": "090a85df6d19c89dc0101fd665821bf5cdffb73f"
     },
     {
       "id": "fd_statistics_stg",
@@ -66,8 +67,10 @@
         "fd_statistics_stg.c",
         "fd_statistics_stg.h"
       ],
-      "status": "pending",
-      "reviewed_against": null
+      "status": "reviewed_with_change",
+      "reviewed_against": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
+      "cap_commit": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
+      "finding": "已绑定审查 fd_statistics_stg.c/.h。将上一组引入的 FDS_PERIODIC_REPORT_ENABLED 放到存储头文件供两组共用，合并四处同内容的 AC/BC 声明分支及七处实现预处理条件。8 种宏组合与原存储实现条件一致；BC 电池机月/周报仍保持原边界，BC#10 继续整组暂缓。"
     },
     {
       "id": "fd_stg_version/fd_stg_version",
