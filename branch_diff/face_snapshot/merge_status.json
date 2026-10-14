@@ -20,8 +20,8 @@
   },
   "last_action": {
     "date": "2026-10-15",
-    "kind": "functional_review_trial_1015",
-    "summary": "BC#24 已在 CAP pack/secure 和新 NVMP 分支完成。BC#28 在独立 CAP 试验分支实现并测试：AC 的 size_score 为 0 或 99 时会被默认 100 门槛拒绝；仓库未找到 AC 算法赋值来源，故暂不移入 pack/secure。",
+    "kind": "functional_review_merge_1015",
+    "summary": "AC#15 的旧 fss_pic_cfg/save_pic 迁移函数与调用在 FIX_FSS_PIC_CFG 下共用于 AC/BC。AC+FIX 与 BC 默认宏展开不变，BC+FIX 可见修复函数和调用；pack/secure 源码树一致。",
     "affected": [
       "pack_face_snapshot_converge_1014",
       "secure/face_snapshot_converge_1014",
@@ -902,12 +902,12 @@
   },
   "packaging_1014": {
     "branch": "pack_face_snapshot_converge_1014",
-    "head": "def7998badb1f28811d27cc4ec3fd4c984473516",
+    "head": "fce49c61ea9e31a578814c29d7fdb01eb1deee4c",
     "base": "102ba4b17bb1eac7eff0f89c52d8b1700e1ae378",
     "source_branch": "secure/face_snapshot_converge_1014",
-    "source_head": "81af94fb47058abf84669b5d7e23c92b51ce49a5",
+    "source_head": "7dd0e77b82730716094178339ec5be7d5623ad89",
     "module_path": "src/modules/face_snapshot",
-    "module_tree": "392be69f1c3dd4935f749eea4f27739d853366b8",
+    "module_tree": "0b7f80513574aeca649dbfe9a448eb98f21aad86",
     "module_tree_equal": true,
     "source_only_commits": true,
     "nvmp_dependency_branch": "face_snapshot_iqa_converge_1015",
@@ -995,6 +995,14 @@
         "secure_commit": "81af94fb47058abf84669b5d7e23c92b51ce49a5",
         "nvmp_branch": "face_snapshot_iqa_converge_1015",
         "nvmp_commit": "8a88fe51a668ec8637f9cca8dd62bf25669d69c1"
+      },
+      {
+        "pack_commit": "fce49c61ea9e31a578814c29d7fdb01eb1deee4c",
+        "kind": "functional_review_merge",
+        "source_commits": [
+          "91713aef6e078ddf179afca70ea060bcfaf9fe6b"
+        ],
+        "secure_commit": "7dd0e77b82730716094178339ec5be7d5623ad89"
       }
     ]
   },
@@ -1027,6 +1035,14 @@
         "nvmp_branch": "face_snapshot_iqa_converge_1015",
         "nvmp_commit": "8a88fe51a668ec8637f9cca8dd62bf25669d69c1",
         "verification": "BC 侧 CAP 三文件及 NVMP FSS_IQA_THRESH 预处理 token 与合入前相同；AC/BC 运行自适应阈值定向主机用例通过。旧 26 项测试中 25 项通过，1 项因固定要求 AC setter 与旧版逐字相同而与本次功能合入目标冲突。未做产品交叉编译或旧设备配置迁移验证。"
+      },
+      {
+        "id": "AC#15",
+        "source_commit": "91713aef6e078ddf179afca70ea060bcfaf9fe6b",
+        "result": "原有 fix_fss_pic_cfg() 与启动调用移出 AC_ON_BC 宏，继续受 FIX_FSS_PIC_CFG 控制；两侧共用 FSS_PIC_CFG 和 NVMP 产品编译宏映射。",
+        "pack_commit": "fce49c61ea9e31a578814c29d7fdb01eb1deee4c",
+        "secure_commit": "7dd0e77b82730716094178339ec5be7d5623ad89",
+        "verification": "AC+FIX 与 BC 默认预处理 token 不变；BC+FIX 下函数定义和调用均可见；两分支 face_snapshot 模块树 0b7f80513574aeca649dbfe9a448eb98f21aad86 相同。"
       }
     ],
     "trials": [
@@ -1050,11 +1066,6 @@
         "id": "BC#42",
         "source_commit": "08fd905b3a589373d76af5d46a5fd854a316d7c3",
         "reason": "BC 的 usr_record 挂载问题不对应 AC 的 /overlay 与 /tmp/usr_def_audio 存储路径。"
-      },
-      {
-        "id": "AC#15",
-        "source_commit": "91713aef6e078ddf179afca70ea060bcfaf9fe6b",
-        "reason": "旧 save_pic 配置迁移依赖产品宏和升级路径，尚无 BC 旧配置需要同一迁移的证据。"
       },
       {
         "id": "BC#7",
