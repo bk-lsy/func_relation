@@ -13,9 +13,9 @@
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "file_pair_review",
-    "unit_id": "ring_object",
-    "summary": "ring_object.c/.h 绑定审查，无 AC/BC 分支，未修改 CAP。"
+    "kind": "single_file_review",
+    "unit_id": "fss",
+    "summary": "fss.c 单文件审查，剩余分支涉及 DS 配置模型和已暂缓摄像头日志系列，未修改 CAP。"
   },
   "units": [
     {
@@ -126,9 +126,10 @@
       "files": [
         "fss.c"
       ],
-      "status": "pending",
-      "reviewed_against": null,
-      "note": "当前模块没有同名 fss.h；作为单文件审查单元。"
+      "status": "reviewed_no_change",
+      "reviewed_against": "090a85df6d19c89dc0101fd665821bf5cdffb73f",
+      "note": "当前模块没有同名 fss.h；作为单文件审查单元。",
+      "finding": "已按单文件单元审查 fss.c（模块无同名 fss.h）。剩余条件分支涉及 AC 摄像头操作日志 pre_set 钩子（对应整组暂缓 AC#28/#29）、BC 新增的模型状态/通知计数/图片格式与 IQA 配置字段，以及数据模型注册方式；这些会改变 DS 接口、配置或产品行为，本轮不拆取。CAP 未改。"
     }
   ]
 }

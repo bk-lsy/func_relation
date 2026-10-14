@@ -20,11 +20,13 @@
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "file_pair_review",
-    "summary": "ring_object.c/.h 绑定审查并更新 file_review_progress.json；循环队列实现与声明无 AC/BC 分支，来源状态、CAP HEAD 与关系图不变。",
+    "kind": "single_file_review",
+    "summary": "fss.c 单文件审查并更新 file_review_progress.json；剩余条件分支涉及配置模型或已整组暂缓的摄像头操作日志系列，CAP HEAD 与来源状态/关系图不变。",
     "affected": [
       "AC#7",
-      "BC#3"
+      "AC#28",
+      "AC#29",
+      "BC#10"
     ]
   },
   "entries": [
