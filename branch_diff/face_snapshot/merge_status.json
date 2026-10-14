@@ -21,11 +21,10 @@
   "last_action": {
     "date": "2026-10-14",
     "kind": "source_review",
-    "summary": "复核 BC #4 阈值系列的目标公共实现及 AC tip 对应功能，改为已有覆盖；复核 AC #14/BC #20 的新增通知补丁与当前两侧调用顺序，改为完整合入。目标 CAP HEAD 未变化，关系图现有局部边仍适用，未改源码。",
+    "summary": "复核 AC #13/BC #19：FDS 队列修复与控制侧索引/HUB 状态子范围均可在目标定位；HUB 推送及后续消息策略未做端到端等价核对，仍记部分完成。未发现可独立安全迁移的新补丁；CAP HEAD 不变，关系边不变。",
     "affected": [
-      "BC#4",
-      "AC#14",
-      "BC#20"
+      "AC#13",
+      "BC#19"
     ]
   },
   "entries": [
@@ -144,7 +143,7 @@
       "source_commit": "e69adae64faf5b6f1d77e897f054e7d81effe9dc",
       "source_title": "[cap]face_snapshot:fix some bugs of face snapshot",
       "status": "merged_partial",
-      "note": "`284535b2`、`c3d6c9d7` 等覆盖事件队列、HUB 状态子范围；原控制/统计补丁未完整闭环。"
+      "note": "原提交 e69adae64f 的统计队列 MAX_FDS_EVENT_NUM=50、Ring_Object_Get 失败跳过、FDS_IDLE 枚举，目标已覆盖；控制侧 full_status/old_faceid 传递、内部删除、合并后删除旧人脸、HUB 状态缓存及配置重载亦在当前代码。AC 的 HUB 推送现已沿 fd_control_send_msg_push 路由，原提交的独立 fd_control_send_msg_push2hub 消息构造与当前后续策略尚未做端到端等价核对，保留部分完成；既有 284535b2/c3d6c9d7 为明确子范围。"
     },
     {
       "id": "AC#14",
@@ -468,7 +467,7 @@
       "source_commit": "99edff3d1aea0e4eb6724d5ddffb63dd6d2820ae",
       "source_title": "[cap]face_snapshot:fix some bugs of face snapshot",
       "status": "merged_partial",
-      "note": "与 AC #13 对应；`284535b2`、`c3d6c9d7` 只覆盖若干子范围。"
+      "note": "原提交 99edff3d1a 的统计队列容量 50、读取失败跳过、FDS_IDLE，目标已覆盖；控制侧 full_status/old_faceid、内部删除、合并后删除旧人脸、HUB 状态缓存及配置重载也在当前 BC 路径。目标 BC 推送还受后续 FSS_MSG_PUSH、HUB/包裹消息策略影响，原提交完整控制补丁与最终行为尚未端到端核对，保留部分完成；既有 284535b2/c3d6c9d7 为明确子范围。"
     },
     {
       "id": "BC#20",
