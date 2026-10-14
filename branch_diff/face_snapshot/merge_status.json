@@ -20,8 +20,8 @@
   },
   "last_action": {
     "date": "2026-10-15",
-    "kind": "functional_review_trial_1015",
-    "summary": "BC#18 跨 CAP/NVMP 的 ringbuffer 回调附着试验已完成；两侧 libutils 主机测试通过，BC 宏展开不变。停止时待附着回调仍可能在之后触发，故保留试验分支，不进入 pack。",
+    "kind": "functional_review_merge_1015",
+    "summary": "成组处理 BC#5/#26：在独立 NVMP 分支公开最佳匹配接口，CAP AC helper 返回找到状态并共用 BC 接口；保留 AC 最高分和 BC 熟人优先策略。两侧定向运行测试通过，pack/secure 源码树一致。",
     "affected": [
       "pack_face_snapshot_converge_1014",
       "secure/face_snapshot_converge_1014",
@@ -29,7 +29,8 @@
       "NVMP face_snapshot_iqa_size_trial_1015",
       "CAP face_snapshot_size_trial_1015",
       "CAP face_snapshot_ringbuffer_trial_1015",
-      "NVMP face_snapshot_ringbuffer_trial_1015"
+      "NVMP face_snapshot_ringbuffer_trial_1015",
+      "NVMP face_snapshot_bestmatch_1015"
     ]
   },
   "entries": [
@@ -904,16 +905,16 @@
   },
   "packaging_1014": {
     "branch": "pack_face_snapshot_converge_1014",
-    "head": "fce49c61ea9e31a578814c29d7fdb01eb1deee4c",
+    "head": "c61756b8e81146f15c02c8cc39b81330929e7751",
     "base": "102ba4b17bb1eac7eff0f89c52d8b1700e1ae378",
     "source_branch": "secure/face_snapshot_converge_1014",
-    "source_head": "7dd0e77b82730716094178339ec5be7d5623ad89",
+    "source_head": "f67caea7ca960ed773267a838a197c917dffaafa",
     "module_path": "src/modules/face_snapshot",
-    "module_tree": "0b7f80513574aeca649dbfe9a448eb98f21aad86",
+    "module_tree": "13ee27087bae0082a9b44e2f9501e1dfc60a44f4",
     "module_tree_equal": true,
     "source_only_commits": true,
-    "nvmp_dependency_branch": "face_snapshot_iqa_converge_1015",
-    "nvmp_dependency_head": "8a88fe51a668ec8637f9cca8dd62bf25669d69c1",
+    "nvmp_dependency_branch": "face_snapshot_bestmatch_1015",
+    "nvmp_dependency_head": "fe7195e0ba81efda91ea0ba5f49600c80da0c997",
     "commits": [
       {
         "pack_commit": "f705717c479afe2ceee4363035ea8f2b064c0487",
@@ -1005,6 +1006,17 @@
           "91713aef6e078ddf179afca70ea060bcfaf9fe6b"
         ],
         "secure_commit": "7dd0e77b82730716094178339ec5be7d5623ad89"
+      },
+      {
+        "pack_commit": "c61756b8e81146f15c02c8cc39b81330929e7751",
+        "kind": "functional_review_merge",
+        "source_commits": [
+          "7a5ee0dfba0152e57e4f89dc6865a2ad1a608bde",
+          "bad5f512f868b751170c565d1abd90bf5cde1b62"
+        ],
+        "secure_commit": "f67caea7ca960ed773267a838a197c917dffaafa",
+        "nvmp_branch": "face_snapshot_bestmatch_1015",
+        "nvmp_commit": "fe7195e0ba81efda91ea0ba5f49600c80da0c997"
       }
     ]
   },
@@ -1045,6 +1057,24 @@
         "pack_commit": "fce49c61ea9e31a578814c29d7fdb01eb1deee4c",
         "secure_commit": "7dd0e77b82730716094178339ec5be7d5623ad89",
         "verification": "AC+FIX 与 BC 默认预处理 token 不变；BC+FIX 下函数定义和调用均可见；两分支 face_snapshot 模块树 0b7f80513574aeca649dbfe9a448eb98f21aad86 相同。"
+      },
+      {
+        "id": "BC#5",
+        "source_commit": "7a5ee0dfba0152e57e4f89dc6865a2ad1a608bde",
+        "result": "NVMP libfss 的 FSS_MATCH_RESULT 与 fss_feature_find_best_match 声明共用于 AC/BC；CAP AC 搜索 helper 补找到状态并共用现有最佳匹配实现。",
+        "pack_commit": "c61756b8e81146f15c02c8cc39b81330929e7751",
+        "secure_commit": "f67caea7ca960ed773267a838a197c917dffaafa",
+        "nvmp_commit": "fe7195e0ba81efda91ea0ba5f49600c80da0c997",
+        "verification": "BC CAP face_control 预处理 token 未变；AC/BC 主机用例覆盖无匹配、陌生人哨兵和熟人结果，并保持 AC 最高分与 BC 熟人优先的既有选择策略。"
+      },
+      {
+        "id": "BC#26",
+        "source_commit": "bad5f512f868b751170c565d1abd90bf5cde1b62",
+        "result": "与 BC#5 同组共用最佳匹配接口中的陌生人结果处理；陌生人输出 score=-10000、face_id=0、空名称，熟人按原接口输出。",
+        "pack_commit": "c61756b8e81146f15c02c8cc39b81330929e7751",
+        "secure_commit": "f67caea7ca960ed773267a838a197c917dffaafa",
+        "nvmp_commit": "fe7195e0ba81efda91ea0ba5f49600c80da0c997",
+        "verification": "AC/BC 定向主机用例通过；BC 原路径宏展开不变。"
       }
     ],
     "trials": [
