@@ -21,7 +21,7 @@
   "last_action": {
     "date": "2026-10-15",
     "kind": "functional_review_merge_1014",
-    "summary": "评估暂缓的功能性来源；将 AC#9 随机数源完整应用到 BC 陌生人命名路径，pack/secure 分支源码树一致，26 项主机测试通过；BC#18 和 AC#26 仍缺跨侧依赖或消费者契约。",
+    "summary": "依据 AC#26 及配套 NVMP/NSD 遥测提交，将人脸遥测统计和 DS 查询接口共用于 BC 的 TELEMETRY_SUPPORT 路径；AC 遥测与 BC 默认预处理输出不变，pack/secure 源码树一致，26 项主机测试通过。",
     "affected": [
       "pack_face_snapshot_converge_1014",
       "secure/face_snapshot_converge_1014"
@@ -899,12 +899,12 @@
   },
   "packaging_1014": {
     "branch": "pack_face_snapshot_converge_1014",
-    "head": "f2d59d654a1802a3d09e649e3bb94649a72f8cbe",
+    "head": "ce63eda739950e0b5febf3d0614a2a9dd3e8a113",
     "base": "102ba4b17bb1eac7eff0f89c52d8b1700e1ae378",
     "source_branch": "secure/face_snapshot_converge_1014",
-    "source_head": "040d47095ffd42fe153fef7ff0ad8207bdd0fa89",
+    "source_head": "edf594e6bb582e361187ed3a7ec206e4c608e0a2",
     "module_path": "src/modules/face_snapshot",
-    "module_tree": "e2a19f817ca4cbb2da68c2aafd365334292a621a",
+    "module_tree": "fed372dd6e6615e48509b743a001a5ba22a76429",
     "module_tree_equal": true,
     "source_only_commits": true,
     "commits": [
@@ -972,6 +972,14 @@
           "12f602f96c52f1906d4baa5d0413f8dd59567ba7"
         ],
         "secure_commit": "040d47095ffd42fe153fef7ff0ad8207bdd0fa89"
+      },
+      {
+        "pack_commit": "ce63eda739950e0b5febf3d0614a2a9dd3e8a113",
+        "kind": "functional_review_merge",
+        "source_commits": [
+          "1ab529891045131033eef8f7e2b625932f15d02e"
+        ],
+        "secure_commit": "edf594e6bb582e361187ed3a7ec206e4c608e0a2"
       }
     ]
   },
@@ -986,6 +994,14 @@
         "pack_commit": "f2d59d654a1802a3d09e649e3bb94649a72f8cbe",
         "secure_commit": "040d47095ffd42fe153fef7ff0ad8207bdd0fa89",
         "verification": "26 项主机测试通过；AC/BC 预处理下每侧各保留一次 nvmp_gen_rand_number()，无 srand(time(NULL))；两分支模块树 e2a19f817ca4cbb2da68c2aafd365334292a621a 相同。"
+      },
+      {
+        "id": "AC#26",
+        "source_commit": "1ab529891045131033eef8f7e2b625932f15d02e",
+        "result": "取消人脸遥测结构、计数、采样、查询和 DS 注册点共七处 AC 专有宏守卫，在 TELEMETRY_SUPPORT 下供 AC/BC 共用。NVMP (1/3) 369f7ce4520c154095c26ec647cb07c5acdc8c85 和 NSD (3/3) f7e72d94 提供相应数据模型和消费请求。",
+        "pack_commit": "ce63eda739950e0b5febf3d0614a2a9dd3e8a113",
+        "secure_commit": "edf594e6bb582e361187ed3a7ec206e4c608e0a2",
+        "verification": "AC+TELEMETRY_SUPPORT 和 BC 默认的预处理 token 与提交前相同；BC+TELEMETRY_SUPPORT 可见统计结构与查询接口；26 项主机测试通过；两分支模块树 fed372dd6e6615e48509b743a001a5ba22a76429 相同。未进行产品交叉编译或设备遥测联调。"
       }
     ],
     "assessed_still_deferred": [
@@ -993,11 +1009,6 @@
         "id": "BC#18",
         "source_commit": "cd9bc9160cd18b212a5c5de17b5255db8aa58381",
         "reason": "AC 路径 NVMP libutils 中 ringbuffer_attach_with_cb 的声明和实现均不可见；需与系列 (1/2) 及回调生命周期一起处理。"
-      },
-      {
-        "id": "AC#26",
-        "source_commit": "1ab529891045131033eef8f7e2b625932f15d02e",
-        "reason": "遥测接口仅在 AC 路径注册，BC 消费者和产品开关契约未证实；原提交属于 (2/3) 系列。"
       },
       {
         "id": "BC#42",
