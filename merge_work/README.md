@@ -35,7 +35,7 @@
 14. AC/BC 共用的头文件接口，应保留原 AC 公开声明及注释的完整文本，整块提到产品宏范围外，只保留一份；核对两侧宏展开后的可见性，不能删除 AC 原声明后改写成自拟公共块。
 15. 收敛时核对共用接口调用方的头文件引用；没有原始补丁或逻辑合并需要支撑的控制流标签、局部变量初值改动应保留原样。文件描述符关闭条件按两侧来源和已确认口径处理。
 16. 提交标题含 `(1/2)`、`(2/3)`、`(1/4)` 等分段编号时，先在 CAP 及 NVMP 等相关仓库按标题、问题描述、Change-Id、调用接口和提交时间检索整组关联提交；逐笔核对补丁、分支归属、接口声明/定义及启用条件，再判断是否能逻辑合并。未核完或跨仓库依赖未闭环时，标记整组原始 SHA 和状态，不把单笔局部修改计作整组完成。
-17. **每次针对 face_snapshot 执行审查、源码合入、确认已有覆盖、暂缓、撤销或 rebase 后，立即更新 [`merge_status.json`](../branch_diff/face_snapshot/merge_status.json)**：受影响原提交的状态及具体依据/未闭合范围、目标 HEAD 和 `last_action` 均应与动作结果一致。状态未变化的审查也记录结论；同步更新相关批次说明和 commit log，不能只更新后两者。该进度不自动设置候选等价或依赖链的 `confirm` / `relation_confirm`。
+17. **每次针对 face_snapshot 执行审查、源码合入、确认已有覆盖、暂缓、撤销或 rebase 后，立即更新 [`merge_status.json`](../branch_diff/face_snapshot/merge_status.json)**：受影响原提交的状态及具体依据/未闭合范围、目标 HEAD 和 `last_action` 均应与动作结果一致。状态未变化的审查也记录结论；同步检查并在需要时更新 [`merge_relations.json`](../branch_diff/face_snapshot/merge_relations.json) 的本地提交节点、来源边、关系角色和证据，运行其校验脚本。批次文档和 commit log 不能代替这一步。关系图的物理合并背景、行为基础和暂缓边不得计作源码修复；这些记录也不自动设置候选等价或依赖链的 `confirm` / `relation_confirm`。
 
 ## 已完成的 4 笔本地提交
 
