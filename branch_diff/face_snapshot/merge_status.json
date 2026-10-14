@@ -8,7 +8,7 @@
   },
   "target": {
     "branch": "face_snapshot_converge_1010",
-    "head": "785e753721f12b5b9712cec319e8d9e9cf9114ea"
+    "head": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5"
   },
   "baseline_date": "2026-10-14",
   "status_definitions": {
@@ -20,16 +20,14 @@
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "file_pair_review",
-    "summary": "按用户纠正，直接从当前分支移除先前 IQA 重构提交 22e45409 及其撤销提交 70112027，CAP 回到 785e7537；face_feature.c/.h 绑定审查结果写入 file_review_progress.json，未发现符合本轮口径的安全收敛，来源状态不变。",
+    "kind": "file_pair_review_with_change",
+    "summary": "fd_statistics.c/.h 绑定审查，CAP 8dea4a8d 统一周期报表声明与实现的编译门控；BC #10 仅为保留电池机边界的相关依据，整组暂缓状态不变。已同步 file_review_progress.json 与 merge_relations.json。",
     "affected": [
-      "AC#2",
+      "AC#7",
       "BC#3",
-      "BC#4",
-      "BC#24",
-      "BC#28",
-      "BC#44",
-      "BC#60"
+      "BC#10",
+      "BC#60",
+      "BC#61"
     ]
   },
   "entries": [

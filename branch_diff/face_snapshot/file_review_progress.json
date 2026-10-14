@@ -4,7 +4,7 @@
   "module_root": "src/modules/face_snapshot",
   "target": {
     "branch": "face_snapshot_converge_1010",
-    "head": "785e753721f12b5b9712cec319e8d9e9cf9114ea"
+    "head": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5"
   },
   "status_definitions": {
     "pending": "该文件组尚未按本轮不改变逻辑或仅涉及简单逻辑的口径逐段审查。",
@@ -13,9 +13,10 @@
   },
   "last_action": {
     "date": "2026-10-14",
-    "kind": "file_pair_review",
-    "unit_id": "face_feature",
-    "summary": "face_feature.c/.h 绑定审查；先前 22e45409 的质量判定重构及 70112027 的撤销提交均已从 CAP 当前分支移除，工作树与 785e7537 一致；本组无符合本轮口径的新增收敛。"
+    "kind": "file_pair_review_with_change",
+    "unit_id": "fd_statistics",
+    "cap_commit": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5",
+    "summary": "fd_statistics.c/.h 绑定审查并完成周期报表预处理条件收敛；8/8 宏组合一致。"
   },
   "units": [
     {
@@ -24,8 +25,9 @@
         "face_control.c",
         "face_control.h"
       ],
-      "status": "pending",
-      "reviewed_against": null
+      "status": "reviewed_no_change",
+      "reviewed_against": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
+      "finding": "已绑定审查 face_control.c/.h。头文件差异为遥测、图片格式与推送接口；实现差异主要涉及匹配返回类型、HUB/电池机推送、时间戳、ringbuffer 回调及产品宏。人脸加载的三处日志分支可见简单文本/级别差异，但 BC 来源 cd9bc916 已按用户要求整笔暂缓，本轮不拆取。未发现其他不触及功能/接口契约的安全合并点。"
     },
     {
       "id": "face_feature",
@@ -43,8 +45,9 @@
         "face_storage.c",
         "face_storage.h"
       ],
-      "status": "pending",
-      "reviewed_against": null
+      "status": "reviewed_no_change",
+      "reviewed_against": "785e753721f12b5b9712cec319e8d9e9cf9114ea",
+      "finding": "已绑定审查 face_storage.c/.h。剩余 AC/BC 宏差异主要是日志宏调用签名、存储子版本与迁移回调、场景特征持久化字段、BC 电池机挂载等待流程。初始化局部变量声明差异来自 BC#42 / 08fd905b，其挂载系列已整组暂缓，不拆取单行。其余无符合本轮口径且有明确来源的安全收敛点；CAP 未改。"
     },
     {
       "id": "fd_statistics",
@@ -52,8 +55,10 @@
         "fd_statistics.c",
         "fd_statistics.h"
       ],
-      "status": "pending",
-      "reviewed_against": null
+      "status": "reviewed_with_change",
+      "reviewed_against": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5",
+      "cap_commit": "8dea4a8d9226554ff3b6ea6095b352d1d48fc7b5",
+      "finding": "已绑定审查 fd_statistics.c/.h。把 AC 周期报表与 BC 非电池机周期报表的声明、枚举和实现统一使用 FDS_PERIODIC_REPORT_ENABLED，移除 BC_ON_AC 与其他宏的 ||/&& 组合；8 种宏组合的预处理结果与原实现条件一致。BC 电池机月/周报产品逻辑仍保持原状，BC#10 整组暂缓状态不变。"
     },
     {
       "id": "fd_statistics_stg",
