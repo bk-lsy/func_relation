@@ -21,13 +21,11 @@
   "last_action": {
     "date": "2026-10-14",
     "kind": "source_review",
-    "summary": "核对 AC #6/#17/#23/#26 与 BC #2 五笔未处理来源；AC #23 的 face_snapshot 模板迁移及 BC #2 的 fss 版权行已有目标覆盖，其他三笔涉及跨模块厂商名称、HUB/AVTS 消费者或遥测系列，暂缓跨侧合入；CAP 未改源码。",
+    "summary": "核对 BC #7/#12/#35 三笔未处理来源；#12 编译保护已有目标覆盖，#7 熟人匹配优先和 #35 PDR 容量是跨侧行为/布局差异，暂缓；CAP 未改源码。",
     "affected": [
-      "AC#6",
-      "AC#17",
-      "AC#23",
-      "AC#26",
-      "BC#2"
+      "BC#7",
+      "BC#12",
+      "BC#35"
     ]
   },
   "entries": [
@@ -361,8 +359,8 @@
       "index": 7,
       "source_commit": "b49a124e00f5f79db64923bb3ad6d164068b0879",
       "source_title": "[all] face_snapshot: prioritize adding familiar face,when the same person is in both group",
-      "status": "no_merge_fix",
-      "note": "同组熟人优先行为未认定适用于 AC。"
+      "status": "deferred",
+      "note": "原提交 b49a124e00f5f79db64923bb3ad6d164068b0879 在相似度遍历中遇到过同一人阈值的熟人便提前退出；目标 BC 路径已有该行为，AC 路径仍按最高分选择。提前退出会改变 AC 匹配结果，缺少跨侧产品依据，暂缓。"
     },
     {
       "id": "BC#8",
@@ -406,8 +404,8 @@
       "index": 12,
       "source_commit": "e61493059dff8202b1d4f8ecd2523aa0b21079a4",
       "source_title": "[ALL] fix compilation error",
-      "status": "no_merge_fix",
-      "note": "编译修复未形成单独跨侧审查结论。"
+      "status": "preexisting_coverage",
+      "note": "原提交 e61493059dff8202b1d4f8ecd2523aa0b21079a4 仅给 g_report_tmo_timer 声明增加 TP_TAPO_BATTERY_CAM 保护以消除 BC 电池机未使用变量编译错误。目标声明及使用点均已有电池机保护；AC 仍保留定时器。当前复合宏表达式另有既有口径问题，本次不改写。"
     },
     {
       "id": "BC#13",
@@ -613,8 +611,8 @@
       "index": 35,
       "source_commit": "caab424ca6830e1250f42ebf36686eba8c9ef0fd",
       "source_title": "[All] cap/pss: reduce max person_num and max person snapshot size",
-      "status": "no_merge_fix",
-      "note": "PSS 容量缩减为 BC 产品配置，尚无跨侧适用性结论。"
+      "status": "deferred",
+      "note": "原提交 caab424ca6830e1250f42ebf36686eba8c9ef0fd 缩小 PDR_IMG_OCCUPY_SIZE/PDR_FIGURE_OCCUPY_CNT/PDR_FIGURE_IMG_OCCUPY_CNT。目标 BC 路径已有 20K/FD_FACE_SUPPORT_NUM/5，AC 路径保留 40K/100/10；属于存储容量与布局差异，缺少跨侧迁移依据，暂缓。"
     },
     {
       "id": "BC#36",
