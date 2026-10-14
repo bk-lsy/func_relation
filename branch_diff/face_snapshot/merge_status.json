@@ -15,20 +15,18 @@
     "merged_complete": "有本地源码修复或收敛，且有证据覆盖原提交焦点补丁范围；不代表固件或设备验证完成。",
     "preexisting_coverage": "焦点补丁在对侧基础、BC 物理合并前或物理合并中、或当前共用代码中已有覆盖，无需重复提交。",
     "merged_partial": "已有本地源码修复或收敛，但原提交仍有未闭合范围，或只取了后续修复的一部分。",
-    "deferred": "用户要求跳过、跨仓依赖未闭环，或此前局部提交已撤销。",
+    "deferred": "用户要求跳过、跨仓/跨模块依赖未闭环、产品路径适用性缺乏证据，或此前局部提交已撤销。",
     "no_merge_fix": "尚无有效跨侧合入修复提交或完整覆盖证据；不等于该产品路径缺功能或必须修改。"
   },
   "last_action": {
     "date": "2026-10-14",
     "kind": "source_review",
-    "summary": "按未处理来源逐笔核对 AC #27、BC #6/#13/#38/#49/#63；AC #27 和 BC #13/#49 的焦点补丁已有目标覆盖，BC #6 的 AOV 休眠调用跨 battery_manage，BC #38/#63 的包上传 API 依赖 NVMP (2/2)，分别暂缓跨侧合并；未改 CAP 源码。",
+    "summary": "继续核对四笔未处理来源：AC #15 的配置修复缺少目标 Makefile 启用条件及 (2/2) 配套，BC #14/#16 是电池机唤醒后 RTOS 时间修复，BC #22 依赖 AOV 休眠时序和 AVTS 事件同步；均暂缓跨侧合并，不修改 CAP 源码。",
     "affected": [
-      "AC#27",
-      "BC#6",
-      "BC#13",
-      "BC#38",
-      "BC#49",
-      "BC#63"
+      "AC#15",
+      "BC#14",
+      "BC#16",
+      "BC#22"
     ]
   },
   "entries": [
@@ -164,8 +162,8 @@
       "index": 15,
       "source_commit": "91713aef6e078ddf179afca70ea060bcfaf9fe6b",
       "source_title": "[CAP]face_control:fix face_snapshot config[1/2]",
-      "status": "no_merge_fix",
-      "note": "人脸配置 `(1/2)` 及关联仓库提交未核完；无有效跨侧合入结论。"
+      "status": "deferred",
+      "note": "原 CAP `(1/2)` `91713aef6e078ddf179afca70ea060bcfaf9fe6b` 增加 FIX_FSS_PIC_CFG 修复函数并在 Makefile 导出编译宏，用于关闭旧配置的 save_pic。目标保留函数但当前 CAP Makefile 不导出该宏；默认文件虽已为 off，不能代替迁移既有持久配置。已查本地 NVMP/CAP 提交标题，未定位对应 `(2/2)` 与产品配置启用证据；整组暂缓，不单独启用函数。"
     },
     {
       "id": "AC#16",
@@ -425,8 +423,8 @@
       "index": 14,
       "source_commit": "285018e33f5d633df02e7d24621432b0e78b0af4",
       "source_title": "[all]face snapshot: fix face utc time incorrect problem",
-      "status": "no_merge_fix",
-      "note": "AOV 人脸时间戳修复未认定适用于 AC。"
+      "status": "deferred",
+      "note": "原补丁 `285018e33f5d633df02e7d24621432b0e78b0af4` 用 MCU 开机时间把电池机 RTOS 阶段的 boot-relative 人脸时间换算成 UTC；目标 BC 路径保留，AC 路径直接使用 utc_start。未证实 AC 算法返回同类 boot-relative 值或具同一 MCU 时间契约，暂缓跨侧变更。关联 BC #16 的等值边界修复须一并保留。"
     },
     {
       "id": "BC#15",
@@ -443,8 +441,8 @@
       "index": 16,
       "source_commit": "96438c16882e200327e93e317dc4d4451ba36667",
       "source_title": "[all] face_snapshot: Fix Incorrect Face Result Timestamp",
-      "status": "no_merge_fix",
-      "note": "BC 特有时间戳比较修复尚无跨侧适用性结论。"
+      "status": "deferred",
+      "note": "原补丁 `96438c16882e200327e93e317dc4d4451ba36667` 是 BC #14 时间换算后的 `utc_start >= start_time` 边界修复，避免相等时加出双倍时间；目标 BC 路径已保留。因 BC #14 尚未证实适用于 AC，本笔随之暂缓跨侧合并，不拆出独立 AC 条件。"
     },
     {
       "id": "BC#17",
@@ -497,8 +495,8 @@
       "index": 22,
       "source_commit": "95abd9522ccadcc3f6250f159213a2bd73e74ad5",
       "source_title": "[all]face_snapshot: save face index when the face keeps appearing in front of the camera before power down(2/2)",
-      "status": "no_merge_fix",
-      "note": "掉电前人脸索引时间戳修复尚未认定适用于 AC。"
+      "status": "deferred",
+      "note": "原 CAP `(2/2)` `95abd9522ccadcc3f6250f159213a2bd73e74ad5` 同时将检测事件起始时间取 gen_timestamp、在 battery_manage/power_down.c 休眠前调用 fss_events_sync()；提交说明关联 AVTS 事件索引变更。目标 BC 路径保留；AC 路径无该休眠调用，当前仓库内也未找到 fss_events_sync 的本地定义。AVTS `(1/2)` 与产品休眠/视频链未闭环，整笔暂缓跨侧合并。"
     },
     {
       "id": "BC#23",
