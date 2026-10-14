@@ -21,11 +21,16 @@
   "last_action": {
     "date": "2026-10-14",
     "kind": "source_review",
-    "summary": "核对 BC #7/#12/#35 三笔未处理来源；#12 编译保护已有目标覆盖，#7 熟人匹配优先和 #35 PDR 容量是跨侧行为/布局差异，暂缓；CAP 未改源码。",
+    "summary": "核对 BC #4/#17/#24/#25/#28/#43/#52 七笔未处理来源：#4 保留待处理（AMS 阈值跨侧契约未判定），其余六笔因配套系列、产品行为或跨模块范围暂缓；复核 BC #54 两处焦点补丁已完整覆盖，改为完成。CAP 未改源码。",
     "affected": [
-      "BC#7",
-      "BC#12",
-      "BC#35"
+      "BC#4",
+      "BC#17",
+      "BC#24",
+      "BC#25",
+      "BC#28",
+      "BC#43",
+      "BC#52",
+      "BC#54"
     ]
   },
   "entries": [
@@ -333,7 +338,7 @@
       "source_commit": "3d14c077baee267afc2ee45a4a52ac0720bc888b",
       "source_title": "[all]cap:read ams config for fss threshold set(1/2)",
       "status": "no_merge_fix",
-      "note": "AMS 阈值 `(1/2)` 的产品字段/外部契约未跨侧合入。"
+      "note": "原提交 3d14c077baee267afc2ee45a4a52ac0720bc888b 是 AMS 阈值 (1/2)，NVMP BC 配套 (2/2) 为 5f070fd4dc621d1ed598895663a5de2f32400b33。当前目标保留 BC 的 get_fd_threshold_level/face_feature_threshold_set 与 AC 的 fd_threshold_level_get/fd_feature_threshold_set；需逐项核对两侧 DS 阈值字段、日夜状态和重载时机，尚不能判定跨侧适用，继续待处理。"
     },
     {
       "id": "BC#5",
@@ -449,8 +454,8 @@
       "index": 17,
       "source_commit": "645eb8f0acaafdb55b06f81b0c0801191432b3db",
       "source_title": "[all]face snapshot:face detect msg push when upto push threshold(1/2)",
-      "status": "no_merge_fix",
-      "note": "陌生人达到阈值推送 `(1/2)` 与 AC 策略不同，尚未闭环。"
+      "status": "deferred",
+      "note": "原提交 645eb8f0acaafdb55b06f81b0c0801191432b3db 的配套 NVMP BC (2/2) 是 764b4d966，增加 FSS_MSG_PUSH 数据模型。目标 BC 路径保留闪存计数/唤醒判断，AC 路径保留原 60 秒与内存列表策略；跨侧修改会改变推送次数和时机，暂缓。"
     },
     {
       "id": "BC#18",
@@ -512,8 +517,8 @@
       "index": 24,
       "source_commit": "ea1f1e58e27219d43e466ec8c5c06d2e9006d6bc",
       "source_title": "[all] fss | face_feature: add fss adapt iqa_thresh (2/2)",
-      "status": "no_merge_fix",
-      "note": "IQA 阈值 `(2/2)` 的低角度/高模糊度字段属 BC 路径；跨侧适用性未定。"
+      "status": "deferred",
+      "note": "原提交 ea1f1e58e27219d43e466ec8c5c06d2e9006d6bc 的配套 NVMP BC (1/2) 是 e73752f1ba1a9c61db52f36c722d52a0d651afb5。目标 BC 路径已有低角度/高模糊度字段、AMS 数据模型与筛选条件；AC 路径没有对应 DS 字段及策略，暂缓跨侧功能迁移。"
     },
     {
       "id": "BC#25",
@@ -521,8 +526,8 @@
       "index": 25,
       "source_commit": "0bb947224bc08bdfc400aaa353d437f29e573e64",
       "source_title": "[FSS] Recalculate face features when face recognition model is updated (2/3)",
-      "status": "no_merge_fix",
-      "note": "算法更新后重算特征 `(2/3)` 依赖模型通知，未完成跨仓审查。"
+      "status": "deferred",
+      "note": "原提交 0bb947224bc08bdfc400aaa353d437f29e573e64 的配套 NVMP BC (1/3) 是 a7adeb41dd9a0cfee39edb989b8845a47ab89911；原说明限定 D260v1，依赖 ALG_MODEL_STATUS 与 TSS_MSG_HAS_DETECTED 后重算。目标 BC 路径已有模型 MD5 和刷新链，AC 路径未启用；系列 (3/3) 与 AC 运行契约未闭环，暂缓。"
     },
     {
       "id": "BC#26",
@@ -548,8 +553,8 @@
       "index": 28,
       "source_commit": "8afda7b47cc26866765f0cd081f65a428a1a6da3",
       "source_title": "[FSS] Add filter conditions for size score(2/2)",
-      "status": "no_merge_fix",
-      "note": "size score 过滤 `(2/2)` 仍为 BC IQA 产品机制，跨侧适用性未定。"
+      "status": "deferred",
+      "note": "原提交 8afda7b47cc26866765f0cd081f65a428a1a6da3 的配套 NVMP BC (1/2) 是 90e10a321fa7c55ee4315da48e2421625e041b67。目标 BC 路径已有 size_score 与 fd_scale_threshold 的模型/AMS/筛选链，AC 路径没有对应阈值字段和判定；暂缓跨侧行为变更。"
     },
     {
       "id": "BC#29",
@@ -683,8 +688,8 @@
       "index": 43,
       "source_commit": "ea33fe4d4a27504ed9284dc8bd5daead504c6bca",
       "source_title": "[CAP] Security Optimization for DS Interface (3/4)",
-      "status": "no_merge_fix",
-      "note": "DS 安全接口 `(3/4)` 尚无跨仓系列结论。"
+      "status": "deferred",
+      "note": "原提交 ea33fe4d4a27504ed9284dc8bd5daead504c6bca 是全 CAP DS 安全接口 (3/4)，一次修改 69 个模块；目标 face_snapshot 的 DS_API_TEMPLATE 定义已有焦点覆盖，但整笔跨模块/跨仓安全契约未审完，按跨模块整笔暂缓，不据局部覆盖判定完成。"
     },
     {
       "id": "BC#44",
@@ -764,8 +769,8 @@
       "index": 52,
       "source_commit": "3ec3c0ef990abb98e4b4afa30070c6f5fe7cda9e",
       "source_title": "[ALL] CAP|cap: Fix NAND firmware packaging and add battery cam branch compatibility [3/5]",
-      "status": "no_merge_fix",
-      "note": "NAND/电池机兼容 `[3/5]` 需跨仓产品配置，未跨侧合入。"
+      "status": "deferred",
+      "note": "原提交 3ec3c0ef990abb98e4b4afa30070c6f5fe7cda9e 是 NAND/电池机打包兼容 [3/5]，涉及 Makefile 和 17 个模块；目标 face_snapshot 已保留该提交的 AC_ON_BC 兼容保护，但原提交的跨模块/跨仓产品配置范围未闭环，整笔暂缓。"
     },
     {
       "id": "BC#53",
@@ -782,8 +787,8 @@
       "index": 54,
       "source_commit": "80f2e265321dd11e085d7b8dfdeec64d70c351a8",
       "source_title": "[all] face_snapshot: malloc correct image size for face image",
-      "status": "merged_partial",
-      "note": "`0d922409` 共用大图分配修复；原提交在 BC 专有模型 MD5 诊断处还有日志改动。"
+      "status": "merged_complete",
+      "note": "原提交 80f2e265321dd11e085d7b8dfdeec64d70c351a8 的 face_feature.c 超长图片按 image_len 分配与 malloc 失败检查，已由本地 0d922409 覆盖；face_control.c 在 MD5 不同时输出旧/新 MD5 的日志也已存在于 BC 路径。焦点补丁两处均已覆盖，改为完成。"
     },
     {
       "id": "BC#55",
