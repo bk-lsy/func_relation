@@ -20,12 +20,11 @@
   },
   "last_action": {
     "date": "2026-10-15",
-    "kind": "cross_repo_query_callback_trial_1015",
-    "summary": "以 AC 原始 CAP 7bbf5e9a 与 NVMP 7ffdfd35 为依据，成组共用三项人脸查询回调的 CAP 注册和 NVMP libfss 接口；AC 预处理不变，BC 主机回调用例通过。尚待 AVTS/NSD 消费链与产品构建核对。",
+    "kind": "source_based_trial_1015",
+    "summary": "BC#6: 将 BC 的保存前停止定时器步骤供 AC 使用；保留 BC 独有的休眠状态标记。",
     "affected": [
       "CAP face_snapshot_integration_1015",
-      "NVMP face_snapshot_integration_1015",
-      "AC#21"
+      "BC#6"
     ]
   },
   "entries": [
@@ -1119,6 +1118,14 @@
         "nvmp_branch": "face_snapshot_integration_1015",
         "nvmp_commit": "1e9e5a98acfc6f6c67c2463cc1f6a31c76387fa1",
         "result": "CAP 三项查询回调注册从 AC 专有宏移出；NVMP libfss 三项查询回调类型、存储字段、注册/注销/调用接口共用。AC 预处理源码逐字不变，BC libfss 主机编译和回调注册、查询、注销路径通过。clean_fss_index 原有 AC 宏边界保留。原提交还涉及 AVTS/NSD 消费者及产品构建，尚未做固件联调，暂留汇总分支。"
+      },
+      {
+        "id": "BC#6",
+        "source_commit": "26843acc363708ee4975ef04a9b87b23215a60ec",
+        "cap_branch": "face_snapshot_integration_1015",
+        "cap_commit": "bea8726bf86e5d6a8e3ede3e576123352fc3d371",
+        "result": "将 BC 的保存前停止定时器步骤供 AC 使用；保留 BC 独有的休眠状态标记。",
+        "verification": "git diff --check 通过；BC 宏路径仅注释位置变化，AC 增加删除定时器步骤；待产品构建和 AOV 休眠实测。"
       }
     ],
     "assessed_still_deferred": [
@@ -1156,7 +1163,7 @@
     "integration_branches": {
       "cap": {
         "branch": "face_snapshot_integration_1015",
-        "head": "61cd5f15c42a920fa7397acccbb2098525f8050b",
+        "head": "bea8726bf86e5d6a8e3ede3e576123352fc3d371",
         "base": "e3488f1a5e2e794eec2e02527ad325b05dab07be",
         "checkout": "/home/lsy/mycode/Tapo/NVMP/nvmp/tp_package/cap",
         "base_branch": "safe/face_snapshot_merge"
