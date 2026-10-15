@@ -21,10 +21,10 @@
   "last_action": {
     "date": "2026-10-15",
     "kind": "source_based_trial_1015",
-    "summary": "BC#6: 将 BC 的保存前停止定时器步骤供 AC 使用；保留 BC 独有的休眠状态标记。",
+    "summary": "BC#14: 共用开机基准时间与 RTOS 时间戳换算，移除 AC 直用 utc_start 的独立路径；原 BC 大于边界在后续 BC#16 修正。",
     "affected": [
       "CAP face_snapshot_integration_1015",
-      "BC#6"
+      "BC#14"
     ]
   },
   "entries": [
@@ -1126,6 +1126,14 @@
         "cap_commit": "bea8726bf86e5d6a8e3ede3e576123352fc3d371",
         "result": "将 BC 的保存前停止定时器步骤供 AC 使用；保留 BC 独有的休眠状态标记。",
         "verification": "git diff --check 通过；BC 宏路径仅注释位置变化，AC 增加删除定时器步骤；待产品构建和 AOV 休眠实测。"
+      },
+      {
+        "id": "BC#14",
+        "source_commit": "285018e33f5d633df02e7d24621432b0e78b0af4",
+        "cap_branch": "face_snapshot_integration_1015",
+        "cap_commit": "17a9cc78f8b96007cfe6741e5b505edf465f39b9",
+        "result": "共用开机基准时间与 RTOS 时间戳换算，移除 AC 直用 utc_start 的独立路径；原 BC 大于边界在后续 BC#16 修正。",
+        "verification": "git diff --check 通过；BC#16 将在紧接的提交恢复 BC 原有 >= 边界；待产品构建与 RTOS/AOV 时间数据验证。"
       }
     ],
     "assessed_still_deferred": [
@@ -1163,7 +1171,7 @@
     "integration_branches": {
       "cap": {
         "branch": "face_snapshot_integration_1015",
-        "head": "bea8726bf86e5d6a8e3ede3e576123352fc3d371",
+        "head": "17a9cc78f8b96007cfe6741e5b505edf465f39b9",
         "base": "e3488f1a5e2e794eec2e02527ad325b05dab07be",
         "checkout": "/home/lsy/mycode/Tapo/NVMP/nvmp/tp_package/cap",
         "base_branch": "safe/face_snapshot_merge"
