@@ -18,6 +18,10 @@ def git(*args):
     return subprocess.check_output(["git", *args], cwd=CAP, text=True).strip()
 
 
+def target_file(head, name):
+    return git("show", f"{head}:{name}")
+
+
 def main():
     graph = read_json("merge_relations.json")
     status = read_json("merge_status.json")
@@ -26,7 +30,7 @@ def main():
     expected_sources = [{"id": entry["id"], "commit": entry["source_commit"], "title": entry["source_title"]}
                         for entry in status["entries"]]
     assert graph["source_nodes"] == expected_sources, "source nodes differ from merge_status.json"
-    assert graph["target_head"] == git("rev-parse", "HEAD"), "CAP HEAD changed; refresh the relation graph"
+    assert graph["target_head"] == git("rev-parse", graph["target_head"]), "CAP target commit is unavailable"
     commits = git("rev-list", "--reverse", f"{graph['local_base']}..{graph['target_head']}").splitlines()
     nodes = graph["local_nodes"]
     assert [node["commit"] for node in nodes] == commits, "local commit inventory differs from CAP history"
@@ -54,15 +58,17 @@ def main():
             message = git("show", "-s", "--format=%B", local)
             assert edge["source_commit"][:8] in message, f"untraced source edge: {key}"
         elif evidence["kind"] == "batch_record":
-            record = CAP / evidence["detail"]
-            assert record.is_file()
-            assert edge["source_commit"][:8] in record.read_text(), f"untraced batch edge: {key}"
+            assert edge["source_commit"][:8] in target_file(graph["target_head"], evidence["detail"]), \
+                f"untraced batch edge: {key}"
         else:
             assert evidence["kind"] == "review_record"
             files = evidence["files"]
             assert files
-            assert all(((ROOT.parents[1] / name) if name.startswith("merge_work/") else (CAP / name)).is_file()
-                       for name in files)
+            for name in files:
+                if name.startswith("merge_work/"):
+                    assert (ROOT.parents[1] / name).is_file()
+                else:
+                    target_file(graph["target_head"], name)
 
     assert all(degree.values()), "every local commit needs at least one explained edge"
     expected_unlinked = [entry["id"] for entry in status["entries"] if entry["id"] not in linked_sources]

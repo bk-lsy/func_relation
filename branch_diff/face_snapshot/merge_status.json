@@ -20,17 +20,13 @@
   },
   "last_action": {
     "date": "2026-10-15",
-    "kind": "functional_review_merge_1015",
-    "summary": "成组处理 BC#5/#26：在独立 NVMP 分支公开最佳匹配接口，CAP AC helper 返回找到状态并共用 BC 接口；保留 AC 最高分和 BC 熟人优先策略。两侧定向运行测试通过，pack/secure 源码树一致。",
+    "kind": "consolidate_trial_branches_1015",
+    "summary": "将本轮跨仓功能试验提交按仓库收拢到各一条 face_snapshot_integration_1015 分支；CAP 基于 pack，NVMP 基于最佳匹配提交。三笔 CAP 和两笔 NVMP cherry-pick 补丁 patch-id 逐一相同；试验风险及未进入 pack/secure 的判断不变。",
     "affected": [
+      "CAP face_snapshot_integration_1015",
+      "NVMP face_snapshot_integration_1015",
       "pack_face_snapshot_converge_1014",
-      "secure/face_snapshot_converge_1014",
-      "NVMP face_snapshot_iqa_converge_1015",
-      "NVMP face_snapshot_iqa_size_trial_1015",
-      "CAP face_snapshot_size_trial_1015",
-      "CAP face_snapshot_ringbuffer_trial_1015",
-      "NVMP face_snapshot_ringbuffer_trial_1015",
-      "NVMP face_snapshot_bestmatch_1015"
+      "secure/face_snapshot_converge_1014"
     ]
   },
   "entries": [
@@ -913,7 +909,7 @@
     "module_tree": "13ee27087bae0082a9b44e2f9501e1dfc60a44f4",
     "module_tree_equal": true,
     "source_only_commits": true,
-    "nvmp_dependency_branch": "face_snapshot_bestmatch_1015",
+    "nvmp_dependency_branch": "face_snapshot_integration_1015",
     "nvmp_dependency_head": "fe7195e0ba81efda91ea0ba5f49600c80da0c997",
     "commits": [
       {
@@ -996,7 +992,7 @@
           "ea1f1e58e27219d43e466ec8c5c06d2e9006d6bc"
         ],
         "secure_commit": "81af94fb47058abf84669b5d7e23c92b51ce49a5",
-        "nvmp_branch": "face_snapshot_iqa_converge_1015",
+        "nvmp_branch": "face_snapshot_integration_1015",
         "nvmp_commit": "8a88fe51a668ec8637f9cca8dd62bf25669d69c1"
       },
       {
@@ -1015,10 +1011,11 @@
           "bad5f512f868b751170c565d1abd90bf5cde1b62"
         ],
         "secure_commit": "f67caea7ca960ed773267a838a197c917dffaafa",
-        "nvmp_branch": "face_snapshot_bestmatch_1015",
+        "nvmp_branch": "face_snapshot_integration_1015",
         "nvmp_commit": "fe7195e0ba81efda91ea0ba5f49600c80da0c997"
       }
-    ]
+    ],
+    "nvmp_dependency_commit": "fe7195e0ba81efda91ea0ba5f49600c80da0c997"
   },
   "functional_review_1014": {
     "date": "2026-10-15",
@@ -1046,7 +1043,7 @@
         "result": "低角度/高模糊阈值字段、DS 登记、阈值读取与自适应质量判断共用于 AC/BC；AC 旧配置新增字段为 0 时沿用原基础阈值。NVMP 配套模型字段已在独立分支共用。",
         "pack_commit": "def7998badb1f28811d27cc4ec3fd4c984473516",
         "secure_commit": "81af94fb47058abf84669b5d7e23c92b51ce49a5",
-        "nvmp_branch": "face_snapshot_iqa_converge_1015",
+        "nvmp_branch": "face_snapshot_integration_1015",
         "nvmp_commit": "8a88fe51a668ec8637f9cca8dd62bf25669d69c1",
         "verification": "BC 侧 CAP 三文件及 NVMP FSS_IQA_THRESH 预处理 token 与合入前相同；AC/BC 运行自适应阈值定向主机用例通过。旧 26 项测试中 25 项通过，1 项因固定要求 AC setter 与旧版逐字相同而与本次功能合入目标冲突。未做产品交叉编译或旧设备配置迁移验证。"
       },
@@ -1065,7 +1062,8 @@
         "pack_commit": "c61756b8e81146f15c02c8cc39b81330929e7751",
         "secure_commit": "f67caea7ca960ed773267a838a197c917dffaafa",
         "nvmp_commit": "fe7195e0ba81efda91ea0ba5f49600c80da0c997",
-        "verification": "BC CAP face_control 预处理 token 未变；AC/BC 主机用例覆盖无匹配、陌生人哨兵和熟人结果，并保持 AC 最高分与 BC 熟人优先的既有选择策略。"
+        "verification": "BC CAP face_control 预处理 token 未变；AC/BC 主机用例覆盖无匹配、陌生人哨兵和熟人结果，并保持 AC 最高分与 BC 熟人优先的既有选择策略。",
+        "nvmp_branch": "face_snapshot_integration_1015"
       },
       {
         "id": "BC#26",
@@ -1074,28 +1072,36 @@
         "pack_commit": "c61756b8e81146f15c02c8cc39b81330929e7751",
         "secure_commit": "f67caea7ca960ed773267a838a197c917dffaafa",
         "nvmp_commit": "fe7195e0ba81efda91ea0ba5f49600c80da0c997",
-        "verification": "AC/BC 定向主机用例通过；BC 原路径宏展开不变。"
+        "verification": "AC/BC 定向主机用例通过；BC 原路径宏展开不变。",
+        "nvmp_branch": "face_snapshot_integration_1015"
       }
     ],
     "trials": [
       {
         "id": "BC#28",
         "source_commit": "8afda7b47cc26866765f0cd081f65a428a1a6da3",
-        "cap_branch": "face_snapshot_size_trial_1015",
-        "cap_commit": "e661d0de96b4400fd933032212a35fda3f362ca7",
-        "nvmp_branch": "face_snapshot_iqa_size_trial_1015",
-        "nvmp_commit": "47038ee63172b56667e5b1058e91d46200044a32",
+        "cap_branch": "face_snapshot_integration_1015",
+        "cap_commit": "d9a69a50be5bce5b4e791d8bf24354b71d470203",
+        "nvmp_branch": "face_snapshot_integration_1015",
+        "nvmp_commit": "f36109c194b5a812f0bbb5694a222bc812490fa9",
         "result": "CAP 尺寸质量门槛及 DS 模型在 AC/BC 共用，BC 宏展开与合入前相同。定向主机测试确认默认门槛 100 下 AC size_score=0/99 被拒绝、100 被接受。尚无 AC 算法侧 size_score 赋值证据，故只保留试验分支。"
       },
       {
         "id": "BC#18",
         "source_commit": "cd9bc9160cd18b212a5c5de17b5255db8aa58381",
         "nvmp_source_commit": "54df1282ddb8342c3f78c982553be946e525423d",
-        "cap_branch": "face_snapshot_ringbuffer_trial_1015",
-        "cap_commit": "39b926ed516858d316500cf39403cb0ee1993744",
-        "nvmp_branch": "face_snapshot_ringbuffer_trial_1015",
-        "nvmp_commit": "982feb6c265183f4e65732d1645d9f24b4a9c856",
+        "cap_branch": "face_snapshot_integration_1015",
+        "cap_commit": "7347164b17719d2ec18cdf98bf9dc2b4b969f5d0",
+        "nvmp_branch": "face_snapshot_integration_1015",
+        "nvmp_commit": "9d13eba146a03d3c5585382c18f4c5e0275c38ef",
         "result": "AC 定时重试改成回调附着并启用首次读取；两侧 libutils 的立即/延迟附着主机用例通过，BC CAP/libutils 预处理保持不变。停止前尚未创建 ringbuffer 时待附着回调缺取消路径，可能在停止后触发；保留试验分支。"
+      },
+      {
+        "id": "BC#7",
+        "source_commit": "b49a124e00f5f79db64923bb3ad6d164068b0879",
+        "cap_branch": "face_snapshot_integration_1015",
+        "cap_commit": "73948a50715bcd8e7537f97eafeb5701cc35b3c1",
+        "result": "AC 相似度 helper 启用 BC 熟人超过阈值时提前选定的规则，AC/BC helper 预处理 token 相同、BC 原路径不变。AC 原最高分选择会改变，故仅保留试验分支。"
       }
     ],
     "assessed_still_deferred": [
@@ -1112,18 +1118,31 @@
       {
         "id": "BC#7",
         "source_commit": "b49a124e00f5f79db64923bb3ad6d164068b0879",
-        "reason": "AC 添加熟人入口已优先查熟人；把优先规则扩展到全部 AC 相似度查询会改变现有匹配语义。"
+        "reason": "试验分支 face_snapshot_integration_1015 已展示跨侧效果；它改变 AC 的全局相似度查询结果，仍待确定该策略是否应覆盖 AC 所有调用场景。"
       },
       {
         "id": "BC#28",
         "source_commit": "8afda7b47cc26866765f0cd081f65a428a1a6da3",
-        "reason": "跨仓试验已在 face_snapshot_size_trial_1015 完成；NVMP 模型字段也已在独立分支共用。但 AC 算法 size_score 是否填充仍无来源证据，默认 100 门槛在值为 0 时会拒绝所有本可通过的脸，因此不进入 pack/secure。"
+        "reason": "跨仓试验已在 face_snapshot_integration_1015 完成；NVMP 模型字段也已在独立分支共用。但 AC 算法 size_score 是否填充仍无来源证据，默认 100 门槛在值为 0 时会拒绝所有本可通过的脸，因此不进入 pack/secure。"
       },
       {
         "id": "BC#44",
         "source_commit": "bb3848b5598b600095f3665859111b6d59f7b9b6",
         "reason": "场景特征更新需要持久 feature_dn_status、子版本迁移与识别回写；目标 AC 存储子版本为 1，BC 为 3，原迁移仅处理 BC 的 2→3。直接取消宏会改变 AC 文件布局且缺少 1→3 迁移链。"
       }
-    ]
+    ],
+    "integration_branches": {
+      "cap": {
+        "branch": "face_snapshot_integration_1015",
+        "head": "73948a50715bcd8e7537f97eafeb5701cc35b3c1",
+        "base": "c61756b8e81146f15c02c8cc39b81330929e7751"
+      },
+      "nvmp": {
+        "branch": "face_snapshot_integration_1015",
+        "head": "9d13eba146a03d3c5585382c18f4c5e0275c38ef",
+        "base": "fe7195e0ba81efda91ea0ba5f49600c80da0c997"
+      },
+      "policy": "一个实际 Git 仓库仅用一条新增工作分支承载后续提交；原 pack/secure 和 develop 保留。功能试验提交已进入汇总分支，但风险项仍须评审后才能进入 pack/secure。"
+    }
   }
 }
