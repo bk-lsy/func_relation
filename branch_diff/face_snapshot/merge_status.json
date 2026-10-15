@@ -20,11 +20,13 @@
   },
   "last_action": {
     "date": "2026-10-15",
-    "kind": "source_atomicity_policy_1015",
-    "summary": "撤回本批跨模块不完整试验后，检查 AC#4、BC#38、BC#59 等来源及其关联模块；均未取得一次闭合且净减少分支宏的安全依据，未制造替代提交。明确一次源提交完整处理的计数口径。",
+    "kind": "restore_face_internal_source_trials_1015",
+    "summary": "按用户澄清恢复 BC#6/#22/#47 三笔 face_snapshot 内完整收敛的来源试验；外部依赖保留评审记录但不作为本批计数前置。",
     "affected": [
       "CAP face_snapshot_integration_1015",
-      "merge_status.json"
+      "BC#6",
+      "BC#22",
+      "BC#47"
     ]
   },
   "entries": [
@@ -1118,6 +1120,30 @@
         "nvmp_branch": "face_snapshot_integration_1015",
         "nvmp_commit": "1e9e5a98acfc6f6c67c2463cc1f6a31c76387fa1",
         "result": "CAP 三项查询回调注册从 AC 专有宏移出；NVMP libfss 三项查询回调类型、存储字段、注册/注销/调用接口共用。AC 预处理源码逐字不变，BC libfss 主机编译和回调注册、查询、注销路径通过。clean_fss_index 原有 AC 宏边界保留。原提交还涉及 AVTS/NSD 消费者及产品构建，尚未做固件联调，暂留汇总分支。"
+      },
+      {
+        "id": "BC#6",
+        "source_commit": "26843acc363708ee4975ef04a9b87b23215a60ec",
+        "cap_branch": "face_snapshot_integration_1015",
+        "cap_commit": "17273c0f64a13364127d1a014ae0defd9d7f27f9",
+        "result": "共用保存前删除定时器步骤；face_snapshot 内该源差异已完整处理，AC 新行为仍待产品验证。",
+        "verification": "git diff --check 通过；尚未进行产品构建或设备联调。"
+      },
+      {
+        "id": "BC#22",
+        "source_commit": "95abd9522ccadcc3f6250f159213a2bd73e74ad5",
+        "cap_branch": "face_snapshot_integration_1015",
+        "cap_commit": "5644b1f4fca96931c07a8bf5cf4f4125e7d3f358",
+        "result": "共用索引事件 gen_timestamp；AC 当前 gen_timestamp=utc_start，face_snapshot 内该源差异已完整处理。",
+        "verification": "git diff --check 通过；尚未进行产品构建或设备联调。"
+      },
+      {
+        "id": "BC#47",
+        "source_commit": "7012ac55e8970c87146e8e5f740454d2c4d84350",
+        "cap_branch": "face_snapshot_integration_1015",
+        "cap_commit": "86af877db7b47a06d072df1b94a5ce3827f505f6",
+        "result": "在 EN_PKGD_SUPPORT 下共用 face_snapshot 人脸结果通知，保留 HUB 代理独立路径；face_snapshot 内该源差异已完整处理。",
+        "verification": "git diff --check 通过；尚未进行产品构建或设备联调。"
       }
     ],
     "assessed_still_deferred": [
@@ -1152,21 +1178,6 @@
         "reason": "CAP/NVMP 查询回调链已在各一条汇总分支试验闭合，但原提交说明关联 AVTS/NSD 消费者；当前工作区没有对应消费路径或产品构建证据，不能据此判定整组已完成。"
       },
       {
-        "id": "BC#6",
-        "source_commit": "26843acc363708ee4975ef04a9b87b23215a60ec",
-        "reason": "原 CAP 同时修改 battery_manage/power_down.c 的休眠前保存调用时序；AC 没有同一电池机休眠入口。只移植 fd_statistics.c 会改变 AC 定时器路径而未完成原源提交，撤销。"
-      },
-      {
-        "id": "BC#22",
-        "source_commit": "95abd9522ccadcc3f6250f159213a2bd73e74ad5",
-        "reason": "原 CAP 同时修改 battery_manage/power_down.c 并依赖 AVTS (1/2) 休眠索引同步。单独统一 CAP start_time 虽减少宏但不构成完整修复，撤销。"
-      },
-      {
-        "id": "BC#47",
-        "source_commit": "7012ac55e8970c87146e8e5f740454d2c4d84350",
-        "reason": "原 CAP [2/5] 涉及 30 文件和 en_pkgd、休眠、MCU、告警等整套功能。只开放 face_control 通知会形成不完整的跨侧功能，撤销。"
-      },
-      {
         "id": "BC#14",
         "source_commit": "285018e33f5d633df02e7d24621432b0e78b0af4",
         "reason": "BC 时间换算依赖 MCU_BPI_MODE，已有 BC#52 源提交专门避开 AC 侧读取，撤销。"
@@ -1180,7 +1191,7 @@
     "integration_branches": {
       "cap": {
         "branch": "face_snapshot_integration_1015",
-        "head": "61cd5f15c42a920fa7397acccbb2098525f8050b",
+        "head": "86af877db7b47a06d072df1b94a5ce3827f505f6",
         "base": "e3488f1a5e2e794eec2e02527ad325b05dab07be",
         "checkout": "/home/lsy/mycode/Tapo/NVMP/nvmp/tp_package/cap",
         "base_branch": "safe/face_snapshot_merge"
@@ -1191,7 +1202,7 @@
         "base": "fe7195e0ba81efda91ea0ba5f49600c80da0c997",
         "checkout": "/home/lsy/mycode/Tapo/NVMP"
       },
-      "policy": "每个实际 Git 仓库只在原目录、同一 face_snapshot_integration_1015 分支操作；每笔原始提交须一次核对并闭合所有必要的跨模块/跨仓依赖，再计为有效合入。提交本身必须净减少 AC_ON_BC/BC_ON_AC 宏守卫；仅改共享逻辑或仅移动宏边界不计数。源提交带分段编号时核对整个系列及消费者；不以物理合并提交作 SOURCE。不能完整闭合时只登记评估，不留下部分源码提交。"
+      "policy": "每个实际 Git 仓库只在原目录、同一 face_snapshot_integration_1015 分支操作。每笔原始提交一次核对并完整处理其 face_snapshot 内部必要改动；跨模块/跨仓依赖需核对、记录风险，但不要求同笔合入。有效合入源码提交须净减少 AC_ON_BC/BC_ON_AC 宏守卫；只改逻辑、只挪动宏边界不计数。源提交带分段编号时核对系列；物理合并提交不得作 SOURCE。"
     },
     "rebased_1015": {
       "repo": "CAP",
