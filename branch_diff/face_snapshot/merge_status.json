@@ -20,8 +20,8 @@
   },
   "last_action": {
     "date": "2026-10-15",
-    "kind": "remove_non_convergent_commit_1015",
-    "summary": "撤销 BC#16 独立提交，将等值边界修复吸收到 BC#14；当前本批仅四笔有 AC/BC 宏收敛的源码提交，重新核对其余提交。",
+    "kind": "remove_unsupported_timestamp_merge_1015",
+    "summary": "撤销 BC#14/16 时间换算试验；BC#22 在原 AC gen_timestamp=utc_start 下仅收敛宏，剩余本批三笔源码提交。",
     "affected": [
       "CAP face_snapshot_integration_1015",
       "BC#14",
@@ -1131,29 +1131,18 @@
         "verification": "git diff --check 通过；BC 宏路径仅注释位置变化，AC 增加删除定时器步骤；待产品构建和 AOV 休眠实测。"
       },
       {
-        "id": "BC#14",
-        "source_commit": "285018e33f5d633df02e7d24621432b0e78b0af4",
-        "cap_branch": "face_snapshot_integration_1015",
-        "cap_commit": "7c98a1728660035b6c600e11600345ff08acedca",
-        "result": "共用时间戳换算，并吸收 BC#16 的 >= 等值边界修复；BC#16 不再作为独立合入提交或计数。",
-        "verification": "最终条件为 utc_start >= start_time；BC 路径恢复既有逻辑，AC 路径采用 BC 来源换算。待产品构建与设备时间戳验证。",
-        "covered_sources": [
-          "96438c16882e200327e93e317dc4d4451ba36667"
-        ]
-      },
-      {
         "id": "BC#22",
         "source_commit": "95abd9522ccadcc3f6250f159213a2bd73e74ad5",
         "cap_branch": "face_snapshot_integration_1015",
-        "cap_commit": "d95e52b6d0874b169f2210c86ae17094c6920b8a",
-        "result": "统一索引事件 start_time 为传入的 gen_timestamp；它与 BC#14/16 的时间修正配套，只有一个调用点。原 AVTS 配套是否覆盖 AC 待核。",
+        "cap_commit": "b947578dce795a95690ade504dd30c3283169f4d",
+        "result": "共用索引事件 gen_timestamp；AC 现有 gen_timestamp=utc_start，宏移除后 AC 逻辑不变。原 AVTS 配套待核。",
         "verification": "git diff --check 通过；检查到唯一调用点传入 face_data.gen_timestamp；未进行 AVTS 端到端录像索引验证。"
       },
       {
         "id": "BC#47",
         "source_commit": "7012ac55e8970c87146e8e5f740454d2c4d84350",
         "cap_branch": "face_snapshot_integration_1015",
-        "cap_commit": "5c38e3a00865eef3a84676222645ee1f5105a66d",
+        "cap_commit": "dd5673b8c13ae555f9b48bc722020aec05e197b0",
         "result": "在 EN_PKGD_SUPPORT 下两侧共用人脸结果通知，保留 HUB 代理的 BC 分支；en_pkgd 消费端同仓可见。原提交跨模块 [2/5] 系列仅迁移 face_snapshot 焦点。",
         "verification": "git diff --check 通过；确认 en_pkgd.c 注册 AMS_VDR_EN_PKGD_FACE_RESULT 消费者；待 AC 产品配置及固件构建验证。"
       }
@@ -1188,12 +1177,22 @@
         "id": "AC#21",
         "source_commit": "7bbf5e9a4a9f18aebe036de8832339ed2533def2",
         "reason": "CAP/NVMP 查询回调链已在各一条汇总分支试验闭合，但原提交说明关联 AVTS/NSD 消费者；当前工作区没有对应消费路径或产品构建证据，不能据此判定整组已完成。"
+      },
+      {
+        "id": "BC#14",
+        "source_commit": "285018e33f5d633df02e7d24621432b0e78b0af4",
+        "reason": "BC 时间换算使用 MCU_BPI_MODE；已有 BC#52 原提交专门避开 AC 侧读取。撤销试验合入，保留原 AC/BC 时间路径，待产品和硬件时基证据。"
+      },
+      {
+        "id": "BC#16",
+        "source_commit": "96438c16882e200327e93e317dc4d4451ba36667",
+        "reason": "BC 时间换算使用 MCU_BPI_MODE；已有 BC#52 原提交专门避开 AC 侧读取。撤销试验合入，保留原 AC/BC 时间路径，待产品和硬件时基证据。"
       }
     ],
     "integration_branches": {
       "cap": {
         "branch": "face_snapshot_integration_1015",
-        "head": "5c38e3a00865eef3a84676222645ee1f5105a66d",
+        "head": "dd5673b8c13ae555f9b48bc722020aec05e197b0",
         "base": "e3488f1a5e2e794eec2e02527ad325b05dab07be",
         "checkout": "/home/lsy/mycode/Tapo/NVMP/nvmp/tp_package/cap",
         "base_branch": "safe/face_snapshot_merge"
