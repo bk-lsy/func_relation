@@ -19,12 +19,12 @@
     "no_merge_fix": "尚无有效跨侧合入修复提交或完整覆盖证据；不等于该产品路径缺功能或必须修改。"
   },
   "last_action": {
-    "date": "2026-10-15",
+    "date": "2026-10-16",
     "kind": "source_based_trial_1015",
-    "summary": "BC#59: face_control.c 内完整共用原提交的 msgAgent 计算和熟人/陌生人告警格式；保留两侧不同的推送路由，净减少三处 AC/BC 宏守卫。",
+    "summary": "BC#29: fd_statistics.c/.h 内完整共用锁状态与查询接口，并共用原提交修正过的过期定时毫秒换算；保留 BC 独有 fd_control_update_msgpush；净减少分支宏。",
     "affected": [
       "CAP face_snapshot_integration_1015",
-      "BC#59"
+      "BC#29"
     ]
   },
   "entries": [
@@ -1150,6 +1150,14 @@
         "cap_commit": "8fa353d979b8713ec0d864a201bd2fef40448aa0",
         "result": "face_control.c 内完整共用原提交的 msgAgent 计算和熟人/陌生人告警格式；保留两侧不同的推送路由，净减少三处 AC/BC 宏守卫。",
         "verification": "git diff --check 通过；BC HUB/非 HUB 输出路径未改；核对 AC AVTS/hub_storage 的 JSON 解析忽略额外字段。未进行设备 HUB 联调。"
+      },
+      {
+        "id": "BC#29",
+        "source_commit": "0cc155658dbd4c2850d31fdefb4420404c96ee0f",
+        "cap_branch": "face_snapshot_integration_1015",
+        "cap_commit": "bc480874f7ee205d7f04faec54980ff6446630e5",
+        "result": "fd_statistics.c/.h 内完整共用锁状态与查询接口，并共用原提交修正过的过期定时毫秒换算；保留 BC 独有 fd_control_update_msgpush；净减少分支宏。",
+        "verification": "git diff --check 通过；检查回调及首次定时器均按 1000 毫秒/秒换算，原 BC 逻辑不变；未进行 AOV 设备休眠实测。"
       }
     ],
     "assessed_still_deferred": [
@@ -1197,7 +1205,7 @@
     "integration_branches": {
       "cap": {
         "branch": "face_snapshot_integration_1015",
-        "head": "8fa353d979b8713ec0d864a201bd2fef40448aa0",
+        "head": "bc480874f7ee205d7f04faec54980ff6446630e5",
         "base": "e3488f1a5e2e794eec2e02527ad325b05dab07be",
         "checkout": "/home/lsy/mycode/Tapo/NVMP/nvmp/tp_package/cap",
         "base_branch": "safe/face_snapshot_merge"
