@@ -20,13 +20,11 @@
   },
   "last_action": {
     "date": "2026-10-15",
-    "kind": "consolidate_trial_branches_1015",
-    "summary": "将本轮跨仓功能试验提交按仓库收拢到各一条 face_snapshot_integration_1015 分支；CAP 基于 pack，NVMP 基于最佳匹配提交。三笔 CAP 和两笔 NVMP cherry-pick 补丁 patch-id 逐一相同；试验风险及未进入 pack/secure 的判断不变。",
+    "kind": "move_integration_to_canonical_checkout_1015",
+    "summary": "移除 CAP/NVMP 的额外 integration worktree，并在各仓库原有工作目录检出 face_snapshot_integration_1015；两个工作区干净，提交 SHA 和源码不变。",
     "affected": [
       "CAP face_snapshot_integration_1015",
-      "NVMP face_snapshot_integration_1015",
-      "pack_face_snapshot_converge_1014",
-      "secure/face_snapshot_converge_1014"
+      "NVMP face_snapshot_integration_1015"
     ]
   },
   "entries": [
@@ -1135,14 +1133,16 @@
       "cap": {
         "branch": "face_snapshot_integration_1015",
         "head": "73948a50715bcd8e7537f97eafeb5701cc35b3c1",
-        "base": "c61756b8e81146f15c02c8cc39b81330929e7751"
+        "base": "c61756b8e81146f15c02c8cc39b81330929e7751",
+        "checkout": "/home/lsy/mycode/Tapo/NVMP/nvmp/tp_package/cap"
       },
       "nvmp": {
         "branch": "face_snapshot_integration_1015",
         "head": "9d13eba146a03d3c5585382c18f4c5e0275c38ef",
-        "base": "fe7195e0ba81efda91ea0ba5f49600c80da0c997"
+        "base": "fe7195e0ba81efda91ea0ba5f49600c80da0c997",
+        "checkout": "/home/lsy/mycode/Tapo/NVMP"
       },
-      "policy": "一个实际 Git 仓库仅用一条新增工作分支承载后续提交；原 pack/secure 和 develop 保留。功能试验提交已进入汇总分支，但风险项仍须评审后才能进入 pack/secure。"
+      "policy": "每个实际 Git 仓库只在其原有目录操作，并使用一条 face_snapshot_integration_1015 工作分支承载后续提交；不再创建额外 worktree。原 pack/secure 和 develop 分支引用保留。功能试验提交虽在汇总分支，风险项仍须评审后才能进入 pack/secure。"
     }
   }
 }
