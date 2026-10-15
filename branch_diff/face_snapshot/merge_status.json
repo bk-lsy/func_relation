@@ -21,10 +21,10 @@
   "last_action": {
     "date": "2026-10-15",
     "kind": "source_based_trial_1015",
-    "summary": "BC#22: 统一索引事件 start_time 为传入的 gen_timestamp；它与 BC#14/16 的时间修正配套，只有一个调用点。原 AVTS 配套是否覆盖 AC 待核。",
+    "summary": "BC#47: 在 EN_PKGD_SUPPORT 下两侧共用人脸结果通知，保留 HUB 代理的 BC 分支；en_pkgd 消费端同仓可见。原提交跨模块 [2/5] 系列仅迁移 face_snapshot 焦点。",
     "affected": [
       "CAP face_snapshot_integration_1015",
-      "BC#22"
+      "BC#47"
     ]
   },
   "entries": [
@@ -1150,6 +1150,14 @@
         "cap_commit": "9a41e0f9eaa415031319c1d3432aeb451dad421f",
         "result": "统一索引事件 start_time 为传入的 gen_timestamp；它与 BC#14/16 的时间修正配套，只有一个调用点。原 AVTS 配套是否覆盖 AC 待核。",
         "verification": "git diff --check 通过；检查到唯一调用点传入 face_data.gen_timestamp；未进行 AVTS 端到端录像索引验证。"
+      },
+      {
+        "id": "BC#47",
+        "source_commit": "7012ac55e8970c87146e8e5f740454d2c4d84350",
+        "cap_branch": "face_snapshot_integration_1015",
+        "cap_commit": "700a651d3230fe5b765f7ce8a1520ececcde9671",
+        "result": "在 EN_PKGD_SUPPORT 下两侧共用人脸结果通知，保留 HUB 代理的 BC 分支；en_pkgd 消费端同仓可见。原提交跨模块 [2/5] 系列仅迁移 face_snapshot 焦点。",
+        "verification": "git diff --check 通过；确认 en_pkgd.c 注册 AMS_VDR_EN_PKGD_FACE_RESULT 消费者；待 AC 产品配置及固件构建验证。"
       }
     ],
     "assessed_still_deferred": [
@@ -1187,7 +1195,7 @@
     "integration_branches": {
       "cap": {
         "branch": "face_snapshot_integration_1015",
-        "head": "9a41e0f9eaa415031319c1d3432aeb451dad421f",
+        "head": "700a651d3230fe5b765f7ce8a1520ececcde9671",
         "base": "e3488f1a5e2e794eec2e02527ad325b05dab07be",
         "checkout": "/home/lsy/mycode/Tapo/NVMP/nvmp/tp_package/cap",
         "base_branch": "safe/face_snapshot_merge"
