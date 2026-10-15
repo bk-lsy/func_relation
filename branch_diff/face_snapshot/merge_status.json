@@ -21,10 +21,10 @@
   "last_action": {
     "date": "2026-10-15",
     "kind": "source_based_trial_1015",
-    "summary": "BC#16: 在 BC#14 共用时间换算后保留原 BC 的 >= 修复，使 utc_start 等于开机基准时直接使用原时间。",
+    "summary": "BC#22: 统一索引事件 start_time 为传入的 gen_timestamp；它与 BC#14/16 的时间修正配套，只有一个调用点。原 AVTS 配套是否覆盖 AC 待核。",
     "affected": [
       "CAP face_snapshot_integration_1015",
-      "BC#16"
+      "BC#22"
     ]
   },
   "entries": [
@@ -1142,6 +1142,14 @@
         "cap_commit": "d1f71fb40b71aa7381dfe595a71e2bcdcce0fb22",
         "result": "在 BC#14 共用时间换算后保留原 BC 的 >= 修复，使 utc_start 等于开机基准时直接使用原时间。",
         "verification": "git diff --check 通过；最终 BC 条件与既有 BC 路径一致；待产品构建和设备时间戳联调。"
+      },
+      {
+        "id": "BC#22",
+        "source_commit": "95abd9522ccadcc3f6250f159213a2bd73e74ad5",
+        "cap_branch": "face_snapshot_integration_1015",
+        "cap_commit": "9a41e0f9eaa415031319c1d3432aeb451dad421f",
+        "result": "统一索引事件 start_time 为传入的 gen_timestamp；它与 BC#14/16 的时间修正配套，只有一个调用点。原 AVTS 配套是否覆盖 AC 待核。",
+        "verification": "git diff --check 通过；检查到唯一调用点传入 face_data.gen_timestamp；未进行 AVTS 端到端录像索引验证。"
       }
     ],
     "assessed_still_deferred": [
@@ -1179,7 +1187,7 @@
     "integration_branches": {
       "cap": {
         "branch": "face_snapshot_integration_1015",
-        "head": "d1f71fb40b71aa7381dfe595a71e2bcdcce0fb22",
+        "head": "9a41e0f9eaa415031319c1d3432aeb451dad421f",
         "base": "e3488f1a5e2e794eec2e02527ad325b05dab07be",
         "checkout": "/home/lsy/mycode/Tapo/NVMP/nvmp/tp_package/cap",
         "base_branch": "safe/face_snapshot_merge"
