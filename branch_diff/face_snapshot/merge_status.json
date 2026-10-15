@@ -20,10 +20,13 @@
   },
   "last_action": {
     "date": "2026-10-15",
-    "kind": "source_based_trial_1015",
-    "summary": "BC#47: 在 EN_PKGD_SUPPORT 下两侧共用人脸结果通知，保留 HUB 代理的 BC 分支；en_pkgd 消费端同仓可见。原提交跨模块 [2/5] 系列仅迁移 face_snapshot 焦点。",
+    "kind": "remove_non_convergent_commit_1015",
+    "summary": "撤销 BC#16 独立提交，将等值边界修复吸收到 BC#14；当前本批仅四笔有 AC/BC 宏收敛的源码提交，重新核对其余提交。",
     "affected": [
       "CAP face_snapshot_integration_1015",
+      "BC#14",
+      "BC#16",
+      "BC#22",
       "BC#47"
     ]
   },
@@ -1131,23 +1134,18 @@
         "id": "BC#14",
         "source_commit": "285018e33f5d633df02e7d24621432b0e78b0af4",
         "cap_branch": "face_snapshot_integration_1015",
-        "cap_commit": "17a9cc78f8b96007cfe6741e5b505edf465f39b9",
-        "result": "共用开机基准时间与 RTOS 时间戳换算，移除 AC 直用 utc_start 的独立路径；原 BC 大于边界在后续 BC#16 修正。",
-        "verification": "git diff --check 通过；BC#16 将在紧接的提交恢复 BC 原有 >= 边界；待产品构建与 RTOS/AOV 时间数据验证。"
-      },
-      {
-        "id": "BC#16",
-        "source_commit": "96438c16882e200327e93e317dc4d4451ba36667",
-        "cap_branch": "face_snapshot_integration_1015",
-        "cap_commit": "d1f71fb40b71aa7381dfe595a71e2bcdcce0fb22",
-        "result": "在 BC#14 共用时间换算后保留原 BC 的 >= 修复，使 utc_start 等于开机基准时直接使用原时间。",
-        "verification": "git diff --check 通过；最终 BC 条件与既有 BC 路径一致；待产品构建和设备时间戳联调。"
+        "cap_commit": "7c98a1728660035b6c600e11600345ff08acedca",
+        "result": "共用时间戳换算，并吸收 BC#16 的 >= 等值边界修复；BC#16 不再作为独立合入提交或计数。",
+        "verification": "最终条件为 utc_start >= start_time；BC 路径恢复既有逻辑，AC 路径采用 BC 来源换算。待产品构建与设备时间戳验证。",
+        "covered_sources": [
+          "96438c16882e200327e93e317dc4d4451ba36667"
+        ]
       },
       {
         "id": "BC#22",
         "source_commit": "95abd9522ccadcc3f6250f159213a2bd73e74ad5",
         "cap_branch": "face_snapshot_integration_1015",
-        "cap_commit": "9a41e0f9eaa415031319c1d3432aeb451dad421f",
+        "cap_commit": "d95e52b6d0874b169f2210c86ae17094c6920b8a",
         "result": "统一索引事件 start_time 为传入的 gen_timestamp；它与 BC#14/16 的时间修正配套，只有一个调用点。原 AVTS 配套是否覆盖 AC 待核。",
         "verification": "git diff --check 通过；检查到唯一调用点传入 face_data.gen_timestamp；未进行 AVTS 端到端录像索引验证。"
       },
@@ -1155,7 +1153,7 @@
         "id": "BC#47",
         "source_commit": "7012ac55e8970c87146e8e5f740454d2c4d84350",
         "cap_branch": "face_snapshot_integration_1015",
-        "cap_commit": "700a651d3230fe5b765f7ce8a1520ececcde9671",
+        "cap_commit": "5c38e3a00865eef3a84676222645ee1f5105a66d",
         "result": "在 EN_PKGD_SUPPORT 下两侧共用人脸结果通知，保留 HUB 代理的 BC 分支；en_pkgd 消费端同仓可见。原提交跨模块 [2/5] 系列仅迁移 face_snapshot 焦点。",
         "verification": "git diff --check 通过；确认 en_pkgd.c 注册 AMS_VDR_EN_PKGD_FACE_RESULT 消费者；待 AC 产品配置及固件构建验证。"
       }
@@ -1195,7 +1193,7 @@
     "integration_branches": {
       "cap": {
         "branch": "face_snapshot_integration_1015",
-        "head": "700a651d3230fe5b765f7ce8a1520ececcde9671",
+        "head": "5c38e3a00865eef3a84676222645ee1f5105a66d",
         "base": "e3488f1a5e2e794eec2e02527ad325b05dab07be",
         "checkout": "/home/lsy/mycode/Tapo/NVMP/nvmp/tp_package/cap",
         "base_branch": "safe/face_snapshot_merge"
