@@ -20,13 +20,11 @@
   },
   "last_action": {
     "date": "2026-10-15",
-    "kind": "restore_face_internal_source_trials_1015",
-    "summary": "按用户澄清恢复 BC#6/#22/#47 三笔 face_snapshot 内完整收敛的来源试验；外部依赖保留评审记录但不作为本批计数前置。",
+    "kind": "source_based_trial_1015",
+    "summary": "BC#59: face_control.c 内完整共用原提交的 msgAgent 计算和熟人/陌生人告警格式；保留两侧不同的推送路由，净减少三处 AC/BC 宏守卫。",
     "affected": [
       "CAP face_snapshot_integration_1015",
-      "BC#6",
-      "BC#22",
-      "BC#47"
+      "BC#59"
     ]
   },
   "entries": [
@@ -1144,6 +1142,14 @@
         "cap_commit": "86af877db7b47a06d072df1b94a5ce3827f505f6",
         "result": "在 EN_PKGD_SUPPORT 下共用 face_snapshot 人脸结果通知，保留 HUB 代理独立路径；face_snapshot 内该源差异已完整处理。",
         "verification": "git diff --check 通过；尚未进行产品构建或设备联调。"
+      },
+      {
+        "id": "BC#59",
+        "source_commit": "48e74a2785dc75597636ea35f1e8e7d180036d5c",
+        "cap_branch": "face_snapshot_integration_1015",
+        "cap_commit": "8fa353d979b8713ec0d864a201bd2fef40448aa0",
+        "result": "face_control.c 内完整共用原提交的 msgAgent 计算和熟人/陌生人告警格式；保留两侧不同的推送路由，净减少三处 AC/BC 宏守卫。",
+        "verification": "git diff --check 通过；BC HUB/非 HUB 输出路径未改；核对 AC AVTS/hub_storage 的 JSON 解析忽略额外字段。未进行设备 HUB 联调。"
       }
     ],
     "assessed_still_deferred": [
@@ -1191,7 +1197,7 @@
     "integration_branches": {
       "cap": {
         "branch": "face_snapshot_integration_1015",
-        "head": "86af877db7b47a06d072df1b94a5ce3827f505f6",
+        "head": "8fa353d979b8713ec0d864a201bd2fef40448aa0",
         "base": "e3488f1a5e2e794eec2e02527ad325b05dab07be",
         "checkout": "/home/lsy/mycode/Tapo/NVMP/nvmp/tp_package/cap",
         "base_branch": "safe/face_snapshot_merge"
