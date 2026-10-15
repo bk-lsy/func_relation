@@ -20,10 +20,11 @@
   },
   "last_action": {
     "date": "2026-10-15",
-    "kind": "remove_unsupported_timestamp_merge_1015",
-    "summary": "撤销 BC#14/16 时间换算试验；BC#22 在原 AC gen_timestamp=utc_start 下仅收敛宏，剩余本批三笔源码提交。",
+    "kind": "withdraw_incomplete_source_trials_1015",
+    "summary": "按一次原始提交完整处理口径，撤回 BC#6/#22/#47 三笔只处理 face_snapshot 焦点但未闭合跨模块依赖的试验提交；BC#14/#16 此前已撤回。",
     "affected": [
       "CAP face_snapshot_integration_1015",
+      "BC#6",
       "BC#14",
       "BC#16",
       "BC#22",
@@ -1121,30 +1122,6 @@
         "nvmp_branch": "face_snapshot_integration_1015",
         "nvmp_commit": "1e9e5a98acfc6f6c67c2463cc1f6a31c76387fa1",
         "result": "CAP 三项查询回调注册从 AC 专有宏移出；NVMP libfss 三项查询回调类型、存储字段、注册/注销/调用接口共用。AC 预处理源码逐字不变，BC libfss 主机编译和回调注册、查询、注销路径通过。clean_fss_index 原有 AC 宏边界保留。原提交还涉及 AVTS/NSD 消费者及产品构建，尚未做固件联调，暂留汇总分支。"
-      },
-      {
-        "id": "BC#6",
-        "source_commit": "26843acc363708ee4975ef04a9b87b23215a60ec",
-        "cap_branch": "face_snapshot_integration_1015",
-        "cap_commit": "bea8726bf86e5d6a8e3ede3e576123352fc3d371",
-        "result": "将 BC 的保存前停止定时器步骤供 AC 使用；保留 BC 独有的休眠状态标记。",
-        "verification": "git diff --check 通过；BC 宏路径仅注释位置变化，AC 增加删除定时器步骤；待产品构建和 AOV 休眠实测。"
-      },
-      {
-        "id": "BC#22",
-        "source_commit": "95abd9522ccadcc3f6250f159213a2bd73e74ad5",
-        "cap_branch": "face_snapshot_integration_1015",
-        "cap_commit": "b947578dce795a95690ade504dd30c3283169f4d",
-        "result": "共用索引事件 gen_timestamp；AC 现有 gen_timestamp=utc_start，宏移除后 AC 逻辑不变。原 AVTS 配套待核。",
-        "verification": "git diff --check 通过；检查到唯一调用点传入 face_data.gen_timestamp；未进行 AVTS 端到端录像索引验证。"
-      },
-      {
-        "id": "BC#47",
-        "source_commit": "7012ac55e8970c87146e8e5f740454d2c4d84350",
-        "cap_branch": "face_snapshot_integration_1015",
-        "cap_commit": "dd5673b8c13ae555f9b48bc722020aec05e197b0",
-        "result": "在 EN_PKGD_SUPPORT 下两侧共用人脸结果通知，保留 HUB 代理的 BC 分支；en_pkgd 消费端同仓可见。原提交跨模块 [2/5] 系列仅迁移 face_snapshot 焦点。",
-        "verification": "git diff --check 通过；确认 en_pkgd.c 注册 AMS_VDR_EN_PKGD_FACE_RESULT 消费者；待 AC 产品配置及固件构建验证。"
       }
     ],
     "assessed_still_deferred": [
@@ -1179,20 +1156,35 @@
         "reason": "CAP/NVMP 查询回调链已在各一条汇总分支试验闭合，但原提交说明关联 AVTS/NSD 消费者；当前工作区没有对应消费路径或产品构建证据，不能据此判定整组已完成。"
       },
       {
+        "id": "BC#6",
+        "source_commit": "26843acc363708ee4975ef04a9b87b23215a60ec",
+        "reason": "原 CAP 同时修改 battery_manage/power_down.c 的休眠前保存调用时序；AC 没有同一电池机休眠入口。只移植 fd_statistics.c 会改变 AC 定时器路径而未完成原源提交，撤销。"
+      },
+      {
+        "id": "BC#22",
+        "source_commit": "95abd9522ccadcc3f6250f159213a2bd73e74ad5",
+        "reason": "原 CAP 同时修改 battery_manage/power_down.c 并依赖 AVTS (1/2) 休眠索引同步。单独统一 CAP start_time 虽减少宏但不构成完整修复，撤销。"
+      },
+      {
+        "id": "BC#47",
+        "source_commit": "7012ac55e8970c87146e8e5f740454d2c4d84350",
+        "reason": "原 CAP [2/5] 涉及 30 文件和 en_pkgd、休眠、MCU、告警等整套功能。只开放 face_control 通知会形成不完整的跨侧功能，撤销。"
+      },
+      {
         "id": "BC#14",
         "source_commit": "285018e33f5d633df02e7d24621432b0e78b0af4",
-        "reason": "BC 时间换算使用 MCU_BPI_MODE；已有 BC#52 原提交专门避开 AC 侧读取。撤销试验合入，保留原 AC/BC 时间路径，待产品和硬件时基证据。"
+        "reason": "BC 时间换算依赖 MCU_BPI_MODE，已有 BC#52 源提交专门避开 AC 侧读取，撤销。"
       },
       {
         "id": "BC#16",
         "source_commit": "96438c16882e200327e93e317dc4d4451ba36667",
-        "reason": "BC 时间换算使用 MCU_BPI_MODE；已有 BC#52 原提交专门避开 AC 侧读取。撤销试验合入，保留原 AC/BC 时间路径，待产品和硬件时基证据。"
+        "reason": "仅等值条件修复，没有分支宏减少；依赖 BC#14，撤销。"
       }
     ],
     "integration_branches": {
       "cap": {
         "branch": "face_snapshot_integration_1015",
-        "head": "dd5673b8c13ae555f9b48bc722020aec05e197b0",
+        "head": "61cd5f15c42a920fa7397acccbb2098525f8050b",
         "base": "e3488f1a5e2e794eec2e02527ad325b05dab07be",
         "checkout": "/home/lsy/mycode/Tapo/NVMP/nvmp/tp_package/cap",
         "base_branch": "safe/face_snapshot_merge"
