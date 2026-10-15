@@ -20,8 +20,8 @@
   },
   "last_action": {
     "date": "2026-10-15",
-    "kind": "retitle_cap_integration_1015",
-    "summary": "CAP 汇总分支 10 笔标题改为 remove branch macros 与具体摘要；8 笔 SOURCE 原标题带 (CAP:2/2)、(3/4)、(2/3)、(2/2) 或 [1/2] 的本地标题保留原分段标记。提交正文和模块树 b7d21705 不变。",
+    "kind": "correct_physical_merge_source_1015",
+    "summary": "首笔 CAP 聚合提交 SOURCE 从物理合并 be46f651 更正为原始异常特征修复 0bb585cb；10 笔 SHA 顺延，源码树不变。后续合入以原始问题提交为依据。",
     "affected": [
       "CAP face_snapshot_integration_1015"
     ]
@@ -1026,7 +1026,7 @@
         "pack_commit": "f2d59d654a1802a3d09e649e3bb94649a72f8cbe",
         "secure_commit": "040d47095ffd42fe153fef7ff0ad8207bdd0fa89",
         "verification": "26 项主机测试通过；AC/BC 预处理下每侧各保留一次 nvmp_gen_rand_number()，无 srand(time(NULL))；两分支模块树 e2a19f817ca4cbb2da68c2aafd365334292a621a 相同。",
-        "integration_commit": "812d8385304590e2eace91480ee783c9c6eff49b"
+        "integration_commit": "96610e4fad781dc8cee68871c4335107ffec9aa6"
       },
       {
         "id": "AC#26",
@@ -1035,7 +1035,7 @@
         "pack_commit": "ce63eda739950e0b5febf3d0614a2a9dd3e8a113",
         "secure_commit": "edf594e6bb582e361187ed3a7ec206e4c608e0a2",
         "verification": "AC+TELEMETRY_SUPPORT 和 BC 默认的预处理 token 与提交前相同；BC+TELEMETRY_SUPPORT 可见统计结构与查询接口；26 项主机测试通过；两分支模块树 fed372dd6e6615e48509b743a001a5ba22a76429 相同。未进行产品交叉编译或设备遥测联调。",
-        "integration_commit": "3f44680af06d33b6fb914a0c8fd00cefdf0306e1",
+        "integration_commit": "89d259ce2bdba2d8249fc76699f4baf908095905",
         "log_source_commit": "1a63a634c5d972a95716b01b4f548c267b8413ca"
       },
       {
@@ -1047,7 +1047,7 @@
         "nvmp_branch": "face_snapshot_integration_1015",
         "nvmp_commit": "8a88fe51a668ec8637f9cca8dd62bf25669d69c1",
         "verification": "BC 侧 CAP 三文件及 NVMP FSS_IQA_THRESH 预处理 token 与合入前相同；AC/BC 运行自适应阈值定向主机用例通过。旧 26 项测试中 25 项通过，1 项因固定要求 AC setter 与旧版逐字相同而与本次功能合入目标冲突。未做产品交叉编译或旧设备配置迁移验证。",
-        "integration_commit": "0f00ccb00f9dd0f2a398b857abb5fe8e763b362b"
+        "integration_commit": "88554b8e42a5d6dd9e335692d3433035097505d3"
       },
       {
         "id": "AC#15",
@@ -1056,7 +1056,7 @@
         "pack_commit": "fce49c61ea9e31a578814c29d7fdb01eb1deee4c",
         "secure_commit": "7dd0e77b82730716094178339ec5be7d5623ad89",
         "verification": "AC+FIX 与 BC 默认预处理 token 不变；BC+FIX 下函数定义和调用均可见；两分支 face_snapshot 模块树 0b7f80513574aeca649dbfe9a448eb98f21aad86 相同。",
-        "integration_commit": "788a17ff32e63ca5ec1f2d250017edd878ff5d28"
+        "integration_commit": "905f11fc76b6d488c6cf55aeef91f16abfbe3a14"
       },
       {
         "id": "BC#5",
@@ -1067,7 +1067,7 @@
         "nvmp_commit": "fe7195e0ba81efda91ea0ba5f49600c80da0c997",
         "verification": "BC CAP face_control 预处理 token 未变；AC/BC 主机用例覆盖无匹配、陌生人哨兵和熟人结果，并保持 AC 最高分与 BC 熟人优先的既有选择策略。",
         "nvmp_branch": "face_snapshot_integration_1015",
-        "integration_commit": "8d943bdb137d827d3c2425cf22b2ff2cb148eb09"
+        "integration_commit": "8194f87dee8f0ae2d2e3840750c57a0fb04ba69e"
       },
       {
         "id": "BC#26",
@@ -1078,7 +1078,7 @@
         "nvmp_commit": "fe7195e0ba81efda91ea0ba5f49600c80da0c997",
         "verification": "AC/BC 定向主机用例通过；BC 原路径宏展开不变。",
         "nvmp_branch": "face_snapshot_integration_1015",
-        "integration_commit": "8d943bdb137d827d3c2425cf22b2ff2cb148eb09"
+        "integration_commit": "8194f87dee8f0ae2d2e3840750c57a0fb04ba69e"
       }
     ],
     "trials": [
@@ -1086,7 +1086,7 @@
         "id": "BC#28",
         "source_commit": "8afda7b47cc26866765f0cd081f65a428a1a6da3",
         "cap_branch": "face_snapshot_integration_1015",
-        "cap_commit": "2f1b2b9c7f99229f1334c5a8300f6208cd664145",
+        "cap_commit": "00731fb6aef5e3def2bb48340ef26edb328b2184",
         "nvmp_branch": "face_snapshot_integration_1015",
         "nvmp_commit": "f36109c194b5a812f0bbb5694a222bc812490fa9",
         "result": "CAP 尺寸质量门槛及 DS 模型在 AC/BC 共用，BC 宏展开与合入前相同。定向主机测试确认默认门槛 100 下 AC size_score=0/99 被拒绝、100 被接受。尚无 AC 算法侧 size_score 赋值证据，故只保留试验分支。"
@@ -1096,7 +1096,7 @@
         "source_commit": "cd9bc9160cd18b212a5c5de17b5255db8aa58381",
         "nvmp_source_commit": "54df1282ddb8342c3f78c982553be946e525423d",
         "cap_branch": "face_snapshot_integration_1015",
-        "cap_commit": "5c5e24ab100247ce7aed13a5e542e23a558b2487",
+        "cap_commit": "02a8f6d1e819ad089c1b0a231d5583217c223425",
         "nvmp_branch": "face_snapshot_integration_1015",
         "nvmp_commit": "9d13eba146a03d3c5585382c18f4c5e0275c38ef",
         "result": "AC 定时重试改成回调附着并启用首次读取；两侧 libutils 的立即/延迟附着主机用例通过，BC CAP/libutils 预处理保持不变。停止前尚未创建 ringbuffer 时待附着回调缺取消路径，可能在停止后触发；保留试验分支。"
@@ -1105,7 +1105,7 @@
         "id": "BC#7",
         "source_commit": "b49a124e00f5f79db64923bb3ad6d164068b0879",
         "cap_branch": "face_snapshot_integration_1015",
-        "cap_commit": "fd11a25670d670b915db2b500de4467fbea87c2c",
+        "cap_commit": "6fc1c19eebc547421980dbdba5e65ba8aba99a12",
         "result": "AC 相似度 helper 启用 BC 熟人超过阈值时提前选定的规则，AC/BC helper 预处理 token 相同、BC 原路径不变。AC 原最高分选择会改变，故仅保留试验分支。"
       }
     ],
@@ -1139,7 +1139,7 @@
     "integration_branches": {
       "cap": {
         "branch": "face_snapshot_integration_1015",
-        "head": "fd11a25670d670b915db2b500de4467fbea87c2c",
+        "head": "6fc1c19eebc547421980dbdba5e65ba8aba99a12",
         "base": "e3488f1a5e2e794eec2e02527ad325b05dab07be",
         "checkout": "/home/lsy/mycode/Tapo/NVMP/nvmp/tp_package/cap",
         "base_branch": "safe/face_snapshot_merge"
@@ -1158,13 +1158,13 @@
       "old_head": "73948a50715bcd8e7537f97eafeb5701cc35b3c1",
       "base_branch": "safe/face_snapshot_merge",
       "base_commit": "e3488f1a5e2e794eec2e02527ad325b05dab07be",
-      "new_head": "fd11a25670d670b915db2b500de4467fbea87c2c",
+      "new_head": "6fc1c19eebc547421980dbdba5e65ba8aba99a12",
       "module_tree_old": "6d8a9ee75a349d3dc7217344ca70153985184448",
       "module_tree_new": "b7d21705bab03a084b97d310a238b2b14c7f5e19",
       "old_to_new": [
         {
           "old": "f705717c479afe2ceee4363035ea8f2b064c0487",
-          "new": "db32aaf9c821ef001820431e612ab932ed510d0b",
+          "new": "eacbde9ec866b84d5d41b19453f2549750071e52",
           "result": "rebased_with_safe_conflicts"
         },
         {
@@ -1179,7 +1179,7 @@
         },
         {
           "old": "ca76b071a8a775ae3687fb889cd9111f6e4aa5a8",
-          "new": "6436e0ea951ad92e84b629aae57de8040d70f846",
+          "new": "ce999db08b7a6e06469b587f935036a298cfd12f",
           "result": "rebased_unchanged_patch"
         },
         {
@@ -1189,42 +1189,42 @@
         },
         {
           "old": "f2d59d654a1802a3d09e649e3bb94649a72f8cbe",
-          "new": "812d8385304590e2eace91480ee783c9c6eff49b",
+          "new": "96610e4fad781dc8cee68871c4335107ffec9aa6",
           "result": "rebased_unchanged_patch"
         },
         {
           "old": "ce63eda739950e0b5febf3d0614a2a9dd3e8a113",
-          "new": "3f44680af06d33b6fb914a0c8fd00cefdf0306e1",
+          "new": "89d259ce2bdba2d8249fc76699f4baf908095905",
           "result": "rebased_unchanged_patch"
         },
         {
           "old": "def7998badb1f28811d27cc4ec3fd4c984473516",
-          "new": "0f00ccb00f9dd0f2a398b857abb5fe8e763b362b",
+          "new": "88554b8e42a5d6dd9e335692d3433035097505d3",
           "result": "rebased_unchanged_patch"
         },
         {
           "old": "fce49c61ea9e31a578814c29d7fdb01eb1deee4c",
-          "new": "788a17ff32e63ca5ec1f2d250017edd878ff5d28",
+          "new": "905f11fc76b6d488c6cf55aeef91f16abfbe3a14",
           "result": "rebased_unchanged_patch"
         },
         {
           "old": "c61756b8e81146f15c02c8cc39b81330929e7751",
-          "new": "8d943bdb137d827d3c2425cf22b2ff2cb148eb09",
+          "new": "8194f87dee8f0ae2d2e3840750c57a0fb04ba69e",
           "result": "rebased_unchanged_patch"
         },
         {
           "old": "d9a69a50be5bce5b4e791d8bf24354b71d470203",
-          "new": "2f1b2b9c7f99229f1334c5a8300f6208cd664145",
+          "new": "00731fb6aef5e3def2bb48340ef26edb328b2184",
           "result": "rebased_unchanged_patch"
         },
         {
           "old": "7347164b17719d2ec18cdf98bf9dc2b4b969f5d0",
-          "new": "5c5e24ab100247ce7aed13a5e542e23a558b2487",
+          "new": "02a8f6d1e819ad089c1b0a231d5583217c223425",
           "result": "rebased_unchanged_patch"
         },
         {
           "old": "73948a50715bcd8e7537f97eafeb5701cc35b3c1",
-          "new": "fd11a25670d670b915db2b500de4467fbea87c2c",
+          "new": "6fc1c19eebc547421980dbdba5e65ba8aba99a12",
           "result": "rebased_unchanged_patch"
         }
       ],
@@ -1232,99 +1232,106 @@
       "pre_log_head": "0767e95dcab91e6f4e9b52b06cab16bf88def7f8",
       "log_rewrite": {
         "old_head": "0767e95dcab91e6f4e9b52b06cab16bf88def7f8",
-        "new_head": "fd11a25670d670b915db2b500de4467fbea87c2c",
+        "new_head": "6fc1c19eebc547421980dbdba5e65ba8aba99a12",
         "commit_map": [
           {
             "old": "e3debad5fe83e7d5e6653ff424a07f35f0f7515a",
-            "new": "db32aaf9c821ef001820431e612ab932ed510d0b"
+            "new": "eacbde9ec866b84d5d41b19453f2549750071e52"
           },
           {
             "old": "90b2a14189d2e336a892099c0e893cf6ef8a2132",
-            "new": "6436e0ea951ad92e84b629aae57de8040d70f846"
+            "new": "ce999db08b7a6e06469b587f935036a298cfd12f"
           },
           {
             "old": "68a01e413a67cb4935b792dc0a796a506257a0a0",
-            "new": "812d8385304590e2eace91480ee783c9c6eff49b"
+            "new": "96610e4fad781dc8cee68871c4335107ffec9aa6"
           },
           {
             "old": "55b81ef8783861d8717de356ddd45965bbc5f88a",
-            "new": "3f44680af06d33b6fb914a0c8fd00cefdf0306e1"
+            "new": "89d259ce2bdba2d8249fc76699f4baf908095905"
           },
           {
             "old": "c810839819459318a68000481e839e59e014a12c",
-            "new": "0f00ccb00f9dd0f2a398b857abb5fe8e763b362b"
+            "new": "88554b8e42a5d6dd9e335692d3433035097505d3"
           },
           {
             "old": "065109f5075dde4075b6d514b523020512bb6f6e",
-            "new": "788a17ff32e63ca5ec1f2d250017edd878ff5d28"
+            "new": "905f11fc76b6d488c6cf55aeef91f16abfbe3a14"
           },
           {
             "old": "a92bafc874e9c185ef89537e9e447f205bd5acd8",
-            "new": "8d943bdb137d827d3c2425cf22b2ff2cb148eb09"
+            "new": "8194f87dee8f0ae2d2e3840750c57a0fb04ba69e"
           },
           {
             "old": "994d7d98e81d0ea05877d9d566b981ede467aa73",
-            "new": "2f1b2b9c7f99229f1334c5a8300f6208cd664145"
+            "new": "00731fb6aef5e3def2bb48340ef26edb328b2184"
           },
           {
             "old": "78d4240615fc74fac5da01c1828c9ccb3a87d52e",
-            "new": "5c5e24ab100247ce7aed13a5e542e23a558b2487"
+            "new": "02a8f6d1e819ad089c1b0a231d5583217c223425"
           },
           {
             "old": "0767e95dcab91e6f4e9b52b06cab16bf88def7f8",
-            "new": "fd11a25670d670b915db2b500de4467fbea87c2c"
+            "new": "6fc1c19eebc547421980dbdba5e65ba8aba99a12"
           }
         ],
         "format": "[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros (摘要)；空置四个模板段；SOURCE 仅列一笔 AC/BC 原始提交及其去 Change-Id 的完整日志。",
         "telemetry_source_equivalence": "develop/develop_sz0519 的 1a63a634c5d972a95716b01b4f548c267b8413ca 与此前登记的 1ab529891045131033eef8f7e2b625932f15d02e patch-id 相同。",
-        "aggregate_source_scope": "首笔零散聚合的 SOURCE 只列 BC 物理合并 be46f65124e1a38b0538e0a1096c8846e80feff3 作为代表依据，聚合涉及的其余历史来源仍保留在 packaging_1014 中。"
+        "aggregate_source_scope": "首笔零散聚合的 SOURCE 改用 BC 原始修复 0bb585cbc73137e4e67680d37092d93f5055b182，直接对应异常特征重建；其它零散子范围仍见历史 packaging_1014，不再将物理合并提交作为来源。"
       },
       "title_rewrite": {
         "old_head": "f9a320b534e7734bc7506089a6154283734a1db7",
-        "new_head": "fd11a25670d670b915db2b500de4467fbea87c2c",
+        "new_head": "6fc1c19eebc547421980dbdba5e65ba8aba99a12",
         "commit_map": [
           {
             "old": "782f8b252bb64f024aa111934b7fb1cec18f4017",
-            "new": "db32aaf9c821ef001820431e612ab932ed510d0b"
+            "new": "eacbde9ec866b84d5d41b19453f2549750071e52"
           },
           {
             "old": "f93a9b08c2323abf5dab13d01c48dc9734d16874",
-            "new": "6436e0ea951ad92e84b629aae57de8040d70f846"
+            "new": "ce999db08b7a6e06469b587f935036a298cfd12f"
           },
           {
             "old": "e29352053e1565ef800197e8296c1c5187445acd",
-            "new": "812d8385304590e2eace91480ee783c9c6eff49b"
+            "new": "96610e4fad781dc8cee68871c4335107ffec9aa6"
           },
           {
             "old": "382827d891d557c2938b73712880d7466f90b472",
-            "new": "3f44680af06d33b6fb914a0c8fd00cefdf0306e1"
+            "new": "89d259ce2bdba2d8249fc76699f4baf908095905"
           },
           {
             "old": "007402ed45aaa050be04f2f47e0337800abe1a4e",
-            "new": "0f00ccb00f9dd0f2a398b857abb5fe8e763b362b"
+            "new": "88554b8e42a5d6dd9e335692d3433035097505d3"
           },
           {
             "old": "f4501db0d3a29551efe4a8ea2851c632d34b9664",
-            "new": "788a17ff32e63ca5ec1f2d250017edd878ff5d28"
+            "new": "905f11fc76b6d488c6cf55aeef91f16abfbe3a14"
           },
           {
             "old": "06aadc73ade898aedca5789763031455f07f6fbe",
-            "new": "8d943bdb137d827d3c2425cf22b2ff2cb148eb09"
+            "new": "8194f87dee8f0ae2d2e3840750c57a0fb04ba69e"
           },
           {
             "old": "3bd32e3b0c2d3c39608cb040be22f42bc89bb495",
-            "new": "2f1b2b9c7f99229f1334c5a8300f6208cd664145"
+            "new": "00731fb6aef5e3def2bb48340ef26edb328b2184"
           },
           {
             "old": "e7bb72af0436e696b37f1b1bcd0362db1e2fc7bb",
-            "new": "5c5e24ab100247ce7aed13a5e542e23a558b2487"
+            "new": "02a8f6d1e819ad089c1b0a231d5583217c223425"
           },
           {
             "old": "f9a320b534e7734bc7506089a6154283734a1db7",
-            "new": "fd11a25670d670b915db2b500de4467fbea87c2c"
+            "new": "6fc1c19eebc547421980dbdba5e65ba8aba99a12"
           }
         ],
         "rule": "标题统一为 [cap] face_snapshot: remove branch macros (明确摘要)，原 SOURCE 标题结尾带分段编号时将原标记置于本地标题结尾；正文、补丁与模块树不变。"
+      },
+      "source_correction": {
+        "old_head": "fd11a25670d670b915db2b500de4467fbea87c2c",
+        "new_head": "6fc1c19eebc547421980dbdba5e65ba8aba99a12",
+        "old_source": "be46f65124e1a38b0538e0a1096c8846e80feff3",
+        "new_source": "0bb585cbc73137e4e67680d37092d93f5055b182",
+        "reason": "物理合并提交不能作为合入源；上溯到引入异常特征重建的原始问题修复。"
       }
     }
   }
