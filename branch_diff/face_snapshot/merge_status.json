@@ -20,15 +20,11 @@
   },
   "last_action": {
     "date": "2026-10-15",
-    "kind": "withdraw_incomplete_source_trials_1015",
-    "summary": "按一次原始提交完整处理口径，撤回 BC#6/#22/#47 三笔只处理 face_snapshot 焦点但未闭合跨模块依赖的试验提交；BC#14/#16 此前已撤回。",
+    "kind": "source_atomicity_policy_1015",
+    "summary": "撤回本批跨模块不完整试验后，检查 AC#4、BC#38、BC#59 等来源及其关联模块；均未取得一次闭合且净减少分支宏的安全依据，未制造替代提交。明确一次源提交完整处理的计数口径。",
     "affected": [
       "CAP face_snapshot_integration_1015",
-      "BC#6",
-      "BC#14",
-      "BC#16",
-      "BC#22",
-      "BC#47"
+      "merge_status.json"
     ]
   },
   "entries": [
@@ -1195,7 +1191,7 @@
         "base": "fe7195e0ba81efda91ea0ba5f49600c80da0c997",
         "checkout": "/home/lsy/mycode/Tapo/NVMP"
       },
-      "policy": "每个实际 Git 仓库只在其原有目录操作，并使用一条 face_snapshot_integration_1015 工作分支承载后续提交；CAP 以 safe/face_snapshot_merge 为基线。原 secure、develop 和 safe 分支引用保留。功能试验提交虽在汇总分支，风险项仍须评审。"
+      "policy": "每个实际 Git 仓库只在原目录、同一 face_snapshot_integration_1015 分支操作；每笔原始提交须一次核对并闭合所有必要的跨模块/跨仓依赖，再计为有效合入。提交本身必须净减少 AC_ON_BC/BC_ON_AC 宏守卫；仅改共享逻辑或仅移动宏边界不计数。源提交带分段编号时核对整个系列及消费者；不以物理合并提交作 SOURCE。不能完整闭合时只登记评估，不留下部分源码提交。"
     },
     "rebased_1015": {
       "repo": "CAP",
