@@ -16,19 +16,25 @@
     "preexisting_coverage": "焦点补丁在对侧基础、BC 物理合并前或物理合并中、或当前共用代码中已有覆盖，无需重复提交。",
     "merged_partial": "已有本地源码修复或收敛，但原提交仍有未闭合范围，或只取了后续修复的一部分。",
     "deferred": "用户要求跳过、跨仓/跨模块依赖未闭环、产品路径适用性缺乏证据，或此前局部提交已撤销。",
-    "no_merge_fix": "尚无有效跨侧合入修复提交或完整覆盖证据；不等于该产品路径缺功能或必须修改。"
+    "no_merge_fix": "尚无有效跨侧合入修复提交或完整覆盖证据；不等于该产品路径缺功能或必须修改。",
+    "physical_merge": "物理整合提交，仅记录形成分支代码的基线；不作为功能修复者，不计入化学合入完成度。"
   },
   "last_action": {
     "date": "2026-10-17",
-    "kind": "physical_merge_consistency_recheck",
-    "summary": "按原提交在 bb3085b8 物理合并后的实际分歧重审人工“无需处理”：六笔原提交焦点在物理合并后已覆盖，不因原补丁的细微表达差异或链接未核实而判部分一致。",
+    "kind": "manual_disposition_and_physical_merge_correction",
+    "summary": "按用户修订 11 笔人工处理情况，核对两笔实际修复来源；物理合并四笔单列为不参与讨论，且不再记作功能修复者。",
     "affected": [
-      "BC#9",
-      "BC#19",
-      "BC#30",
-      "BC#45",
-      "BC#46",
-      "BC#48"
+      "BC#4",
+      "BC#26",
+      "BC#38",
+      "BC#34",
+      "BC#35",
+      "BC#42",
+      "BC#43",
+      "BC#60",
+      "BC#61",
+      "BC#62",
+      "BC#52"
     ]
   },
   "entries": [
@@ -336,7 +342,7 @@
       "source_commit": "3d14c077baee267afc2ee45a4a52ac0720bc888b",
       "source_title": "[all]cap:read ams config for fss threshold set(1/2)",
       "status": "merged_complete",
-      "note": "原提交 3d14c077baee267afc2ee45a4a52ac0720bc888b 的阈值等级、AMS IQA/相似度读取、日夜状态、启动初始化及 LIGHT_STATUS 重载/监视，当前已覆盖；AC 侧原有同类功能，BC 配套 NVMP (2/2) 为 5f070fd4dc621d1ed598895663a5de2f32400b33。bb3085b8 后仍有双套函数与分支宏，CAP 51eed3eac0 统一接口及启动、重载调用，故不能判为物理合并后无需进行。后续额外的 BC IQA 字段由 BC#24/#28 单独标记。"
+      "note": "复核：bb3085b8 后阈值接口、启动初始化及配置重载仍有 AC/BC 宏分歧；当前 CAP 51eed3eac07649a4d35241d5f253ca6dc4e64356 实际统一相关接口与调用。物理合并仅是基线，不计作修复。人工修订的处理情况及 AI 修复来源一致。"
     },
     {
       "id": "BC#5",
@@ -533,8 +539,8 @@
       "index": 26,
       "source_commit": "bad5f512f868b751170c565d1abd90bf5cde1b62",
       "source_title": "[all] cap|face_snapshot: feature matching func is valid for familar",
-      "status": "deferred",
-      "note": "熟人最佳匹配入口与 BC #5 同机制；按最佳匹配高风险暂缓边界保留。"
+      "status": "merged_complete",
+      "note": "复核：原提交将最佳匹配中的陌生人结果置为 score=-10000、face_id=0、空名称；当前 CAP 5d5021c92cfdc4848c509f5d807fb2c5e4e4af31 收敛该过滤路径，已在复审分支祖先中。该提交的日志以接口来源 7a5ee0df 为主，bad5f512 是本地补丁覆盖的另一原提交焦点；物理合并不计作修复。人工修订的处理情况及 AI 判断的实际修复者一致。"
     },
     {
       "id": "BC#27",
@@ -605,8 +611,8 @@
       "index": 34,
       "source_commit": "1403e6830e471144cf71112c23175731edee6025",
       "source_title": "[all] cap/fss: support pss (2/2)",
-      "status": "merged_partial",
-      "note": "PSS `(2/2)` 与 AC #7/#8 大型整合相连；检测入口及存储有局部共用，完整算法/跨仓契约未闭环。"
+      "status": "no_merge_fix",
+      "note": "人工修订为 PSS 仅电池机有，建议直接使用电池机文件，需要评审。be46f651、f96c4216、bb3085b8 只完成物理合并，不是本笔功能修复者；历史分支的 48ecd95e 不在当前复审分支祖先。当前尚无针对 1403e683 完整逻辑合入的有效修复，PSS 文件策略待评审。"
     },
     {
       "id": "BC#35",
@@ -615,7 +621,7 @@
       "source_commit": "caab424ca6830e1250f42ebf36686eba8c9ef0fd",
       "source_title": "[All] cap/pss: reduce max person_num and max person snapshot size",
       "status": "deferred",
-      "note": "原提交 caab424ca6830e1250f42ebf36686eba8c9ef0fd 缩小 PDR_IMG_OCCUPY_SIZE/PDR_FIGURE_OCCUPY_CNT/PDR_FIGURE_IMG_OCCUPY_CNT。目标 BC 路径已有 20K/FD_FACE_SUPPORT_NUM/5，AC 路径保留 40K/100/10；属于存储容量与布局差异，缺少跨侧迁移依据，暂缓。"
+      "note": "人工修订为已做试合入、不一定最终采纳、需要评审。当前 CAP 876754e4f9f9379d93d219a5558b25499925ffc1 以 TP_TAPO_BATTERY_CAM 选择 PSS 容量值，保持两侧现有数值；该试合入涉及存储布局，最终采纳待评审。"
     },
     {
       "id": "BC#36",
@@ -642,7 +648,7 @@
       "source_commit": "1a03e63298ff39ec1b1890dce4999fea31322b10",
       "source_title": "[all] face_control: Support doFaceInfoAddPacketized API (1/2)",
       "status": "deferred",
-      "note": "原 CAP `1a03e63298ff39ec1b1890dce4999fea31322b10` 为电池机大图上传增加 doFaceInfoAddPacketized (1/2)；NVMP 配套 (2/2) `b4b44c924be1b804889147c764942f81e3df1d9c` 在 libds 映射 API、在 libsdm 增加 max_faceinfo_bytes。NVMP BC 当前含配套，AC 对照 ref 无这两项；CAP 当前只在 BC 路径提供包上传。跨侧依赖和产品传输需求未闭环，暂缓迁入 AC，BC 原路径保留。"
+      "note": "人工修订为尚未做相关提交、需要评审。当前 CAP 分包上传 API/DS 模板仍受 BC_ON_AC 路径保护；未找到以 1a03e632 为来源、在当前复审分支祖先中的定向合入提交。NVMP 配套接口和产品传输需求仍需评审。"
     },
     {
       "id": "BC#39",
@@ -678,7 +684,7 @@
       "source_commit": "08fd905b3a589373d76af5d46a5fd854a316d7c3",
       "source_title": "[all] fss: fixed face data lost (1/2)",
       "status": "merged_complete",
-      "note": "AI排查修复 404d583244405fcf09ed1b0473a810f0b253eb3d：原 CAP 08fd905b3a589373d76af5d46a5fd854a316d7c3 与 NVMP caa29a0f9 均指向支持人脸的电池机 usr_record 挂载问题；当前按 TP_TAPO_BATTERY_CAM 选择挂载等待，BC 电池机逻辑保持并减少 AC/BC 宏。目标设备是否提供 urdev= 启动参数及 JFFS2 仍需设备验证。"
+      "note": "人工修订为电池机专属、已做宏替换、需要评审。当前 CAP 404d583244405fcf09ed1b0473a810f0b253eb3d 以 TP_TAPO_BATTERY_CAM 选择 usr_record 挂载等待；NVMP 配套为 caa29a0f9。目标设备的 urdev= 与 JFFS2 前提仍待评审。"
     },
     {
       "id": "BC#43",
@@ -687,7 +693,7 @@
       "source_commit": "ea33fe4d4a27504ed9284dc8bd5daead504c6bca",
       "source_title": "[CAP] Security Optimization for DS Interface (3/4)",
       "status": "deferred",
-      "note": "原 CAP ea33fe4d4a27504ed9284dc8bd5daead504c6bca 的 face_snapshot 焦点改动中，8 项普通 face_control DS 模板及 fd_statistics/fss 模板当前已是共用代码，旧 ds_register_action 已移除；doFaceInfoAddPacketized 模板仍在 #ifndef BC_ON_AC 下，依赖 BC#38 的分包功能。焦点子范围已有覆盖但尚未整笔跨侧完成；此外原提交跨 69 个模块，权限契约需与系列配套核对，保留待评审。"
+      "note": "人工修订为特殊提交、无需处理。原提交横跨 69 个模块，face_snapshot 普通 DS 模板已共用；分包模板依赖 1a03e632 的 BC 专属 API，暂不在本轮做跨侧逻辑修复。物理合并保留的代码不计作修复。"
     },
     {
       "id": "BC#44",
@@ -767,8 +773,8 @@
       "index": 52,
       "source_commit": "3ec3c0ef990abb98e4b4afa30070c6f5fe7cda9e",
       "source_title": "[ALL] CAP|cap: Fix NAND firmware packaging and add battery cam branch compatibility [3/5]",
-      "status": "deferred",
-      "note": "原提交 3ec3c0ef990abb98e4b4afa30070c6f5fe7cda9e 是 NAND/电池机打包兼容 [3/5]，涉及 Makefile 和 17 个模块；目标 face_snapshot 已保留该提交的 AC_ON_BC 兼容保护，但原提交的跨模块/跨仓产品配置范围未闭环，整笔暂缓。"
+      "status": "physical_merge",
+      "note": "物理合并提交：NAND 打包与电池机兼容路径按原提交保留，属于本次讨论边界之后的跨模块/系列提交；不作为其他原提交的功能修复者，也不参与化学合入完成度判定。"
     },
     {
       "id": "BC#53",
@@ -839,8 +845,8 @@
       "index": 60,
       "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
       "source_title": "[cap] face_snapshot: merge AC logic in BC (feature/storage basis)",
-      "status": "merged_partial",
-      "note": "第一笔物理整合 AC 特征/存储基础；后续多笔局部收敛，完整去向未闭环。"
+      "status": "physical_merge",
+      "note": "物理合并提交：将 AC 特征与存储基础保留在 BC，形成后续待核的分支代码；不作为任何原提交的功能修复者，也不参与化学合入完成度判定。"
     },
     {
       "id": "BC#61",
@@ -848,8 +854,8 @@
       "index": 61,
       "source_commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6",
       "source_title": "[cap] face_snapshot: merge AC logic in BC (fd_statistics family + pss storage + default config)",
-      "status": "merged_partial",
-      "note": "第二笔物理整合统计、PSS 存储和默认配置；局部收敛不等于整笔核完。"
+      "status": "physical_merge",
+      "note": "物理合并提交：将 AC 统计、PSS 存储与默认配置保留在 BC，形成后续待核的分支代码；不作为任何原提交的功能修复者，也不参与化学合入完成度判定。"
     },
     {
       "id": "BC#62",
@@ -857,8 +863,8 @@
       "index": 62,
       "source_commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f",
       "source_title": "[cap] face_snapshot: merge AC logic in BC (face_control)",
-      "status": "merged_partial",
-      "note": "第三笔物理整合 `face_control.c`；仍有通知、PSS、产品条件分支待核。"
+      "status": "physical_merge",
+      "note": "物理合并提交：将 AC face_control 代码保留在 BC，形成后续待核的分支代码；不作为任何原提交的功能修复者，也不参与化学合入完成度判定。"
     },
     {
       "id": "BC#63",
