@@ -7,8 +7,8 @@
     "BC": "3e40aa2606ea54ff93f9b39deeddb7cd970d351b"
   },
   "target": {
-    "branch": "face_snapshot_converge_1010",
-    "head": "8f8fea6bb525bf3533b1e126e0c795f616f16b7d"
+    "branch": "face_snapshot_battery_macro_review_1017",
+    "head": "fe2b6991bda45f3262e684cfcdc81fdc12623b0e"
   },
   "baseline_date": "2026-10-14",
   "status_definitions": {
@@ -19,12 +19,13 @@
     "no_merge_fix": "尚无有效跨侧合入修复提交或完整覆盖证据；不等于该产品路径缺功能或必须修改。"
   },
   "last_action": {
-    "date": "2026-10-16",
-    "kind": "source_based_trial_1015",
-    "summary": "BC#29: fd_statistics.c/.h 内完整共用锁状态与查询接口，并共用原提交修正过的过期定时毫秒换算；保留 BC 独有 fd_control_update_msgpush；净减少分支宏。",
+    "date": "2026-10-17",
+    "kind": "source_based_convergence",
+    "summary": "AI排查提交第 3 笔：BC#25 模型 MD5 状态与 face_snapshot 刷新链共用，CAP 和 NVMP 分别减少分支宏。",
     "affected": [
-      "CAP face_snapshot_integration_1015",
-      "BC#29"
+      "CAP fe2b6991bda45f3262e684cfcdc81fdc12623b0e",
+      "NVMP 6bbe00f50ef5a62ee0f1ce4044f2131c34e36183",
+      "BC#25"
     ]
   },
   "entries": [
@@ -323,7 +324,7 @@
       "source_commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6",
       "source_title": "[all]cap:add face detect base function(2/2)",
       "status": "merged_partial",
-      "note": "与 AC #2、#7 基础机制相连；已有多处共用，但原大提交未完整核对。"
+      "note": "与 AC #2、#7 基础机制相连；已有多处共用，但原大提交未完整核对。；`06ad886d930e90b75a278dbabf437b4feb14d10a` 共用首次出现统计更新条件"
     },
     {
       "id": "BC#4",
@@ -331,8 +332,8 @@
       "index": 4,
       "source_commit": "3d14c077baee267afc2ee45a4a52ac0720bc888b",
       "source_title": "[all]cap:read ams config for fss threshold set(1/2)",
-      "status": "preexisting_coverage",
-      "note": "原提交 3d14c077baee267afc2ee45a4a52ac0720bc888b 的阈值等级、AMS IQA/相似度读取、日夜状态、启动初始化及 LIGHT_STATUS 重载/监视，在目标公共 face_feature.c、face_control.c、fss.c 与头文件中均有覆盖；AC tip 原有对应阈值实现，BC 配套 NVMP (2/2) 5f070fd4dc621d1ed598895663a5de2f32400b33。目标后续额外的 BC IQA 字段由 BC#24/#28 单独标记；本笔无需另改 CAP。"
+      "status": "merged_complete",
+      "note": "原提交 3d14c077baee267afc2ee45a4a52ac0720bc888b 的阈值等级、AMS IQA/相似度读取、日夜状态、启动初始化及 LIGHT_STATUS 重载/监视，当前已覆盖；AC 侧原有同类功能，BC 配套 NVMP (2/2) 为 5f070fd4dc621d1ed598895663a5de2f32400b33。bb3085b8 后仍有双套函数与分支宏，CAP 51eed3eac0 统一接口及启动、重载调用，故不能判为物理合并后无需进行。后续额外的 BC IQA 字段由 BC#24/#28 单独标记。"
     },
     {
       "id": "BC#5",
@@ -395,7 +396,7 @@
       "source_commit": "7b54cd2e9f4f1ecdbe467d8d57df7294d98b4c12",
       "source_title": "[all] face_snapshot: Fix compilation warnings",
       "status": "merged_complete",
-      "note": "`6bbe61e3` 共用统计变量初始化补丁。"
+      "note": "bb3085b8 后 hemisphere_flag、tm、index、found_faceid_flag 仍按 AC/BC 分开声明；当前分支的 CAP 0f9dad1bd 将 BC 原提交 7b54cd2e9f4f1ecdbe467d8d57df7294d98b4c12 的初始化及声明位置共用。旧记录 6bbe61e3 不在当前分支，不作为合入者。"
     },
     {
       "id": "BC#12",
@@ -520,8 +521,8 @@
       "index": 25,
       "source_commit": "0bb947224bc08bdfc400aaa353d437f29e573e64",
       "source_title": "[FSS] Recalculate face features when face recognition model is updated (2/3)",
-      "status": "deferred",
-      "note": "原提交 0bb947224bc08bdfc400aaa353d437f29e573e64 的配套 NVMP BC (1/3) 是 a7adeb41dd9a0cfee39edb989b8845a47ab89911；原说明限定 D260v1，依赖 ALG_MODEL_STATUS 与 TSS_MSG_HAS_DETECTED 后重算。目标 BC 路径已有模型 MD5 和刷新链，AC 路径未启用；系列 (3/3) 与 AC 运行契约未闭环，暂缓。"
+      "status": "merged_complete",
+      "note": "AI排查修复：CAP fe2b6991bda45f3262e684cfcdc81fdc12623b0e（[cap] face_snapshot: remove branch macros (共享模型 MD5 检测与人脸特征重算链) (2/3)，Change-Id: Ic9a49652c7aeadd127ad4fea54f6d9b336dd72c3）与 NVMP 6bbe00f50ef5a62ee0f1ce4044f2131c34e36183（[nvmp] libsdm: remove branch macros (共享模型 MD5 状态声明供人脸特征重算) (1/3)，Change-Id: I0d6e7a693278ce6ab0c17eb85c50f1b038b7e457）共享模型状态与 face_snapshot 特征重算链；原 (3/3) 升级模块摘要写入另核。"
     },
     {
       "id": "BC#26",
@@ -629,7 +630,7 @@
       "source_commit": "0bb585cbc73137e4e67680d37092d93f5055b182",
       "source_title": "[all] cap: The failure to update the feature values of the face image through the algorithm interface leads to the generation of incorrect feature values in database, inducing high-frequency false recognization",
       "status": "merged_complete",
-      "note": "`30e11c67` 共用无效特征重算及更新失败清理；保留 BC 熟人优先入口。"
+      "note": "`30e11c67` 已共用特征更新失败清理；`ba6da3231224ec9b2d8456e35c228296110a0668` 补齐无效相似度重建与过滤的 AC/BC 共用，保留 BC 熟人优先入口。"
     },
     {
       "id": "BC#38",
@@ -673,8 +674,8 @@
       "index": 42,
       "source_commit": "08fd905b3a589373d76af5d46a5fd854a316d7c3",
       "source_title": "[all] fss: fixed face data lost (1/2)",
-      "status": "deferred",
-      "note": "`08fd905b` 与 NVMP `caa29a0f` 电池机挂载系列整组暂缓跨入 AC。"
+      "status": "merged_complete",
+      "note": "AI排查修复 404d583244405fcf09ed1b0473a810f0b253eb3d：原 CAP 08fd905b3a589373d76af5d46a5fd854a316d7c3 与 NVMP caa29a0f9 均指向支持人脸的电池机 usr_record 挂载问题；当前按 TP_TAPO_BATTERY_CAM 选择挂载等待，BC 电池机逻辑保持并减少 AC/BC 宏。目标设备是否提供 urdev= 启动参数及 JFFS2 仍需设备验证。"
     },
     {
       "id": "BC#43",
@@ -719,7 +720,7 @@
       "source_commit": "7012ac55e8970c87146e8e5f740454d2c4d84350",
       "source_title": "[all]cap: support enhanced package detection [2/5]",
       "status": "deferred",
-      "note": "原 CAP `7012ac55e8970c87146e8e5f740454d2c4d84350` `(2/5)` 新增 en_pkgd 模块并在 face_control.c 通过 EN_PKGD_SUPPORT 向其发送人脸结果；本地 NVMP 历史定位到配套 `(1/5)` `16d21a671d5d3332c47c33b5e662ad3d2973d914`。该产品能力还修改 battery_manage、mcu_proxy、msg_alarm 等，AC 无独立 en_pkgd 契约证据；整组暂缓跨侧合入，BC 原逻辑保留。"
+      "note": "原 CAP `7012ac55e8970c87146e8e5f740454d2c4d84350` `(2/5)` 新增 en_pkgd 模块并在 face_control.c 通过 EN_PKGD_SUPPORT 向其发送人脸结果；本地 NVMP 配套 `(1/5)` 为 `16d21a671d5d3332c47c33b5e662ad3d2973d914`。目前 EN_PKGD_SUPPORT 仅电池机持有，AC/BC 的 +136 消息号差异在现有产品配置下不会运行时冲突；若未来 AC 开启该功能仍须确定 libdms 消息与消费者契约。包裹检测发送与 HUB 通知共用 BC_ON_AC 守卫：只移动守卫不能减少分支宏，直接删除会改变 AC 的 HUB 通知路径。原人工去宏判断未落实；暂缓合入，BC 原逻辑保留。"
     },
     {
       "id": "BC#48",
@@ -754,8 +755,8 @@
       "index": 51,
       "source_commit": "b8e8a80294fc5f063c82dffb2f4d4620f4e5baeb",
       "source_title": "[cap] en_pkgd: add macro control for local package history maintainance logic",
-      "status": "deferred",
-      "note": "原提交 `b8e8a80294fc5f063c82dffb2f4d4620f4e5baeb` 以 LOCAL_PKG_HISTORY_SUPPORT 宏控制 BC #50 的本地包裹历史维护，同时改 en_pkgd、hsr 和 face_control.c。它依附 BC #47/#50 的增强包裹机制，AC 无该模块/产品启用依据；随整组暂缓跨侧合入，BC 原宏路径保留。"
+      "status": "merged_complete",
+      "note": "AI排查修复 b5973b68fb93fff5bb1ef0b6ccec8a7c9ac026b2：原提交 b8e8a80294fc5f063c82dffb2f4d4620f4e5baeb 的本地包裹历史回调现仅受 EN_PKGD_SUPPORT 与 LOCAL_PKG_HISTORY_SUPPORT 控制，BC 原 skip_msgpush 跳转位置不变，减少一组 BC_ON_AC。当前产品仅电池机启用增强包裹功能；BC#50 的云端 pushable 行为仍独立待评审。"
     },
     {
       "id": "BC#52",
