@@ -1,6 +1,7 @@
 # Local comparison target and generated reports.
 config.yaml
 outputs/
+/branch_diff/face_snapshot-new/差异情况概览.xlsx
 
 # Python bytecode.
 __pycache__/

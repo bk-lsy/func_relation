@@ -17,24 +17,30 @@
     "merged_partial": "已有本地源码修复或收敛，但原提交仍有未闭合范围，或只取了后续修复的一部分。",
     "deferred": "用户要求跳过、跨仓/跨模块依赖未闭环、产品路径适用性缺乏证据，或此前局部提交已撤销。",
     "no_merge_fix": "尚无有效跨侧合入修复提交或完整覆盖证据；不等于该产品路径缺功能或必须修改。",
-    "physical_merge": "物理整合提交，仅记录形成分支代码的基线；不作为功能修复者，不计入化学合入完成度。"
+    "physical_merge": "物理整合提交，仅记录形成分支代码的基线；不作为功能修复者，不计入化学合入完成度。",
+    "shared_fix": "原提交直接作用于 AC/BC 共用路径，双方均生效，无需后续定向化学合入。",
+    "out_of_scope": "跨模块系列或中间回退节点，按用户处理口径不在本轮 face_snapshot 原功能合入中单独处理。"
   },
   "last_action": {
     "date": "2026-10-17",
-    "kind": "manual_disposition_and_physical_merge_correction",
-    "summary": "按用户修订 11 笔人工处理情况，核对两笔实际修复来源；物理合并四笔单列为不参与讨论，且不再记作功能修复者。",
+    "kind": "manual_disposition_reconciliation",
+    "summary": "按用户修订后续提交的人工处理情况：b9ede403 归属 0f9dad1b；物理合并排除修复来源；五笔共用 PSS 修复无需后续处理；跨模块日志宏组不参与本轮。8f72dafc 的冲突口径已由用户最终确认为“跨模块日志宏相关，无需处理”。",
     "affected": [
-      "BC#4",
-      "BC#26",
-      "BC#38",
-      "BC#34",
-      "BC#35",
-      "BC#42",
-      "BC#43",
-      "BC#60",
-      "BC#61",
-      "BC#62",
-      "BC#52"
+      "BC#58",
+      "BC#64",
+      "BC#65",
+      "BC#53",
+      "BC#56",
+      "YAML#66",
+      "YAML#68",
+      "YAML#70",
+      "YAML#71",
+      "YAML#72",
+      "YAML#73",
+      "YAML#74",
+      "YAML#76",
+      "YAML#77",
+      "BC#57"
     ]
   },
   "entries": [
@@ -782,8 +788,8 @@
       "index": 53,
       "source_commit": "a8aed44ebc4b24f0cc45584ad64f1eba52edac21",
       "source_title": "[ALL] CAP|log : adapt module-based logging and unify msg_debug interface[3/4]",
-      "status": "deferred",
-      "note": "FSS-LOG 系列本地收敛已整体回退。"
+      "status": "out_of_scope",
+      "note": "跨模块日志宏系列首次引入，之后经 03c33af8 回退、8f72dafc 重提；按用户结论，跨模块日志宏相关，无需在 face_snapshot 原功能合入中单独处理。"
     },
     {
       "id": "BC#54",
@@ -809,8 +815,8 @@
       "index": 56,
       "source_commit": "03c33af88e5fdf6302bebcce676e9a0081ed3d2f",
       "source_title": "Revert \"Merge \"[ALL] CAP|log : adapt module-based logging and unify msg_debug interface[3/4]\" into develop/bc_develop_220927\"",
-      "status": "deferred",
-      "note": "FSS-LOG 的中间回退节点，随 BC #53/#57 作为整组保留现状。"
+      "status": "out_of_scope",
+      "note": "跨模块日志宏系列的中间回退提交；按用户结论，无需在 face_snapshot 原功能合入中单独处理。"
     },
     {
       "id": "BC#57",
@@ -818,8 +824,8 @@
       "index": 57,
       "source_commit": "8f72dafca02825230827e9c2f212a3fd833bbb45",
       "source_title": "[ALL] CAP|log : adapt module-based logging and unify msg_debug interface[3/4]",
-      "status": "deferred",
-      "note": "FSS-LOG 后续适配，本地旧提交 `10f72793` 已整体回退。"
+      "status": "out_of_scope",
+      "note": "跨模块日志宏系列的重提提交：此前 a8aed44e 引入、03c33af8 回退，之后 008b2df2 与 102ba4b1 继续整理宏。用户最终确认无需在 face_snapshot 原功能合入中单独处理；此结论不表示逐模块日志接口已复审。 人工备注来源见 YAML，用户最终选择了跨模块日志宏处理口径。"
     },
     {
       "id": "BC#58",
@@ -828,7 +834,7 @@
       "source_commit": "b9ede40350c03b0fb404b0a6505722232ffd2c0b",
       "source_title": "[fss] face_control: Save unselected familiar face detection notify list",
       "status": "merged_complete",
-      "note": "`36120e63` 共用取消勾选通知后逐条写回 face info。"
+      "note": "复核：原提交的取消勾选熟人通知后逐条持久化 face info，在物理合并后仍有 BC_ON_AC 守卫；当前 CAP 0f9dad1bdb179a2f318486c953cc7369e44a9bd0，[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches)，Change-Id: I466a3b3002237b35350b3f7752435abbc7d92e24 解除该守卫，使两侧共用写回逻辑。用户指定 0f9dad1b 为实际修复来源，与代码相符。"
     },
     {
       "id": "BC#59",
@@ -881,8 +887,8 @@
       "index": 64,
       "source_commit": "1c851e9523057d6166204f99e78859a994527e2b",
       "source_title": "﻿[cap] face_snapshot: clean redundant macro guards and optimize function layout in face_control",
-      "status": "merged_partial",
-      "note": "`8b77f26f` 仅清理空产品宏块；原提交其余布局/日志范围未闭环。"
+      "status": "physical_merge",
+      "note": "物理合并/整理提交，清理已有 AC/BC 宏残差并调整 face_control 布局；不作为其他原功能提交的修复来源，也不参与本轮原提交合入完成度讨论。"
     },
     {
       "id": "BC#65",
@@ -890,8 +896,8 @@
       "index": 65,
       "source_commit": "3e40aa2606ea54ff93f9b39deeddb7cd970d351b",
       "source_title": "[all] face_control: add qualified face tags for pss recognition",
-      "status": "deferred",
-      "note": "原提交 `3e40aa2606ea54ff93f9b39deeddb7cd970d351b` 扩展 PSS 多人选择、熟人匹配及 qualified face 事件/视频标签；目标 BC 路径保留。它影响 PSS 存储、识别结果与视频事件消费者，AC PSS 对应契约未核对，暂缓跨侧合入，不拆出局部算法变更。"
+      "status": "shared_fix",
+      "note": "原提交在双方共用的 FACE_PSS_SUPPORT 路径增加 PSS 多人选择与合格人脸事件/标签；按用户结论，属于对两分支均生效的修复，无需再做 AC/BC 定向处理。跨模块消费行为未在本笔复审。"
     }
   ],
   "relation_graph": "merge_relations.json",
@@ -1415,5 +1421,61 @@
     "cutoff_commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f",
     "rule": "只对该提交及之前的 AC/BC 原始提交推进化学合并；该物理合并提交自身不作为功能来源。之后的提交只作审查记录，不新建修复提交。",
     "excluded_example": "93fe4562217d71928d811cdd3bb4b4db6771bbba"
+  },
+  "post_cutoff_review": {
+    "29e88837": {
+      "source_commit": "29e88837353e0cd271cbc20654ed9c279535f6f1",
+      "manual_disposition": "物理合并，不参与讨论",
+      "status": "physical_merge",
+      "note": "用户将合并后 face info 锁作用域及 FSS_ERROR 定义修整归类为物理合并；不作为其他原功能提交的合入来源，也不参与本轮原提交合入完成度讨论。"
+    },
+    "8491c28e": {
+      "source_commit": "8491c28ee6c29b22881984397be4604abd5a9fc6",
+      "manual_disposition": "物理合并，不参与讨论",
+      "status": "physical_merge",
+      "note": "用户将该合并后文件描述符判断更正提交归类为物理合并；不作为其他原功能提交的合入来源，也不参与本轮原提交合入完成度讨论。保留原提交代码事实，不据此推定可改写错误路径。"
+    },
+    "af085704": {
+      "source_commit": "af0857046d56a36149dfb21c4591b21ec0c54d42",
+      "manual_disposition": "物理合并，不参与讨论",
+      "status": "physical_merge",
+      "note": "用户将 PSS 存储重复宏整理提交归类为物理合并；不作为其他原功能提交的合入来源，也不参与本轮原提交合入完成度讨论。"
+    },
+    "aaad1b34": {
+      "source_commit": "aaad1b343a9d11812ba8882a7cf62d2e7048390d",
+      "manual_disposition": "对两分支都生效的修复提交，无需后续处理",
+      "status": "shared_fix",
+      "note": "原提交在双方共用的 FACE_PSS_SUPPORT 路径处理合并人脸时的 PSS 数据与特征；对两分支均生效，无需后续 AC/BC 处理。"
+    },
+    "ef46bb67": {
+      "source_commit": "ef46bb67c7dc2fd1c7f15735856930c0f5a6e419",
+      "manual_disposition": "对两分支都生效的修复提交，无需后续处理",
+      "status": "shared_fix",
+      "note": "原提交在双方共用的 FACE_PSS_SUPPORT 路径清理人脸删除时关联的过期 PDR 图像；对两分支均生效，无需后续 AC/BC 处理。"
+    },
+    "3ffa086f": {
+      "source_commit": "3ffa086f2cb18e8308c1a06b3adcdbcaf8aa5cd6",
+      "manual_disposition": "对两分支都生效的修复提交，无需后续处理",
+      "status": "shared_fix",
+      "note": "原提交在双方共用的 FACE_PSS_SUPPORT 路径清空人脸库时清理 PDR_STORAGE_DIR；对两分支均生效，无需后续 AC/BC 处理。"
+    },
+    "6913374f": {
+      "source_commit": "6913374fb3ee4199efe6161d3375cb4c6276b5fb",
+      "manual_disposition": "对两分支都生效的修复提交，无需后续处理",
+      "status": "shared_fix",
+      "note": "原提交在双方共用的 FACE_PSS_SUPPORT 路径实现过期人形快照清理；对两分支均生效，无需后续 AC/BC 处理。"
+    },
+    "008b2df2": {
+      "source_commit": "008b2df2c9214b0cd5597d962f027945c131a0d0",
+      "manual_disposition": "跨模块日志宏相关，无需处理",
+      "status": "out_of_scope",
+      "note": "跨模块日志宏整理提交；face_storage.h 日志宏已在分析终点共用。按用户结论，无需在 face_snapshot 原功能合入中单独处理。"
+    },
+    "102ba4b1": {
+      "source_commit": "102ba4b17bb1eac7eff0f89c52d8b1700e1ae378",
+      "manual_disposition": "跨模块日志宏相关，无需处理",
+      "status": "out_of_scope",
+      "note": "跨模块日志宏整理及分析终点提交；face_snapshot 日志宏已共用。按用户结论，无需在 face_snapshot 原功能合入中单独处理。"
+    }
   }
 }
