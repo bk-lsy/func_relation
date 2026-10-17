@@ -22,17 +22,19 @@
     "out_of_scope": "跨模块系列或中间回退节点，按用户处理口径不在本轮 face_snapshot 原功能合入中单独处理。"
   },
   "last_action": {
-    "date": "2026-10-17",
-    "kind": "canonical_ac_source_audit",
-    "summary": "按 CAP develop/develop_sz0519 相对 BC 的焦点路径拓扑重建 AC 侧 30 笔概览：6f4f42d7 与 2fc6094a 同补丁，规范分支仅保留后者；release 独有的另外六笔分别由 develop 分支同 Change-Id、同焦点补丁提交替换；补录 0871bd20 时间转换提交。旧 merge_status/commits.md/scope.json 仍为 release 历史快照，编号不与新概览互用；本次不更改业务源码和旧状态判断。",
+    "date": "2026-10-18",
+    "kind": "canonical_ac_trial_repairs",
+    "summary": "在 CAP test/face_snapshot_battery_macro_review_1017 基础上审查 AC 概览中原需处理 1、已修复 0 的九笔：七笔完成试合入提交；e69adae6 经核对已由当前共用代码覆盖，无需新增提交；2900128f 的 HUB 消息 ID 与 NSD/AVTS 消费契约相关，保留待评审。规范 AC 来源的逐笔结论见 canonical_ac_trial_1017 和 AC YAML；旧 entries 与 merge_relations.json 保留旧 release 来源及旧目标分支历史快照，不能把两套编号或 HEAD 混用。",
     "affected": [
-      "AC#19",
-      "AC#25",
-      "AC#26",
-      "AC#27",
-      "AC#28",
-      "AC#29",
-      "AC#30"
+      "AC概览#4",
+      "AC概览#9",
+      "AC概览#13",
+      "AC概览#15",
+      "AC概览#17",
+      "AC概览#20",
+      "AC概览#25",
+      "AC概览#28",
+      "AC概览#29"
     ]
   },
   "entries": [
@@ -1469,5 +1471,68 @@
       "status": "out_of_scope",
       "note": "跨模块日志宏整理及分析终点提交；face_snapshot 日志宏已共用。按用户结论，无需在 face_snapshot 原功能合入中单独处理。"
     }
+  },
+  "canonical_ac_trial_1017": {
+    "source_index": "../face_snapshot-new/ac侧提交概览.yaml",
+    "target_branch": "test/face_snapshot_battery_macro_review_1017",
+    "base_commit": "14fce9868",
+    "target_head": "caf63fc24af5daa280c8ea2351dfa53e5fb3bf2d",
+    "relation_graph_note": "merge_relations.json 仍对应历史 face_snapshot_battery_macro_review_1017 分支和旧 release AC 索引，不映射此试合入分支。",
+    "entries": [
+      {
+        "ac_overview_number": 4,
+        "source_commit": "0c090e6e760c94ae5fba13ce346c735a24df99e3",
+        "state": "trial_repair_committed",
+        "repair_commit": "caf63fc24af5daa280c8ea2351dfa53e5fb3bf2d"
+      },
+      {
+        "ac_overview_number": 9,
+        "source_commit": "12f602f96c52f1906d4baa5d0413f8dd59567ba7",
+        "state": "trial_repair_committed",
+        "repair_commit": "734aee51c6e3a08fe43e7cc31865f2a40c4bfb02"
+      },
+      {
+        "ac_overview_number": 13,
+        "source_commit": "e69adae64faf5b6f1d77e897f054e7d81effe9dc",
+        "state": "preexisting_coverage",
+        "repair_commit": null
+      },
+      {
+        "ac_overview_number": 15,
+        "source_commit": "91713aef6e078ddf179afca70ea060bcfaf9fe6b",
+        "state": "trial_repair_committed",
+        "repair_commit": "8b45439c41449fecd19f0ea6a1113ce2031cc407"
+      },
+      {
+        "ac_overview_number": 17,
+        "source_commit": "2900128f10da10f075a1953a1ed814834f38dec9",
+        "state": "deferred_consumer_contract",
+        "repair_commit": null
+      },
+      {
+        "ac_overview_number": 20,
+        "source_commit": "7bbf5e9a4a9f18aebe036de8832339ed2533def2",
+        "state": "trial_repair_committed",
+        "repair_commit": "482854aab99847f942fd99c1c2945e12dd2a2a65"
+      },
+      {
+        "ac_overview_number": 25,
+        "source_commit": "1a63a634c5d972a95716b01b4f548c267b8413ca",
+        "state": "trial_repair_committed",
+        "repair_commit": "b768d2840e2b3321d4500c4c216eb678f01047fd"
+      },
+      {
+        "ac_overview_number": 28,
+        "source_commit": "bf5b74039fb41ac235a681513576584920027386",
+        "state": "trial_repair_committed",
+        "repair_commit": "f1f92940f016d37a91cee4ba8bb2220d1e491d89"
+      },
+      {
+        "ac_overview_number": 29,
+        "source_commit": "71eef458f553174c9e6492acde116425527eac19",
+        "state": "trial_repair_committed",
+        "repair_commit": "e68b2046f8717306cde5126776ba1fbb928a9a4d"
+      }
+    ]
   }
 }

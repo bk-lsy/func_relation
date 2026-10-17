@@ -60,11 +60,11 @@
   备注: 加入人脸检测通知及图片发送能力，扩展消息构造、通知配置和主图读取，让应用端接收识别事件与图片。
   是否需要评审: 1
   是否需要处理: 1
-  是否已做修复提交: 0
+  是否已做修复提交: 1
   修复提交是否已合入: 0
-  修复提交标题: ''
-  修复提交commit id: ''
-  修复提交change id: ''
+  修复提交标题: '[cap] face_snapshot: remove branch macros (share notification pushable selection)'
+  修复提交commit id: caf63fc24af5daa280c8ea2351dfa53e5fb3bf2d
+  修复提交change id: I9cf5626f78979982072533362f72d60615b8a6f6
   修复提交链接: ''
 - 序号: 5
   合入时间: '2024-12-17'
@@ -135,11 +135,11 @@
   备注: 将 face_snapshot 控制代码使用的随机数来源改为平台替代实现；原系列跨模块，需与公共随机数接口一起核对。
   是否需要评审: 1
   是否需要处理: 1
-  是否已做修复提交: 0
+  是否已做修复提交: 1
   修复提交是否已合入: 0
-  修复提交标题: ''
-  修复提交commit id: ''
-  修复提交change id: ''
+  修复提交标题: '[cap] face_snapshot: remove branch macros (share platform random source) (3/4)'
+  修复提交commit id: 734aee51c6e3a08fe43e7cc31865f2a40c4bfb02
+  修复提交change id: If30e5756a7f1aab23b3279b41c64211dafa4585e
   修复提交链接: ''
 - 序号: 10
   合入时间: '2026-01-14'
@@ -192,9 +192,9 @@
   标题: '[cap]face_snapshot:fix some bugs of face snapshot'
   类型: Bug修复,有对标提交
   Change-Id: I5432aabc9ef96b11abea1a28420c783eee21832d
-  备注: 与 BC 99edff3d 同 Change-Id，六项修复目标一致，均处理 HUB 配置缓存、合并旧人脸删除、队列校验及库满覆盖通知；补丁不逐行相同。AC 的 HUB 告警保留 pushable:0，内部删除额外清理陌生人历史，检测入口兼容 PSS；BC 原补丁沿用无 pushable 的 HUB 格式与自身检测入口。需按最终代码核对这些差异。
-  是否需要评审: 1
-  是否需要处理: 1
+  备注: 与 BC 99edff3d 同 Change-Id，均修正 HUB 配置缓存、旧人脸删除、事件队列及库满覆盖通知。当前试合入分支已共用这些修复；HUB 告警消息路由仍有分歧，单独归于 2900128f 审查。本笔无需新增修复提交。
+  是否需要评审: 0
+  是否需要处理: 0
   是否已做修复提交: 0
   修复提交是否已合入: 0
   修复提交标题: ''
@@ -225,11 +225,11 @@
   备注: 修复旧 save_pic 配置的入口受单侧 FIX_FSS_PIC_CFG 编译宏限制；目标分支虽有对应函数，宏的实际启用和系列配套仍需复核。
   是否需要评审: 0
   是否需要处理: 1
-  是否已做修复提交: 0
+  是否已做修复提交: 1
   修复提交是否已合入: 0
-  修复提交标题: ''
-  修复提交commit id: ''
-  修复提交change id: ''
+  修复提交标题: '[cap] face_snapshot: remove branch macros (gate picture config repair by feature flag) (1/2)'
+  修复提交commit id: 8b45439c41449fecd19f0ea6a1113ce2031cc407
+  修复提交change id: I8bb6cb2ccd0936021995376f21edb6bd12f0fa0f
   修复提交链接: ''
 - 序号: 16
   合入时间: '2026-01-16'
@@ -253,7 +253,7 @@
     : 修复hub_storage代理的iot消息缺少faceid、name、alias字段导致人脸事件推送iot失败的问题[1/2]'
   类型: bug修复，hub相关，需谨慎
   Change-Id: I6707a73c5ab43db92b5da6a2e026a8e290538dcc
-  备注: 调整 HUB 存储代理的人脸消息，补齐 faceid、name 和 alias 等字段，使下游 IoT 转发可识别人脸事件；依赖消费端配套。
+  备注: HUB 存储代理场景改为仅向 MSGID_ALARM_EXT 发送完整人脸事件，并取消单独的 HUB 推送，配套下游解析 faceid、name、alias。当前 BC 路径仍发送 MSGID_HUB_ALARM，BC 的 NSD cloud_iot.c 监听该消息；直接统一会改变消息消费契约。试合入暂缓，需连同 AVTS/hub_storage 消费端审查。
   是否需要评审: 1
   是否需要处理: 1
   是否已做修复提交: 0
@@ -301,11 +301,11 @@
   备注: 注册人脸快照供 libfss 使用的回调接口并规范代码；关联 NVMP、AVTS、NSD 等仓库的接口和消费者。
   是否需要评审: 1
   是否需要处理: 1
-  是否已做修复提交: 0
+  是否已做修复提交: 1
   修复提交是否已合入: 0
-  修复提交标题: ''
-  修复提交commit id: ''
-  修复提交change id: ''
+  修复提交标题: '[cap] face_snapshot: remove branch macros (share libfss query callback registration)'
+  修复提交commit id: 482854aab99847f942fd99c1c2945e12dd2a2a65
+  修复提交change id: I2b467313120667aa3be900e6df5e012164ab931f
   修复提交链接: ''
 - 序号: 21
   合入时间: '2026-05-07'
@@ -376,11 +376,11 @@
   备注: 增加人脸识别遥测数据、采集回调和 getFaceTelemetryInfo 接口，供外部模块读取识别统计；属于跨仓系列。
   是否需要评审: 1
   是否需要处理: 1
-  是否已做修复提交: 0
+  是否已做修复提交: 1
   修复提交是否已合入: 0
-  修复提交标题: ''
-  修复提交commit id: ''
-  修复提交change id: ''
+  修复提交标题: '[cap] face_snapshot: remove branch macros (share optional face telemetry) (2/3)'
+  修复提交commit id: b768d2840e2b3321d4500c4c216eb678f01047fd
+  修复提交change id: Iff71b699361801dedebc8e8d9bae79f311f2dc6f
   修复提交链接: ''
 - 序号: 26
   合入时间: '2026-07-02'
@@ -421,11 +421,11 @@
   备注: 在人脸快照配置链中接入摄像机操作日志，记录相关配置动作；属于跨模块系列的 CAP 部分。
   是否需要评审: 1
   是否需要处理: 1
-  是否已做修复提交: 0
+  是否已做修复提交: 1
   修复提交是否已合入: 0
-  修复提交标题: ''
-  修复提交commit id: ''
-  修复提交change id: ''
+  修复提交标题: '[cap] face_snapshot: remove branch macros (share camera operation log hook) (3/4)'
+  修复提交commit id: f1f92940f016d37a91cee4ba8bb2220d1e491d89
+  修复提交change id: I4a241138230e3587c92ab0a0b60a3bb4b9af4b5f
   修复提交链接: ''
 - 序号: 29
   合入时间: '2026-08-14'
@@ -436,11 +436,11 @@
   备注: 调整摄像机操作日志相关配置的预设置方法，使配置变更和日志链一致；需结合系列其他模块评审。
   是否需要评审: 1
   是否需要处理: 1
-  是否已做修复提交: 0
+  是否已做修复提交: 1
   修复提交是否已合入: 0
-  修复提交标题: ''
-  修复提交commit id: ''
-  修复提交change id: ''
+  修复提交标题: '[cap] face_snapshot: remove branch macros (share camera log change filtering) (2/2)'
+  修复提交commit id: e68b2046f8717306cde5126776ba1fbb928a9a4d
+  修复提交change id: I3cbc4210922300dabd31422ddfbcfecac7708c8d
   修复提交链接: ''
 - 序号: 30
   合入时间: '2026-09-21'

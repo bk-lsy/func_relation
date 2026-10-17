@@ -4,6 +4,8 @@
 
 按分支查看的 15 列提交概览位于 [`AC 侧 YAML`](../face_snapshot-new/ac侧提交概览.yaml) 和 [`BC 侧 YAML`](../face_snapshot-new/bc侧提交概览.yaml)；表格可用 `python3 branch_diff/yaml_to_xlsx.py <YAML 路径>` 生成。AC 概览现以 CAP `develop/develop_sz0519` 为规范来源：`6f4f42d7` 与已有的 `2fc6094a` 同补丁而不单列，其余六笔 release 分支独有提交均替换为 develop 分支中同 Change-Id、同焦点路径补丁的提交，补录 `0871bd20`。`commits.md`、`scope.json`、进度 JSON 及等价关系仍记录 2026-10-09 的 release 分支历史快照；它们的 AC 编号不可直接用于新概览。修复来源仅在核实当前工作分支的对应提交后填写。
 
+2026-10-18 起，CAP `test/face_snapshot_battery_macro_review_1017` 上规范 AC 来源的试合入记录，以 AC 概览中的修复提交列和 `merge_status.json` 的 `canonical_ac_trial_1017` 为准。旧 `entries` 与 `merge_relations.json` 继续对应历史分支及旧 AC 索引；试合入提交不直接连到旧索引的关系图。当前九笔候选中七笔已提交试合入，一笔确认无需新增修复，一笔 HUB 消息契约待评审。
+
 [`merge_status.json`](merge_status.json) 是 AC/BC 95 笔原始焦点提交的**当前逻辑合并进度记录**，以 `AC#编号` / `BC#编号` 对应 [`commits.md`](commits.md) 的完整来源 SHA。状态分别为 `merged_complete`（已修复合入完全）、`merged_partial`（已有修复但未完全）、`preexisting_coverage`（对侧基础或物理合并已有覆盖）、`deferred`（暂缓）、`no_merge_fix`（尚无有效跨侧合入修复或完整覆盖证据）、`physical_merge`（物理合并提交，不参与化学合入完成度统计，也不作为功能修复者）、`shared_fix`（直接在双方共用路径生效的修复）、`out_of_scope`（按人工口径不在本轮单独处理的跨模块系列）。`deferred` 和 `no_merge_fix` 不表示原产品路径失效，也不自动要求改代码。分析终点之后、未纳入 95 笔焦点列表的人工处理结论记录在 `post_cutoff_review`。
 
 **每次针对本模块执行审查、合入、确认已有覆盖、标记暂缓、撤销或 rebase 后，都要立即更新此 JSON**：核对目标 HEAD；修改受影响来源的状态与依据或剩余边界；填写 `last_action` 的日期、动作、涉及编号和结果。即使审查后状态不变，也记录这次结论。发现新增来源或原索引变化时，先核对完整 SHA、顺序及总数。逐笔进度与依据以此 JSON 为准；其他文档只放不能在单条 JSON 说明中表达的批次证据或操作口径，不重复维护逐笔清单。这里的合入进度与下述候选等价/依赖确认是两套独立证据，不自动改动 `confirm` 或 `relation_confirm`。
