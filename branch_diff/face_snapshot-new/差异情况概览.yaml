@@ -224,11 +224,11 @@
   备注: 为人脸检出接入 HUB 告警与云端消息路径，在告警中携带人脸 ID 和事件类型，并调整 HUB、IoT 及 Tapo Care 推送条件，避免已识别人脸被错误上云。
   是否需要评审: 1
   是否需要处理: 1
-  是否已做修复提交: 1
+  是否已做修复提交: 0
   修复提交是否已合入: 0
-  修复提交标题: '[cap] face_snapshot: remove branch macros (share HUB storage config monitoring) (2/2)'
-  修复提交commit id: 1fe8c3eb04ec8c55ca178942a4e59beaf8cae0b7
-  修复提交change id: I2ceb9b697394bce1980b7e34bf3e6ddc5e5d83a5
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
   修复提交链接: ''
 - 序号: 16
   合入时间: '2025-11-26'
@@ -258,11 +258,11 @@
   备注: 在电池机唤醒与休眠场景增加人脸检测消息推送阈值控制，依据检测次数和 fss_wakeup_flag 决定是否推送，减少同一唤醒周期内不必要的重复消息。
   是否需要评审: 1
   是否需要处理: 1
-  是否已做修复提交: 1
+  是否已做修复提交: 0
   修复提交是否已合入: 0
-  修复提交标题: '[cap] face_snapshot: remove branch macros (select battery push threshold and persistence) (1/2)'
-  修复提交commit id: 57f773bf4fbf3733deb66c069b8377b8baea52dd
-  修复提交change id: I34b6f40e748fee96b6d4fe3ccada3dfa678cab61
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
   修复提交链接: ''
 - 序号: 18
   合入时间: '2025-12-23'
@@ -521,17 +521,11 @@
   备注: 增加分片上传人脸信息的 doFaceInfoAddPacketized 接口及对应 DS action，重构普通新增人脸入口以复用上传流程，支持较大人脸图片或特征数据分包传输。
   是否需要评审: 1
   是否需要处理: 1
-  是否已做修复提交: 1
+  是否已做修复提交: 0
   修复提交是否已合入: 0
-  修复提交标题: '[cap] face_snapshot: remove branch macros (share packetized face info API) (1/2)
-
-    [nvmp] libsdm: remove branch macros (share packetized face info settings) (2/2)'
-  修复提交commit id: 'f8cae5d3814959afe76a85312b8869c24a8e5112
-
-    7960a68bea5ae60f89d80eafdc9f407fe649f5fc'
-  修复提交change id: 'I21590c9367e9d94365fac0d7d2670d6102508e0d
-
-    I260bba7f9a280566d5df46406287ebaa508278a6'
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
   修复提交链接: ''
 - 序号: 35
   合入时间: '2026-05-21'
@@ -542,17 +536,11 @@
   备注: 为人脸快照增加 PSS 人形快照支持，关联人脸与人形检测结果、图片及特征，并接入识别结果处理和存储路径，使检测事件可以保存对应的人形资料。
   是否需要评审: 1
   是否需要处理: 1
-  是否已做修复提交: 1
+  是否已做修复提交: 0
   修复提交是否已合入: 0
-  修复提交标题: '[cap] face_snapshot: remove branch macros (share PSS face count validation) (2/2)
-
-    [nvmp] libdms: remove branch macros (share PSS result types) (1/2)'
-  修复提交commit id: '72d2316c742f775ce3852b9ad973d98156248e6d
-
-    08394c9137cb6e55fbba7fddc28725d1aca30c5c'
-  修复提交change id: 'If0888af3384dcc46cdedd8df9c521bbd715e3054
-
-    Ib73bab6aaca785875d1baf4655eccc2fd1cc1d32'
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
   修复提交链接: ''
 - 序号: 36
   合入时间: '2026-05-21'
@@ -693,11 +681,11 @@
   备注: 为熟人人脸加入按日夜场景感知的实时特征更新，维护不同场景下的特征状态和重算入口，并提升存储子版本以承载新增字段与迁移处理。
   是否需要评审: 1
   是否需要处理: 1
-  是否已做修复提交: 1
+  是否已做修复提交: 0
   修复提交是否已合入: 0
-  修复提交标题: '[cap] face_snapshot: remove branch macros (share scene-aware familiar feature refresh)'
-  修复提交commit id: 3af682547618d37a5a21e1610d6d532c7bcad43f
-  修复提交change id: I426553ca2bf342c33f39514d81db1dda31404c11
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
   修复提交链接: ''
 - 序号: 45
   合入时间: '2026-06-18'
@@ -753,17 +741,11 @@
   备注: 为增强包裹检测增加与人脸快照相关的联动处理和结果接口，使包裹事件可利用人脸检测信息完善告警或历史记录，相关代码受产品功能配置控制。
   是否需要评审: 1
   是否需要处理: 1
-  是否已做修复提交: 1
+  是否已做修复提交: 0
   修复提交是否已合入: 0
-  修复提交标题: '[cap] face_snapshot: remove branch macros (publish face result under package feature) (2/5)
-
-    [nvmp] libdms: assign nonconflicting AC package face message ID (1/5)'
-  修复提交commit id: '4becda9ead63455254d97c665e6f2ce898ba8cd2
-
-    8d87bce991b6821bfc980bc6585fc4be885b48db'
-  修复提交change id: 'I240de748b1a16e3db889571168f985c508b827be
-
-    Ie59cb80ed7ebf3340caaf20d78d81cb70e0dd1a8'
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
   修复提交链接: ''
 - 序号: 49
   合入时间: '2026-07-08'
@@ -789,11 +771,11 @@
   备注: 在检测到人脸时更新本地包裹历史记录，将增强包裹检测与人脸事件关联，供后续包裹事件展示或查询使用，并维护相关历史状态。
   是否需要评审: 1
   是否需要处理: 1
-  是否已做修复提交: 1
+  是否已做修复提交: 0
   修复提交是否已合入: 0
-  修复提交标题: '[cap] face_snapshot: remove branch macros (share package history pushability) (1/2)'
-  修复提交commit id: 3cbed9cb411e12415830e9bd797fede78e6e2117
-  修复提交change id: Id23c259b8f83c4359afdd715d7b4261f8adb43d5
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
   修复提交链接: ''
 - 序号: 51
   合入时间: '2026-07-22'
@@ -924,11 +906,11 @@
   备注: 为熟人和陌生人人脸识别事件补充 HUB 所需的消息字段，通过 msgAgent 等参数控制告警消息构造，使 HUB 接收的事件携带正确的来源信息。
   是否需要评审: 1
   是否需要处理: 1
-  是否已做修复提交: 1
+  是否已做修复提交: 0
   修复提交是否已合入: 0
-  修复提交标题: '[cap] face_snapshot: remove branch macros (share HUB msgAgent fields in face alarms)'
-  修复提交commit id: 14fce986881fca63024c386f13a70ef8092ebfbf
-  修复提交change id: I2acb4fe53d43c115eac702a2faec9eb3eec23a1d
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
   修复提交链接: ''
 - 序号: 60
   合入时间: '2026-09-11'
@@ -984,11 +966,11 @@
   备注: 补充 face_control 分包上传路径使用的函数前置声明，修复该能力在特定 BC 编译配置下因先调用后声明造成的编译错误。
   是否需要评审: 0
   是否需要处理: 1
-  是否已做修复提交: 1
+  是否已做修复提交: 0
   修复提交是否已合入: 0
-  修复提交标题: '[cap] face_snapshot: remove branch macros (share packetized face info API) (1/2)'
-  修复提交commit id: f8cae5d3814959afe76a85312b8869c24a8e5112
-  修复提交change id: I21590c9367e9d94365fac0d7d2670d6102508e0d
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
   修复提交链接: ''
 - 序号: 64
   合入时间: '2026-09-14'

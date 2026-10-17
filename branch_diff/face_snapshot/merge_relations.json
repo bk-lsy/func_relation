@@ -2,7 +2,7 @@
   "schema_version": 1,
   "scope": "CAP face_snapshot current local commits to AC/BC original focus commits; multi-to-multi, scoped evidence only",
   "target_branch": "face_snapshot_battery_macro_review_1017",
-  "target_head": "14fce986881fca63024c386f13a70ef8092ebfbf",
+  "target_head": "fe2b6991bda45f3262e684cfcdc81fdc12623b0e",
   "local_base": "94de959afb5471382b6ba4e494bfd399bc4d95be",
   "source_index": "merge_status.json",
   "relation_definitions": {
@@ -616,54 +616,6 @@
       "title": "[cap] face_snapshot: remove branch macros (共享模型 MD5 检测与人脸特征重算链) (2/3)",
       "kind": "source_fix",
       "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
-    },
-    {
-      "commit": "1fe8c3eb04ec8c55ca178942a4e59beaf8cae0b7",
-      "title": "[cap] face_snapshot: remove branch macros (share HUB storage config monitoring) (2/2)",
-      "kind": "source_fix",
-      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
-    },
-    {
-      "commit": "57f773bf4fbf3733deb66c069b8377b8baea52dd",
-      "title": "[cap] face_snapshot: remove branch macros (select battery push threshold and persistence) (1/2)",
-      "kind": "source_fix",
-      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
-    },
-    {
-      "commit": "f8cae5d3814959afe76a85312b8869c24a8e5112",
-      "title": "[cap] face_snapshot: remove branch macros (share packetized face info API) (1/2)",
-      "kind": "source_fix",
-      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
-    },
-    {
-      "commit": "72d2316c742f775ce3852b9ad973d98156248e6d",
-      "title": "[cap] face_snapshot: remove branch macros (share PSS face count validation) (2/2)",
-      "kind": "source_fix",
-      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
-    },
-    {
-      "commit": "3af682547618d37a5a21e1610d6d532c7bcad43f",
-      "title": "[cap] face_snapshot: remove branch macros (share scene-aware familiar feature refresh)",
-      "kind": "source_fix",
-      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
-    },
-    {
-      "commit": "4becda9ead63455254d97c665e6f2ce898ba8cd2",
-      "title": "[cap] face_snapshot: remove branch macros (publish face result under package feature) (2/5)",
-      "kind": "source_fix",
-      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
-    },
-    {
-      "commit": "3cbed9cb411e12415830e9bd797fede78e6e2117",
-      "title": "[cap] face_snapshot: remove branch macros (share package history pushability) (1/2)",
-      "kind": "source_fix",
-      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
-    },
-    {
-      "commit": "14fce986881fca63024c386f13a70ef8092ebfbf",
-      "title": "[cap] face_snapshot: remove branch macros (share HUB msgAgent fields in face alarms)",
-      "kind": "source_fix",
-      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
     }
   ],
   "edges": [
@@ -1046,107 +998,6 @@
         "kind": "cap_commit_message",
         "commit": "fe2b6991bda45f3262e684cfcdc81fdc12623b0e"
       }
-    },
-    {
-      "local_commit": "1fe8c3eb04ec8c55ca178942a4e59beaf8cae0b7",
-      "source_id": "BC#15",
-      "source_commit": "d161ecab8a886dde5f153763e0fb4874c56be083",
-      "relation": "merged_scope",
-      "scope": "整笔源码范围待评审：[all]face_snapshot|hub:add hub support and skip tapocare msgpush when face is detected(2/2)",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "1fe8c3eb04ec8c55ca178942a4e59beaf8cae0b7"
-      }
-    },
-    {
-      "local_commit": "57f773bf4fbf3733deb66c069b8377b8baea52dd",
-      "source_id": "BC#17",
-      "source_commit": "645eb8f0acaafdb55b06f81b0c0801191432b3db",
-      "relation": "merged_scope",
-      "scope": "源码修复范围：[all]face snapshot:face detect msg push when upto push threshold(1/2)",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "57f773bf4fbf3733deb66c069b8377b8baea52dd"
-      }
-    },
-    {
-      "local_commit": "f8cae5d3814959afe76a85312b8869c24a8e5112",
-      "source_id": "BC#38",
-      "source_commit": "1a03e63298ff39ec1b1890dce4999fea31322b10",
-      "relation": "merged_scope",
-      "scope": "整笔源码范围待评审：[all] face_control: Support doFaceInfoAddPacketized API (1/2)",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "f8cae5d3814959afe76a85312b8869c24a8e5112"
-      }
-    },
-    {
-      "local_commit": "f8cae5d3814959afe76a85312b8869c24a8e5112",
-      "source_id": "BC#63",
-      "source_commit": "13f832c751368d15618ae7d9209634f6657d7429",
-      "relation": "merged_scope",
-      "scope": "源码修复范围：[CAP] face_control: fix compile error",
-      "evidence": {
-        "kind": "review_record",
-        "files": [
-          "src/modules/face_snapshot/face_control.c"
-        ]
-      }
-    },
-    {
-      "local_commit": "72d2316c742f775ce3852b9ad973d98156248e6d",
-      "source_id": "BC#34",
-      "source_commit": "1403e6830e471144cf71112c23175731edee6025",
-      "relation": "merged_scope",
-      "scope": "整笔源码范围待评审：[all] cap/fss: support pss (2/2)",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "72d2316c742f775ce3852b9ad973d98156248e6d"
-      }
-    },
-    {
-      "local_commit": "3af682547618d37a5a21e1610d6d532c7bcad43f",
-      "source_id": "BC#44",
-      "source_commit": "bb3848b5598b600095f3665859111b6d59f7b9b6",
-      "relation": "merged_scope",
-      "scope": "源码修复范围：[ALL] face_snapshot: add scene-aware real-time feature update for familiar faces",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "3af682547618d37a5a21e1610d6d532c7bcad43f"
-      }
-    },
-    {
-      "local_commit": "4becda9ead63455254d97c665e6f2ce898ba8cd2",
-      "source_id": "BC#47",
-      "source_commit": "7012ac55e8970c87146e8e5f740454d2c4d84350",
-      "relation": "merged_scope",
-      "scope": "整笔源码范围待评审：[all]cap: support enhanced package detection [2/5]",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "4becda9ead63455254d97c665e6f2ce898ba8cd2"
-      }
-    },
-    {
-      "local_commit": "3cbed9cb411e12415830e9bd797fede78e6e2117",
-      "source_id": "BC#50",
-      "source_commit": "6bf25ceb87ec8e0967db1f54f6802149f3e38d79",
-      "relation": "merged_scope",
-      "scope": "整笔源码范围待评审：[cap] en_pkgd|face_snapshot: update package history when face detected (1/2)",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "3cbed9cb411e12415830e9bd797fede78e6e2117"
-      }
-    },
-    {
-      "local_commit": "14fce986881fca63024c386f13a70ef8092ebfbf",
-      "source_id": "BC#59",
-      "source_commit": "48e74a2785dc75597636ea35f1e8e7d180036d5c",
-      "relation": "merged_scope",
-      "scope": "源码修复范围：[all] face_control: include HUB fields for familiar and unfamiliar recongition events",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "14fce986881fca63024c386f13a70ef8092ebfbf"
-      }
     }
   ],
   "unindexed_references": [],
@@ -1185,25 +1036,34 @@
     "BC#2",
     "BC#9",
     "BC#13",
+    "BC#15",
+    "BC#17",
     "BC#19",
     "BC#20",
     "BC#21",
     "BC#23",
     "BC#27",
     "BC#30",
+    "BC#34",
     "BC#36",
+    "BC#38",
     "BC#43",
+    "BC#44",
     "BC#45",
     "BC#46",
+    "BC#47",
     "BC#48",
     "BC#49",
+    "BC#50",
     "BC#52",
     "BC#53",
     "BC#56",
     "BC#57",
+    "BC#59",
     "BC#60",
     "BC#61",
     "BC#62",
+    "BC#63",
     "BC#64",
     "BC#65"
   ],
