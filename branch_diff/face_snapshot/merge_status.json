@@ -23,29 +23,16 @@
   },
   "last_action": {
     "date": "2026-10-17",
-    "kind": "ac_manual_overview_revision",
-    "summary": "按用户指定修订 AC 侧评审/处理判断和类型；AC#13 与 BC#19 对标原补丁差异已写入两侧 YAML 备注；AC#19 6f4f42d7 从 AC 概览移除，暂不排查其他冗余来源。原进度索引留存该原 SHA 供追溯，本次未改变源码修复状态。",
+    "kind": "canonical_ac_source_audit",
+    "summary": "按 CAP develop/develop_sz0519 相对 BC 的焦点路径拓扑重建 AC 侧 30 笔概览：6f4f42d7 与 2fc6094a 同补丁，规范分支仅保留后者；release 独有的另外六笔分别由 develop 分支同 Change-Id、同焦点补丁提交替换；补录 0871bd20 时间转换提交。旧 merge_status/commits.md/scope.json 仍为 release 历史快照，编号不与新概览互用；本次不更改业务源码和旧状态判断。",
     "affected": [
-      "AC#1",
-      "AC#2",
-      "AC#3",
-      "AC#5",
-      "AC#6",
-      "AC#10",
-      "AC#11",
-      "AC#12",
-      "AC#13",
-      "AC#14",
-      "AC#15",
-      "AC#16",
-      "AC#17",
-      "AC#18",
       "AC#19",
-      "AC#22",
-      "AC#23",
-      "AC#24",
       "AC#25",
-      "BC#19"
+      "AC#26",
+      "AC#27",
+      "AC#28",
+      "AC#29",
+      "AC#30"
     ]
   },
   "entries": [

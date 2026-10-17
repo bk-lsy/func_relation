@@ -2,7 +2,7 @@
 
 ## 动态合入状态
 
-按分支查看的 15 列提交概览位于 [`AC 侧 YAML`](../face_snapshot-new/ac侧提交概览.yaml) 和 [`BC 侧 YAML`](../face_snapshot-new/bc侧提交概览.yaml)；表格可用 `python3 branch_diff/yaml_to_xlsx.py <YAML 路径>` 生成。AC 侧为基于当前分支的初步归类，修复来源仅在核实对应提交后填写。人工判定 AC `6f4f42d7` 属于 `develop/nvmp_release_1.9.2` 的冗余来源，已从 AC 概览移除；`commits.md` 和进度索引暂保留原编号供追溯，其他同类项留待下一轮核对。
+按分支查看的 15 列提交概览位于 [`AC 侧 YAML`](../face_snapshot-new/ac侧提交概览.yaml) 和 [`BC 侧 YAML`](../face_snapshot-new/bc侧提交概览.yaml)；表格可用 `python3 branch_diff/yaml_to_xlsx.py <YAML 路径>` 生成。AC 概览现以 CAP `develop/develop_sz0519` 为规范来源：`6f4f42d7` 与已有的 `2fc6094a` 同补丁而不单列，其余六笔 release 分支独有提交均替换为 develop 分支中同 Change-Id、同焦点路径补丁的提交，补录 `0871bd20`。`commits.md`、`scope.json`、进度 JSON 及等价关系仍记录 2026-10-09 的 release 分支历史快照；它们的 AC 编号不可直接用于新概览。修复来源仅在核实当前工作分支的对应提交后填写。
 
 [`merge_status.json`](merge_status.json) 是 AC/BC 95 笔原始焦点提交的**当前逻辑合并进度记录**，以 `AC#编号` / `BC#编号` 对应 [`commits.md`](commits.md) 的完整来源 SHA。状态分别为 `merged_complete`（已修复合入完全）、`merged_partial`（已有修复但未完全）、`preexisting_coverage`（对侧基础或物理合并已有覆盖）、`deferred`（暂缓）、`no_merge_fix`（尚无有效跨侧合入修复或完整覆盖证据）、`physical_merge`（物理合并提交，不参与化学合入完成度统计，也不作为功能修复者）、`shared_fix`（直接在双方共用路径生效的修复）、`out_of_scope`（按人工口径不在本轮单独处理的跨模块系列）。`deferred` 和 `no_merge_fix` 不表示原产品路径失效，也不自动要求改代码。分析终点之后、未纳入 95 笔焦点列表的人工处理结论记录在 `post_cutoff_review`。
 
