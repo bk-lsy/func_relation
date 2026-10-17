@@ -20,15 +20,15 @@
   },
   "last_action": {
     "date": "2026-10-17",
-    "kind": "manual_review_reconciliation",
-    "summary": "按用户修订的六笔人工处理情况重新对照当前 CAP 来源与 bb3085b8 物理合并；BC#20 更正为无需化学修复，其余状态保留，六笔一致性结果详见差异情况概览 YAML。",
+    "kind": "physical_merge_consistency_recheck",
+    "summary": "按原提交在 bb3085b8 物理合并后的实际分歧重审人工“无需处理”：六笔原提交焦点在物理合并后已覆盖，不因原补丁的细微表达差异或链接未核实而判部分一致。",
     "affected": [
-      "BC#11",
-      "BC#15",
+      "BC#9",
       "BC#19",
-      "BC#20",
-      "BC#21",
-      "BC#23"
+      "BC#30",
+      "BC#45",
+      "BC#46",
+      "BC#48"
     ]
   },
   "entries": [
@@ -381,7 +381,7 @@
       "source_commit": "9688a83c6e01899ce0b8213ca3bc0d5eab26872b",
       "source_title": "[All] fss: Fix incorrect close file descriptor 0 and file descriptor leaks",
       "status": "preexisting_coverage",
-      "note": "与 AC #12 相同的 fd 修复；当前两侧路径已有覆盖。"
+      "note": "复核：AC 对应 94aef932ffa51fbac9d0cb63aab6e5d69ebc2f1b 与 BC 9688a83c6e01899ce0b8213ca3bc0d5eab26872b 均修正 fd 0 误判和泄漏。bb3085b8 后 get_faceinfo 的 face_file_fd=-1、open 失败条件 <0 与 fd_storage_init_with_check 的 data_fd=-1 在共用路径；之后无需针对本笔做定向修复。人工“无差异、无需处理”一致；Gerrit 链接未单独核实不影响本结论。"
     },
     {
       "id": "BC#10",
@@ -470,8 +470,8 @@
       "index": 19,
       "source_commit": "99edff3d1aea0e4eb6724d5ddffb63dd6d2820ae",
       "source_title": "[cap]face_snapshot:fix some bugs of face snapshot",
-      "status": "merged_partial",
-      "note": "用户人工处理情况改为“无差异，无需处理”。AC 对应提交 e69adae64faf5b6f1d77e897f054e7d81effe9dc 与 BC 99edff3d 共享 full_status/old_faceid、内部删除、统计队列等焦点，人工所记“常电有 cp”来源成立；但两侧原补丁在 HUB 推送和控制实现上有不同，整笔尚不能认定无需处理，一致性为部分一致。"
+      "status": "preexisting_coverage",
+      "note": "复核：AC 对应 e69adae64faf5b6f1d77e897f054e7d81effe9dc 与 BC 99edff3d1aea0e4eb6724d5ddffb63dd6d2820ae 均覆盖 full_status/old_faceid、内部删除、统计队列及 HUB 配置缓存。bb3085b8 后这些修复焦点已进入两侧相应路径；get_available_index 形参名和队列容量括号是表达差异，g_stranger_list 清理依附 AC 原有列表，HUB 推送的路径分歧另有更早来源。未确认有由本笔原提交造成、仍待定向修复的功能分歧；人工“常电有 cp、无差异、无需处理”按本笔焦点判为一致。旧关系图 e9b4d8b6/04958142 属历史分支记录，不在当前 CAP 复审分支祖先中。"
     },
     {
       "id": "BC#20",
@@ -570,7 +570,7 @@
       "source_commit": "98a8b58b1ca286996107fed5050f446f01f55a98",
       "source_title": "[all] fss: Optimize the validation process for the face_info file and fix a bug",
       "status": "preexisting_coverage",
-      "note": "与 AC #19/#20 的 faceinfo 头校验补丁已有覆盖。"
+      "note": "复核：原提交的 face_info 头读取重试与校验在 bb3085b8 后处于共用路径，AC 有对应修复；其后未靠针对本笔的定向化学修复收敛。人工“无差异、无需处理”一致；Gerrit 链接未单独核实不影响本结论。"
     },
     {
       "id": "BC#31",
@@ -705,7 +705,7 @@
       "source_commit": "ca53b60a4cc53ac4902401092709428702a3f668",
       "source_title": "[all]cap:resolve the DOS attack caused by the connect interface(3/4)",
       "status": "preexisting_coverage",
-      "note": "Base64 解码输出容量修复与 AC #24 对应，当前两侧已有。"
+      "note": "复核：原提交的 Base64 输出长度检查在 bb3085b8 后处于共用路径，AC 有对应修复；其后未靠针对本笔的定向化学修复收敛。人工“物理合并消去了差异、无需处理”一致；Gerrit 链接未单独核实不影响本结论。"
     },
     {
       "id": "BC#46",
@@ -714,7 +714,7 @@
       "source_commit": "439b9c8b9bb4205e027a5d6fdeed5a44f0bd392c",
       "source_title": "[all] fss: fixed - face latest time update anomaly.",
       "status": "preexisting_coverage",
-      "note": "最新出现时间修复与 AC #25 同补丁。"
+      "note": "复核：原提交的 last_occur_timestamp 更新比较在 bb3085b8 后处于共用路径，AC 有对应修复；其后未靠针对本笔的定向化学修复收敛。人工“常电已同步、无差异、无需处理”一致；Gerrit 链接未单独核实不影响本结论。"
     },
     {
       "id": "BC#47",
@@ -732,7 +732,7 @@
       "source_commit": "ce7ab9a6169954d89f0a86379e75321c1baa2fa6",
       "source_title": "[ALL]nvmp|cap: Wrap localtime_r/gmtime_r, unify time conversion APIs across NVMP platform[3/4]",
       "status": "preexisting_coverage",
-      "note": "原 CAP ce7ab9a6169954d89f0a86379e75321c1baa2fa6 的 face_snapshot 焦点补丁已在当前 fd_statistics.c 共用周期报表路径：两处 nvmp_localtime_safe 调用及失败处理由原提交保留（git blame 行 518/701）。当前 NVMP 工作分支 develop/bc_develop_220927 的 libutils/src/date.c 定义、nvmp_utils.h 声明均由配套 (1/4) 2691163edb0e3118d19c8ed4cfb54e2c226a7f69 提供且不受 AC/BC 宏限制。旧判断误以 origin/develop/nvmp_release_1.9.2 原始 AC ref 缺依赖，替代当前物理合并目标；焦点范围无需再合入。整笔跨模块/跨仓系列及产品构建不由此认定完成。"
+      "note": "复核：原提交的 fd_statistics.c 两处 nvmp_localtime_safe 调用及失败处理在 bb3085b8 后处于共用路径，AC 有对应修复；其后未靠针对本笔的定向化学修复收敛。人工“常电已同步、无差异、无需处理”一致；Gerrit 链接未单独核实不影响本结论。"
     },
     {
       "id": "BC#49",
