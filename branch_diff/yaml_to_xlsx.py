@@ -2,7 +2,8 @@
 """Convert the face_snapshot overview YAML to an Excel workbook.
 
 Usage:
-    python3 branch_diff/yaml_to_xlsx.py branch_diff/face_snapshot-new/差异情况概览.yaml
+    python3 branch_diff/yaml_to_xlsx.py branch_diff/face_snapshot-new/bc侧提交概览.yaml
+    python3 branch_diff/yaml_to_xlsx.py branch_diff/face_snapshot-new/ac侧提交概览.yaml
     python3 branch_diff/yaml_to_xlsx.py input.yaml -o output.xlsx
 
 Requires PyYAML. XLSX creation uses only the Python standard library.

@@ -12,7 +12,7 @@
     "physical_merge_context": "BC 物理整合提交形成待收敛的宏分支或保留代码；不是本地修复的独立功能来源。",
     "deferred_scope": "本地文档提交记录此原提交或子范围暂缓，不计作源码合入。"
   },
-  "evidence_policy": "边来自当前 CAP commit log 的完整来源 SHA 或差异情况概览.yaml 中经 Git 核实的修复提交映射；只表示 scope 中的明确源码范围，不自动证明整笔功能完整、跨仓依赖闭合或设备验证。",
+  "evidence_policy": "边来自当前 CAP commit log 的完整来源 SHA 或 face_snapshot-new/ac侧提交概览.yaml、bc侧提交概览.yaml 中经 Git 核实的修复提交映射；只表示 scope 中的明确源码范围，不自动证明整笔功能完整、跨仓依赖闭合或设备验证。",
   "source_nodes": [
     {
       "id": "AC#1",
