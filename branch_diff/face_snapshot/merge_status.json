@@ -630,7 +630,7 @@
       "source_commit": "0bb585cbc73137e4e67680d37092d93f5055b182",
       "source_title": "[all] cap: The failure to update the feature values of the face image through the algorithm interface leads to the generation of incorrect feature values in database, inducing high-frequency false recognization",
       "status": "merged_complete",
-      "note": "`30e11c67` 已共用特征更新失败清理；`ba6da3231224ec9b2d8456e35c228296110a0668` 补齐无效相似度重建与过滤的 AC/BC 共用，保留 BC 熟人优先入口。"
+      "note": "AI排查提交已修复，需要评审。当前分支 `0f9dad1bdb179a2f318486c953cc7369e44a9bd0`（[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches)，Change-Id: I466a3b3002237b35350b3f7752435abbc7d92e24）共用写入失败检查及特征释放；`ba6da3231224ec9b2d8456e35c228296110a0668`（[cap] face_snapshot: remove branch macros (无效相似度统一重建并过滤)，Change-Id: I153145d1ee7ecdfe1652f9d37e4e8495ef4f3217）共用无效相似度重建与过滤，保留 BC 熟人优先入口。人工备注明确指定的写入判空来源与当前修复一致；重建来源原为占位，现已补齐。"
     },
     {
       "id": "BC#38",

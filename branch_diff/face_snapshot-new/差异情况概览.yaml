@@ -753,16 +753,15 @@
   Change-Id: Ieb0dd1a4e6f66977a0ab06eeb151429d49f35ab1
   状态: Bug修复
   状态备注: 无效相似度分数检测 + 特征自动重建 (fd_feature_load_data) + 写入失败时释放特征
-  处理情况: face_snapshot 内修复合入完成
-  处理备注: '写入判空部分已在共享路径；相似度重建修复提交：ba6da3231224ec9b2d8456e35c228296110a0668，[cap] face_snapshot: remove branch macros (无效相似度统一重建并过滤)，Change-Id:
-    I153145d1ee7ecdfe1652f9d37e4e8495ef4f3217'
+  处理情况: AI排查提交已修复，需要评审
+  处理备注: '写入失败检查与特征释放修复提交：0f9dad1bdb179a2f318486c953cc7369e44a9bd0，[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches)，Change-Id: I466a3b3002237b35350b3f7752435abbc7d92e24；无效相似度重建与过滤修复提交：ba6da3231224ec9b2d8456e35c228296110a0668，[cap] face_snapshot: remove branch macros (无效相似度统一重建并过滤)，Change-Id: I153145d1ee7ecdfe1652f9d37e4e8495ef4f3217。'
   已确认: 1
   完整性: 完整
-  与人工备注一致: 部分一致
+  与人工备注一致: 是
   人工备注来源: '差异情况概览.doc 第38条；状态：Bug修复；状态备注：无效相似度分数检测 + 特征自动重建 (fd_feature_load_data) + 写入失败时释放特征；处理备注：写入判空的部分： [cap] face_snapshot:
     remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches) (41603) · Gerrit Code Review
     相似度分数重建： ..'
-  其他: 合入者：ba6da3231224ec9b2d8456e35c228296110a0668；依据：原提交的无效分数检测、特征重建、写入失败清理现均在 AC/BC 共用路径；来源对照：人工备注的写入判空来源部分一致，重建部分由本次定向修复完成
+  其他: 合入者：0f9dad1bdb179a2f318486c953cc7369e44a9bd0、ba6da3231224ec9b2d8456e35c228296110a0668；依据：写入失败检查与特征释放、无效分数检测与重建过滤现均在 AC/BC 共用路径；来源对照：人工备注明确指向的写入判空提交与当前修复的 Change-Id 完全一致，重建部分原备注为“..”占位，后由 ba6da323 补齐，不构成来源冲突；运行效果仍需评审
 - 序号: 39
   commit-id: 08fd905b
   合入时间: '2026-05-26'
