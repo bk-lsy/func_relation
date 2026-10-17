@@ -285,7 +285,7 @@
   标题: '[cap]face_snapshot:fix some bugs of face snapshot'
   类型: 无差异
   Change-Id: I5432aabc9ef96b11abea1a28420c783eee21832d
-  备注: 集中修正人脸快照控制与统计问题：缓存 HUB 存储状态、清理合并后的旧人脸、传递库满状态和旧 ID、通知索引覆盖，并扩大事件队列及检查取队列结果。
+  备注: "与 AC e69adae6 同 Change-Id，均修正 HUB 状态缓存、合并后旧人脸清理、事件队列校验及库满覆盖通知；原补丁不逐行相同。BC 的 HUB 告警沿用不含 pushable 的格式，内部删除不额外清理陌生人历史，检测入口按 BC 原结构；AC 对应补丁保留 pushable:0、陌生人历史清理及 PSS 入口。需按最终代码核对差异。"
   是否需要评审: 0
   是否需要处理: 0
   是否已做修复提交: 0

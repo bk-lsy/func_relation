@@ -1,4 +1,5 @@
 # AC 侧焦点提交概览；来源为 face_snapshot/commits.md 的 AC#1–30 与原始 Git 提交。
+# AC#19 6f4f42d7 来源于 develop/nvmp_release_1.9.2，按用户口径以 develop/develop_sz0519 为准，本表移除该冗余记录；保留原序号以便追溯。
 # 合入时间采用原提交的 committer 日期；标题和 Change-Id 取原提交。
 # 备注概述原提交作用；分支合并提交仅是物理整合，不能作为功能修复来源。
 # 四个判断列按当前 CAP face_snapshot_battery_macro_review_1017 工作分支填写；未验证当前分支存在对应修复提交时不填修复来源。
@@ -10,10 +11,10 @@
   类型: 集中合入
   Change-Id: I6a975f02a9b2b97d9c18dc01441b846baa9fe720
   备注: 建立人脸快照的数据模型与默认配置，加入规则、图片、容量和存储头文件，供后续识别及管理接口使用。
-  是否需要评审: 1
-  是否需要处理: 1
-  是否已做修复提交: 0
-  修复提交是否已合入: 0
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: ""
+  修复提交是否已合入: ""
   修复提交标题: ''
   修复提交commit id: ''
   修复提交change id: ''
@@ -25,10 +26,10 @@
   类型: 集中合入
   Change-Id: Ib2cba2be7471709a3188a2c0c9ded507f13961cb
   备注: 加入人脸识别主体实现，涵盖特征管理、相似度搜索、人脸信息存储与控制接口，是 AC 侧后续修复的基础。
-  是否需要评审: 1
-  是否需要处理: 1
-  是否已做修复提交: 0
-  修复提交是否已合入: 0
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: ""
+  修复提交是否已合入: ""
   修复提交标题: ''
   修复提交commit id: ''
   修复提交change id: ''
@@ -37,7 +38,7 @@
   合入时间: '2024-11-15'
   commit-id: 1df1db39
   标题: '[all] cap|face_snapshot: support only change tag'
-  类型: Bug修复
+  类型: "无差异"
   Change-Id: If096bc4181eb3feea5c665eed1a4b9cab81732d0
   备注: 修改已有人员的人脸资料时允许仅变更标签；姓名未与其他人员冲突时继续更新，避免被误判为重名。
   是否需要评审: 0
@@ -67,13 +68,13 @@
   合入时间: '2024-12-17'
   commit-id: 906e6b5e
   标题: '[all] cap:调整日志接口宏定义适配日志分类(3/4)-patch'
-  类型: 代码优化
+  类型: "098日志宏相关"
   Change-Id: Ia124c27c4c2fa84d670196a76da1c34124f03320
   备注: 适配日志分类接口，将人脸存储头文件中的日志宏调整为新形式；原系列横跨其他模块。
-  是否需要评审: 1
-  是否需要处理: 1
-  是否已做修复提交: 0
-  修复提交是否已合入: 0
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: ""
+  修复提交是否已合入: ""
   修复提交标题: ''
   修复提交commit id: ''
   修复提交change id: ''
@@ -85,10 +86,10 @@
   类型: 代码优化
   Change-Id: Idee1613673382383f22025fcefa25ac5fc31362d
   备注: 将人脸快照相关文件头中的厂商名称与版权标识更新为新的公司名称；属于平台批量名称修改。
-  是否需要评审: 1
-  是否需要处理: 1
-  是否已做修复提交: 0
-  修复提交是否已合入: 0
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: ""
+  修复提交是否已合入: ""
   修复提交标题: ''
   修复提交commit id: ''
   修复提交change id: ''
@@ -142,7 +143,7 @@
   合入时间: '2026-01-14'
   commit-id: 0f8c7c9d
   标题: Revert "[all]cap:turn off camera face detection when bound to face support hub"
-  类型: Bug修复
+  类型: "无差异"
   Change-Id: I8aee3950d2d639b1a44a91b3848191a61feacc6c
   备注: 撤销 HUB 绑定时关闭摄像机人脸检测的旧改动，使该场景继续执行人脸检测。
   是否需要评审: 0
@@ -157,7 +158,7 @@
   合入时间: '2026-01-14'
   commit-id: 1f57bf37
   标题: '[all] cap: change face_snapshot config fss_pic_cfg/save_pic to off'
-  类型: 配置调整
+  类型: "无差异"
   Change-Id: Ibea0d8fed1991ca35abe2ca05260a785731eb186
   备注: 将默认图片配置 fss_pic_cfg 中的 save_pic 设置为 off，关闭默认的人脸图片保存。
   是否需要评审: 0
@@ -172,7 +173,7 @@
   合入时间: '2026-01-15'
   commit-id: 94aef932
   标题: '[All] fss: Fix incorrect close file descriptor 0 and file descriptor leaks'
-  类型: Bug修复
+  类型: "无差异"
   Change-Id: Ic1ac74be3a12711d8b43b76ecfb71791caf16219
   备注: 修正人脸信息文件描述符的关闭判断和失败路径，避免错误关闭描述符 0 或泄漏已打开文件。
   是否需要评审: 0
@@ -187,9 +188,9 @@
   合入时间: '2026-01-16'
   commit-id: e69adae6
   标题: '[cap]face_snapshot:fix some bugs of face snapshot'
-  类型: Bug修复
+  类型: "Bug修复,有对标提交"
   Change-Id: I5432aabc9ef96b11abea1a28420c783eee21832d
-  备注: 修正人脸控制与统计中的多处问题，涉及旧人脸删除、状态传递、HUB 相关处理及统计队列边界。
+  备注: "与 BC 99edff3d 同 Change-Id，六项修复目标一致，均处理 HUB 配置缓存、合并旧人脸删除、队列校验及库满覆盖通知；补丁不逐行相同。AC 的 HUB 告警保留 pushable:0，内部删除额外清理陌生人历史，检测入口兼容 PSS；BC 原补丁沿用无 pushable 的 HUB 格式与自身检测入口。需按最终代码核对这些差异。"
   是否需要评审: 1
   是否需要处理: 1
   是否已做修复提交: 0
@@ -202,7 +203,7 @@
   合入时间: '2026-01-16'
   commit-id: de1da536
   标题: '[cap]face_snapshot:fix the issue introduced by the submission of 1cfaf2'
-  类型: Bug修复
+  类型: "无差异"
   Change-Id: I58c5f584f0bf1531cfcc5d649239ddb2a6490df6
   备注: 补正人脸新增和替换后的通知流程：保留旧 ID、校验索引，按首次识别及覆盖场景发送正确事件。
   是否需要评审: 0
@@ -219,8 +220,8 @@
   标题: '[CAP]face_control:fix face_snapshot config[1/2]'
   类型: 配置修复
   Change-Id: Iedc5cdd41603571b67902f89c0f315515ee2b2fa
-  备注: 为历史图片保存配置加入迁移修复入口，在需要时将旧的 save_pic 配置关闭；是否启用依赖编译宏及系列配套。
-  是否需要评审: 1
+  备注: "修复旧 save_pic 配置的入口受单侧 FIX_FSS_PIC_CFG 编译宏限制；目标分支虽有对应函数，宏的实际启用和系列配套仍需复核。"
+  是否需要评审: 0
   是否需要处理: 1
   是否已做修复提交: 0
   修复提交是否已合入: 0
@@ -232,7 +233,7 @@
   合入时间: '2026-01-16'
   commit-id: 2d0a17e3
   标题: '[CAP]face_report:fix segment fault when load from flash failed'
-  类型: Bug修复
+  类型: "无差异"
   Change-Id: I325d2fa148eb8e3a16631a56b2fbf097e070970f
   备注: 修正从 Flash 加载统计数据失败后的初始化顺序，避免统计链表未就绪时访问而触发段错误。
   是否需要评审: 0
@@ -248,7 +249,7 @@
   commit-id: 2900128f
   标题: '[all] avts: fixed the issue where the iot message of hub_storage proxy lacked faceid, name, and alias fields, resulting in the failure of pushing iot for face events [1/2]  avts
     : 修复hub_storage代理的iot消息缺少faceid、name、alias字段导致人脸事件推送iot失败的问题[1/2]'
-  类型: 跨模块修复
+  类型: "bug修复，hub相关，需谨慎"
   Change-Id: I6707a73c5ab43db92b5da6a2e026a8e290538dcc
   备注: 调整 HUB 存储代理的人脸消息，补齐 faceid、name 和 alias 等字段，使下游 IoT 转发可识别人脸事件；依赖消费端配套。
   是否需要评审: 1
@@ -263,24 +264,9 @@
   合入时间: '2026-02-06'
   commit-id: 0fac6a5d
   标题: '[all]cap:fix compilation error'
-  类型: 编译修复
+  类型: "无差异"
   Change-Id: I70f6e66b248b3c79c4dcece91dcd024913266d01
   备注: 修正两处人脸检测事件处理函数的调用名称，并在处理失败时输出错误日志，解决编译及诊断问题。
-  是否需要评审: 0
-  是否需要处理: 0
-  是否已做修复提交: ''
-  修复提交是否已合入: ''
-  修复提交标题: ''
-  修复提交commit id: ''
-  修复提交change id: ''
-  修复提交链接: ''
-- 序号: 19
-  合入时间: '2026-05-06'
-  commit-id: 6f4f42d7
-  标题: '[all] fss: Optimize the validation process for the face_info file and fix a bug'
-  类型: Bug修复
-  Change-Id: I86979829357c6d3f5b19b81593207a4980e05bd6
-  备注: 优化 face_info 文件头和记录的校验流程，避免异常数据进入加载路径，并修复相关存储判断。
   是否需要评审: 0
   是否需要处理: 0
   是否已做修复提交: ''
@@ -323,7 +309,7 @@
   合入时间: '2026-05-07'
   commit-id: c9e47da4
   标题: '[cap]face_snapshot:correct the storage path of fss'
-  类型: 配置修复
+  类型: "无差异"
   Change-Id: I857ac9930f05ab869cc112f8df0a6b6136b91723
   备注: 修正人脸快照存储路径常量，避免数据写入错误目录。
   是否需要评审: 0
@@ -338,7 +324,7 @@
   合入时间: '2026-05-11'
   commit-id: 593c131a
   标题: '[CAP] merge (non-core)commit (interface capability variable) from nvmp_release_1.8.1_secure_enhance_250707 to other branch (3/5)'
-  类型: 分支合并提交
+  类型: "特殊提交"
   Change-Id: I532bda5ddb70bb9c1d7f6c0f6be0877606743bb9
   备注: 把旧版本的接口能力变量与 DS 模板适配代码整合到当前分支；face_snapshot 只占原跨模块提交的一部分。
   是否需要评审: 0
@@ -353,7 +339,7 @@
   合入时间: '2026-05-15'
   commit-id: d86eea00
   标题: '[all]face_snapshot|usr_cfg_conv:resolve the DOS attack caused by the connect interface(3/4)'
-  类型: 安全修复
+  类型: "无差异"
   Change-Id: I37a170e9d0d770563ab55e459c6fea66683a01c6
   备注: 修正连接接口中 Base64 解码的输出容量初始化，限制解码写入范围以避免拒绝服务问题。
   是否需要评审: 0
@@ -368,7 +354,7 @@
   合入时间: '2026-06-29'
   commit-id: f76e5b84
   标题: '[all] fss: fixed - face latest time update anomaly.'
-  类型: Bug修复
+  类型: "无差异"
   Change-Id: I752abbfd4cb70c12b4afbe03096451336886e985
   备注: 修正人脸最新出现时间的更新条件，避免事件记录停留在旧时间。
   是否需要评审: 0

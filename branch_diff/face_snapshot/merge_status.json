@@ -23,18 +23,14 @@
   },
   "last_action": {
     "date": "2026-10-17",
-    "kind": "ac_overview_inventory_and_bc_overview_rename",
-    "summary": "将 BC 侧 15 列 YAML 更名为 bc侧提交概览.yaml；按相同字段建立 AC 侧 30 笔初步概览及 XLSX。AC 修复提交字段只记录当前分支中经核实的映射，本次没有新增修复或改动既有进度状态。",
+    "kind": "ac_manual_overview_revision",
+    "summary": "按用户指定修订 AC 侧评审/处理判断和类型；AC#13 与 BC#19 对标原补丁差异已写入两侧 YAML 备注；AC#19 6f4f42d7 从 AC 概览移除，暂不排查其他冗余来源。原进度索引留存该原 SHA 供追溯，本次未改变源码修复状态。",
     "affected": [
       "AC#1",
       "AC#2",
       "AC#3",
-      "AC#4",
       "AC#5",
       "AC#6",
-      "AC#7",
-      "AC#8",
-      "AC#9",
       "AC#10",
       "AC#11",
       "AC#12",
@@ -45,17 +41,11 @@
       "AC#17",
       "AC#18",
       "AC#19",
-      "AC#20",
-      "AC#21",
       "AC#22",
       "AC#23",
       "AC#24",
       "AC#25",
-      "AC#26",
-      "AC#27",
-      "AC#28",
-      "AC#29",
-      "AC#30"
+      "BC#19"
     ]
   },
   "entries": [
