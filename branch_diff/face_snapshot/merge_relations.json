@@ -1343,8 +1343,8 @@
       "local_commit": "d75d15a3937aa8aee29ad2270dfc480304052047",
       "source_id": "AC#14",
       "source_commit": "de1da536532c73b82b23210e732aec72ee0efc04",
-      "relation": "merged_scope",
-      "scope": "FDS add event setup",
+      "relation": "coverage_evidence",
+      "scope": "原始 AC/BC 新增通知焦点在 bb3085b8 后已有覆盖；本地 d75d15a3 仅为文档核对，无生产代码修改",
       "evidence": {
         "kind": "cap_commit_message",
         "commit": "d75d15a3937aa8aee29ad2270dfc480304052047"
@@ -1354,8 +1354,8 @@
       "local_commit": "d75d15a3937aa8aee29ad2270dfc480304052047",
       "source_id": "BC#20",
       "source_commit": "71c4e67b2a7634e48d7d312a93bc0289ba580d3b",
-      "relation": "merged_scope",
-      "scope": "FDS add event setup",
+      "relation": "coverage_evidence",
+      "scope": "原始 AC/BC 新增通知焦点在 bb3085b8 后已有覆盖；本地 d75d15a3 仅为文档核对，无生产代码修改",
       "evidence": {
         "kind": "cap_commit_message",
         "commit": "d75d15a3937aa8aee29ad2270dfc480304052047"

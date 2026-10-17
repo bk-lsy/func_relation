@@ -20,11 +20,15 @@
   },
   "last_action": {
     "date": "2026-10-17",
-    "kind": "scope_correction_and_rollback",
-    "summary": "按用户限定的 bb3085b8 来源界线，删除误针对后续原提交 93fe4562 的 CAP 修复 e91379de；撤销其 YAML/XLSX/JSON 完成标记，目标 HEAD 恢复 fe2b6991。",
+    "kind": "manual_review_reconciliation",
+    "summary": "按用户修订的六笔人工处理情况重新对照当前 CAP 来源与 bb3085b8 物理合并；BC#20 更正为无需化学修复，其余状态保留，六笔一致性结果详见差异情况概览 YAML。",
     "affected": [
-      "CAP e91379de45f97fb745eec0a346dd229fe89f144a (deleted)",
-      "BC source 93fe4562217d71928d811cdd3bb4b4db6771bbba (out of repair scope)"
+      "BC#11",
+      "BC#15",
+      "BC#19",
+      "BC#20",
+      "BC#21",
+      "BC#23"
     ]
   },
   "entries": [
@@ -395,7 +399,7 @@
       "source_commit": "7b54cd2e9f4f1ecdbe467d8d57df7294d98b4c12",
       "source_title": "[all] face_snapshot: Fix compilation warnings",
       "status": "merged_complete",
-      "note": "bb3085b8 后 hemisphere_flag、tm、index、found_faceid_flag 仍按 AC/BC 分开声明；当前分支的 CAP 0f9dad1bd 将 BC 原提交 7b54cd2e9f4f1ecdbe467d8d57df7294d98b4c12 的初始化及声明位置共用。旧记录 6bbe61e3 不在当前分支，不作为合入者。"
+      "note": "用户人工处理情况改为“已做修复，待合入，无需评审”；AI 来源核对为当前 CAP 0f9dad1bdb179a2f318486c953cc7369e44a9bd0（Change-Id: I466a3b3002237b35350b3f7752435abbc7d92e24）。bb3085b8 后相关声明和初始化仍分支化，该提交已在本地分支共用；修复来源与人工修订一致。"
     },
     {
       "id": "BC#12",
@@ -431,7 +435,7 @@
       "source_commit": "d161ecab8a886dde5f153763e0fb4874c56be083",
       "source_title": "[all]face_snapshot|hub:add hub support and skip tapocare msgpush when face is detected(2/2)",
       "status": "merged_partial",
-      "note": "`49843f82` 等共用 HUB AI 配置重载子范围；HUB 推送策略仍有分支。"
+      "note": "用户人工处理情况改为“尚未做相关提交，需要评审”。截至当前 CAP 分支，未找到以 d161ecab 为来源的定向修复提交；HUB 告警发送与云端路由仍分支化，需评审。51eed3eac07649a4d35241d5f253ca6dc4e64356 针对 AC 来源收敛 HUB 配置重载，虽有代码范围交集，不计作本笔修复；按原提交来源核对，一致性为是。"
     },
     {
       "id": "BC#16",
@@ -467,7 +471,7 @@
       "source_commit": "99edff3d1aea0e4eb6724d5ddffb63dd6d2820ae",
       "source_title": "[cap]face_snapshot:fix some bugs of face snapshot",
       "status": "merged_partial",
-      "note": "原提交 99edff3d1a 的统计队列容量 50、读取失败跳过、FDS_IDLE，目标已覆盖；控制侧 full_status/old_faceid、内部删除、合并后删除旧人脸、HUB 状态缓存及配置重载也在当前 BC 路径。目标 BC 推送还受后续 FSS_MSG_PUSH、HUB/包裹消息策略影响，原提交完整控制补丁与最终行为尚未端到端核对，保留部分完成；既有 e9b4d8b6/04958142 为明确子范围。"
+      "note": "用户人工处理情况改为“无差异，无需处理”。AC 对应提交 e69adae64faf5b6f1d77e897f054e7d81effe9dc 与 BC 99edff3d 共享 full_status/old_faceid、内部删除、统计队列等焦点，人工所记“常电有 cp”来源成立；但两侧原补丁在 HUB 推送和控制实现上有不同，整笔尚不能认定无需处理，一致性为部分一致。"
     },
     {
       "id": "BC#20",
@@ -475,8 +479,8 @@
       "index": 20,
       "source_commit": "71c4e67b2a7634e48d7d312a93bc0289ba580d3b",
       "source_title": "[cap]face_snapshot:fix the issue introduced by the submission of 1cfaf2",
-      "status": "merged_complete",
-      "note": "原提交 71c4e67b2a7634e48d7d312a93bc0289ba580d3b 与 AC#14 对应的新增通知修复已在目标覆盖：索引/记录检查、add_status 首次 ADD、陌生人覆盖先 DELETE、FDS ADD 和合格事件的调用顺序均在当前函数；BC 路径起始时间采用后续修复后的 gen_timestamp。既有本地 d75d15a3 共用 FDS ADD 构造，其余焦点代码由 BC 基础及后续修复保留。"
+      "status": "preexisting_coverage",
+      "note": "用户人工处理情况改为“无差异，无需处理”。原 BC 71c4e67b2a7634e48d7d312a93bc0289ba580d3b 与 AC de1da536532c73b82b23210e732aec72ee0efc04 对应的首次 ADD、满额陌生人先 DELETE、索引检查和调用位置，在 bb3085b8 后已覆盖本笔焦点。旧登记 d75d15a3937aa8aee29ad2270dfc480304052047 仅改文档，不是源码修复；其他事件调用/时间差异另有来源。因此本笔为完整、无需进行，与人工新判断一致。"
     },
     {
       "id": "BC#21",
@@ -485,7 +489,7 @@
       "source_commit": "3178a777405af52717e7f932d23e183856c9a4e3",
       "source_title": "[all] face_snapshot: fix a bug that face msg push failed when face name contains specified character.",
       "status": "preexisting_coverage",
-      "note": "BC 的 `amend_name()` 当前处于公共路径，AC/BC 推送均调用；无须本地重复引入。"
+      "note": "用户人工处理情况改为“无差异，无需处理”。3178a777405af52717e7f932d23e183856c9a4e3 的名称转义与告警调用在 bb3085b8 后已共用，此后没有针对本笔定向化学修复；来源判断一致。"
     },
     {
       "id": "BC#22",
@@ -503,7 +507,7 @@
       "source_commit": "41903f2d380f07ad02842bf6ba53bbe7ac862739",
       "source_title": "[CAP]face_report:fix segment fault when load from flash failed",
       "status": "preexisting_coverage",
-      "note": "与 AC #16 统计链表初始化同补丁。"
+      "note": "用户人工处理情况改为“无差异，无需处理”。41903f2d380f07ad02842bf6ba53bbe7ac862739 的链表初始化修复与 AC 对应修改在 bb3085b8 后已共用，没有后续定向化学修复；人工标注的 Gerrit 链接亦见原提交 REFERENCE，来源判断一致。"
     },
     {
       "id": "BC#24",
