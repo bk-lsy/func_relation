@@ -1,5 +1,6 @@
 # 来源：差异情况概览.doc；序号 1–56 保留原文顺序及字段内容；重新分类时原状态记入“状态备注”。
 # 分析终点：CAP 102ba4b17bb1eac7eff0f89c52d8b1700e1ae378；按 AC..终点、face_snapshot 路径、非合并提交收录。
+# 修复来源界线：仅对 bb3085b88fbccd3b515d2ee7859417e807b7180f 及之前的原提交推进化学合并；该物理合并提交本身不作功能来源。其后记录只供审查，不据此新建修复提交。
 # 复审代码：face_snapshot_battery_macro_review_1017（基于 develop/bc_develop_220927 e1bc3ff43），HEAD fe2b6991bda45f3262e684cfcdc81fdc12623b0e；完整性判断 CAP face_snapshot 路径的 AC/BC 分歧。
 # TP_TAPO_BATTERY_CAM 仅用于已确认是电池机特有、无法或不适合共用到常电侧的逻辑；不能仅因代码来自 BC 分支就替换分支宏。
 # 完整（无需进行）：bb3085b88 物理合并后（不含该提交自身）该原提交对应的 AC/BC 行为已一致，且不是靠其后的定向化学修复才达到一致。其余“完整”表示当前一致，不代表无需修复。

@@ -20,12 +20,11 @@
   },
   "last_action": {
     "date": "2026-10-17",
-    "kind": "source_based_convergence",
-    "summary": "AI排查提交第 3 笔：BC#25 模型 MD5 状态与 face_snapshot 刷新链共用，CAP 和 NVMP 分别减少分支宏。",
+    "kind": "scope_correction_and_rollback",
+    "summary": "按用户限定的 bb3085b8 来源界线，删除误针对后续原提交 93fe4562 的 CAP 修复 e91379de；撤销其 YAML/XLSX/JSON 完成标记，目标 HEAD 恢复 fe2b6991。",
     "affected": [
-      "CAP fe2b6991bda45f3262e684cfcdc81fdc12623b0e",
-      "NVMP 6bbe00f50ef5a62ee0f1ce4044f2131c34e36183",
-      "BC#25"
+      "CAP e91379de45f97fb745eec0a346dd229fe89f144a (deleted)",
+      "BC source 93fe4562217d71928d811cdd3bb4b4db6771bbba (out of repair scope)"
     ]
   },
   "entries": [
@@ -1401,5 +1400,10 @@
         "reason": "物理合并提交不能作为合入源；上溯到引入异常特征重建的原始问题修复。"
       }
     }
+  },
+  "repair_source_scope": {
+    "cutoff_commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f",
+    "rule": "只对该提交及之前的 AC/BC 原始提交推进化学合并；该物理合并提交自身不作为功能来源。之后的提交只作审查记录，不新建修复提交。",
+    "excluded_example": "93fe4562217d71928d811cdd3bb4b4db6771bbba"
   }
 }

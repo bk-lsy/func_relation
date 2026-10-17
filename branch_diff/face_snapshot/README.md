@@ -6,6 +6,8 @@
 
 **每次针对本模块执行审查、合入、确认已有覆盖、标记暂缓、撤销或 rebase 后，都要立即更新此 JSON**：核对目标 HEAD；修改受影响来源的状态与依据或剩余边界；填写 `last_action` 的日期、动作、涉及编号和结果。即使审查后状态不变，也记录这次结论。发现新增来源或原索引变化时，先核对完整 SHA、顺序及总数。逐笔进度与依据以此 JSON 为准；其他文档只放不能在单条 JSON 说明中表达的批次证据或操作口径，不重复维护逐笔清单。这里的合入进度与下述候选等价/依赖确认是两套独立证据，不自动改动 `confirm` 或 `relation_confirm`。
 
+**修复来源范围**：只针对 CAP `bb3085b88fbccd3b515d2ee7859417e807b7180f` 及之前的 AC/BC 原始提交推进化学合并；该物理合并提交本身不作为功能来源。其后的提交可列入差异表供审查，但不据此新建修复提交。选取来源前先用 Git 祖先关系核对，而不是只看表格序号或日期。`93fe4562217d71928d811cdd3bb4b4db6771bbba` 位于界线之后，因此已删除误做的 CAP `e91379de45f97fb745eec0a346dd229fe89f144a` 及对应记录。
+
 [`merge_relations.json`](merge_relations.json) 记录**当前 CAP 本地提交与 AC/BC 原始焦点提交的多对多关系**。45 笔本地提交均为节点，边指向 `merge_status.json` 的来源编号和完整 SHA；一笔来源可对应多笔局部修复，一笔本地提交也可对应两侧来源。边的 `relation` 明确区分 `merged_scope`（实际修复的明确子范围）、`coverage_evidence`（已有覆盖的验证）、`related_basis`（行为基础）、`physical_merge_context`（BC 物理整合背景）和 `deferred_scope`（暂缓记录）。只有 `merged_scope` 表示本地源码处理，且仍不自动代表整笔原提交完成。例如 AC #8 的 CAP:2/2 分别连接接口、PSS 复制和迁移三笔本地提交；`49851998` 同时验证 AC #19/#20 与 BC #30 的存储头修复。未连边的原始提交单列在 `unlinked_source_ids`，不能据此判定缺功能。
 
 每次动作后同步检查关系图：新增/删除/rebase 本地提交时更新节点和相关边；复核导致来源或关系角色变化时更新对应边及证据；只有状态变化而图关系不变时确认图仍适用。运行 `python3 branch_diff/face_snapshot/validate_merge_relations.py` 核对当前 CAP HEAD、全部本地提交、边的来源 SHA 及未连边清单。关系图只表达注明的局部范围，**不自动设置**候选等价的 `confirm`、跨仓依赖的 `relation_confirm`，也不代替设备验证。
