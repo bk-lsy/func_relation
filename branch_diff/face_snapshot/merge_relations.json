@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "scope": "CAP face_snapshot current local commits to AC/BC original focus commits; multi-to-multi, scoped evidence only",
-  "target_branch": "face_snapshot_converge_1010",
-  "target_head": "8f8fea6bb525bf3533b1e126e0c795f616f16b7d",
-  "local_base": "102ba4b17bb1eac7eff0f89c52d8b1700e1ae378",
+  "target_branch": "face_snapshot_battery_macro_review_1017",
+  "target_head": "14fce986881fca63024c386f13a70ef8092ebfbf",
+  "local_base": "94de959afb5471382b6ba4e494bfd399bc4d95be",
   "source_index": "merge_status.json",
   "relation_definitions": {
     "merged_scope": "本地源码提交实际收敛或修复原提交的明确子范围；不自动表示整笔原提交完成。",
@@ -12,7 +12,7 @@
     "physical_merge_context": "BC 物理整合提交形成待收敛的宏分支或保留代码；不是本地修复的独立功能来源。",
     "deferred_scope": "本地文档提交记录此原提交或子范围暂缓，不计作源码合入。"
   },
-  "evidence_policy": "边由当前保留的 CAP commit log 中的来源/基础/物理整合字段及对应批次记录支持；只表示 scope 所列局部关系，不代替补丁等价、完整覆盖、跨仓依赖或设备验证。",
+  "evidence_policy": "边来自当前 CAP commit log 的完整来源 SHA 或差异情况概览.yaml 中经 Git 核实的修复提交映射；只表示 scope 中的明确源码范围，不自动证明整笔功能完整、跨仓依赖闭合或设备验证。",
   "source_nodes": [
     {
       "id": "AC#1",
@@ -492,1748 +492,720 @@
   ],
   "local_nodes": [
     {
-      "commit": "102974f47e5e3aea07b5c6fd4c2752d5014d1c6d",
-      "title": "docs(face_snapshot): account for shared AC base data model",
-      "kind": "verification",
-      "scope": "AC #1 data model and ordinary defaults already covered"
-    },
-    {
-      "commit": "82ac0140a3976ddd619a6319f73624cc950dc893",
-      "title": "refactor(face_snapshot): share base feature loading flow",
-      "kind": "source_change",
-      "scope": "base feature loading and allocation failure guard"
-    },
-    {
-      "commit": "c2293b9e17ce55111b0ca40526d17f5bb1faf2b5",
-      "title": "test(face_snapshot): verify BC coverage of AC tag-only changes",
-      "kind": "verification",
-      "scope": "tag-only update and log coverage"
-    },
-    {
-      "commit": "fe5ad2b854cff4f8064d3c3953ed611be840b82d",
-      "title": "fix(face_snapshot): share snapshot sizing fix",
-      "kind": "source_change",
-      "scope": "snapshot image length and AES allocation"
-    },
-    {
-      "commit": "8f47760b3f437a1052ef682e58ede042add08595",
-      "title": "refactor(face_snapshot): share similarity group score selection",
-      "kind": "source_change",
-      "scope": "similarity group maximum and U16 declaration"
-    },
-    {
-      "commit": "64da2a34c2ea2c778be46d369083e5e285180e0e",
-      "title": "refactor(face_snapshot): share faceinfo file synchronization",
-      "kind": "source_change",
-      "scope": "faceinfo file mutex and shared exit paths"
-    },
-    {
-      "commit": "6ca664589d0e095668328144658eb40b47c8af37",
-      "title": "fix(face_snapshot): share oversized feature image allocation",
-      "kind": "source_change",
-      "scope": "oversized feature image allocation"
-    },
-    {
-      "commit": "6dc8970d9e6116300b3ec7bca85de74d243da941",
-      "title": "refactor(face_snapshot): share storage file helpers",
-      "kind": "source_change",
-      "scope": "storage file helper consolidation"
-    },
-    {
-      "commit": "c0bd0e52e64170d527832c052321f90fb52c8e65",
-      "title": "refactor(face_snapshot): share similarity threshold getter",
-      "kind": "source_change",
-      "scope": "similarity threshold getter, declaration and callers"
-    },
-    {
-      "commit": "fe9a03684d3ededb8288e5b98e9e75b0df82d61f",
-      "title": "test(face_snapshot): record shared statistics list initialization",
-      "kind": "verification",
-      "scope": "early statistics list initialization already covered"
-    },
-    {
-      "commit": "f4b013eb6a068017f15bddf2f51b0da309f76b13",
-      "title": "test(face_snapshot): verify shared latest occurrence update",
-      "kind": "verification",
-      "scope": "latest occurrence timestamp update already covered"
-    },
-    {
-      "commit": "f99c4e40782fec823eeb28550d070d117ead4e91",
-      "title": "test(face_snapshot): verify shared faceinfo descriptor repair",
-      "kind": "verification",
-      "scope": "faceinfo descriptor zero handling already covered"
-    },
-    {
-      "commit": "30624df9b471777c2ac6534fe350c1869c21e1e3",
-      "title": "test(face_snapshot): verify shared storage header validation",
-      "kind": "verification",
-      "scope": "faceinfo storage header validation already covered"
-    },
-    {
-      "commit": "8b631a413945227429b5c125000d4304ebcaebcd",
-      "title": "refactor(face_snapshot): converge AC CAP:2/2 interfaces and storage names",
-      "kind": "source_change",
-      "scope": "CAP:2/2 interface, statistics and offset-helper subscopes"
-    },
-    {
-      "commit": "6b042fcf8863d3dfa209cce8ec7187da6f574b84",
-      "title": "refactor(face_snapshot): converge PSS copy without changing normal flow",
-      "kind": "source_change",
-      "scope": "CAP:2/2 PSS copy normal flow"
-    },
-    {
-      "commit": "ce319eaf8f7b1855d44162c704580001e00650d0",
-      "title": "[High Risk] fix(face_snapshot): converge PSS migration behavior",
-      "kind": "source_change",
-      "scope": "CAP:2/2 PSS migration behavior"
-    },
-    {
-      "commit": "0cdaf65d34fdc12c90f40beb2c6c6325e936e637",
-      "title": "refactor(face_snapshot): share available face slot selection",
-      "kind": "source_change",
-      "scope": "available face slot selection"
-    },
-    {
-      "commit": "16bacc3e8567a37e2336716000680d1cdb752ec6",
-      "title": "test(face_snapshot): verify AC notify list contract coverage",
-      "kind": "verification",
-      "scope": "AC notification list contract already covered"
-    },
-    {
-      "commit": "2a5aac94862495063e8c07e2b570bb9301b31e88",
-      "title": "test(face_snapshot): verify shared HUB detection revert",
-      "kind": "verification",
-      "scope": "HUB detection revert already covered"
-    },
-    {
-      "commit": "8d91e1f8d4fbf23a353d58d9a645327cc89746ba",
-      "title": "refactor(face_snapshot): share similarity image index type",
-      "kind": "source_change",
-      "scope": "similarity image index type"
-    },
-    {
-      "commit": "d75d15a3937aa8aee29ad2270dfc480304052047",
-      "title": "refactor(face_snapshot): share FDS add event boilerplate",
-      "kind": "source_change",
-      "scope": "FDS add event setup"
-    },
-    {
-      "commit": "cca13abc5726f930830e5126adc90d09f535c472",
-      "title": "fix(face_snapshot): share statistics directory cleanup guards",
-      "kind": "source_change",
-      "scope": "statistics directory cleanup guard"
-    },
-    {
-      "commit": "6bbe61e3af0dc8297d60fbd043bdf1a331f28844",
-      "title": "refactor(face_snapshot): share statistics variable initialization",
-      "kind": "source_change",
-      "scope": "statistics variable initialization"
-    },
-    {
-      "commit": "a447f4c005e66b8f2f2f64f6d5e6ebeb9d8a5b3c",
-      "title": "fix(face_snapshot): accept first appearance event on AC",
-      "kind": "source_change",
-      "scope": "first appearance event guard"
-    },
-    {
-      "commit": "0195ef985367828979729fb069cd26566e85088d",
-      "title": "[High Risk](not-complate) fix(face_snapshot): share daily recycle timer units",
-      "kind": "source_change",
-      "scope": "daily recycle timer units only"
-    },
-    {
-      "commit": "b70533be0d869949f9ba01e59def082df1ca9549",
-      "title": "fix(face_snapshot): share add-face mutex exit handling",
-      "kind": "source_change",
-      "scope": "add-face mutex exit handling"
-    },
-    {
-      "commit": "30e11c678fce6a73e41d6e62f42a7203332e8bdd",
-      "title": "[Low Risk] fix(face_snapshot): share invalid feature handling",
-      "kind": "source_change",
-      "scope": "invalid feature handling and temporary JPEG write"
-    },
-    {
-      "commit": "1045aa3cffe8ee7765791758cd599499084bc82b",
-      "title": "refactor(face_snapshot): share conditional faceinfo migration writeback",
-      "kind": "source_change",
-      "scope": "conditional faceinfo migration writeback"
-    },
-    {
-      "commit": "36120e630284898bf14214c1a6127fa2f0ba347b",
-      "title": "fix(face_snapshot): persist deselected familiar notifications on AC",
-      "kind": "source_change",
-      "scope": "persist deselected familiar notifications"
-    },
-    {
-      "commit": "8f905183c6e6bf9c99a7fdfdaefca3b779d983ab",
-      "title": "[Low Risk] fix(face_snapshot): persist notification on stranger promotion",
-      "kind": "source_change",
-      "scope": "persist notification on stranger promotion"
-    },
-    {
-      "commit": "e9b4d8b618d00bc170d3e3112db6306f6af23693",
-      "title": "refactor(face_snapshot): share FDS event queue setup",
-      "kind": "source_change",
-      "scope": "FDS event queue setup"
-    },
-    {
-      "commit": "93a9c44d1f86ca9a24efe48d312ff9e9d638fab6",
-      "title": "refactor(face_snapshot): share ringbuffer event forwarding",
-      "kind": "source_change",
-      "scope": "ringbuffer event forwarding"
-    },
-    {
-      "commit": "49843f82752c7b527ead78f4d8b535dfa9341cb1",
-      "title": "refactor(face_snapshot): share HUB AI config reload path",
-      "kind": "source_change",
-      "scope": "HUB AI configuration reload path"
-    },
-    {
-      "commit": "93c81979b6503fd51456ab5eb0951ee9e21213ba",
-      "title": "fix(face_snapshot): keep figure count out of face image count",
-      "kind": "source_change",
-      "scope": "PSS figure count isolated from face image count"
-    },
-    {
-      "commit": "f65845d5dded061892a4dc4bf7490fb4d178c31a",
-      "title": "refactor(face_snapshot): remove duplicate face image write",
-      "kind": "source_change",
-      "scope": "remove duplicate face image write"
-    },
-    {
-      "commit": "5f198fdcb575babd088c20225cd2ca828b9df2a5",
-      "title": "refactor(face_snapshot): share optional debug JPEG path",
-      "kind": "source_change",
-      "scope": "optional debug JPEG path"
-    },
-    {
-      "commit": "c5bf77dc4f1ca28b027ad0a7d068445be2818dbd",
-      "title": "refactor(face_snapshot): share detection result pointer interface",
-      "kind": "source_change",
-      "scope": "detection result pointer signature"
-    },
-    {
-      "commit": "28ac256ce9ed3edb01b0f2197b5bc63ab5e09b69",
-      "title": "docs(face_snapshot): defer four batch eleven merge scopes",
-      "kind": "decision",
-      "scope": "withdraw incomplete batch eleven subscopes"
-    },
-    {
-      "commit": "48ecd95e23d63b96a36e2dcd059e5da8fffab943",
-      "title": "refactor(face_snapshot): share PSS input validation flow",
-      "kind": "source_change",
-      "scope": "PSS input validation flow"
-    },
-    {
-      "commit": "04958142203eda1d5084cd72a046cbf88e620ae5",
-      "title": "refactor(face_snapshot): share HUB configuration state declarations",
-      "kind": "source_change",
-      "scope": "HUB configuration state declarations"
-    },
-    {
-      "commit": "8b77f26f8b6f21ef632031c9a3188bfdf4c0da7b",
-      "title": "refactor(face_snapshot): remove empty product macro guards",
-      "kind": "source_change",
-      "scope": "empty product macro guards only"
-    },
-    {
-      "commit": "e842d3659a2ed8fa434a388b191fd60656358095",
-      "title": "[Deferred] docs(face_snapshot): mark BC storage mount fix group",
-      "kind": "decision",
-      "scope": "defer BC usr_record mount series"
-    },
-    {
-      "commit": "09e71436a6afbf5b3356266b9031f0280d28e6ca",
-      "title": "fix(face_snapshot): share face name length declaration",
-      "kind": "source_change",
-      "scope": "face name length declaration"
-    },
-    {
-      "commit": "2fa01fdf1201934322ae0c332100d6ed6a5d117e",
-      "title": "refactor(face_snapshot): share same-face match diagnostic",
-      "kind": "source_change",
-      "scope": "same-face match diagnostic"
-    },
-    {
-      "commit": "ccc22dcb7f3cd1f5042a5048f4082cfd235fb097",
-      "title": "[Deferred] face_snapshot: keep BC battery IoT statistics separate",
-      "kind": "documentation",
-      "scope": "BC battery IoT monthly/weekly statistics deferred as product difference"
-    },
-    {
-      "commit": "89b1621106b49a13ba27cfd8da8dd0a4aa13cd23",
-      "title": "test(face_snapshot): align rebase checks with updated BC base",
-      "kind": "integration",
-      "scope": "Adapt PSS repair fixture and HUB loader comparison to updated BC base"
-    },
-    {
-      "commit": "8f8fea6bb525bf3533b1e126e0c795f616f16b7d",
-      "title": "fix(face_snapshot): expose shared faceinfo mutex declaration",
+      "commit": "0f9dad1bdb179a2f318486c953cc7369e44a9bd0",
+      "title": "[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches)",
       "kind": "source_fix",
-      "scope": "Complete 64da2a34 faceinfo mutex convergence: shared declaration visible to AC and BC"
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "00dbf08f04b93436e9e6930a185f10d28b72febc",
+      "title": "[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros (global mutex for face info file)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "51eed3eac07649a4d35241d5f253ca6dc4e64356",
+      "title": "[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros (fix of AC branch)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "d14bff1d06dbc4e04aeabc19dd9ac749e3dec7a6",
+      "title": "[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros (reduce unnecessary face info file writes)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "e25cab51d54120cbd1ea2aeb82081d08b4afa1b1",
+      "title": "[cap] face_snapshot: remove branch macros (共享自适应 IQA 阈值配置与判断) (2/2)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "5d5021c92cfdc4848c509f5d807fb2c5e4e4af31",
+      "title": "[cap] face_snapshot: remove branch macros (共享最佳匹配接口与陌生人结果处理) (2/2)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "4cd98640145cbe37e243d23b1c5942ed0f6fa12b",
+      "title": "[cap] face_snapshot: remove branch macros (共享人脸尺寸质量过滤阈值) (2/2)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "a15015b9dc669e84baf200f8b5c24a0649f74c45",
+      "title": "[cap] face_snapshot: remove branch macros (AC 侧改用 ringbuffer 创建回调附着) (2/2)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "92a6be808efda6367059e27f43ad47c6abfb2c24",
+      "title": "[cap] face_snapshot: remove branch macros (AC 侧优先选择达到阈值的熟人匹配)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "d37eeda61e9672dfeeab73b73e5d9793a0fe3121",
+      "title": "[cap] face_snapshot: remove branch macros (AOV 休眠保存前先删除定时器避免锁等待)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "780ee1d0d178cdd91271577d182b6229cf5dbeb1",
+      "title": "[cap] face_snapshot: remove branch macros (统一人脸索引事件使用换算后的时间) (2/2)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "d005a342ed02f2f7448ccfc3d3d43b6791c49c63",
+      "title": "[cap] face_snapshot: remove branch macros (共用休眠锁状态与人脸过期定时的毫秒换算)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "eb00d67a01c29e110dd482e00178019175a6d031",
+      "title": "[cap] face_snapshot: remove branch macros (电池机独有特性，无法合并部分，替换BC_ON_AC为TP_TAPO_BATTERY_CAM)(2/4)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "e1bc3ff43f161ae00414406770fd800ce8ed6c88",
+      "title": "[cap] face_snapshot: remove branch macros (电池机独有特性，无法合并部分，替换BC_ON_AC为TP_TAPO_BATTERY_CAM)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "2967b29356e52993ead66738dbacc692dfc89b3a",
+      "title": "[cap] face_snapshot: remove branch macros (电池机开机时间回退按产品宏选择)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "876754e4f9f9379d93d219a5558b25499925ffc1",
+      "title": "[cap] face_snapshot: remove branch macros (按电池机产品宏选择 PSS 图片与人数容量)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "ba6da3231224ec9b2d8456e35c228296110a0668",
+      "title": "[cap] face_snapshot: remove branch macros (无效相似度统一重建并过滤)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "06ad886d930e90b75a278dbabf437b4feb14d10a",
+      "title": "[cap] face_snapshot: remove branch macros (首次人脸出现不受统计更新间隔过滤) (2/2)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "404d583244405fcf09ed1b0473a810f0b253eb3d",
+      "title": "[cap] face_snapshot: remove branch macros (电池机人脸存储挂载等待按产品宏选择) (1/2)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "b5973b68fb93fff5bb1ef0b6ccec8a7c9ac026b2",
+      "title": "[cap] face_snapshot: remove branch macros (本地包裹历史仅按功能宏控制)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "fe2b6991bda45f3262e684cfcdc81fdc12623b0e",
+      "title": "[cap] face_snapshot: remove branch macros (共享模型 MD5 检测与人脸特征重算链) (2/3)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "1fe8c3eb04ec8c55ca178942a4e59beaf8cae0b7",
+      "title": "[cap] face_snapshot: remove branch macros (share HUB storage config monitoring) (2/2)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "57f773bf4fbf3733deb66c069b8377b8baea52dd",
+      "title": "[cap] face_snapshot: remove branch macros (select battery push threshold and persistence) (1/2)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "f8cae5d3814959afe76a85312b8869c24a8e5112",
+      "title": "[cap] face_snapshot: remove branch macros (share packetized face info API) (1/2)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "72d2316c742f775ce3852b9ad973d98156248e6d",
+      "title": "[cap] face_snapshot: remove branch macros (share PSS face count validation) (2/2)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "3af682547618d37a5a21e1610d6d532c7bcad43f",
+      "title": "[cap] face_snapshot: remove branch macros (share scene-aware familiar feature refresh)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "4becda9ead63455254d97c665e6f2ce898ba8cd2",
+      "title": "[cap] face_snapshot: remove branch macros (publish face result under package feature) (2/5)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "3cbed9cb411e12415830e9bd797fede78e6e2117",
+      "title": "[cap] face_snapshot: remove branch macros (share package history pushability) (1/2)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
+    },
+    {
+      "commit": "14fce986881fca63024c386f13a70ef8092ebfbf",
+      "title": "[cap] face_snapshot: remove branch macros (share HUB msgAgent fields in face alarms)",
+      "kind": "source_fix",
+      "scope": "本次分支上 face_snapshot 源码试合入或修复；范围以关系边与 merge_status 状态为准"
     }
   ],
   "edges": [
     {
-      "local_commit": "102974f47e5e3aea07b5c6fd4c2752d5014d1c6d",
-      "source_id": "AC#1",
-      "source_commit": "531e61624272f64fb8e0d0fc09af286e6f52a180",
-      "relation": "coverage_evidence",
-      "scope": "AC #1 data model and ordinary defaults already covered",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "102974f47e5e3aea07b5c6fd4c2752d5014d1c6d"
-      }
-    },
-    {
-      "local_commit": "102974f47e5e3aea07b5c6fd4c2752d5014d1c6d",
-      "source_id": "BC#1",
-      "source_commit": "54f4acfb6671f2fb3aeaaff4128cee45e04647a0",
-      "relation": "related_basis",
-      "scope": "AC #1 data model and ordinary defaults already covered",
-      "evidence": {
-        "kind": "batch_record",
-        "detail": "docs/face_snapshot_converge_1010/batch1.md"
-      }
-    },
-    {
-      "local_commit": "82ac0140a3976ddd619a6319f73624cc950dc893",
-      "source_id": "AC#2",
-      "source_commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20",
-      "relation": "merged_scope",
-      "scope": "base feature loading and allocation failure guard",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "82ac0140a3976ddd619a6319f73624cc950dc893"
-      }
-    },
-    {
-      "local_commit": "c2293b9e17ce55111b0ca40526d17f5bb1faf2b5",
-      "source_id": "AC#3",
-      "source_commit": "1df1db390256664982d7122ee31bac45d4b9b74d",
-      "relation": "coverage_evidence",
-      "scope": "tag-only update and log coverage",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "c2293b9e17ce55111b0ca40526d17f5bb1faf2b5"
-      }
-    },
-    {
-      "local_commit": "c2293b9e17ce55111b0ca40526d17f5bb1faf2b5",
-      "source_id": "BC#3",
-      "source_commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6",
-      "relation": "related_basis",
-      "scope": "tag-only update and log coverage",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "c2293b9e17ce55111b0ca40526d17f5bb1faf2b5"
-      }
-    },
-    {
-      "local_commit": "fe5ad2b854cff4f8064d3c3953ed611be840b82d",
-      "source_id": "AC#4",
-      "source_commit": "0c090e6e760c94ae5fba13ce346c735a24df99e3",
-      "relation": "merged_scope",
-      "scope": "snapshot image length and AES allocation",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "fe5ad2b854cff4f8064d3c3953ed611be840b82d"
-      }
-    },
-    {
-      "local_commit": "fe5ad2b854cff4f8064d3c3953ed611be840b82d",
-      "source_id": "BC#55",
-      "source_commit": "1186c1861d4eadc7a933b85c688130213c933d16",
-      "relation": "merged_scope",
-      "scope": "snapshot image length and AES allocation",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "fe5ad2b854cff4f8064d3c3953ed611be840b82d"
-      }
-    },
-    {
-      "local_commit": "8f47760b3f437a1052ef682e58ede042add08595",
-      "source_id": "AC#2",
-      "source_commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20",
-      "relation": "merged_scope",
-      "scope": "similarity group maximum and U16 declaration",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8f47760b3f437a1052ef682e58ede042add08595"
-      }
-    },
-    {
-      "local_commit": "8f47760b3f437a1052ef682e58ede042add08595",
-      "source_id": "BC#3",
-      "source_commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6",
-      "relation": "merged_scope",
-      "scope": "similarity group maximum and U16 declaration",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8f47760b3f437a1052ef682e58ede042add08595"
-      }
-    },
-    {
-      "local_commit": "8f47760b3f437a1052ef682e58ede042add08595",
-      "source_id": "BC#60",
-      "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
-      "relation": "physical_merge_context",
-      "scope": "similarity group maximum and U16 declaration",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8f47760b3f437a1052ef682e58ede042add08595"
-      }
-    },
-    {
-      "local_commit": "64da2a34c2ea2c778be46d369083e5e285180e0e",
-      "source_id": "BC#31",
-      "source_commit": "63f6159460300afafb0a3feac3279c116d855daf",
-      "relation": "merged_scope",
-      "scope": "faceinfo file mutex and shared exit paths",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "64da2a34c2ea2c778be46d369083e5e285180e0e"
-      }
-    },
-    {
-      "local_commit": "64da2a34c2ea2c778be46d369083e5e285180e0e",
-      "source_id": "BC#60",
-      "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
-      "relation": "physical_merge_context",
-      "scope": "faceinfo file mutex and shared exit paths",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "64da2a34c2ea2c778be46d369083e5e285180e0e"
-      }
-    },
-    {
-      "local_commit": "6ca664589d0e095668328144658eb40b47c8af37",
-      "source_id": "AC#2",
-      "source_commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20",
-      "relation": "merged_scope",
-      "scope": "oversized feature image allocation",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "6ca664589d0e095668328144658eb40b47c8af37"
-      }
-    },
-    {
-      "local_commit": "6ca664589d0e095668328144658eb40b47c8af37",
-      "source_id": "BC#54",
-      "source_commit": "80f2e265321dd11e085d7b8dfdeec64d70c351a8",
-      "relation": "merged_scope",
-      "scope": "oversized feature image allocation",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "6ca664589d0e095668328144658eb40b47c8af37"
-      }
-    },
-    {
-      "local_commit": "6ca664589d0e095668328144658eb40b47c8af37",
-      "source_id": "BC#60",
-      "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
-      "relation": "physical_merge_context",
-      "scope": "oversized feature image allocation",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "6ca664589d0e095668328144658eb40b47c8af37"
-      }
-    },
-    {
-      "local_commit": "6dc8970d9e6116300b3ec7bca85de74d243da941",
-      "source_id": "AC#2",
-      "source_commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20",
-      "relation": "merged_scope",
-      "scope": "storage file helper consolidation",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "6dc8970d9e6116300b3ec7bca85de74d243da941"
-      }
-    },
-    {
-      "local_commit": "6dc8970d9e6116300b3ec7bca85de74d243da941",
-      "source_id": "BC#3",
-      "source_commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6",
-      "relation": "merged_scope",
-      "scope": "storage file helper consolidation",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "6dc8970d9e6116300b3ec7bca85de74d243da941"
-      }
-    },
-    {
-      "local_commit": "6dc8970d9e6116300b3ec7bca85de74d243da941",
-      "source_id": "BC#60",
-      "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
-      "relation": "physical_merge_context",
-      "scope": "storage file helper consolidation",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "6dc8970d9e6116300b3ec7bca85de74d243da941"
-      }
-    },
-    {
-      "local_commit": "c0bd0e52e64170d527832c052321f90fb52c8e65",
-      "source_id": "AC#2",
-      "source_commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20",
-      "relation": "merged_scope",
-      "scope": "similarity threshold getter, declaration and callers",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "c0bd0e52e64170d527832c052321f90fb52c8e65"
-      }
-    },
-    {
-      "local_commit": "c0bd0e52e64170d527832c052321f90fb52c8e65",
-      "source_id": "BC#3",
-      "source_commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6",
-      "relation": "merged_scope",
-      "scope": "similarity threshold getter, declaration and callers",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "c0bd0e52e64170d527832c052321f90fb52c8e65"
-      }
-    },
-    {
-      "local_commit": "c0bd0e52e64170d527832c052321f90fb52c8e65",
-      "source_id": "BC#60",
-      "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
-      "relation": "physical_merge_context",
-      "scope": "similarity threshold getter, declaration and callers",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "c0bd0e52e64170d527832c052321f90fb52c8e65"
-      }
-    },
-    {
-      "local_commit": "fe9a03684d3ededb8288e5b98e9e75b0df82d61f",
-      "source_id": "AC#16",
-      "source_commit": "2d0a17e388210e52eb936889836840532ff59f69",
-      "relation": "coverage_evidence",
-      "scope": "early statistics list initialization already covered",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "fe9a03684d3ededb8288e5b98e9e75b0df82d61f"
-      }
-    },
-    {
-      "local_commit": "fe9a03684d3ededb8288e5b98e9e75b0df82d61f",
-      "source_id": "BC#23",
-      "source_commit": "41903f2d380f07ad02842bf6ba53bbe7ac862739",
-      "relation": "coverage_evidence",
-      "scope": "early statistics list initialization already covered",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "fe9a03684d3ededb8288e5b98e9e75b0df82d61f"
-      }
-    },
-    {
-      "local_commit": "f4b013eb6a068017f15bddf2f51b0da309f76b13",
-      "source_id": "AC#25",
-      "source_commit": "f76e5b845823c16e4fde0f0b7baefc629830ebbe",
-      "relation": "coverage_evidence",
-      "scope": "latest occurrence timestamp update already covered",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "f4b013eb6a068017f15bddf2f51b0da309f76b13"
-      }
-    },
-    {
-      "local_commit": "f4b013eb6a068017f15bddf2f51b0da309f76b13",
-      "source_id": "BC#46",
-      "source_commit": "439b9c8b9bb4205e027a5d6fdeed5a44f0bd392c",
-      "relation": "coverage_evidence",
-      "scope": "latest occurrence timestamp update already covered",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "f4b013eb6a068017f15bddf2f51b0da309f76b13"
-      }
-    },
-    {
-      "local_commit": "f99c4e40782fec823eeb28550d070d117ead4e91",
-      "source_id": "AC#12",
-      "source_commit": "94aef932ffa51fbac9d0cb63aab6e5d69ebc2f1b",
-      "relation": "coverage_evidence",
-      "scope": "faceinfo descriptor zero handling already covered",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "f99c4e40782fec823eeb28550d070d117ead4e91"
-      }
-    },
-    {
-      "local_commit": "f99c4e40782fec823eeb28550d070d117ead4e91",
-      "source_id": "BC#9",
-      "source_commit": "9688a83c6e01899ce0b8213ca3bc0d5eab26872b",
-      "relation": "coverage_evidence",
-      "scope": "faceinfo descriptor zero handling already covered",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "f99c4e40782fec823eeb28550d070d117ead4e91"
-      }
-    },
-    {
-      "local_commit": "30624df9b471777c2ac6534fe350c1869c21e1e3",
-      "source_id": "AC#19",
-      "source_commit": "6f4f42d77fdf07a6c131bc5f864da85f3cc71a82",
-      "relation": "coverage_evidence",
-      "scope": "faceinfo storage header validation already covered",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "30624df9b471777c2ac6534fe350c1869c21e1e3"
-      }
-    },
-    {
-      "local_commit": "30624df9b471777c2ac6534fe350c1869c21e1e3",
-      "source_id": "AC#20",
-      "source_commit": "2fc6094a00eb449dda03c2050e34030192d2a5e7",
-      "relation": "coverage_evidence",
-      "scope": "faceinfo storage header validation already covered",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "30624df9b471777c2ac6534fe350c1869c21e1e3"
-      }
-    },
-    {
-      "local_commit": "30624df9b471777c2ac6534fe350c1869c21e1e3",
-      "source_id": "BC#30",
-      "source_commit": "98a8b58b1ca286996107fed5050f446f01f55a98",
-      "relation": "coverage_evidence",
-      "scope": "faceinfo storage header validation already covered",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "30624df9b471777c2ac6534fe350c1869c21e1e3"
-      }
-    },
-    {
-      "local_commit": "8b631a413945227429b5c125000d4304ebcaebcd",
-      "source_id": "AC#8",
-      "source_commit": "747e518a37f12c26f4ea872e98a8d3a7363aad4c",
-      "relation": "merged_scope",
-      "scope": "CAP:2/2 interface, statistics and offset-helper subscopes",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8b631a413945227429b5c125000d4304ebcaebcd"
-      }
-    },
-    {
-      "local_commit": "8b631a413945227429b5c125000d4304ebcaebcd",
-      "source_id": "BC#60",
-      "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
-      "relation": "physical_merge_context",
-      "scope": "CAP:2/2 interface, statistics and offset-helper subscopes",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8b631a413945227429b5c125000d4304ebcaebcd"
-      }
-    },
-    {
-      "local_commit": "8b631a413945227429b5c125000d4304ebcaebcd",
-      "source_id": "BC#61",
-      "source_commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6",
-      "relation": "physical_merge_context",
-      "scope": "CAP:2/2 interface, statistics and offset-helper subscopes",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8b631a413945227429b5c125000d4304ebcaebcd"
-      }
-    },
-    {
-      "local_commit": "6b042fcf8863d3dfa209cce8ec7187da6f574b84",
-      "source_id": "AC#8",
-      "source_commit": "747e518a37f12c26f4ea872e98a8d3a7363aad4c",
-      "relation": "merged_scope",
-      "scope": "CAP:2/2 PSS copy normal flow",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "6b042fcf8863d3dfa209cce8ec7187da6f574b84"
-      }
-    },
-    {
-      "local_commit": "6b042fcf8863d3dfa209cce8ec7187da6f574b84",
-      "source_id": "AC#30",
-      "source_commit": "178f33f6da6a70893faecea14b1b51ef64bc62ac",
-      "relation": "coverage_evidence",
-      "scope": "CAP:2/2 PSS copy normal flow",
-      "evidence": {
-        "kind": "review_record",
-        "files": [
-          "merge_work/source_status.md",
-          "docs/face_snapshot_converge_1010/batch3.md"
-        ]
-      }
-    },
-    {
-      "local_commit": "6b042fcf8863d3dfa209cce8ec7187da6f574b84",
-      "source_id": "BC#60",
-      "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
-      "relation": "physical_merge_context",
-      "scope": "CAP:2/2 PSS copy normal flow",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "6b042fcf8863d3dfa209cce8ec7187da6f574b84"
-      }
-    },
-    {
-      "local_commit": "6b042fcf8863d3dfa209cce8ec7187da6f574b84",
-      "source_id": "BC#61",
-      "source_commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6",
-      "relation": "physical_merge_context",
-      "scope": "CAP:2/2 PSS copy normal flow",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "6b042fcf8863d3dfa209cce8ec7187da6f574b84"
-      }
-    },
-    {
-      "local_commit": "ce319eaf8f7b1855d44162c704580001e00650d0",
-      "source_id": "AC#8",
-      "source_commit": "747e518a37f12c26f4ea872e98a8d3a7363aad4c",
-      "relation": "merged_scope",
-      "scope": "CAP:2/2 PSS migration behavior",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "ce319eaf8f7b1855d44162c704580001e00650d0"
-      }
-    },
-    {
-      "local_commit": "ce319eaf8f7b1855d44162c704580001e00650d0",
-      "source_id": "BC#60",
-      "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
-      "relation": "physical_merge_context",
-      "scope": "CAP:2/2 PSS migration behavior",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "ce319eaf8f7b1855d44162c704580001e00650d0"
-      }
-    },
-    {
-      "local_commit": "ce319eaf8f7b1855d44162c704580001e00650d0",
-      "source_id": "BC#61",
-      "source_commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6",
-      "relation": "physical_merge_context",
-      "scope": "CAP:2/2 PSS migration behavior",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "ce319eaf8f7b1855d44162c704580001e00650d0"
-      }
-    },
-    {
-      "local_commit": "0cdaf65d34fdc12c90f40beb2c6c6325e936e637",
-      "source_id": "AC#2",
-      "source_commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20",
-      "relation": "merged_scope",
-      "scope": "available face slot selection",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "0cdaf65d34fdc12c90f40beb2c6c6325e936e637"
-      }
-    },
-    {
-      "local_commit": "0cdaf65d34fdc12c90f40beb2c6c6325e936e637",
-      "source_id": "BC#3",
-      "source_commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6",
-      "relation": "merged_scope",
-      "scope": "available face slot selection",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "0cdaf65d34fdc12c90f40beb2c6c6325e936e637"
-      }
-    },
-    {
-      "local_commit": "0cdaf65d34fdc12c90f40beb2c6c6325e936e637",
-      "source_id": "BC#60",
-      "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
-      "relation": "physical_merge_context",
-      "scope": "available face slot selection",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "0cdaf65d34fdc12c90f40beb2c6c6325e936e637"
-      }
-    },
-    {
-      "local_commit": "16bacc3e8567a37e2336716000680d1cdb752ec6",
-      "source_id": "AC#4",
-      "source_commit": "0c090e6e760c94ae5fba13ce346c735a24df99e3",
-      "relation": "coverage_evidence",
-      "scope": "AC notification list contract already covered",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "16bacc3e8567a37e2336716000680d1cdb752ec6"
-      }
-    },
-    {
-      "local_commit": "16bacc3e8567a37e2336716000680d1cdb752ec6",
-      "source_id": "BC#3",
-      "source_commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6",
-      "relation": "related_basis",
-      "scope": "AC notification list contract already covered",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "16bacc3e8567a37e2336716000680d1cdb752ec6"
-      }
-    },
-    {
-      "local_commit": "16bacc3e8567a37e2336716000680d1cdb752ec6",
-      "source_id": "BC#62",
-      "source_commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f",
-      "relation": "physical_merge_context",
-      "scope": "AC notification list contract already covered",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "16bacc3e8567a37e2336716000680d1cdb752ec6"
-      }
-    },
-    {
-      "local_commit": "2a5aac94862495063e8c07e2b570bb9301b31e88",
-      "source_id": "AC#10",
-      "source_commit": "0f8c7c9dfceb407df8e8f49ea3d38edf57738943",
-      "relation": "coverage_evidence",
-      "scope": "HUB detection revert already covered",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "2a5aac94862495063e8c07e2b570bb9301b31e88"
-      }
-    },
-    {
-      "local_commit": "2a5aac94862495063e8c07e2b570bb9301b31e88",
-      "source_id": "BC#15",
-      "source_commit": "d161ecab8a886dde5f153763e0fb4874c56be083",
-      "relation": "related_basis",
-      "scope": "HUB detection revert already covered",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "2a5aac94862495063e8c07e2b570bb9301b31e88"
-      }
-    },
-    {
-      "local_commit": "8d91e1f8d4fbf23a353d58d9a645327cc89746ba",
-      "source_id": "AC#2",
-      "source_commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20",
-      "relation": "merged_scope",
-      "scope": "similarity image index type",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8d91e1f8d4fbf23a353d58d9a645327cc89746ba"
-      }
-    },
-    {
-      "local_commit": "8d91e1f8d4fbf23a353d58d9a645327cc89746ba",
-      "source_id": "BC#3",
-      "source_commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6",
-      "relation": "merged_scope",
-      "scope": "similarity image index type",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8d91e1f8d4fbf23a353d58d9a645327cc89746ba"
-      }
-    },
-    {
-      "local_commit": "8d91e1f8d4fbf23a353d58d9a645327cc89746ba",
-      "source_id": "BC#60",
-      "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
-      "relation": "physical_merge_context",
-      "scope": "similarity image index type",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8d91e1f8d4fbf23a353d58d9a645327cc89746ba"
-      }
-    },
-    {
-      "local_commit": "d75d15a3937aa8aee29ad2270dfc480304052047",
-      "source_id": "AC#14",
-      "source_commit": "de1da536532c73b82b23210e732aec72ee0efc04",
-      "relation": "coverage_evidence",
-      "scope": "原始 AC/BC 新增通知焦点在 bb3085b8 后已有覆盖；本地 d75d15a3 仅为文档核对，无生产代码修改",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "d75d15a3937aa8aee29ad2270dfc480304052047"
-      }
-    },
-    {
-      "local_commit": "d75d15a3937aa8aee29ad2270dfc480304052047",
-      "source_id": "BC#20",
-      "source_commit": "71c4e67b2a7634e48d7d312a93bc0289ba580d3b",
-      "relation": "coverage_evidence",
-      "scope": "原始 AC/BC 新增通知焦点在 bb3085b8 后已有覆盖；本地 d75d15a3 仅为文档核对，无生产代码修改",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "d75d15a3937aa8aee29ad2270dfc480304052047"
-      }
-    },
-    {
-      "local_commit": "d75d15a3937aa8aee29ad2270dfc480304052047",
-      "source_id": "BC#62",
-      "source_commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f",
-      "relation": "physical_merge_context",
-      "scope": "FDS add event setup",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "d75d15a3937aa8aee29ad2270dfc480304052047"
-      }
-    },
-    {
-      "local_commit": "cca13abc5726f930830e5126adc90d09f535c472",
-      "source_id": "BC#33",
-      "source_commit": "9aec74acb24a15a79d0bc0f67bb7aca395d78c0e",
-      "relation": "merged_scope",
-      "scope": "statistics directory cleanup guard",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "cca13abc5726f930830e5126adc90d09f535c472"
-      }
-    },
-    {
-      "local_commit": "cca13abc5726f930830e5126adc90d09f535c472",
-      "source_id": "BC#61",
-      "source_commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6",
-      "relation": "physical_merge_context",
-      "scope": "statistics directory cleanup guard",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "cca13abc5726f930830e5126adc90d09f535c472"
-      }
-    },
-    {
-      "local_commit": "6bbe61e3af0dc8297d60fbd043bdf1a331f28844",
-      "source_id": "BC#11",
-      "source_commit": "7b54cd2e9f4f1ecdbe467d8d57df7294d98b4c12",
-      "relation": "merged_scope",
-      "scope": "statistics variable initialization",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "6bbe61e3af0dc8297d60fbd043bdf1a331f28844"
-      }
-    },
-    {
-      "local_commit": "6bbe61e3af0dc8297d60fbd043bdf1a331f28844",
-      "source_id": "BC#61",
-      "source_commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6",
-      "relation": "physical_merge_context",
-      "scope": "statistics variable initialization",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "6bbe61e3af0dc8297d60fbd043bdf1a331f28844"
-      }
-    },
-    {
-      "local_commit": "a447f4c005e66b8f2f2f64f6d5e6ebeb9d8a5b3c",
-      "source_id": "BC#3",
-      "source_commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6",
-      "relation": "merged_scope",
-      "scope": "first appearance event guard",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "a447f4c005e66b8f2f2f64f6d5e6ebeb9d8a5b3c"
-      }
-    },
-    {
-      "local_commit": "a447f4c005e66b8f2f2f64f6d5e6ebeb9d8a5b3c",
-      "source_id": "BC#61",
-      "source_commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6",
-      "relation": "physical_merge_context",
-      "scope": "first appearance event guard",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "a447f4c005e66b8f2f2f64f6d5e6ebeb9d8a5b3c"
-      }
-    },
-    {
-      "local_commit": "0195ef985367828979729fb069cd26566e85088d",
-      "source_id": "BC#29",
-      "source_commit": "0cc155658dbd4c2850d31fdefb4420404c96ee0f",
-      "relation": "merged_scope",
-      "scope": "daily recycle timer units only",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "0195ef985367828979729fb069cd26566e85088d"
-      }
-    },
-    {
-      "local_commit": "0195ef985367828979729fb069cd26566e85088d",
-      "source_id": "BC#61",
-      "source_commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6",
-      "relation": "physical_merge_context",
-      "scope": "daily recycle timer units only",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "0195ef985367828979729fb069cd26566e85088d"
-      }
-    },
-    {
-      "local_commit": "b70533be0d869949f9ba01e59def082df1ca9549",
-      "source_id": "BC#40",
-      "source_commit": "d8eb1b19e29eacd3950dcfa550aba9564863593a",
-      "relation": "merged_scope",
-      "scope": "add-face mutex exit handling",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "b70533be0d869949f9ba01e59def082df1ca9549"
-      }
-    },
-    {
-      "local_commit": "b70533be0d869949f9ba01e59def082df1ca9549",
-      "source_id": "AC#2",
-      "source_commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20",
-      "relation": "related_basis",
-      "scope": "add-face mutex exit handling",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "b70533be0d869949f9ba01e59def082df1ca9549"
-      }
-    },
-    {
-      "local_commit": "b70533be0d869949f9ba01e59def082df1ca9549",
-      "source_id": "BC#62",
-      "source_commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f",
-      "relation": "physical_merge_context",
-      "scope": "add-face mutex exit handling",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "b70533be0d869949f9ba01e59def082df1ca9549"
-      }
-    },
-    {
-      "local_commit": "30e11c678fce6a73e41d6e62f42a7203332e8bdd",
-      "source_id": "BC#37",
-      "source_commit": "0bb585cbc73137e4e67680d37092d93f5055b182",
-      "relation": "merged_scope",
-      "scope": "invalid feature handling and temporary JPEG write",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "30e11c678fce6a73e41d6e62f42a7203332e8bdd"
-      }
-    },
-    {
-      "local_commit": "30e11c678fce6a73e41d6e62f42a7203332e8bdd",
-      "source_id": "AC#2",
-      "source_commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20",
-      "relation": "related_basis",
-      "scope": "invalid feature handling and temporary JPEG write",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "30e11c678fce6a73e41d6e62f42a7203332e8bdd"
-      }
-    },
-    {
-      "local_commit": "30e11c678fce6a73e41d6e62f42a7203332e8bdd",
-      "source_id": "BC#62",
-      "source_commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f",
-      "relation": "physical_merge_context",
-      "scope": "invalid feature handling and temporary JPEG write",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "30e11c678fce6a73e41d6e62f42a7203332e8bdd"
-      }
-    },
-    {
-      "local_commit": "1045aa3cffe8ee7765791758cd599499084bc82b",
-      "source_id": "BC#32",
-      "source_commit": "49cc1cd51e7fd157c88b98815d271040cd70b45b",
-      "relation": "merged_scope",
-      "scope": "conditional faceinfo migration writeback",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "1045aa3cffe8ee7765791758cd599499084bc82b"
-      }
-    },
-    {
-      "local_commit": "1045aa3cffe8ee7765791758cd599499084bc82b",
-      "source_id": "AC#2",
-      "source_commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20",
-      "relation": "related_basis",
-      "scope": "conditional faceinfo migration writeback",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "1045aa3cffe8ee7765791758cd599499084bc82b"
-      }
-    },
-    {
-      "local_commit": "1045aa3cffe8ee7765791758cd599499084bc82b",
-      "source_id": "BC#60",
-      "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
-      "relation": "physical_merge_context",
-      "scope": "conditional faceinfo migration writeback",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "1045aa3cffe8ee7765791758cd599499084bc82b"
-      }
-    },
-    {
-      "local_commit": "36120e630284898bf14214c1a6127fa2f0ba347b",
-      "source_id": "BC#58",
-      "source_commit": "b9ede40350c03b0fb404b0a6505722232ffd2c0b",
-      "relation": "merged_scope",
-      "scope": "persist deselected familiar notifications",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "36120e630284898bf14214c1a6127fa2f0ba347b"
-      }
-    },
-    {
-      "local_commit": "36120e630284898bf14214c1a6127fa2f0ba347b",
-      "source_id": "AC#2",
-      "source_commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20",
-      "relation": "related_basis",
-      "scope": "persist deselected familiar notifications",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "36120e630284898bf14214c1a6127fa2f0ba347b"
-      }
-    },
-    {
-      "local_commit": "36120e630284898bf14214c1a6127fa2f0ba347b",
-      "source_id": "BC#62",
-      "source_commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f",
-      "relation": "physical_merge_context",
-      "scope": "persist deselected familiar notifications",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "36120e630284898bf14214c1a6127fa2f0ba347b"
-      }
-    },
-    {
-      "local_commit": "8f905183c6e6bf9c99a7fdfdaefca3b779d983ab",
+      "local_commit": "0f9dad1bdb179a2f318486c953cc7369e44a9bd0",
       "source_id": "BC#8",
       "source_commit": "bceb7fbc8a32b40d7ec29ed88f9f61560b181f1c",
       "relation": "merged_scope",
-      "scope": "persist notification on stranger promotion",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8f905183c6e6bf9c99a7fdfdaefca3b779d983ab"
-      }
-    },
-    {
-      "local_commit": "8f905183c6e6bf9c99a7fdfdaefca3b779d983ab",
-      "source_id": "AC#4",
-      "source_commit": "0c090e6e760c94ae5fba13ce346c735a24df99e3",
-      "relation": "related_basis",
-      "scope": "persist notification on stranger promotion",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8f905183c6e6bf9c99a7fdfdaefca3b779d983ab"
-      }
-    },
-    {
-      "local_commit": "8f905183c6e6bf9c99a7fdfdaefca3b779d983ab",
-      "source_id": "BC#62",
-      "source_commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f",
-      "relation": "physical_merge_context",
-      "scope": "persist notification on stranger promotion",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8f905183c6e6bf9c99a7fdfdaefca3b779d983ab"
-      }
-    },
-    {
-      "local_commit": "e9b4d8b618d00bc170d3e3112db6306f6af23693",
-      "source_id": "AC#13",
-      "source_commit": "e69adae64faf5b6f1d77e897f054e7d81effe9dc",
-      "relation": "merged_scope",
-      "scope": "FDS event queue setup",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "e9b4d8b618d00bc170d3e3112db6306f6af23693"
-      }
-    },
-    {
-      "local_commit": "e9b4d8b618d00bc170d3e3112db6306f6af23693",
-      "source_id": "BC#19",
-      "source_commit": "99edff3d1aea0e4eb6724d5ddffb63dd6d2820ae",
-      "relation": "merged_scope",
-      "scope": "FDS event queue setup",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "e9b4d8b618d00bc170d3e3112db6306f6af23693"
-      }
-    },
-    {
-      "local_commit": "e9b4d8b618d00bc170d3e3112db6306f6af23693",
-      "source_id": "BC#61",
-      "source_commit": "f96c42168ed1262f07bb1afb6240645ad4e24ff6",
-      "relation": "physical_merge_context",
-      "scope": "FDS event queue setup",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "e9b4d8b618d00bc170d3e3112db6306f6af23693"
-      }
-    },
-    {
-      "local_commit": "93a9c44d1f86ca9a24efe48d312ff9e9d638fab6",
-      "source_id": "AC#7",
-      "source_commit": "34bee47fb3f416bfce4e17c0653280b98e18cd5b",
-      "relation": "merged_scope",
-      "scope": "ringbuffer event forwarding",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "93a9c44d1f86ca9a24efe48d312ff9e9d638fab6"
-      }
-    },
-    {
-      "local_commit": "93a9c44d1f86ca9a24efe48d312ff9e9d638fab6",
-      "source_id": "BC#3",
-      "source_commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6",
-      "relation": "merged_scope",
-      "scope": "ringbuffer event forwarding",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "93a9c44d1f86ca9a24efe48d312ff9e9d638fab6"
-      }
-    },
-    {
-      "local_commit": "93a9c44d1f86ca9a24efe48d312ff9e9d638fab6",
-      "source_id": "BC#62",
-      "source_commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f",
-      "relation": "physical_merge_context",
-      "scope": "ringbuffer event forwarding",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "93a9c44d1f86ca9a24efe48d312ff9e9d638fab6"
-      }
-    },
-    {
-      "local_commit": "49843f82752c7b527ead78f4d8b535dfa9341cb1",
-      "source_id": "AC#7",
-      "source_commit": "34bee47fb3f416bfce4e17c0653280b98e18cd5b",
-      "relation": "merged_scope",
-      "scope": "HUB AI configuration reload path",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "49843f82752c7b527ead78f4d8b535dfa9341cb1"
-      }
-    },
-    {
-      "local_commit": "49843f82752c7b527ead78f4d8b535dfa9341cb1",
-      "source_id": "BC#15",
-      "source_commit": "d161ecab8a886dde5f153763e0fb4874c56be083",
-      "relation": "merged_scope",
-      "scope": "HUB AI configuration reload path",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "49843f82752c7b527ead78f4d8b535dfa9341cb1"
-      }
-    },
-    {
-      "local_commit": "49843f82752c7b527ead78f4d8b535dfa9341cb1",
-      "source_id": "BC#62",
-      "source_commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f",
-      "relation": "physical_merge_context",
-      "scope": "HUB AI configuration reload path",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "49843f82752c7b527ead78f4d8b535dfa9341cb1"
-      }
-    },
-    {
-      "local_commit": "93c81979b6503fd51456ab5eb0951ee9e21213ba",
-      "source_id": "BC#36",
-      "source_commit": "6b0eefe8e1f3510c79d0800fb481cf90bb15c7aa",
-      "relation": "merged_scope",
-      "scope": "PSS figure count isolated from face image count",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "93c81979b6503fd51456ab5eb0951ee9e21213ba"
-      }
-    },
-    {
-      "local_commit": "93c81979b6503fd51456ab5eb0951ee9e21213ba",
-      "source_id": "BC#34",
-      "source_commit": "1403e6830e471144cf71112c23175731edee6025",
-      "relation": "related_basis",
-      "scope": "PSS figure count isolated from face image count",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "93c81979b6503fd51456ab5eb0951ee9e21213ba"
-      }
-    },
-    {
-      "local_commit": "93c81979b6503fd51456ab5eb0951ee9e21213ba",
-      "source_id": "BC#60",
-      "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
-      "relation": "physical_merge_context",
-      "scope": "PSS figure count isolated from face image count",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "93c81979b6503fd51456ab5eb0951ee9e21213ba"
-      }
-    },
-    {
-      "local_commit": "f65845d5dded061892a4dc4bf7490fb4d178c31a",
-      "source_id": "BC#41",
-      "source_commit": "7e7c0f156c2970259929cf60784af3631dcdc0b9",
-      "relation": "merged_scope",
-      "scope": "remove duplicate face image write",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "f65845d5dded061892a4dc4bf7490fb4d178c31a"
-      }
-    },
-    {
-      "local_commit": "f65845d5dded061892a4dc4bf7490fb4d178c31a",
-      "source_id": "AC#2",
-      "source_commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20",
-      "relation": "related_basis",
-      "scope": "remove duplicate face image write",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "f65845d5dded061892a4dc4bf7490fb4d178c31a"
-      }
-    },
-    {
-      "local_commit": "f65845d5dded061892a4dc4bf7490fb4d178c31a",
-      "source_id": "BC#62",
-      "source_commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f",
-      "relation": "physical_merge_context",
-      "scope": "remove duplicate face image write",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "f65845d5dded061892a4dc4bf7490fb4d178c31a"
-      }
-    },
-    {
-      "local_commit": "5f198fdcb575babd088c20225cd2ca828b9df2a5",
-      "source_id": "BC#39",
-      "source_commit": "be139db67a4bad56399516ccefd4c83018810add",
-      "relation": "merged_scope",
-      "scope": "optional debug JPEG path",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "5f198fdcb575babd088c20225cd2ca828b9df2a5"
-      }
-    },
-    {
-      "local_commit": "5f198fdcb575babd088c20225cd2ca828b9df2a5",
-      "source_id": "AC#2",
-      "source_commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20",
-      "relation": "related_basis",
-      "scope": "optional debug JPEG path",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "5f198fdcb575babd088c20225cd2ca828b9df2a5"
-      }
-    },
-    {
-      "local_commit": "5f198fdcb575babd088c20225cd2ca828b9df2a5",
-      "source_id": "BC#60",
-      "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
-      "relation": "physical_merge_context",
-      "scope": "optional debug JPEG path",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "5f198fdcb575babd088c20225cd2ca828b9df2a5"
-      }
-    },
-    {
-      "local_commit": "c5bf77dc4f1ca28b027ad0a7d068445be2818dbd",
-      "source_id": "AC#7",
-      "source_commit": "34bee47fb3f416bfce4e17c0653280b98e18cd5b",
-      "relation": "merged_scope",
-      "scope": "detection result pointer signature",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "c5bf77dc4f1ca28b027ad0a7d068445be2818dbd"
-      }
-    },
-    {
-      "local_commit": "c5bf77dc4f1ca28b027ad0a7d068445be2818dbd",
-      "source_id": "BC#3",
-      "source_commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6",
-      "relation": "related_basis",
-      "scope": "detection result pointer signature",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "c5bf77dc4f1ca28b027ad0a7d068445be2818dbd"
-      }
-    },
-    {
-      "local_commit": "c5bf77dc4f1ca28b027ad0a7d068445be2818dbd",
-      "source_id": "BC#62",
-      "source_commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f",
-      "relation": "physical_merge_context",
-      "scope": "detection result pointer signature",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "c5bf77dc4f1ca28b027ad0a7d068445be2818dbd"
-      }
-    },
-    {
-      "local_commit": "28ac256ce9ed3edb01b0f2197b5bc63ab5e09b69",
-      "source_id": "BC#18",
-      "source_commit": "cd9bc9160cd18b212a5c5de17b5255db8aa58381",
-      "relation": "deferred_scope",
-      "scope": "withdraw incomplete batch eleven subscopes",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "28ac256ce9ed3edb01b0f2197b5bc63ab5e09b69"
-      }
-    },
-    {
-      "local_commit": "28ac256ce9ed3edb01b0f2197b5bc63ab5e09b69",
-      "source_id": "BC#44",
-      "source_commit": "bb3848b5598b600095f3665859111b6d59f7b9b6",
-      "relation": "deferred_scope",
-      "scope": "withdraw incomplete batch eleven subscopes",
-      "evidence": {
-        "kind": "batch_record",
-        "detail": "docs/face_snapshot_converge_1010/batch11.md"
-      }
-    },
-    {
-      "local_commit": "28ac256ce9ed3edb01b0f2197b5bc63ab5e09b69",
-      "source_id": "BC#5",
-      "source_commit": "7a5ee0dfba0152e57e4f89dc6865a2ad1a608bde",
-      "relation": "deferred_scope",
-      "scope": "withdraw incomplete batch eleven subscopes",
-      "evidence": {
-        "kind": "batch_record",
-        "detail": "docs/face_snapshot_converge_1010/batch11.md"
-      }
-    },
-    {
-      "local_commit": "28ac256ce9ed3edb01b0f2197b5bc63ab5e09b69",
-      "source_id": "AC#2",
-      "source_commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20",
-      "relation": "related_basis",
-      "scope": "withdraw incomplete batch eleven subscopes",
-      "evidence": {
-        "kind": "batch_record",
-        "detail": "docs/face_snapshot_converge_1010/batch11.md"
-      }
-    },
-    {
-      "local_commit": "28ac256ce9ed3edb01b0f2197b5bc63ab5e09b69",
-      "source_id": "BC#3",
-      "source_commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6",
-      "relation": "related_basis",
-      "scope": "withdraw incomplete batch eleven subscopes",
-      "evidence": {
-        "kind": "batch_record",
-        "detail": "docs/face_snapshot_converge_1010/batch11.md"
-      }
-    },
-    {
-      "local_commit": "48ecd95e23d63b96a36e2dcd059e5da8fffab943",
-      "source_id": "AC#7",
-      "source_commit": "34bee47fb3f416bfce4e17c0653280b98e18cd5b",
-      "relation": "merged_scope",
-      "scope": "PSS input validation flow",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "48ecd95e23d63b96a36e2dcd059e5da8fffab943"
-      }
-    },
-    {
-      "local_commit": "48ecd95e23d63b96a36e2dcd059e5da8fffab943",
-      "source_id": "BC#34",
-      "source_commit": "1403e6830e471144cf71112c23175731edee6025",
-      "relation": "merged_scope",
-      "scope": "PSS input validation flow",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "48ecd95e23d63b96a36e2dcd059e5da8fffab943"
-      }
-    },
-    {
-      "local_commit": "48ecd95e23d63b96a36e2dcd059e5da8fffab943",
-      "source_id": "BC#62",
-      "source_commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f",
-      "relation": "physical_merge_context",
-      "scope": "PSS input validation flow",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "48ecd95e23d63b96a36e2dcd059e5da8fffab943"
-      }
-    },
-    {
-      "local_commit": "04958142203eda1d5084cd72a046cbf88e620ae5",
-      "source_id": "AC#7",
-      "source_commit": "34bee47fb3f416bfce4e17c0653280b98e18cd5b",
-      "relation": "merged_scope",
-      "scope": "HUB configuration state declarations",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "04958142203eda1d5084cd72a046cbf88e620ae5"
-      }
-    },
-    {
-      "local_commit": "04958142203eda1d5084cd72a046cbf88e620ae5",
-      "source_id": "BC#19",
-      "source_commit": "99edff3d1aea0e4eb6724d5ddffb63dd6d2820ae",
-      "relation": "merged_scope",
-      "scope": "HUB configuration state declarations",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "04958142203eda1d5084cd72a046cbf88e620ae5"
-      }
-    },
-    {
-      "local_commit": "04958142203eda1d5084cd72a046cbf88e620ae5",
-      "source_id": "BC#3",
-      "source_commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6",
-      "relation": "related_basis",
-      "scope": "HUB configuration state declarations",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "04958142203eda1d5084cd72a046cbf88e620ae5"
-      }
-    },
-    {
-      "local_commit": "04958142203eda1d5084cd72a046cbf88e620ae5",
-      "source_id": "BC#62",
-      "source_commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f",
-      "relation": "physical_merge_context",
-      "scope": "HUB configuration state declarations",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "04958142203eda1d5084cd72a046cbf88e620ae5"
-      }
-    },
-    {
-      "local_commit": "8b77f26f8b6f21ef632031c9a3188bfdf4c0da7b",
-      "source_id": "BC#64",
-      "source_commit": "1c851e9523057d6166204f99e78859a994527e2b",
-      "relation": "merged_scope",
-      "scope": "empty product macro guards only",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8b77f26f8b6f21ef632031c9a3188bfdf4c0da7b"
-      }
-    },
-    {
-      "local_commit": "8b77f26f8b6f21ef632031c9a3188bfdf4c0da7b",
-      "source_id": "AC#7",
-      "source_commit": "34bee47fb3f416bfce4e17c0653280b98e18cd5b",
-      "relation": "related_basis",
-      "scope": "empty product macro guards only",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8b77f26f8b6f21ef632031c9a3188bfdf4c0da7b"
-      }
-    },
-    {
-      "local_commit": "8b77f26f8b6f21ef632031c9a3188bfdf4c0da7b",
-      "source_id": "BC#62",
-      "source_commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f",
-      "relation": "physical_merge_context",
-      "scope": "empty product macro guards only",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "8b77f26f8b6f21ef632031c9a3188bfdf4c0da7b"
-      }
-    },
-    {
-      "local_commit": "e842d3659a2ed8fa434a388b191fd60656358095",
-      "source_id": "BC#42",
-      "source_commit": "08fd905b3a589373d76af5d46a5fd854a316d7c3",
-      "relation": "deferred_scope",
-      "scope": "defer BC usr_record mount series",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "e842d3659a2ed8fa434a388b191fd60656358095",
-        "detail": "docs/face_snapshot_converge_1010/batch13.md"
-      }
-    },
-    {
-      "local_commit": "e842d3659a2ed8fa434a388b191fd60656358095",
-      "source_id": "AC#7",
-      "source_commit": "34bee47fb3f416bfce4e17c0653280b98e18cd5b",
-      "relation": "related_basis",
-      "scope": "defer BC usr_record mount series",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "e842d3659a2ed8fa434a388b191fd60656358095",
-        "detail": "docs/face_snapshot_converge_1010/batch13.md"
-      }
-    },
-    {
-      "local_commit": "e842d3659a2ed8fa434a388b191fd60656358095",
-      "source_id": "BC#60",
-      "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
-      "relation": "physical_merge_context",
-      "scope": "defer BC usr_record mount series",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "e842d3659a2ed8fa434a388b191fd60656358095",
-        "detail": "docs/face_snapshot_converge_1010/batch13.md"
-      }
-    },
-    {
-      "local_commit": "09e71436a6afbf5b3356266b9031f0280d28e6ca",
-      "source_id": "AC#2",
-      "source_commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20",
-      "relation": "merged_scope",
-      "scope": "face name length declaration",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "09e71436a6afbf5b3356266b9031f0280d28e6ca"
-      }
-    },
-    {
-      "local_commit": "09e71436a6afbf5b3356266b9031f0280d28e6ca",
-      "source_id": "BC#3",
-      "source_commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6",
-      "relation": "merged_scope",
-      "scope": "face name length declaration",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "09e71436a6afbf5b3356266b9031f0280d28e6ca"
-      }
-    },
-    {
-      "local_commit": "09e71436a6afbf5b3356266b9031f0280d28e6ca",
-      "source_id": "BC#60",
-      "source_commit": "be46f65124e1a38b0538e0a1096c8846e80feff3",
-      "relation": "physical_merge_context",
-      "scope": "face name length declaration",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "09e71436a6afbf5b3356266b9031f0280d28e6ca"
-      }
-    },
-    {
-      "local_commit": "2fa01fdf1201934322ae0c332100d6ed6a5d117e",
-      "source_id": "AC#2",
-      "source_commit": "98a66a726bd8182d1b2e84347eae5c4dc4472d20",
-      "relation": "merged_scope",
-      "scope": "same-face match diagnostic",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "2fa01fdf1201934322ae0c332100d6ed6a5d117e"
-      }
-    },
-    {
-      "local_commit": "2fa01fdf1201934322ae0c332100d6ed6a5d117e",
-      "source_id": "BC#3",
-      "source_commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6",
-      "relation": "merged_scope",
-      "scope": "same-face match diagnostic",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "2fa01fdf1201934322ae0c332100d6ed6a5d117e"
-      }
-    },
-    {
-      "local_commit": "2fa01fdf1201934322ae0c332100d6ed6a5d117e",
-      "source_id": "BC#62",
-      "source_commit": "bb3085b88fbccd3b515d2ee7859417e807b7180f",
-      "relation": "physical_merge_context",
-      "scope": "same-face match diagnostic",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "2fa01fdf1201934322ae0c332100d6ed6a5d117e"
-      }
-    },
-    {
-      "local_commit": "ccc22dcb7f3cd1f5042a5048f4082cfd235fb097",
-      "source_id": "BC#10",
-      "source_commit": "fcda83d10c63d9ee7a64d7fd6f487eb692d146e7",
-      "relation": "deferred_scope",
-      "scope": "BC battery IoT monthly/weekly statistics (2/4)",
-      "evidence": {
-        "kind": "cap_commit_message",
-        "commit": "ccc22dcb7f3cd1f5042a5048f4082cfd235fb097"
-      }
-    },
-    {
-      "local_commit": "89b1621106b49a13ba27cfd8da8dd0a4aa13cd23",
-      "source_id": "AC#8",
-      "source_commit": "747e518a37f12c26f4ea872e98a8d3a7363aad4c",
-      "relation": "related_basis",
-      "scope": "PSS repair fixture follows updated BC active-file path while retaining the AC CAP:2/2 migration test",
+      "scope": "源码修复范围：[all] face_snapshot: keep msgpush when unfamilar people change to familar",
       "evidence": {
         "kind": "review_record",
         "files": [
-          "tests/face_snapshot/pss_repair_case.c",
-          "tests/face_snapshot/verify_batch1.py"
+          "src/modules/face_snapshot/face_control.c"
         ]
       }
     },
     {
-      "local_commit": "8f8fea6bb525bf3533b1e126e0c795f616f16b7d",
+      "local_commit": "0f9dad1bdb179a2f318486c953cc7369e44a9bd0",
+      "source_id": "BC#11",
+      "source_commit": "7b54cd2e9f4f1ecdbe467d8d57df7294d98b4c12",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[all] face_snapshot: Fix compilation warnings",
+      "evidence": {
+        "kind": "review_record",
+        "files": [
+          "src/modules/face_snapshot/face_control.c"
+        ]
+      }
+    },
+    {
+      "local_commit": "0f9dad1bdb179a2f318486c953cc7369e44a9bd0",
+      "source_id": "BC#33",
+      "source_commit": "9aec74acb24a15a79d0bc0f67bb7aca395d78c0e",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[ALL] SAST: Fix sprintf, add field width specifier to fscanf(), and check rturn value of chdir()",
+      "evidence": {
+        "kind": "review_record",
+        "files": [
+          "src/modules/face_snapshot/face_control.c"
+        ]
+      }
+    },
+    {
+      "local_commit": "0f9dad1bdb179a2f318486c953cc7369e44a9bd0",
+      "source_id": "BC#37",
+      "source_commit": "0bb585cbc73137e4e67680d37092d93f5055b182",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[all] cap: The failure to update the feature values of the face image through the algorithm interface leads to the generation of incorrect feature values in database, inducing high-frequency false recognization",
+      "evidence": {
+        "kind": "review_record",
+        "files": [
+          "src/modules/face_snapshot/face_control.c"
+        ]
+      }
+    },
+    {
+      "local_commit": "0f9dad1bdb179a2f318486c953cc7369e44a9bd0",
+      "source_id": "BC#54",
+      "source_commit": "80f2e265321dd11e085d7b8dfdeec64d70c351a8",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[all] face_snapshot: malloc correct image size for face image",
+      "evidence": {
+        "kind": "review_record",
+        "files": [
+          "src/modules/face_snapshot/face_control.c"
+        ]
+      }
+    },
+    {
+      "local_commit": "0f9dad1bdb179a2f318486c953cc7369e44a9bd0",
+      "source_id": "BC#55",
+      "source_commit": "1186c1861d4eadc7a933b85c688130213c933d16",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[All] cap/fss: fix crash during app get snapshot that size larger than max_img_len",
+      "evidence": {
+        "kind": "review_record",
+        "files": [
+          "src/modules/face_snapshot/face_control.c"
+        ]
+      }
+    },
+    {
+      "local_commit": "0f9dad1bdb179a2f318486c953cc7369e44a9bd0",
+      "source_id": "BC#58",
+      "source_commit": "b9ede40350c03b0fb404b0a6505722232ffd2c0b",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[fss] face_control: Save unselected familiar face detection notify list",
+      "evidence": {
+        "kind": "review_record",
+        "files": [
+          "src/modules/face_snapshot/face_control.c"
+        ]
+      }
+    },
+    {
+      "local_commit": "00dbf08f04b93436e9e6930a185f10d28b72febc",
       "source_id": "BC#31",
       "source_commit": "63f6159460300afafb0a3feac3279c116d855daf",
       "relation": "merged_scope",
-      "scope": "Expose existing l_face_info_lock declaration to both product profiles after shared lock calls",
+      "scope": "源码修复范围：[ALL] Add a synchronization access mechanism for active face info and inactive face info files",
+      "evidence": {
+        "kind": "review_record",
+        "files": [
+          "src/modules/face_snapshot/face_storage.c"
+        ]
+      }
+    },
+    {
+      "local_commit": "51eed3eac07649a4d35241d5f253ca6dc4e64356",
+      "source_id": "BC#4",
+      "source_commit": "3d14c077baee267afc2ee45a4a52ac0720bc888b",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[all]cap:read ams config for fss threshold set(1/2)",
+      "evidence": {
+        "kind": "review_record",
+        "files": [
+          "src/modules/face_snapshot/face_control.c"
+        ]
+      }
+    },
+    {
+      "local_commit": "51eed3eac07649a4d35241d5f253ca6dc4e64356",
+      "source_id": "BC#39",
+      "source_commit": "be139db67a4bad56399516ccefd4c83018810add",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[ALL] cap: delete redundant code",
+      "evidence": {
+        "kind": "review_record",
+        "files": [
+          "src/modules/face_snapshot/face_control.c"
+        ]
+      }
+    },
+    {
+      "local_commit": "51eed3eac07649a4d35241d5f253ca6dc4e64356",
+      "source_id": "BC#40",
+      "source_commit": "d8eb1b19e29eacd3950dcfa550aba9564863593a",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[ALL] Correct the logical errors in the function fd_control_udsd_usr_add_face",
+      "evidence": {
+        "kind": "review_record",
+        "files": [
+          "src/modules/face_snapshot/face_control.c"
+        ]
+      }
+    },
+    {
+      "local_commit": "51eed3eac07649a4d35241d5f253ca6dc4e64356",
+      "source_id": "BC#41",
+      "source_commit": "7e7c0f156c2970259929cf60784af3631dcdc0b9",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[ALL]cap: delete redundant code",
+      "evidence": {
+        "kind": "review_record",
+        "files": [
+          "src/modules/face_snapshot/face_control.c"
+        ]
+      }
+    },
+    {
+      "local_commit": "d14bff1d06dbc4e04aeabc19dd9ac749e3dec7a6",
+      "source_id": "BC#32",
+      "source_commit": "49cc1cd51e7fd157c88b98815d271040cd70b45b",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[ALL] Reduce the unnecessary operations of writing the face info file",
+      "evidence": {
+        "kind": "review_record",
+        "files": [
+          "src/modules/face_snapshot/face_storage.c"
+        ]
+      }
+    },
+    {
+      "local_commit": "e25cab51d54120cbd1ea2aeb82081d08b4afa1b1",
+      "source_id": "BC#24",
+      "source_commit": "ea1f1e58e27219d43e466ec8c5c06d2e9006d6bc",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[all] fss | face_feature: add fss adapt iqa_thresh (2/2)",
       "evidence": {
         "kind": "cap_commit_message",
-        "commit": "8f8fea6bb525bf3533b1e126e0c795f616f16b7d"
+        "commit": "e25cab51d54120cbd1ea2aeb82081d08b4afa1b1"
+      }
+    },
+    {
+      "local_commit": "5d5021c92cfdc4848c509f5d807fb2c5e4e4af31",
+      "source_id": "BC#5",
+      "source_commit": "7a5ee0dfba0152e57e4f89dc6865a2ad1a608bde",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[all] fss|face_snapshot: Add support for finding best match function interface(2/2)",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "5d5021c92cfdc4848c509f5d807fb2c5e4e4af31"
+      }
+    },
+    {
+      "local_commit": "5d5021c92cfdc4848c509f5d807fb2c5e4e4af31",
+      "source_id": "BC#26",
+      "source_commit": "bad5f512f868b751170c565d1abd90bf5cde1b62",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[all] cap|face_snapshot: feature matching func is valid for familar",
+      "evidence": {
+        "kind": "review_record",
+        "files": [
+          "src/modules/face_snapshot/face_control.c"
+        ]
+      }
+    },
+    {
+      "local_commit": "4cd98640145cbe37e243d23b1c5942ed0f6fa12b",
+      "source_id": "BC#28",
+      "source_commit": "8afda7b47cc26866765f0cd081f65a428a1a6da3",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[FSS] Add filter conditions for size score(2/2)",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "4cd98640145cbe37e243d23b1c5942ed0f6fa12b"
+      }
+    },
+    {
+      "local_commit": "a15015b9dc669e84baf200f8b5c24a0649f74c45",
+      "source_id": "BC#18",
+      "source_commit": "cd9bc9160cd18b212a5c5de17b5255db8aa58381",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[All] cap/fss: use callback to attach ringbuffer instead of timer retry (2/2)",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "a15015b9dc669e84baf200f8b5c24a0649f74c45"
+      }
+    },
+    {
+      "local_commit": "92a6be808efda6367059e27f43ad47c6abfb2c24",
+      "source_id": "BC#7",
+      "source_commit": "b49a124e00f5f79db64923bb3ad6d164068b0879",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[all] face_snapshot: prioritize adding familiar face,when the same person is in both group",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "92a6be808efda6367059e27f43ad47c6abfb2c24"
+      }
+    },
+    {
+      "local_commit": "d37eeda61e9672dfeeab73b73e5d9793a0fe3121",
+      "source_id": "BC#6",
+      "source_commit": "26843acc363708ee4975ef04a9b87b23215a60ec",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[all]cap:save face data before AOV",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "d37eeda61e9672dfeeab73b73e5d9793a0fe3121"
+      }
+    },
+    {
+      "local_commit": "780ee1d0d178cdd91271577d182b6229cf5dbeb1",
+      "source_id": "BC#22",
+      "source_commit": "95abd9522ccadcc3f6250f159213a2bd73e74ad5",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[all]face_snapshot: save face index when the face keeps appearing in front of the camera before power down(2/2)",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "780ee1d0d178cdd91271577d182b6229cf5dbeb1"
+      }
+    },
+    {
+      "local_commit": "d005a342ed02f2f7448ccfc3d3d43b6791c49c63",
+      "source_id": "BC#29",
+      "source_commit": "0cc155658dbd4c2850d31fdefb4420404c96ee0f",
+      "relation": "merged_scope",
+      "scope": "整笔源码范围待评审：[all]face_snapshot:fix dead lock and timeout time",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "d005a342ed02f2f7448ccfc3d3d43b6791c49c63"
+      }
+    },
+    {
+      "local_commit": "eb00d67a01c29e110dd482e00178019175a6d031",
+      "source_id": "BC#10",
+      "source_commit": "fcda83d10c63d9ee7a64d7fd6f487eb692d146e7",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[all] face_snapshot: IoT Wi-Fi Monthly/Weekly FD Statistics (2/4)",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "eb00d67a01c29e110dd482e00178019175a6d031"
+      }
+    },
+    {
+      "local_commit": "e1bc3ff43f161ae00414406770fd800ce8ed6c88",
+      "source_id": "BC#12",
+      "source_commit": "e61493059dff8202b1d4f8ecd2523aa0b21079a4",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[ALL] fix compilation error",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "e1bc3ff43f161ae00414406770fd800ce8ed6c88"
+      }
+    },
+    {
+      "local_commit": "2967b29356e52993ead66738dbacc692dfc89b3a",
+      "source_id": "BC#14",
+      "source_commit": "285018e33f5d633df02e7d24621432b0e78b0af4",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[all]face snapshot: fix face utc time incorrect problem",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "2967b29356e52993ead66738dbacc692dfc89b3a"
+      }
+    },
+    {
+      "local_commit": "2967b29356e52993ead66738dbacc692dfc89b3a",
+      "source_id": "BC#16",
+      "source_commit": "96438c16882e200327e93e317dc4d4451ba36667",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[all] face_snapshot: Fix Incorrect Face Result Timestamp",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "2967b29356e52993ead66738dbacc692dfc89b3a"
+      }
+    },
+    {
+      "local_commit": "876754e4f9f9379d93d219a5558b25499925ffc1",
+      "source_id": "BC#35",
+      "source_commit": "caab424ca6830e1250f42ebf36686eba8c9ef0fd",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[All] cap/pss: reduce max person_num and max person snapshot size",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "876754e4f9f9379d93d219a5558b25499925ffc1"
+      }
+    },
+    {
+      "local_commit": "ba6da3231224ec9b2d8456e35c228296110a0668",
+      "source_id": "BC#37",
+      "source_commit": "0bb585cbc73137e4e67680d37092d93f5055b182",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[all] cap: The failure to update the feature values of the face image through the algorithm interface leads to the generation of incorrect feature values in database, inducing high-frequency false recognization",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "ba6da3231224ec9b2d8456e35c228296110a0668"
+      }
+    },
+    {
+      "local_commit": "06ad886d930e90b75a278dbabf437b4feb14d10a",
+      "source_id": "BC#3",
+      "source_commit": "450a0bbeeca02def4872e72949adcb95d33fa3b6",
+      "relation": "merged_scope",
+      "scope": "整笔源码范围待评审：[all]cap:add face detect base function(2/2)",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "06ad886d930e90b75a278dbabf437b4feb14d10a"
+      }
+    },
+    {
+      "local_commit": "404d583244405fcf09ed1b0473a810f0b253eb3d",
+      "source_id": "BC#42",
+      "source_commit": "08fd905b3a589373d76af5d46a5fd854a316d7c3",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[all] fss: fixed face data lost (1/2)",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "404d583244405fcf09ed1b0473a810f0b253eb3d"
+      }
+    },
+    {
+      "local_commit": "b5973b68fb93fff5bb1ef0b6ccec8a7c9ac026b2",
+      "source_id": "BC#51",
+      "source_commit": "b8e8a80294fc5f063c82dffb2f4d4620f4e5baeb",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[cap] en_pkgd: add macro control for local package history maintainance logic",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "b5973b68fb93fff5bb1ef0b6ccec8a7c9ac026b2"
+      }
+    },
+    {
+      "local_commit": "fe2b6991bda45f3262e684cfcdc81fdc12623b0e",
+      "source_id": "BC#25",
+      "source_commit": "0bb947224bc08bdfc400aaa353d437f29e573e64",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[FSS] Recalculate face features when face recognition model is updated (2/3)",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "fe2b6991bda45f3262e684cfcdc81fdc12623b0e"
+      }
+    },
+    {
+      "local_commit": "1fe8c3eb04ec8c55ca178942a4e59beaf8cae0b7",
+      "source_id": "BC#15",
+      "source_commit": "d161ecab8a886dde5f153763e0fb4874c56be083",
+      "relation": "merged_scope",
+      "scope": "整笔源码范围待评审：[all]face_snapshot|hub:add hub support and skip tapocare msgpush when face is detected(2/2)",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "1fe8c3eb04ec8c55ca178942a4e59beaf8cae0b7"
+      }
+    },
+    {
+      "local_commit": "57f773bf4fbf3733deb66c069b8377b8baea52dd",
+      "source_id": "BC#17",
+      "source_commit": "645eb8f0acaafdb55b06f81b0c0801191432b3db",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[all]face snapshot:face detect msg push when upto push threshold(1/2)",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "57f773bf4fbf3733deb66c069b8377b8baea52dd"
+      }
+    },
+    {
+      "local_commit": "f8cae5d3814959afe76a85312b8869c24a8e5112",
+      "source_id": "BC#38",
+      "source_commit": "1a03e63298ff39ec1b1890dce4999fea31322b10",
+      "relation": "merged_scope",
+      "scope": "整笔源码范围待评审：[all] face_control: Support doFaceInfoAddPacketized API (1/2)",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "f8cae5d3814959afe76a85312b8869c24a8e5112"
+      }
+    },
+    {
+      "local_commit": "f8cae5d3814959afe76a85312b8869c24a8e5112",
+      "source_id": "BC#63",
+      "source_commit": "13f832c751368d15618ae7d9209634f6657d7429",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[CAP] face_control: fix compile error",
+      "evidence": {
+        "kind": "review_record",
+        "files": [
+          "src/modules/face_snapshot/face_control.c"
+        ]
+      }
+    },
+    {
+      "local_commit": "72d2316c742f775ce3852b9ad973d98156248e6d",
+      "source_id": "BC#34",
+      "source_commit": "1403e6830e471144cf71112c23175731edee6025",
+      "relation": "merged_scope",
+      "scope": "整笔源码范围待评审：[all] cap/fss: support pss (2/2)",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "72d2316c742f775ce3852b9ad973d98156248e6d"
+      }
+    },
+    {
+      "local_commit": "3af682547618d37a5a21e1610d6d532c7bcad43f",
+      "source_id": "BC#44",
+      "source_commit": "bb3848b5598b600095f3665859111b6d59f7b9b6",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[ALL] face_snapshot: add scene-aware real-time feature update for familiar faces",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "3af682547618d37a5a21e1610d6d532c7bcad43f"
+      }
+    },
+    {
+      "local_commit": "4becda9ead63455254d97c665e6f2ce898ba8cd2",
+      "source_id": "BC#47",
+      "source_commit": "7012ac55e8970c87146e8e5f740454d2c4d84350",
+      "relation": "merged_scope",
+      "scope": "整笔源码范围待评审：[all]cap: support enhanced package detection [2/5]",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "4becda9ead63455254d97c665e6f2ce898ba8cd2"
+      }
+    },
+    {
+      "local_commit": "3cbed9cb411e12415830e9bd797fede78e6e2117",
+      "source_id": "BC#50",
+      "source_commit": "6bf25ceb87ec8e0967db1f54f6802149f3e38d79",
+      "relation": "merged_scope",
+      "scope": "整笔源码范围待评审：[cap] en_pkgd|face_snapshot: update package history when face detected (1/2)",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "3cbed9cb411e12415830e9bd797fede78e6e2117"
+      }
+    },
+    {
+      "local_commit": "14fce986881fca63024c386f13a70ef8092ebfbf",
+      "source_id": "BC#59",
+      "source_commit": "48e74a2785dc75597636ea35f1e8e7d180036d5c",
+      "relation": "merged_scope",
+      "scope": "源码修复范围：[all] face_control: include HUB fields for familiar and unfamiliar recongition events",
+      "evidence": {
+        "kind": "cap_commit_message",
+        "commit": "14fce986881fca63024c386f13a70ef8092ebfbf"
       }
     }
   ],
-  "unindexed_references": [
-    {
-      "local_commit": "64da2a34c2ea2c778be46d369083e5e285180e0e",
-      "repo": "CAP",
-      "commit": "6fa54768b37d3003be395bf446577169f35af0c3",
-      "role": "same-reason AC commit cited by local log; outside the 95 focus-node index"
-    },
-    {
-      "local_commit": "28ac256ce9ed3edb01b0f2197b5bc63ab5e09b69",
-      "repo": "NVMP libutils",
-      "commit": "54df1282ddb8342c3f78c982553be946e525423d",
-      "role": "ringbuffer callback dependency; deferred"
-    },
-    {
-      "local_commit": "e842d3659a2ed8fa434a388b191fd60656358095",
-      "repo": "NVMP libutils",
-      "commit": "caa29a0f9475ef50cca472370a72dbfde2564025",
-      "role": "usr_record mount interface dependency; deferred"
-    },
-    {
-      "local_commit": "8f8fea6bb525bf3533b1e126e0c795f616f16b7d",
-      "repo": "CAP",
-      "commit": "6fa54768b37d3003be395bf446577169f35af0c3",
-      "role": "same-reason source commit cited by local log; outside the 95 focus-node index"
-    }
-  ],
+  "unindexed_references": [],
   "unlinked_source_ids": [
+    "AC#1",
+    "AC#2",
+    "AC#3",
+    "AC#4",
     "AC#5",
     "AC#6",
+    "AC#7",
+    "AC#8",
     "AC#9",
+    "AC#10",
     "AC#11",
+    "AC#12",
+    "AC#13",
+    "AC#14",
     "AC#15",
+    "AC#16",
     "AC#17",
     "AC#18",
+    "AC#19",
+    "AC#20",
     "AC#21",
     "AC#22",
     "AC#23",
     "AC#24",
+    "AC#25",
     "AC#26",
     "AC#27",
     "AC#28",
     "AC#29",
+    "AC#30",
+    "BC#1",
     "BC#2",
-    "BC#4",
-    "BC#6",
-    "BC#7",
-    "BC#12",
+    "BC#9",
     "BC#13",
-    "BC#14",
-    "BC#16",
-    "BC#17",
+    "BC#19",
+    "BC#20",
     "BC#21",
-    "BC#22",
-    "BC#24",
-    "BC#25",
-    "BC#26",
+    "BC#23",
     "BC#27",
-    "BC#28",
-    "BC#35",
-    "BC#38",
+    "BC#30",
+    "BC#36",
     "BC#43",
     "BC#45",
-    "BC#47",
+    "BC#46",
     "BC#48",
     "BC#49",
-    "BC#50",
-    "BC#51",
     "BC#52",
     "BC#53",
     "BC#56",
     "BC#57",
-    "BC#59",
-    "BC#63",
+    "BC#60",
+    "BC#61",
+    "BC#62",
+    "BC#64",
     "BC#65"
   ],
-  "unlinked_meaning": "本地 47 笔提交及其批次记录中没有可证实的直接映射边；不等于该来源缺功能、必须合入，或状态为未处理。"
+  "unlinked_meaning": "当前 29 笔 CAP face_snapshot 本地提交未与这些来源建立可验证的直接修复关系；不等于功能缺失或必须合入。"
 }

@@ -28,25 +28,26 @@ PKG_REL = "http://schemas.openxmlformats.org/package/2006/relationships"
 CONTENT_TYPES = "http://schemas.openxmlformats.org/package/2006/content-types"
 XML = "http://www.w3.org/XML/1998/namespace"
 
-# YAML 中用不同键保存原表两个同名的“备注”列；XLSX 恢复原表表头。
+# 与 face_snapshot-new/差异情况概览.2.0.xlsx 的前 15 列保持一致。
 COLUMNS = (
     ("序号", "序号", 9),
+    ("合入时间", "合入时间", 15),
     ("commit-id", "commit-id", 16),
     ("标题", "标题", 75),
-    ("状态", "状态", 25),
-    ("备注", "状态备注", 80),
-    ("处理情况", "处理情况", 40),
-    ("备注", "处理备注", 80),
-    ("已确认", "已确认", 12),
-    ("完整性", "完整性", 15),
-    ("与人工备注一致", "与人工备注一致", 20),
-    ("人工备注来源", "人工备注来源", 100),
-    ("其他", "其他", 100),
-    ("合入时间", "合入时间", 15),
+    ("类型", "类型", 28),
     ("Change-Id", "Change-Id", 48),
+    ("备注", "备注", 100),
+    ("是否需要评审", "是否需要评审", 18),
+    ("是否需要处理", "是否需要处理", 18),
+    ("是否已做修复提交", "是否已做修复提交", 20),
+    ("修复提交是否已合入", "修复提交是否已合入", 22),
+    ("修复提交标题", "修复提交标题", 75),
+    ("修复提交commit id", "修复提交commit id", 46),
+    ("修复提交change id", "修复提交change id", 48),
+    ("修复提交链接", "修复提交链接", 65),
 )
-CONFIRMED_INDEX = next(index for index, (_, key, _) in enumerate(COLUMNS) if key == "已确认")
-NUMERIC_KEYS = {"序号", "已确认"}
+REVIEW_INDEX = next(index for index, (_, key, _) in enumerate(COLUMNS) if key == "是否需要评审")
+NUMERIC_KEYS = {"序号", "是否需要评审", "是否需要处理", "是否已做修复提交", "修复提交是否已合入"}
 INVALID_XML = re.compile("[\x00-\x08\x0b\x0c\x0e-\x1f\ufffe\uffff]")
 
 
@@ -92,11 +93,8 @@ def read_rows(path):
         if missing:
             raise ValueError(f"第 {number} 条缺少字段：{', '.join(missing)}")
         sequence = item["序号"]
-        confirmed = item["已确认"]
         if isinstance(sequence, bool) or not isinstance(sequence, int) or sequence < 1:
             raise ValueError(f"第 {number} 条的序号必须是正整数")
-        if type(confirmed) is not int or confirmed not in (0, 1):
-            raise ValueError(f"第 {number} 条的已确认必须是整数 0 或 1")
         rows.append([item[key] for _, key, _ in COLUMNS])
     if len({row[0] for row in rows}) != len(rows):
         raise ValueError("序号不能重复")
@@ -107,7 +105,7 @@ def add_cell(row_element, column_number, row_number, value, style=0):
     cell = ET.SubElement(row_element, tag(MAIN, "c"), {
         "r": cell_ref(column_number, row_number), "s": str(style),
     })
-    if COLUMNS[column_number - 1][1] in NUMERIC_KEYS and row_number > 1:
+    if COLUMNS[column_number - 1][1] in NUMERIC_KEYS and row_number > 1 and type(value) is int:
         ET.SubElement(cell, tag(MAIN, "v")).text = str(value)
         return
     cell.set("t", "inlineStr")
@@ -138,7 +136,7 @@ def worksheet(rows):
         add_cell(header, column_number, 1, name, style=1)
     for row_number, values in enumerate(rows, start=2):
         row = ET.SubElement(sheet_data, tag(MAIN, "row"), {"r": str(row_number)})
-        style = 2 if values[CONFIRMED_INDEX] == 0 else 0
+        style = 2 if values[REVIEW_INDEX] == 1 else 0
         for column_number, value in enumerate(values, start=1):
             add_cell(row, column_number, row_number, value, style=style)
     ET.SubElement(sheet, tag(MAIN, "autoFilter"), {"ref": f"A1:{last_column}"})

@@ -1,1384 +1,1202 @@
-# 来源：差异情况概览.doc；序号 1–56 保留原文顺序及字段内容；重新分类时原状态记入“状态备注”。
-# 分析终点：CAP 102ba4b17bb1eac7eff0f89c52d8b1700e1ae378；按 AC..终点、face_snapshot 路径、非合并提交收录。
-# 修复来源界线：仅对 bb3085b88fbccd3b515d2ee7859417e807b7180f 及之前的原提交推进化学合并；该物理合并提交本身不作功能来源。其后记录只供审查，不据此新建修复提交。
-# 复审代码：face_snapshot_battery_macro_review_1017（基于 develop/bc_develop_220927 e1bc3ff43），HEAD fe2b6991bda45f3262e684cfcdc81fdc12623b0e；完整性判断 CAP face_snapshot 路径的 AC/BC 分歧。
-# TP_TAPO_BATTERY_CAM 仅用于已确认是电池机特有、无法或不适合共用到常电侧的逻辑；不能仅因代码来自 BC 分支就替换分支宏。
-# 完整（无需进行）：bb3085b88 物理合并后（不含该提交自身）该原提交对应的 AC/BC 行为已一致，且不是靠其后的定向化学修复才达到一致。其余“完整”表示当前一致，不代表无需修复。
-# 原表有两个“备注”列，此处依次命名为“状态备注”和“处理备注”。
-# 处理备注提及修复提交时，逐笔列出完整 commit ID、标题和 Change-Id；跨仓修复分别列出。
-# 已确认：1 表示源文档已有记录；0 表示按 BC 来源提交补录，内容待人工确认；与合入完整性无关。
-# 与人工备注一致：以 bb3085b88 物理合并后是否仍有该原提交造成的 AC/BC 分歧为主；两侧原补丁存在细微差别，但合并后该笔焦点共用且未靠后续定向修复收敛的，“无差异、无需处理”判为“是”。Gerrit 链接未单独核实不影响代码一致性；仍有来源相关分歧或人工来源仅部分吻合时判“部分一致”，证据不足时判“无法比较”。
-# “分支合并提交”指提交自身用于整合或修复 AC/BC 分支分歧；不作为原始功能来源。
+# 人工整理来源：差异情况概览.2.0.xlsx（2026-10-17）；保留前 15 列的顺序和人工判断。
+# 旧表“来源(删）”仅用于提取并经 Git 仓库核对修复提交；旧来源列本身不导入。未经核实的链接保持空白。
+# “备注”按原提交内容重写为简要功能摘要；0/1 判断列按新表原值记录，空白保持空白。
 - 序号: 1
-  commit-id: 54f4acfb
   合入时间: '2025-03-20'
+  commit-id: 54f4acfb
   标题: '[all] cap|face_snapshot: support face_snapshot data model'
+  类型: 集中合入
   Change-Id: Ib050af4e4794df5f5e8d9ce8f591d2465aab7ef9
-  状态: 集中合入
-  状态备注: 可忽略
-  处理情况: ''
-  处理备注: ''
-  已确认: 1
-  完整性: 部分
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第1条；状态：集中合入；原表处理情况和处理备注为空；用户 2026-10-17 指定：备注可忽略，来源对照直接通过
-  其他: 可忽略；合入者：be46f651、f96c4216；依据：基础数据模型已进入两侧路径，默认存储头和安装配置仍有差异
+  备注: 为人脸快照模块补充算法和设备侧所需的数据模型、配置项及默认值，建立人脸检测规则、存储与通知参数的基础结构，供后续人脸识别功能读取和配置。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: ''
+  修复提交是否已合入: ''
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 2
-  commit-id: 3c54793d
   合入时间: '2025-05-12'
+  commit-id: 3c54793d
   标题: '[all]change manufacturer name in NVMP platform code[4/5]'
+  类型: 代码优化
   Change-Id: Ibf95599cf4f0f60493230576d59e2c38f3de0a84
-  状态: 文档/注释更新-公司名更新
-  状态备注: ''
-  处理情况: 无需处理
-  处理备注: ''
-  已确认: 1
-  完整性: 完整（无需进行）
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第2条；状态：文档/注释更新-公司名更新；处理情况：无需处理
-  其他: 合入者：AC 侧已有等价版权行；依据：fss.c 的厂商版权行两侧已一致；仅文档改动；来源对照：原提交版权厂商更新已在 bb3085b8 物理合并后的 fss.c 共用文本中；后续未另做该项合入；修复判定：bb3085b8 后无需定向化学修复即已在本项范围内一致
+  备注: 更新 NVMP 平台代码中的厂商名称，face_snapshot 范围主要涉及文件头和版权文字，使代码标识与新的公司名称保持一致，不改变人脸识别的运行逻辑。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: ''
+  修复提交是否已合入: ''
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 3
-  commit-id: 450a0bbe
   合入时间: '2025-06-12'
+  commit-id: 450a0bbe
   标题: '[all]cap:add face detect base function(2/2)'
+  类型: 集中合入
   Change-Id: I6a233aac7b7c96d92aee4f06b4c3ea21a233a5f8
-  状态: 集中合入
-  状态备注: 可忽略
-  处理情况: ''
-  处理备注: '首次出现统计间隔残差修复：06ad886d930e90b75a278dbabf437b4feb14d10a，[cap] face_snapshot: remove branch macros (首次人脸出现不受统计更新间隔过滤)
-    (2/2)，Change-Id: Idfbfc3fe8ac2160c9676901490db4554c61f5dd6；原基础提交其余范围仍按可忽略处理'
-  已确认: 1
-  完整性: 部分
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第3条；状态：集中合入；原表处理情况和处理备注为空；用户 2026-10-17 指定：备注可忽略，来源对照直接通过
-  其他: 可忽略；合入者：be46f651、f96c4216、bb3085b8；依据：基础实现已引入，但 face_control 的通知等行为仍分支化；首次出现更新条件由 06ad886d930e90b75a278dbabf437b4feb14d10a
-    共用 BC 原逻辑
+  备注: 在电池机分支加入人脸检测基础能力，包含人脸特征和图片存储、识别结果处理及报表等模块，并增加休眠前将人脸数据保存到 Flash 的路径。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: ''
+  修复提交是否已合入: ''
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 4
-  commit-id: 3d14c077
   合入时间: '2025-07-09'
+  commit-id: 3d14c077
   标题: '[all]cap:read ams config for fss threshold set(1/2)'
+  类型: ''
   Change-Id: Ib981f7db27b4fc068a5d910090610ac1fc0e863d
-  状态: '功能扩充
-
-    常电已同步'
-  状态备注: 需对比一致性
-  处理情况: "已做修复，待合入，无需评审"
-  处理备注: '定向收敛：51eed3eac07649a4d35241d5f253ca6dc4e64356，[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros (fix of AC branch)，Change-Id: I10ae7c51e1bffeb466ab5d486c41c4c04d403f8b'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: "是"
-  人工备注来源: "用户 2026-10-17 指定人工处理情况；当前 AI 判断的实际修复：CAP 51eed3eac07649a4d35241d5f253ca6dc4e64356，[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros (fix of AC branch)，Change-Id: I10ae7c51e1bffeb466ab5d486c41c4c04d403f8b。"
-  其他: "复核：bb3085b8 后阈值接口、启动初始化及配置重载仍有 AC/BC 宏分歧；当前 CAP 51eed3eac07649a4d35241d5f253ca6dc4e64356 实际统一相关接口与调用。物理合并仅是基线，不计作修复。人工修订的处理情况及 AI 修复来源一致。"
+  备注: 读取 AMS 与设备配置中的人脸检测阈值，按等级设置相似度和图像质量参数，并在初始化及配置变化时刷新阈值，使算法和人脸模块使用同一套配置。
+  是否需要评审: 0
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros (fix of AC branch)'
+  修复提交commit id: 51eed3eac07649a4d35241d5f253ca6dc4e64356
+  修复提交change id: I10ae7c51e1bffeb466ab5d486c41c4c04d403f8b
+  修复提交链接: ''
 - 序号: 5
-  commit-id: 7a5ee0df
   合入时间: '2025-07-10'
+  commit-id: 7a5ee0df
   标题: '[all] fss|face_snapshot: Add support for finding best match function interface(2/2)'
+  类型: 功能扩充
   Change-Id: If66002ad91fa16d83c6a6c1437dd4cf49417d78b
-  状态: 功能扩充
-  状态备注: 新增 fss_feature_find_best_match() 公开接口，从人脸库查找最佳匹配返回 score/face_id/name
-  处理情况: 需要评审
-  处理备注: '[cap]
-
-    face_snapshot: remove branch macros (共享最佳匹配接口与陌生人结果处理)
-
-    (2/2) (41863) · Gerrit Code Review
-
-    Change-Id:
-
-    I11629d85877843a954b79d701a6b69193dcc1347'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第5条；状态：功能扩充；状态备注：新增 fss_feature_find_best_match() 公开接口，从人脸库查找最佳匹配返回 score/face_id/name；处理情况：需要评审；处理备注：[cap]
-    face_snapshot: remove branch macros (共享最佳匹配接口与陌生人结果处理) (2/2) (41863) · Gerrit Code Review Change-Id: I11629d85877843a954b79d701a6b69193dcc1347'
-  其他: 合入者：5d5021c92；依据：fss_feature_find_best_match 和返回值处理已解除分支守卫；外部 AMS 消费端未核；来源对照：人工备注的 Change-Id 对应当前分支 5d5021c92
+  备注: 新增 fss_feature_find_best_match 对外接口，从已保存的人脸特征库中查找最佳匹配，向算法侧返回相似度分数、人脸 ID 和名称，供识别框显示结果使用。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (共享最佳匹配接口与陌生人结果处理) (2/2)'
+  修复提交commit id: 5d5021c92cfdc4848c509f5d807fb2c5e4e4af31
+  修复提交change id: I11629d85877843a954b79d701a6b69193dcc1347
+  修复提交链接: ''
 - 序号: 6
+  合入时间: '2025-08-26'
   commit-id: 26843acc
-  合入时间: '2025-08-26'
   标题: '[all]cap:save face data before AOV'
+  类型: Bug修复
   Change-Id: I40d1c12d82bb5f9544433890406eae1f4877c889
-  状态: Bug修复
-  状态备注: fd_statistics_update_hourly_data() 死锁修复(先删定时器再加锁) + 新增 power_down.c
-  处理情况: 需要评审
-  处理备注: '[cap]
-
-    face_snapshot: remove branch macros (AOV 休眠保存前先删除定时器避免锁等待)
-
-    (41868) · Gerrit Code Review
-
-    Change-Id:
-
-    Ie2c33eebfe13fbee0ea7484dbd5899c29c2534de'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第6条；状态：Bug修复；状态备注：fd_statistics_update_hourly_data() 死锁修复(先删定时器再加锁) + 新增 power_down.c；处理情况：需要评审；处理备注：[cap]
-    face_snapshot: remove branch macros (AOV 休眠保存前先删除定时器避免锁等待) (41868) · Gerrit Code Review Change-Id: Ie2c33eebfe13fbee0ea7484dbd5899c29c2534de'
-  其他: 合入者：d37eeda61；依据：fd_statistics 的删定时器再持锁已共用；原提交的 power_down 休眠入口不在本次 face 路径范围；来源对照：人工备注的 Change-Id 对应当前分支 d37eeda61
+  备注: 在 AOV 休眠前将尚未落盘的人脸数据写入 Flash，并调整保存定时器与互斥锁的先后顺序，避免休眠保存和周期保存并发时发生死锁或数据丢失。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (AOV 休眠保存前先删除定时器避免锁等待)'
+  修复提交commit id: d37eeda61e9672dfeeab73b73e5d9793a0fe3121
+  修复提交change id: Ie2c33eebfe13fbee0ea7484dbd5899c29c2534de
+  修复提交链接: ''
 - 序号: 7
+  合入时间: '2025-08-26'
   commit-id: b49a124e
-  合入时间: '2025-08-26'
   标题: '[all] face_snapshot: prioritize adding familiar face,when the same person is in both group'
+  类型: Bug修复
   Change-Id: I310f0c4b6286d6aa562c144e016e21c4755a5028
-  状态: Bug修复
-  状态备注: 待补充详情
-  处理情况: 需要评审
-  处理备注: '[cap]
-
-    face_snapshot: remove branch macros (AC 侧优先选择达到阈值的熟人匹配)
-
-    (41866) · Gerrit Code Review
-
-    Change-Id:
-
-    I343886415205401922e238a85dea3bb3772eeaf7'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第7条；状态：Bug修复；状态备注：待补充详情；处理情况：需要评审；处理备注：[cap] face_snapshot: remove branch macros (AC 侧优先选择达到阈值的熟人匹配)
-    (41866) · Gerrit Code Review Change-Id: I343886415205401922e238a85dea3bb3772eeaf7'
-  其他: 合入者：92a6be808；依据：熟人达到阈值时提前选定的判断已成为共享代码；来源对照：人工备注的 Change-Id 对应当前分支 92a6be808
+  备注: 调整人脸匹配的分组优先级：当同一人同时存在于熟人和陌生人分组，且熟人相似度达到同人阈值时，优先返回熟人结果，避免再次加入陌生人库。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (AC 侧优先选择达到阈值的熟人匹配)'
+  修复提交commit id: 92a6be808efda6367059e27f43ad47c6abfb2c24
+  修复提交change id: I343886415205401922e238a85dea3bb3772eeaf7
+  修复提交链接: ''
 - 序号: 8
-  commit-id: bceb7fbc
   合入时间: '2025-08-26'
+  commit-id: bceb7fbc
   标题: '[all] face_snapshot: keep msgpush when unfamilar people change to familar'
+  类型: Bug修复
   Change-Id: Idafcca1fff9e249328a568a2c990e6b8b1617229
-  状态: Bug修复
-  状态备注: 陌生人添加为熟人后，开启其消息通知
-  处理情况: ''
-  处理备注: '[cap]
-
-    face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce
-
-    multiple divergences between two branches) (41603) · Gerrit Code Review
-
-    Change-Id:
-
-    I466a3b3002237b35350b3f7752435abbc7d92e24'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第8条；状态：Bug修复；状态备注：陌生人添加为熟人后，开启其消息通知；处理备注：[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce
-    multiple divergences between two branches) (41603) · Gerrit Code Review Change-Id: I466a3b3002237b35350b3f7752435abbc7d92e24'
-  其他: 合入者：0f9dad1bd；依据：陌生人改熟人时启用通知的逻辑两侧共用；来源对照：人工备注的 Change-Id 对应当前分支 0f9dad1bd
+  备注: 处理陌生人转为熟人后的消息通知状态，在更改人脸标签时启用该熟人的通知设置，避免身份已变成熟人却仍沿用陌生人阶段的通知配置。
+  是否需要评审: 0
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches)'
+  修复提交commit id: 0f9dad1bdb179a2f318486c953cc7369e44a9bd0
+  修复提交change id: I466a3b3002237b35350b3f7752435abbc7d92e24
+  修复提交链接: ''
 - 序号: 9
-  commit-id: 9688a83c
   合入时间: '2025-08-28'
+  commit-id: 9688a83c
   标题: '[All] fss: Fix incorrect close file descriptor 0 and file descriptor leaks'
+  类型: 无差异
   Change-Id: Ic1ac74be3a12711d8b43b76ecfb71791caf16219
-  状态: 常电有cp
-  状态备注: http://gerrit-ce.tp-link.com/c/IPC/NVMP/CAP/+/345575
-  处理情况: '无差异，
-
-    无需处理'
-  处理备注: ''
-  已确认: 1
-  完整性: 完整（无需进行）
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第9条；状态：常电有cp；状态备注：http://gerrit-ce.tp-link.com/c/IPC/NVMP/CAP/+/345575；处理情况：无差异， 无需处理
-  其他: 复核：AC 对应 94aef932ffa51fbac9d0cb63aab6e5d69ebc2f1b 与 BC 9688a83c6e01899ce0b8213ca3bc0d5eab26872b 均修正 fd 0 误判和泄漏。bb3085b8 后 get_faceinfo 的 face_file_fd=-1、open 失败条件 <0 与 fd_storage_init_with_check 的 data_fd=-1 在共用路径；之后无需针对本笔做定向修复。人工“无差异、无需处理”一致；Gerrit 链接未单独核实不影响本结论。
+  备注: 修正人脸存储文件描述符的初始值和打开失败判断，允许合法的 fd 0 被正常使用和关闭，并避免初始化异常路径误关标准输入或留下未关闭的文件。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: ''
+  修复提交是否已合入: ''
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 10
-  commit-id: fcda83d1
   合入时间: '2025-10-14'
+  commit-id: fcda83d1
   标题: '[all] face_snapshot: IoT Wi-Fi Monthly/Weekly FD Statistics (2/4)'
+  类型: 电池机特有
   Change-Id: Icc467cabae456cec5f01752fe4f72cddd26b9060
-  状态: 电池机专属
-  状态备注: '电池机 IoT
-
-    Wi-Fi 代理统计上报体系 (#ifdef TP_TAPO_BATTERY_CAM)'
-  处理情况: 电池机特有，无法合并，但是可以消宏定义
-  处理备注: '[cap]
-
-    face_snapshot: remove branch macros (电池机独有特性，无法合并部分，替换BC_ON_AC为TP_TAPO_BATTERY_CAM)(2/4) (41905) · Gerrit Code
-
-    Review
-
-    Change-Id:
-
-    I4783d2cdb5d60d48b1ff162b4231f9248ea0e90d'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第10条；状态：电池机专属；状态备注：电池机 IoT Wi-Fi 代理统计上报体系 (#ifdef TP_TAPO_BATTERY_CAM)；处理情况：电池机特有，无法合并，但是可以消宏定义；处理备注：[cap]
-    face_snapshot: remove branch macros (电池机独有特性，无法合并部分，替换BC_ON_AC为TP_TAPO_BATTERY_CAM)(2/4) (41905) · Gerrit Code Review
-    Change-Id: I4783d2cdb5d60d48b1ff162b4231f9248ea0e90d'
-  其他: 范围：按产品条件；合入者：eb00d67a0；依据：统计周/月报改按 TP_TAPO_BATTERY_CAM 选择，原电池机能力保留；跨仓 IoT 链未核；来源对照：人工备注的 Change-Id 对应当前分支 eb00d67a0
+  备注: 为电池机加入人脸检测的月报、周报及 IoT Wi-Fi 代理上报流程，汇总周期内的人脸出现数据，并按网络连接和低功耗场景安排报表通知。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (电池机独有特性，无法合并部分，替换BC_ON_AC为TP_TAPO_BATTERY_CAM)(2/4)'
+  修复提交commit id: eb00d67a01c29e110dd482e00178019175a6d031
+  修复提交change id: I4783d2cdb5d60d48b1ff162b4231f9248ea0e90d
+  修复提交链接: ''
 - 序号: 11
-  commit-id: 7b54cd2e
   合入时间: '2025-10-16'
+  commit-id: 7b54cd2e
   标题: '[all] face_snapshot: Fix compilation warnings'
+  类型: 代码优化
   Change-Id: Ie70aae16dc2d5834f8c6f1e47e2c508ab63248f7
-  状态: 代码优化
-  状态备注: 规范变量初始值，统一变量定义位置
-  处理情况: 已做修复，待合入，无需评审
-  处理备注: '定向收敛：0f9dad1bdb179a2f318486c953cc7369e44a9bd0，[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches)，Change-Id: I466a3b3002237b35350b3f7752435abbc7d92e24'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '用户 2026-10-17 更新人工处理情况；当前 AI 排查的修复来源：CAP 0f9dad1bdb179a2f318486c953cc7369e44a9bd0，[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches)，Change-Id: I466a3b3002237b35350b3f7752435abbc7d92e24。'
-  其他: 合入者：0f9dad1bdb179a2f318486c953cc7369e44a9bd0；依据：bb3085b8 后相关变量声明和初始化仍有分支，当前 CAP 分支已共用；修复已在本地分支，尚待合入目标开发分支。人工修订的修复来源与 AI 核对一致。
+  备注: 修复人脸快照代码的编译告警，规范局部变量声明、初始值及定义位置，减少未初始化或类型不匹配提示，使相关函数在目标编译配置下通过检查。
+  是否需要评审: 0
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches)'
+  修复提交commit id: 0f9dad1bdb179a2f318486c953cc7369e44a9bd0
+  修复提交change id: I466a3b3002237b35350b3f7752435abbc7d92e24
+  修复提交链接: ''
 - 序号: 12
-  commit-id: e6149305
   合入时间: '2025-10-19'
+  commit-id: e6149305
   标题: '[ALL] fix compilation error'
+  类型: '电池机专属，Bug修复
+
+    '
   Change-Id: Ib32037f988bdb660f500ba486524bfce91fa0a01
-  状态: 代码优化
-  状态备注: 'LOCAL S32 g_report_tmo_timer
-
-    = -1;
-
-    添加#ifndef TP_TAPO_BATTERY_CAM宏控制，不影响常电'
-  处理情况: ''
-  处理备注: '[cap]
-
-    face_snapshot: remove branch macros (电池机独有特性，无法合并部分，替换BC_ON_AC为TP_TAPO_BATTERY_CAM) (41911) · Gerrit Code
-
-    Review
-
-    Change-Id:
-
-    I0f47349687d419408116d97537faf45a9f055dfa'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第12条；状态：代码优化；状态备注：LOCAL S32 g_report_tmo_timer = -1; 添加#ifndef TP_TAPO_BATTERY_CAM宏控制，不影响常电；处理备注：[cap]
-    face_snapshot: remove branch macros (电池机独有特性，无法合并部分，替换BC_ON_AC为TP_TAPO_BATTERY_CAM) (41911) · Gerrit Code Review Change-Id:
-    I0f47349687d419408116d97537faf45a9f055dfa'
-  其他: 范围：按产品条件；合入者：e1bc3ff43；依据：上报定时器声明改按 TP_TAPO_BATTERY_CAM 选择；来源对照：人工备注的 Change-Id 对应当前分支 e1bc3ff43
+  备注: 处理电池机与常电机编译配置差异，对统计上报定时器变量增加产品条件保护，避免不启用对应上报路径的机型出现未使用符号等编译错误。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (电池机独有特性，无法合并部分，替换BC_ON_AC为TP_TAPO_BATTERY_CAM)'
+  修复提交commit id: e1bc3ff43f161ae00414406770fd800ce8ed6c88
+  修复提交change id: I0f47349687d419408116d97537faf45a9f055dfa
+  修复提交链接: ''
 - 序号: 13
-  commit-id: 22c12edf
   合入时间: '2025-11-13'
+  commit-id: 22c12edf
   标题: '[All] cap/fss: remove unnecessary logs'
+  类型: 无差异
   Change-Id: I57517f371f3ba41a3ae9a35f6ef6eeafa559c747
-  状态: 代码优化
-  状态备注: 常电已同步
-  处理情况: '无差异，
-
-    无需处理'
-  处理备注: ''
-  已确认: 1
-  完整性: 完整（无需进行）
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第13条；状态：代码优化；状态备注：常电已同步；处理情况：无差异， 无需处理
-  其他: 合入者：AC 原有同样删除；依据：fss 数据模型启动处已无该冗余打印；来源对照：原提交删除的 fss_data_model 冗余打印在 bb3085b8 后已无分支差异，当前亦无；修复判定：bb3085b8 后无需定向化学修复即已在本项范围内一致
+  备注: 删除人脸快照路径中的冗余日志输出，保留实际错误和必要状态信息，减少识别、存储或报表运行时重复打印带来的日志噪声。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 14
+  合入时间: '2025-11-17'
   commit-id: 285018e3
-  合入时间: '2025-11-17'
   标题: '[all]face snapshot: fix face utc time incorrect problem'
+  类型: '电池机专属，Bug修复
+
+    '
   Change-Id: I18ffba148347bf7c4b35a88c32a2893bfb25421d
-  状态: 'Bug修复
-
-    电池机专属'
-  状态备注: UTC 时间戳修正：通过 MCU_BPI_MODE 获取开机时间，AOV 模式下 fallback 计算（需要添加宏限制 CONFIG_TAPO_DUALOS_CAM 双 OS 平台）
-  处理情况: 需要评审，电池机特有逻辑
-  处理备注: |-
-    修复提交：2967b29356e52993ead66738dbacc692dfc89b3a
-    标题：[cap] face_snapshot: remove branch macros (电池机开机时间回退按产品宏选择)
-    Change-Id：I43f576bee9d7cb03054ee09a42db5c72211055c5
-    修复内容：保留原提交 utc_start >= start_time 时使用 utc_start、否则回退计算的结构，改由 TP_TAPO_BATTERY_CAM 选择该路径。
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第14条；状态：Bug修复 电池机专属；状态备注：UTC 时间戳修正：通过 MCU_BPI_MODE 获取开机时间，AOV 模式下 fallback 计算（需要添加宏限制 CONFIG_TAPO_DUALOS_CAM
-    双 OS 平台）；原表处理情况和处理备注为空；用户 2026-10-17 指定：285018e3 与 96438c16 合看，电池机特有逻辑改用 TP_TAPO_BATTERY_CAM，需评审
-  其他: 合入者：2967b29356e52993ead66738dbacc692dfc89b3a；依据：保留原提交的 utc_start >= MCU 开机时间时取 utc_start、否则回退计算；等值情况沿用 utc_start。仅该时间换算范围完成产品宏替换；需评审
-    AC 电池机构建和运行行为。
+  备注: 修正电池机人脸事件的 UTC 时间计算，读取 MCU 开机时间作为参考，在 AOV 休眠与重新唤醒造成时间基准变化时使用回退计算，避免事件时间戳异常。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (电池机开机时间回退按产品宏选择)'
+  修复提交commit id: 2967b29356e52993ead66738dbacc692dfc89b3a
+  修复提交change id: I43f576bee9d7cb03054ee09a42db5c72211055c5
+  修复提交链接: ''
 - 序号: 15
-  commit-id: d161ecab
   合入时间: '2025-11-17'
+  commit-id: d161ecab
   标题: '[all]face_snapshot|hub:add hub support and skip tapocare msgpush when face is detected(2/2)'
+  类型: Bug修复，和常电代码有冲突
   Change-Id: I1ad2ddf6c2174cd2745d17a8ac3b2eb0278bbc86
-  状态: 'Bug修复
-
-    和常电代码有冲突'
-  状态备注: '1.在人脸检出结果时复用MSGID_ALARM_EXT消息发送给hub
-
-    manage模块。在构造http header时新增FACE-ID字段标识识别出的人脸检出结果，Event-Type字符串填充FACEDET
-
-    2.camera支持hub后也会直接推送给iot
-
-    3.在tapo care模块通过face_id字段过滤消息推送，满足人脸识别消息不上云需求'
-  处理情况: 尚未做相关提交，需要评审
-  处理备注: ''
-  已确认: 1
-  完整性: 部分
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第15条；状态：Bug修复 和常电代码有冲突；状态备注：1.在人脸检出结果时复用MSGID_ALARM_EXT消息发送给hub manage模块。在构造http header时新增FACE-ID字段标识识别出的人脸检出结果，Event-Type字符串填充FACEDET 2.camera支持hub后也会直接推送给iot 3.在tapo care模块通过face_id字段过滤消息推送，满足人脸识别消息不上云需求；原表处理情况和处理备注为空；用户 2026-10-17 指定人工处理情况：尚未做相关提交，需要评审。
-  其他: 截至当前 CAP 分支，未找到以 d161ecab 为来源的定向修复提交；原提交的 HUB 告警发送与云端路由仍分支化，需评审。51eed3eac07649a4d35241d5f253ca6dc4e64356 针对 AC 来源收敛 HUB 配置重载，虽有代码范围交集，不计作本笔原提交的修复。人工处理情况与按来源核对结果一致。
+  备注: 为人脸检出接入 HUB 告警与云端消息路径，在告警中携带人脸 ID 和事件类型，并调整 HUB、IoT 及 Tapo Care 推送条件，避免已识别人脸被错误上云。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (share HUB storage config monitoring) (2/2)'
+  修复提交commit id: 1fe8c3eb04ec8c55ca178942a4e59beaf8cae0b7
+  修复提交change id: I2ceb9b697394bce1980b7e34bf3e6ddc5e5d83a5
+  修复提交链接: ''
 - 序号: 16
-  commit-id: 96438c16
   合入时间: '2025-11-26'
+  commit-id: 96438c16
   标题: '[all] face_snapshot: Fix Incorrect Face Result Timestamp'
+  类型: '电池机专属，Bug修复
+
+    '
   Change-Id: Ib3cb97ef596188792f75c3a140e40237f28f632c
-  状态: 'Bug修复
-
-    电池机专属'
-  状态备注: 和285018e3关联，修复285018e3的Bug
-  处理情况: 需要评审，电池机特有逻辑
-  处理备注: |-
-    修复提交：2967b29356e52993ead66738dbacc692dfc89b3a
-    标题：[cap] face_snapshot: remove branch macros (电池机开机时间回退按产品宏选择)
-    Change-Id：I43f576bee9d7cb03054ee09a42db5c72211055c5
-    修复内容：保留原提交 utc_start >= start_time 时使用 utc_start、否则回退计算的结构，改由 TP_TAPO_BATTERY_CAM 选择该路径。
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第16条；状态：Bug修复 电池机专属；状态备注：和285018e3关联，修复285018e3的Bug；原表处理情况和处理备注为空；用户 2026-10-17 指定：285018e3 与 96438c16
-    合看，电池机特有逻辑改用 TP_TAPO_BATTERY_CAM，需评审
-  其他: 合入者：2967b29356e52993ead66738dbacc692dfc89b3a；依据：保留原提交的 utc_start >= MCU 开机时间时取 utc_start、否则回退计算；等值情况沿用 utc_start。仅该时间换算范围完成产品宏替换；需评审
-    AC 电池机构建和运行行为。
+  备注: 修正人脸识别结果的时间戳选择，对开机时间与事件 UTC 时间的关系作进一步校验和回退处理，避免上一笔时间换算改动在边界情况下生成错误时间。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (电池机开机时间回退按产品宏选择)'
+  修复提交commit id: 2967b29356e52993ead66738dbacc692dfc89b3a
+  修复提交change id: I43f576bee9d7cb03054ee09a42db5c72211055c5
+  修复提交链接: ''
 - 序号: 17
+  合入时间: '2025-12-23'
   commit-id: 645eb8f0
-  合入时间: '2025-12-23'
   标题: '[all]face snapshot:face detect msg push when upto push threshold(1/2)'
+  类型: '电池机专属，Bug修复
+
+    '
   Change-Id: I056d83cd66eb4b4e64cc2b00568cfeb462c7aee3
-  状态: 'Bug修复
-
-    电池机专属'
-  状态备注: '人脸检测消息推送阈值控制 (fss_wakeup_flag
-
-    逻辑) ；常电不存在休眠，无需阈值控制'
-  处理情况: 需要评审，电池机特有逻辑；暂缓合入
-  处理备注: 645eb8f0a 暂缓合入；消息推送计数、持久化、数据模型和 libsdm 数据结构需要作为关联功能整体评审。
-  已确认: 1
-  完整性: 部分
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第17条；状态：Bug修复 电池机专属；状态备注：人脸检测消息推送阈值控制 (fss_wakeup_flag 逻辑) ；常电不存在休眠，无需阈值控制；原表处理情况和处理备注为空；用户 2026-10-17
-    指定：电池机特有的唤醒阈值逻辑改用 TP_TAPO_BATTERY_CAM，需评审
-  其他: CAP 与 libsdm 的产品宏替换尝试已删除，当前没有针对 645eb8f0a 的有效修复提交；BC 持久化计数与 AC 内存计数仍按分支宏分开，电池机特有逻辑及跨仓依赖需评审。
+  备注: 在电池机唤醒与休眠场景增加人脸检测消息推送阈值控制，依据检测次数和 fss_wakeup_flag 决定是否推送，减少同一唤醒周期内不必要的重复消息。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (select battery push threshold and persistence) (1/2)'
+  修复提交commit id: 57f773bf4fbf3733deb66c069b8377b8baea52dd
+  修复提交change id: I34b6f40e748fee96b6d4fe3ccada3dfa678cab61
+  修复提交链接: ''
 - 序号: 18
-  commit-id: cd9bc916
   合入时间: '2025-12-23'
+  commit-id: cd9bc916
   标题: '[All] cap/fss: use callback to attach ringbuffer instead of timer retry (2/2)'
+  类型: Bug修复
   Change-Id: I8267616858668da8645ca99be73d65d262bd708b
-  状态: Bug修复
-  状态备注: ringbuffer attach 从定时器轮询改为回调模式，首次 attach 防止丢数据
-  处理情况: 需要评审
-  处理备注: '[cap]
-
-    face_snapshot: remove branch macros (AC 侧改用
-
-    ringbuffer 创建回调附着) (2/2)
-
-    (41865) · Gerrit Code Review
-
-    Change-Id:
-
-    I8bb8acd65fc95ffe8e35ec530c1615bd43638d1a'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第18条；状态：Bug修复；状态备注：ringbuffer attach 从定时器轮询改为回调模式，首次 attach 防止丢数据；处理情况：需要评审；处理备注：[cap] face_snapshot:
-    remove branch macros (AC 侧改用 ringbuffer 创建回调附着) (2/2) (41865) · Gerrit Code Review Change-Id: I8bb8acd65fc95ffe8e35ec530c1615bd43638d1a'
-  其他: 合入者：a15015b9d；依据：face_control 的 ringbuffer attach 已共用回调路径；NVMP 回调接口另需核；来源对照：人工备注的 Change-Id 对应当前分支 a15015b9d
+  备注: 将人脸模块附着算法 ringbuffer 的方式从定时器轮询改为创建回调，处理首次附着与后续重试状态，减少初始化时的数据遗漏和周期性轮询。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (AC 侧改用 ringbuffer 创建回调附着) (2/2)'
+  修复提交commit id: a15015b9dc669e84baf200f8b5c24a0649f74c45
+  修复提交change id: I8bb8acd65fc95ffe8e35ec530c1615bd43638d1a
+  修复提交链接: ''
 - 序号: 19
+  合入时间: '2026-01-04'
   commit-id: 99edff3d
-  合入时间: '2026-01-04'
   标题: '[cap]face_snapshot:fix some bugs of face snapshot'
+  类型: 无差异
   Change-Id: I5432aabc9ef96b11abea1a28420c783eee21832d
-  状态: 常电有cp
-  状态备注: 'http://gerrit-ce.tp-link.com/c/IPC/NVMP/CAP/+/346005
-
-    需注意cp有不同点'
-  处理情况: 无差异，无需处理
-  处理备注: ''
-  已确认: 1
-  完整性: 完整（无需进行）
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第19条；状态：常电有cp；状态备注：http://gerrit-ce.tp-link.com/c/IPC/NVMP/CAP/+/346005 需注意cp有不同点；原表处理情况和处理备注为空；用户 2026-10-17 指定人工处理情况：无差异，无需处理。
-  其他: 复核：AC 对应 e69adae64faf5b6f1d77e897f054e7d81effe9dc 与 BC 99edff3d1aea0e4eb6724d5ddffb63dd6d2820ae 均覆盖 full_status/old_faceid、内部删除、统计队列及 HUB 配置缓存。bb3085b8 后这些修复焦点已进入两侧相应路径；get_available_index 形参名和队列容量括号是表达差异，g_stranger_list 清理依附 AC 原有列表，HUB 推送的路径分歧另有更早来源。未确认有由本笔原提交造成、仍待定向修复的功能分歧；人工“常电有 cp、无差异、无需处理”按本笔焦点判为一致。旧关系图 e9b4d8b6/04958142 属历史分支记录，不在当前 CAP 复审分支祖先中。
+  备注: 集中修正人脸快照控制与统计问题：缓存 HUB 存储状态、清理合并后的旧人脸、传递库满状态和旧 ID、通知索引覆盖，并扩大事件队列及检查取队列结果。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 20
-  commit-id: 71c4e67b
   合入时间: '2026-01-04'
+  commit-id: 71c4e67b
   标题: '[cap]face_snapshot:fix the issue introduced by the submission of 1cfaf2'
+  类型: 无差异
   Change-Id: I58c5f584f0bf1531cfcc5d649239ddb2a6490df6
-  状态: 常电有cp
-  状态备注: http://gerrit-ce.tp-link.com/c/IPC/NVMP/CAP/+/346006
-  处理情况: 无差异，无需处理
-  处理备注: ''
-  已确认: 1
-  完整性: 完整（无需进行）
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第20条；状态：常电有cp；状态备注：http://gerrit-ce.tp-link.com/c/IPC/NVMP/CAP/+/346006；原表处理情况和处理备注为空；用户 2026-10-17 指定人工处理情况：无差异，无需处理。
-  其他: 合入者：AC de1da536532c73b82b23210e732aec72ee0efc04 与 BC 71c4e67b2a7634e48d7d312a93bc0289ba580d3b 的对应修复在 bb3085b8 物理合并后已覆盖本笔焦点：add_status 首次 ADD、满额陌生人先 DELETE、索引/记录检查及调用位置。旧登记 d75d15a3 仅改文档，不是当前分支源码修复；其余事件封装/时间差异分别有别的来源。人工“无差异、无需处理”与本笔焦点及来源一致。
+  备注: 修正首次识别与重复识别的人脸新增通知，避免重复发送报表和索引事件；陌生人库满时先通知删除旧人脸，再发送新增事件，并校验目标索引和人脸信息。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 21
-  commit-id: 3178a777
   合入时间: '2026-01-16'
+  commit-id: 3178a777
   标题: '[all] face_snapshot: fix a bug that face msg push failed when face name contains specified character.'
+  类型: 无差异
   Change-Id: Ife61709861ac07e57503671d2dfe012b379619c6
-  状态: 完整
-  状态备注: ''
-  处理情况: 无差异，无需处理
-  处理备注: ''
-  已确认: 1
-  完整性: 完整（无需进行）
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第21条；状态：Bug修复 有冲突；原表处理情况和处理备注为空；用户 2026-10-17 指定人工处理情况：无差异，无需处理。
-  其他: 合入者：bb3085b8 后现行共享 amend_name 路径；依据：人脸名称转义函数和告警调用已在 AC/BC 共用，之后没有针对 3178a777 的定向化学修复。人工“无差异、无需处理”与来源和完整性判断一致。
+  备注: 在人脸名称进入消息推送内容前处理指定字符的转义，避免名称含特殊字符时生成无效消息，导致熟人识别告警推送失败。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 22
-  commit-id: 95abd952
   合入时间: '2026-03-02'
+  commit-id: 95abd952
   标题: '[all]face_snapshot: save face index when the face keeps appearing in front of the camera before power down(2/2)'
+  类型: '电池机专属，Bug修复
+
+    '
   Change-Id: I2dc2347303ffd5ac93d78fff1cc61dcf01c9bf3f
-  状态: 'Bug修复
-
-    电池机专属'
-  状态备注: 使用全局变量g_fss_event保存事件基本信息，在休眠时再次保存人脸索引
-  处理情况: 需要评审
-  处理备注: '[cap]
-
-    face_snapshot: remove branch macros (统一人脸索引事件使用换算后的时间)
-
-    (2/2) (41887) · Gerrit Code Review
-
-    Change-Id:
-
-    Ia17c3983f88ed5238497e7598f0532f7183408c6'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第22条；状态：Bug修复 电池机专属；状态备注：使用全局变量g_fss_event保存事件基本信息，在休眠时再次保存人脸索引；处理情况：需要评审；处理备注：[cap] face_snapshot:
-    remove branch macros (统一人脸索引事件使用换算后的时间) (2/2) (41887) · Gerrit Code Review Change-Id: Ia17c3983f88ed5238497e7598f0532f7183408c6'
-  其他: 合入者：780ee1d0d；依据：face_control 索引事件改用 gen_timestamp 的分支守卫已移除；休眠端另核；来源对照：人工备注的 Change-Id 对应当前分支 780ee1d0d
+  备注: 在电池机休眠前保留最近人脸检测事件的关键索引信息，并在休眠保存阶段再次写回，使持续停留在镜头前的人脸在快速断电或休眠后仍可恢复。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (统一人脸索引事件使用换算后的时间) (2/2)'
+  修复提交commit id: 780ee1d0d178cdd91271577d182b6229cf5dbeb1
+  修复提交change id: Ia17c3983f88ed5238497e7598f0532f7183408c6
+  修复提交链接: ''
 - 序号: 23
-  commit-id: 41903f2d
   合入时间: '2026-03-03'
+  commit-id: 41903f2d
   标题: '[CAP]face_report:fix segment fault when load from flash failed'
+  类型: 无差异
   Change-Id: I325d2fa148eb8e3a16631a56b2fbf097e070970f
-  状态: 常电有cp
-  状态备注: http://gerrit-ce.tp-link.com/c/IPC/NVMP/CAP/+/345832
-  处理情况: 无差异，无需处理
-  处理备注: ''
-  已确认: 1
-  完整性: 完整（无需进行）
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第23条；状态：常电有cp；状态备注：http://gerrit-ce.tp-link.com/c/IPC/NVMP/CAP/+/345832；原表处理情况和处理备注为空；用户 2026-10-17 指定人工处理情况：无差异，无需处理。
-  其他: 合入者：AC 对应统计链表初始化和 BC 41903f2d380f07ad02842bf6ba53bbe7ac862739 在 bb3085b8 后已共享；无后续针对本笔的定向化学修复。人工“无差异、无需处理”与来源和完整性判断一致；原人工 Gerrit 链接与原提交正文 REFERENCE 一致。
+  备注: 将报表统计所用链表头初始化提前到可能失败的存储加载之前，避免 Flash 数据加载失败后定时线程仍访问未初始化链表而引发空指针崩溃。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 24
+  合入时间: '2026-03-06'
   commit-id: ea1f1e58
-  合入时间: '2026-03-06'
   标题: '[all] fss | face_feature: add fss adapt iqa_thresh (2/2)'
+  类型: 功能扩充
   Change-Id: I06c665b66c99bcf1bf315d56d241cc1949ae930a
-  状态: 功能扩充
-  状态备注: 'IQA 自适应阈值：fd_low_angle_threshold + fd_high_blurness_threshold
-
-    两路 OR 判定'
-  处理情况: 需要评审
-  处理备注: '[cap]
-
-    face_snapshot: remove branch macros (共享自适应
-
-    IQA 阈值配置与判断) (2/2) (41875) ·
-
-    Gerrit Code Review
-
-    Change-Id:
-
-    Idbd6a61d4327a463ffef69d7cbc969a7aef3479e'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第24条；状态：功能扩充；状态备注：IQA 自适应阈值：fd_low_angle_threshold + fd_high_blurness_threshold 两路 OR 判定；处理情况：需要评审；处理备注：[cap]
-    face_snapshot: remove branch macros (共享自适应 IQA 阈值配置与判断) (2/2) (41875) · Gerrit Code Review Change-Id: Idbd6a61d4327a463ffef69d7cbc969a7aef3479e'
-  其他: 合入者：e25cab51d；依据：自适应 IQA 字段、筛选和 DS 项已在 face 内共用；NVMP 模型另核；来源对照：人工备注的 Change-Id 对应当前分支 e25cab51d
+  备注: 扩展人脸特征图像质量判定，增加针对低角度和高模糊度的自适应 IQA 阈值，组合不同质量条件决定候选人脸是否可用于识别与保存。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (共享自适应 IQA 阈值配置与判断) (2/2)'
+  修复提交commit id: e25cab51d54120cbd1ea2aeb82081d08b4afa1b1
+  修复提交change id: Idbd6a61d4327a463ffef69d7cbc969a7aef3479e
+  修复提交链接: ''
 - 序号: 25
+  合入时间: '2026-03-06'
   commit-id: 0bb94722
-  合入时间: '2026-03-06'
   标题: '[FSS] Recalculate face features when face recognition model is updated (2/3)'
+  类型: 功能扩充
   Change-Id: I9ddd1ee1b75761eecb50e6043d8dd2304a9c05af
-  状态: 功能扩充
-  状态备注: 算法模型 MD5 变更检测 + 特征自动重算 (fd_control_feature_refresh)
-  处理情况: 'AI排查提交：已修复合入，需复审模型更新设备路径'
-  处理备注: '修复提交：CAP fe2b6991bda45f3262e684cfcdc81fdc12623b0e，[cap] face_snapshot: remove branch macros (共享模型 MD5 检测与人脸特征重算链) (2/3)，Change-Id: Ic9a49652c7aeadd127ad4fea54f6d9b336dd72c3；NVMP 6bbe00f50ef5a62ee0f1ce4044f2131c34e36183，[nvmp] libsdm: remove branch macros (共享模型 MD5 状态声明供人脸特征重算) (1/3)，Change-Id: I0d6e7a693278ce6ab0c17eb85c50f1b038b7e457。'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第25条；状态：功能扩充；状态备注：算法模型 MD5 变更检测 + 特征自动重算 (fd_control_feature_refresh)；原表处理情况和处理备注为空
-  其他: 合入者：CAP fe2b6991、NVMP 6bbe00f50；依据：模型状态声明、DS 表、MD5 比较、检测通知触发和特征重算入口已共用。原提交限定 D260v1，跨仓 (3/3) 的升级侧模型摘要写入仍须单独核对；不把设备验证视为当前 face_snapshot 宏残留。
+  备注: 在人脸识别模型更新时检测模型摘要变化，触发已存人脸特征重新计算和刷新，避免旧模型提取的特征继续用于新模型匹配而降低识别准确性。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (共享模型 MD5 检测与人脸特征重算链) (2/3)
+
+    [nvmp] libsdm: remove branch macros (共享模型 MD5 状态声明供人脸特征重算) (1/3)'
+  修复提交commit id: 'fe2b6991bda45f3262e684cfcdc81fdc12623b0e
+
+    6bbe00f50ef5a62ee0f1ce4044f2131c34e36183'
+  修复提交change id: 'Ic9a49652c7aeadd127ad4fea54f6d9b336dd72c3
+
+    I0d6e7a693278ce6ab0c17eb85c50f1b038b7e457'
+  修复提交链接: ''
 - 序号: 26
-  commit-id: bad5f512
   合入时间: '2026-03-06'
+  commit-id: bad5f512
   标题: '[all] cap|face_snapshot: feature matching func is valid for familar'
+  类型: 功能扩充
   Change-Id: Iefa7a3fefc703634f473e8390eebe42df10e4d6d
-  状态: 逻辑修改
-  状态备注: 'fss不返回陌生人信息
-
-    需评估实际需求'
-  处理情况: "已做修复，待合入，无需评审"
-  处理备注: "修复提交：5d5021c92cfdc4848c509f5d807fb2c5e4e4af31，[cap] face_snapshot: remove branch macros (共享最佳匹配接口与陌生人结果处理) (2/2)，Change-Id: I11629d85877843a954b79d701a6b69193dcc1347；本笔陌生人结果过滤与 7a5ee0df 接口合并同组。"
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: "是"
-  人工备注来源: "用户 2026-10-17 指定人工处理情况；当前 AI 判断的实际修复：CAP 5d5021c92cfdc4848c509f5d807fb2c5e4e4af31，[cap] face_snapshot: remove branch macros (共享最佳匹配接口与陌生人结果处理) (2/2)，Change-Id: I11629d85877843a954b79d701a6b69193dcc1347。"
-  其他: "复核：原提交将最佳匹配中的陌生人结果置为 score=-10000、face_id=0、空名称；当前 CAP 5d5021c92cfdc4848c509f5d807fb2c5e4e4af31 收敛该过滤路径，已在复审分支祖先中。该提交的日志以接口来源 7a5ee0df 为主，bad5f512 是本地补丁覆盖的另一原提交焦点；物理合并不计作修复。人工修订的处理情况及 AI 判断的实际修复者一致。"
+  备注: 调整最佳匹配接口的结果过滤，只把熟人库中的有效匹配返回给调用方；如果最高分对应陌生人，则清空名称和人脸 ID 并设置无效分数，避免展示陌生人身份。
+  是否需要评审: 0
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (共享最佳匹配接口与陌生人结果处理) (2/2)'
+  修复提交commit id: 5d5021c92cfdc4848c509f5d807fb2c5e4e4af31
+  修复提交change id: I11629d85877843a954b79d701a6b69193dcc1347
+  修复提交链接: ''
 - 序号: 27
-  commit-id: e20c2727
   合入时间: '2026-03-11'
+  commit-id: e20c2727
   标题: '[all] fss: fixed that the face nums diff before and after the merge.'
+  类型: 无差异
   Change-Id: I2afba628f3b1b7b90332083e0971ff4ddf9ecf0f
-  状态: Bug修复
-  状态备注: 常电已同步
-  处理情况: ''
-  处理备注: ''
-  已确认: 1
-  完整性: 完整（无需进行）
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第27条；状态：Bug修复；状态备注：常电已同步；原表处理情况和处理备注为空
-  其他: 合入者：现行共享 fd_statistics_stg 路径；依据：合并统计时的小时索引修正位于共用函数；来源对照：原提交将 utc_hour 取自 del_path 的修复在 bb3085b8 后共用，AC 分支也有同一赋值，符合“常电已同步”；修复判定：bb3085b8
-    后无需定向化学修复即已在本项范围内一致
+  备注: 修正人脸合并时旧人脸的日期与小时统计归属，避免被合并记录使用错误时间造成合并前后 App 显示的人脸数量和报表数据不一致。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 28
-  commit-id: 8afda7b4
   合入时间: '2026-03-20'
+  commit-id: 8afda7b4
   标题: '[FSS] Add filter conditions for size score(2/2)'
+  类型: 功能扩充
   Change-Id: I2391c7d5262114f97d548980349fc5a1205d0b0f
-  状态: 功能扩充
-  状态备注: 新增 fd_scale_threshold 人脸大小过滤 + DS 配置项
-  处理情况: 需要评审
-  处理备注: '[cap]
-
-    face_snapshot: remove branch macros (共享人脸尺寸质量过滤阈值)
-
-    (2/2) (41884) · Gerrit Code Review
-
-    Change-Id:
-
-    Ia6891459ad85b73a808a2c907ac83b426728aa94'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第28条；状态：功能扩充；状态备注：新增 fd_scale_threshold 人脸大小过滤 + DS 配置项；处理情况：需要评审；处理备注：[cap] face_snapshot: remove branch
-    macros (共享人脸尺寸质量过滤阈值) (2/2) (41884) · Gerrit Code Review Change-Id: Ia6891459ad85b73a808a2c907ac83b426728aa94'
-  其他: 合入者：4cd986401；依据：size_score 阈值及 DS 配置已在 face 内共用；NVMP 分数字段另核；来源对照：人工备注的 Change-Id 对应当前分支 4cd986401
+  备注: 在人脸识别结果中增加 size score 过滤条件及 fd_scale_threshold 配置项，使过小或尺寸评分不足的人脸不进入后续保存与匹配流程。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (共享人脸尺寸质量过滤阈值) (2/2)'
+  修复提交commit id: 4cd98640145cbe37e243d23b1c5942ed0f6fa12b
+  修复提交change id: Ia6891459ad85b73a808a2c907ac83b426728aa94
+  修复提交链接: ''
 - 序号: 29
-  commit-id: 0cc15565
   合入时间: '2026-04-21'
+  commit-id: 0cc15565
   标题: '[all]face_snapshot:fix dead lock and timeout time'
+  类型: Bug修复（需评估改变合入方式，此修复不影响ac实际逻辑，可考虑使用删除宏而不是替换为battery宏）
   Change-Id: I207df441fd9669fdbd48211cff1839385b628754
-  状态: Bug修复
-  状态备注: '死锁修复(g_data_tmo_timer_lock)
-
-    + 定时器精度修正(*100→*1000) + 新增常量宏'
-  处理情况: ''
-  处理备注: '[cap]
-
-    face_snapshot: remove branch macros (共用休眠锁状态与人脸过期定时的毫秒换算) (41888) · Gerrit Code Review
-
-    死锁修复相关为电池机独特需求；
-
-    定时器精度修正需确认是否正确；'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第29条；状态：Bug修复；状态备注：死锁修复(g_data_tmo_timer_lock) + 定时器精度修正(*100→*1000) + 新增常量宏；处理备注：[cap] face_snapshot:
-    remove branch macros (共用休眠锁状态与人脸过期定时的毫秒换算) (41888) · Gerrit Code Review 死锁修复相关为电池机独特需求； 定时器精度修正需确认是否正确；'
-  其他: 合入者：d005a342e；依据：统计休眠锁状态及过期定时毫秒换算已共用；power_down 调用另核；来源对照：人工备注的“共用休眠锁状态与人脸过期定时的毫秒换算”对应 d005a342e
+  备注: 修复人脸统计数据定时器的互斥锁与超时计算问题，调整定时器触发和重设顺序，并把时间单位换算修正为毫秒，避免死锁或实际超时时长错误。
+  是否需要评审: 0
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (共用休眠锁状态与人脸过期定时的毫秒换算)'
+  修复提交commit id: d005a342ed02f2f7448ccfc3d3d43b6791c49c63
+  修复提交change id: Iae2aaecd595f089d8f24f1513bc50007410b0505
+  修复提交链接: ''
 - 序号: 30
-  commit-id: 98a8b58b
   合入时间: '2026-04-23'
+  commit-id: 98a8b58b
   标题: '[all] fss: Optimize the validation process for the face_info file and fix a bug'
+  类型: 无差异
   Change-Id: I86979829357c6d3f5b19b81593207a4980e05bd6
-  状态: 常电有cp
-  状态备注: https://gerrit.ce.tp-link.com/c/base/private/NVMP/CAP/+/16920
-  处理情况: '无差异，
-
-    无需处理'
-  处理备注: ''
-  已确认: 1
-  完整性: 完整（无需进行）
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第30条；状态：常电有cp；状态备注：https://gerrit.ce.tp-link.com/c/base/private/NVMP/CAP/+/16920；处理情况：无差异， 无需处理
-  其他: 复核：原提交的 face_info 头读取重试与校验在 bb3085b8 后处于共用路径，AC 有对应修复；其后未靠针对本笔的定向化学修复收敛。人工“无差异、无需处理”一致；Gerrit 链接未单独核实不影响本结论。
+  备注: 优化 face_info 文件头校验和恢复流程，明确读取失败、损坏及需重建的返回结果，减少每次开机对主备人脸信息文件的无谓复制和 Flash 写入。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 31
+  合入时间: '2026-04-29'
   commit-id: 63f61594
-  合入时间: '2026-04-29'
   标题: '[ALL] Add a synchronization access mechanism for active face info and inactive face info files'
+  类型: Bug修复
   Change-Id: Id362c86d1a998b29305411b722e99d15c5acb536
-  状态: Bug修复
-  状态备注: l_face_info_lock 互斥锁保护 face_info 文件 active/inactive 同步访问
-  处理情况: ''
-  处理备注: '[cap]
-
-    face_snapshot: remove some AC_ON_BC and BC_ON_AC macros (global mutex for
-
-    face info file) (41729) · Gerrit Code Review
-
-    Change-Id:
-
-    Ia564f702092adf0481f9c6ccd53315e9950aa371'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第31条；状态：Bug修复；状态备注：l_face_info_lock 互斥锁保护 face_info 文件 active/inactive 同步访问；处理备注：[cap] face_snapshot:
-    remove some AC_ON_BC and BC_ON_AC macros (global mutex for face info file) (41729) · Gerrit Code Review Change-Id: Ia564f702092adf0481f9c6ccd53315e9950aa371'
-  其他: 合入者：00dbf08f0；依据：l_face_info_lock 声明及 active/inactive 访问两侧共用；来源对照：人工备注的 Change-Id 对应当前分支 00dbf08f0
+  备注: 为活动与非活动 face_info 文件的读写、切换和同步增加互斥保护，避免多个访问路径并发操作同一人脸信息文件时发生状态竞争或数据不一致。
+  是否需要评审: 0
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros (global mutex for face info file)'
+  修复提交commit id: 00dbf08f04b93436e9e6930a185f10d28b72febc
+  修复提交change id: Ia564f702092adf0481f9c6ccd53315e9950aa371
+  修复提交链接: ''
 - 序号: 32
-  commit-id: 49cc1cd5
   合入时间: '2026-04-29'
+  commit-id: 49cc1cd5
   标题: '[ALL] Reduce the unnecessary operations of writing the face info file'
+  类型: Bug修复
   Change-Id: I39d55970ad6f795f4acfea34f73509f69bd64c74
-  状态: Bug修复
-  状态备注: 增加fd_version_reverse_on_faceinfo函数的返回值，根据返回值判断face info有没被修改，如果有修改才写回。减少写face info文件次数。
-  处理情况: ''
-  处理备注: '[cap]
-
-    face_snapshot: remove some AC_ON_BC and BC_ON_AC macros (reduce unnecessary
-
-    face info file writes) (41751) · Gerrit Code Review
-
-    Change-Id:
-
-    I3680bea86b5806f0369af6c569b0b56ab9355b7c'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第32条；状态：Bug修复；状态备注：增加fd_version_reverse_on_faceinfo函数的返回值，根据返回值判断face info有没被修改，如果有修改才写回。减少写face info文件次数。；处理备注：[cap]
-    face_snapshot: remove some AC_ON_BC and BC_ON_AC macros (reduce unnecessary face info file writes) (41751) · Gerrit Code
-    Review Change-Id: I3680bea86b5806f0369af6c569b0b56ab9355b7c'
-  其他: 合入者：d14bff1d0；依据：迁移回调返回值与按需写回流程已共用；来源对照：人工备注的 Change-Id 对应当前分支 d14bff1d0
+  备注: 让人脸信息版本反转和检查函数返回文件是否实际发生修改，只在内容改变时写回 face_info 文件，以减少不必要的 Flash 写入和启动处理开销。
+  是否需要评审: 0
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros (reduce unnecessary face info file writes)'
+  修复提交commit id: d14bff1d06dbc4e04aeabc19dd9ac749e3dec7a6
+  修复提交change id: I3680bea86b5806f0369af6c569b0b56ab9355b7c
+  修复提交链接: ''
 - 序号: 33
+  合入时间: '2026-05-20'
   commit-id: 9aec74ac
-  合入时间: '2026-05-20'
   标题: '[ALL] SAST: Fix sprintf, add field width specifier to fscanf(), and check rturn value of chdir()'
+  类型: Bug修复
   Change-Id: I2a82e11f9d39a2693bca410fbf54d255ef6b2706
-  状态: Bug修复
-  状态备注: 大范围修复
-  处理情况: ''
-  处理备注: '[cap]
-
-    face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce
-
-    multiple divergences between two branches) (41603) · Gerrit Code Review
-
-    Change-Id:
-
-    I466a3b3002237b35350b3f7752435abbc7d92e24'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第33条；状态：Bug修复；状态备注：大范围修复；处理备注：[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple
-    divergences between two branches) (41603) · Gerrit Code Review Change-Id: I466a3b3002237b35350b3f7752435abbc7d92e24'
-  其他: 合入者：0f9dad1bd；依据：空路径和 chdir 返回值检查已共用；来源对照：人工备注的 Change-Id 对应当前分支 0f9dad1bd
+  备注: 修复静态扫描发现的 C 字符串与目录操作问题，用有界格式化替代不安全的 sprintf，为 fscanf 增加字段宽度，并检查 chdir 的返回结果。
+  是否需要评审: 0
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches)'
+  修复提交commit id: 0f9dad1bdb179a2f318486c953cc7369e44a9bd0
+  修复提交change id: I466a3b3002237b35350b3f7752435abbc7d92e24
+  修复提交链接: ''
 - 序号: 34
-  commit-id: 1a03e632
   合入时间: '2026-05-20'
+  commit-id: 1a03e632
   标题: '[all] face_control: Support doFaceInfoAddPacketized API (1/2)'
+  类型: 功能扩充
   Change-Id: I21590c9367e9d94365fac0d7d2670d6102508e0d
-  状态: 功能扩充
-  状态备注: '分片人脸信息上传 API (action_face_info_add_packetized)
+  备注: 增加分片上传人脸信息的 doFaceInfoAddPacketized 接口及对应 DS action，重构普通新增人脸入口以复用上传流程，支持较大人脸图片或特征数据分包传输。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (share packetized face info API) (1/2)
 
-    + action_face_info_add 重构'
-  处理情况: "尚未做相关提交，需要评审"
-  处理备注: …
-  已确认: 1
-  完整性: 未完整
-  与人工备注一致: "是"
-  人工备注来源: "差异情况概览.doc 第34条；状态：功能扩充；状态备注：分片人脸信息上传 API (action_face_info_add_packetized) + action_face_info_add 重构；处理情况：需要评审；处理备注：…；用户 2026-10-17 修订人工处理情况：尚未做相关提交，需要评审。"
-  其他: "人工修订为尚未做相关提交、需要评审。当前 CAP 分包上传 API/DS 模板仍受 BC_ON_AC 路径保护；未找到以 1a03e632 为来源、在当前复审分支祖先中的定向合入提交。NVMP 配套接口和产品传输需求仍需评审。"
+    [nvmp] libsdm: remove branch macros (share packetized face info settings) (2/2)'
+  修复提交commit id: 'f8cae5d3814959afe76a85312b8869c24a8e5112
+
+    7960a68bea5ae60f89d80eafdc9f407fe649f5fc'
+  修复提交change id: 'I21590c9367e9d94365fac0d7d2670d6102508e0d
+
+    I260bba7f9a280566d5df46406287ebaa508278a6'
+  修复提交链接: ''
 - 序号: 35
+  合入时间: '2026-05-21'
   commit-id: 1403e683
-  合入时间: '2026-05-21'
   标题: '[all] cap/fss: support pss (2/2)'
+  类型: 功能-PSS相关
   Change-Id: I661c59144c8faf225982fa39c3cb8c4fe3e98896
-  状态: 功能扩充
-  状态备注: 常电有类似，需对比一致性
-  处理情况: "pss仅电池机有，建议直接使用电池机文件，需要评审"
-  处理备注: ''
-  已确认: 1
-  完整性: "未完整"
-  与人工备注一致: "是"
-  人工备注来源: "差异情况概览.doc 第35条；状态：功能扩充；状态备注：常电有类似，需对比一致性；处理情况：需要评审 pss仅电池机有，建议直接使用电池机文件；用户 2026-10-17 修订人工处理情况：pss仅电池机有，建议直接使用电池机文件，需要评审。"
-  其他: "人工修订为 PSS 仅电池机有，建议直接使用电池机文件，需要评审。be46f651、f96c4216、bb3085b8 只完成物理合并，不是本笔功能修复者；历史分支的 48ecd95e 不在当前复审分支祖先。当前尚无针对 1403e683 完整逻辑合入的有效修复，PSS 文件策略待评审。"
+  备注: 为人脸快照增加 PSS 人形快照支持，关联人脸与人形检测结果、图片及特征，并接入识别结果处理和存储路径，使检测事件可以保存对应的人形资料。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (share PSS face count validation) (2/2)
+
+    [nvmp] libdms: remove branch macros (share PSS result types) (1/2)'
+  修复提交commit id: '72d2316c742f775ce3852b9ad973d98156248e6d
+
+    08394c9137cb6e55fbba7fddc28725d1aca30c5c'
+  修复提交change id: 'If0888af3384dcc46cdedd8df9c521bbd715e3054
+
+    Ib73bab6aaca785875d1baf4655eccc2fd1cc1d32'
+  修复提交链接: ''
 - 序号: 36
+  合入时间: '2026-05-21'
   commit-id: caab424c
-  合入时间: '2026-05-21'
   标题: '[All] cap/pss: reduce max person_num and max person snapshot size'
+  类型: 功能-PSS相关
   Change-Id: If42d0c333ae767df713e944cab58bdeec8899f98
-  状态: 参数修改
-  状态备注: 需评估影响再考虑合入
-  处理情况: "已做试合入，不一定最终采纳，需要评审"
-  处理备注: |-
-    修复提交：876754e4f9f9379d93d219a5558b25499925ffc1
-    标题：[cap] face_snapshot: remove branch macros (按电池机产品宏选择 PSS 图片与人数容量)
-    Change-Id：I4d8008c664417111583053482e5d41fc1e96e390
-    修复内容：保留 AC 常电 40K/100/10 与 BC 电池机 20K/FD_FACE_SUPPORT_NUM/5 的容量值，用 TP_TAPO_BATTERY_CAM 选择。
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: "是"
-  人工备注来源: "差异情况概览.doc 第36条；状态：参数修改；状态备注：需评估影响再考虑合入；处理情况：需要评审 pss仅电池机有，建议直接使用电池机文件；用户 2026-10-17 修订人工处理情况：已做试合入，不一定最终采纳，需要评审。"
-  其他: "人工修订为已做试合入、不一定最终采纳、需要评审。当前 CAP 876754e4f9f9379d93d219a5558b25499925ffc1 以 TP_TAPO_BATTERY_CAM 选择 PSS 容量值，保持两侧现有数值；该试合入涉及存储布局，最终采纳待评审。"
+  备注: 降低 PSS 人形图片单张空间、最大人数和每人图片数量的配置值，以减少首次创建存储文件的耗时及 Flash 占用，同时改变相应存储容量上限。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (按电池机产品宏选择 PSS 图片与人数容量)'
+  修复提交commit id: 876754e4f9f9379d93d219a5558b25499925ffc1
+  修复提交change id: I4d8008c664417111583053482e5d41fc1e96e390
+  修复提交链接: ''
 - 序号: 37
+  合入时间: '2026-05-21'
   commit-id: 6b0eefe8
-  合入时间: '2026-05-21'
-  标题: '[all] cap: Error on loading the human figure data after device restart, which led to the need to rebind the human figure
-    to new data and affected the consistency of the facial data'
+  标题: '[all] cap: Error on loading the human figure data after device restart, which led to the need to rebind the human figure to new data and affected the consistency
+    of the facial data'
+  类型: Bug修复
   Change-Id: I2a72329536ea61e9a5a82d8ffd8e552d907add7b
-  状态: 'Bug修复
-
-    建议合入'
-  状态备注: '上电加载人形数据错误把pdr_img_cnt的值赋给了img_cnt，导致重启后人形库未能正常加载，需要重新进行一次人脸-人形绑定
-
-    该赋值错误可能影响后续的人脸合并管理以及其他的特征值管理流程，错误的img_cnt赋值不会在含有该bug的设备上影响人脸检出，人脸匹配涉及到具体特征仅由fea_group内部控制'
-  处理情况: 已处理，已合入
-  处理备注: '[All]
-
-    face_snapshot: remove some AC_ON_BC and BC_ON_AC macro (40160) · Gerrit Code
-
-    Review
-
-    Change-Id:
-
-    I1593e0b1f4504d81b46efcd2f2c294ef2d95ff17'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第37条；状态：Bug修复 建议合入；状态备注：上电加载人形数据错误把pdr_img_cnt的值赋给了img_cnt，导致重启后人形库未能正常加载，需要重新进行一次人脸-人形绑定 该赋值错误可能影响后续的人脸合并管理以及其他的特征值管理流程，错误的img_cnt赋值不会在含有该bug的设备上影响人脸检出，人脸匹配涉及到具体特征仅由fea_group内部控制；处理情况：已处理，已合入；处理备注：[All]
-    face_snapshot: remove some AC_ON_BC and BC_ON_AC macro (40160) · Gerrit Code Review Change-Id: I1593e0b1f4504d81b46efcd2f2c294ef2d95ff17'
-  其他: 合入者：9fec8a3d5；依据：pdr_img_cnt 写回修复两侧共用；来源对照：人工备注的 Change-Id 对应当前分支 9fec8a3d5
+  备注: 修正设备重启加载人形快照数据时把 pdr_img_cnt 错写到 img_cnt 的计数错误，恢复人形库图片数量与人脸关联信息，避免上电后需要重新绑定。
+  是否需要评审: 0
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 1
+  修复提交标题: '[All] face_snapshot: remove some AC_ON_BC and BC_ON_AC macro'
+  修复提交commit id: 9fec8a3d55c95016eb4b80175b33ab356e06480a
+  修复提交change id: I1593e0b1f4504d81b46efcd2f2c294ef2d95ff17
+  修复提交链接: ''
 - 序号: 38
-  commit-id: 0bb585cb
   合入时间: '2026-05-21'
-  标题: '[all] cap: The failure to update the feature values of the face image through the algorithm interface leads to the
-    generation of incorrect feature values in database, inducing high-frequency false recognization'
+  commit-id: 0bb585cb
+  标题: '[all] cap: The failure to update the feature values of the face image through the algorithm interface leads to the generation of incorrect feature values in
+    database, inducing high-frequency false recognization'
+  类型: Bug修复
   Change-Id: Ieb0dd1a4e6f66977a0ab06eeb151429d49f35ab1
-  状态: Bug修复
-  状态备注: 无效相似度分数检测 + 特征自动重建 (fd_feature_load_data) + 写入失败时释放特征
-  处理情况: AI排查提交已修复，需要评审
-  处理备注: '写入失败检查与特征释放修复提交：0f9dad1bdb179a2f318486c953cc7369e44a9bd0，[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches)，Change-Id: I466a3b3002237b35350b3f7752435abbc7d92e24；无效相似度重建与过滤修复提交：ba6da3231224ec9b2d8456e35c228296110a0668，[cap] face_snapshot: remove branch macros (无效相似度统一重建并过滤)，Change-Id: I153145d1ee7ecdfe1652f9d37e4e8495ef4f3217。'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第38条；状态：Bug修复；状态备注：无效相似度分数检测 + 特征自动重建 (fd_feature_load_data) + 写入失败时释放特征；处理备注：写入判空的部分： [cap] face_snapshot:
-    remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches) (41603) · Gerrit Code Review
-    相似度分数重建： ..'
-  其他: 合入者：0f9dad1bdb179a2f318486c953cc7369e44a9bd0、ba6da3231224ec9b2d8456e35c228296110a0668；依据：写入失败检查与特征释放、无效分数检测与重建过滤现均在 AC/BC 共用路径；来源对照：人工备注明确指向的写入判空提交与当前修复的 Change-Id 完全一致，重建部分原备注为“..”占位，后由 ba6da323 补齐，不构成来源冲突；运行效果仍需评审
+  备注: 检测算法接口更新人脸图片特征失败或相似度分数无效的情况，重新构建数据库中特征值，并在写入失败路径释放临时特征，避免错误特征引起频繁误识别。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches)
+
+    [cap] face_snapshot: remove branch macros (无效相似度统一重建并过滤)'
+  修复提交commit id: '0f9dad1bdb179a2f318486c953cc7369e44a9bd0
+
+    ba6da3231224ec9b2d8456e35c228296110a0668'
+  修复提交change id: 'I466a3b3002237b35350b3f7752435abbc7d92e24
+
+    I153145d1ee7ecdfe1652f9d37e4e8495ef4f3217'
+  修复提交链接: ''
 - 序号: 39
+  合入时间: '2026-05-26'
   commit-id: 08fd905b
-  合入时间: '2026-05-26'
   标题: '[all] fss: fixed face data lost (1/2)'
+  类型: '电池机专属，Bug修复
+
+    '
   Change-Id: Iaa0369518736d6c979da634c852b00528241fb0f
-  状态: 'Bug修复
-
-    电池机专属'
-  状态备注: fd_storage_init_with_check() 中新增 mount_usr_record() 存储挂载重试，修复人脸数据丢失；代码假定用户分区信息由 urdev= 启动参数提供并以 JFFS2 挂载，而当前系统启动参数中没有
-    urdev=
-  处理情况: "电池机器专属，已做宏替换改动，需要评审"
-  处理备注: '修复提交：404d583244405fcf09ed1b0473a810f0b253eb3d，[cap] face_snapshot: remove branch macros (电池机人脸存储挂载等待按产品宏选择) (1/2)，Change-Id: I6ee160285962680eebc49ab571c6024695c4bed5；原提交的 NVMP (2/2) caa29a0f9 已在当前 NVMP 基础中提供 get_mnt_info()。'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: "是"
-  人工备注来源: "差异情况概览.doc 第39条；状态：Bug修复 电池机专属；状态备注：fd_storage_init_with_check() 中新增 mount_usr_record() 存储挂载重试，修复人脸数据丢失；代码假定用户分区信息由 urdev= 启动参数提供并以 JFFS2 挂载，而当前系统启动参数中没有 urdev=；原表处理情况和处理备注为空；用户 2026-10-17 修订人工处理情况：电池机器专属，已做宏替换改动，需要评审。"
-  其他: "人工修订为电池机专属、已做宏替换、需要评审。当前 CAP 404d583244405fcf09ed1b0473a810f0b253eb3d 以 TP_TAPO_BATTERY_CAM 选择 usr_record 挂载等待；NVMP 配套为 caa29a0f9。目标设备的 urdev= 与 JFFS2 前提仍待评审。"
+  备注: 在人脸存储初始化检查前等待电池机 usr_record 分区挂载完成，必要时尝试重新挂载，避免快速启动或休眠唤醒时误判人脸数据不存在并覆盖已有资料。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (电池机人脸存储挂载等待按产品宏选择) (1/2)'
+  修复提交commit id: 404d583244405fcf09ed1b0473a810f0b253eb3d
+  修复提交change id: I6ee160285962680eebc49ab571c6024695c4bed5
+  修复提交链接: ''
 - 序号: 40
+  合入时间: '2026-05-26'
   commit-id: be139db6
-  合入时间: '2026-05-26'
   标题: '[ALL] cap: delete redundant code'
+  类型: 代码优化
   Change-Id: I72f54e7cd1055db0e3ddfece4bbdce6831b468b7
-  状态: 代码优化
-  状态备注: 删除冗余代码（重复宏、未使用变量） + 日志级别优化
-  处理情况: ''
-  处理备注: '[cap]
-
-    face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce
-
-    multiple divergences between two branches) (41603) · Gerrit Code Review
-
-    Change-Id:
-
-    I10ae7c51e1bffeb466ab5d486c41c4c04d403f8b'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第40条；状态：代码优化；状态备注：删除冗余代码（重复宏、未使用变量） + 日志级别优化；处理备注：[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC
-    macros(reduce multiple divergences between two branches) (41603) · Gerrit Code Review Change-Id: I10ae7c51e1bffeb466ab5d486c41c4c04d403f8b'
-  其他: 合入者：51eed3eac；依据：冗余存储写入和调试图片路径已收敛；来源对照：人工备注的 Change-Id 对应当前分支 51eed3eac
+  备注: 清理人脸快照模块中的冗余宏分支、无用变量和重复操作，并调整部分日志级别，使编译路径和诊断输出更简洁，保持原有识别流程的功能目标。
+  是否需要评审: 0
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros (fix of AC branch)'
+  修复提交commit id: 51eed3eac07649a4d35241d5f253ca6dc4e64356
+  修复提交change id: I10ae7c51e1bffeb466ab5d486c41c4c04d403f8b
+  修复提交链接: ''
 - 序号: 41
+  合入时间: '2026-05-26'
   commit-id: d8eb1b19
-  合入时间: '2026-05-26'
   标题: '[ALL] Correct the logical errors in the function fd_control_udsd_usr_add_face'
+  类型: Bug修复
   Change-Id: I2c68a47bee03a20fe5a48d70c46f25ed21a02b17
-  状态: Bug修复
-  状态备注: 逻辑上当参数错误时退出会解锁g_fd_ctl_ctx.fd_ctl_lock，但此时本函数中还未上锁，所以可能会解锁到别的函数。需要根据退出情况分别处理。
-  处理情况: ''
-  处理备注: '[cap]
-
-    face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce
-
-    multiple divergences between two branches) (41603) · Gerrit Code Review
-
-    Change-Id:
-
-    I10ae7c51e1bffeb466ab5d486c41c4c04d403f8b'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第41条；状态：Bug修复；状态备注：逻辑上当参数错误时退出会解锁g_fd_ctl_ctx.fd_ctl_lock，但此时本函数中还未上锁，所以可能会解锁到别的函数。需要根据退出情况分别处理。；处理备注：[cap]
-    face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches) (41603) · Gerrit
-    Code Review Change-Id: I10ae7c51e1bffeb466ab5d486c41c4c04d403f8b'
-  其他: 合入者：51eed3eac；具体聚合提交未定位；依据：参数错误退出时的锁处理已共用；来源对照：人工备注的 Change-Id 对应当前分支 51eed3eac
+  备注: 修正用户主动添加人脸时的退出与解锁路径，区分尚未获得控制锁和已上锁的错误分支，避免参数检查失败时误解锁其他线程持有的互斥锁。
+  是否需要评审: 0
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros (fix of AC branch)'
+  修复提交commit id: 51eed3eac07649a4d35241d5f253ca6dc4e64356
+  修复提交change id: I10ae7c51e1bffeb466ab5d486c41c4c04d403f8b
+  修复提交链接: ''
 - 序号: 42
-  commit-id: 7e7c0f15
   合入时间: '2026-05-26'
+  commit-id: 7e7c0f15
   标题: '[ALL]cap: delete redundant code'
+  类型: Bug修复
   Change-Id: I70033f9ed6d604c6bd4e46394a80603a0d4ecd6e
-  状态: Bug修复
-  状态备注: 删除冗余flash写操作
-  处理情况: ''
-  处理备注: '[cap]
-
-    face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce
-
-    multiple divergences between two branches) (41603) · Gerrit Code Review
-
-    Change-Id:
-
-    I10ae7c51e1bffeb466ab5d486c41c4c04d403f8b'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第42条；状态：Bug修复；状态备注：删除冗余flash写操作；处理备注：[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce
-    multiple divergences between two branches) (41603) · Gerrit Code Review Change-Id: I10ae7c51e1bffeb466ab5d486c41c4c04d403f8b'
-  其他: 合入者：51eed3eac；具体聚合提交未定位；依据：重复 Flash 写入已删除；来源对照：人工备注的 Change-Id 对应当前分支 51eed3eac
+  备注: 删去人脸快照处理中的重复 Flash 写入操作，避免同一份人脸数据或状态在单次流程中被多次落盘，降低存储磨损和不必要的 I/O。
+  是否需要评审: 0
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros (fix of AC branch)'
+  修复提交commit id: 51eed3eac07649a4d35241d5f253ca6dc4e64356
+  修复提交change id: I10ae7c51e1bffeb466ab5d486c41c4c04d403f8b
+  修复提交链接: ''
 - 序号: 43
-  commit-id: ea33fe4d
   合入时间: '2026-05-28'
+  commit-id: ea33fe4d
   标题: '[CAP] Security Optimization for DS Interface (3/4)'
+  类型: 特殊提交，无需处理
   Change-Id: If21479a173787a6778af66248d9f0fbb00674432
-  状态: 功能扩充
-  状态备注: ds接口修复，特殊代码
-  处理情况: "特殊提交，无需处理"
-  处理备注: ''
-  已确认: 1
-  完整性: 部分
-  与人工备注一致: "是"
-  人工备注来源: "差异情况概览.doc 第43条；状态：功能扩充；状态备注：ds接口修复，特殊代码；原表处理情况和处理备注为空；用户 2026-10-17 修订人工处理情况：特殊提交，无需处理。"
-  其他: "人工修订为特殊提交、无需处理。原提交横跨 69 个模块，face_snapshot 普通 DS 模板已共用；分包模板依赖 1a03e632 的 BC 专属 API，暂不在本轮做跨侧逻辑修复。物理合并保留的代码不计作修复。"
+  备注: 对 CAP 的 DS 接口注册和访问路径进行安全优化，face_snapshot 范围调整普通人脸控制、统计及分包上传 action 的模板或权限声明，使接口契约与安全检查一致。
+  是否需要评审: ''
+  是否需要处理: ''
+  是否已做修复提交: ''
+  修复提交是否已合入: ''
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 44
-  commit-id: bb3848b5
   合入时间: '2026-06-17'
+  commit-id: bb3848b5
   标题: '[ALL] face_snapshot: add scene-aware real-time feature update for familiar faces'
+  类型: 功能扩充
   Change-Id: I426553ca2bf342c33f39514d81db1dda31404c11
-  状态: '功能扩充
-
-    高风险'
-  状态备注: '场景感知熟人特征实时更新 (fd_control_update_scene_feature)
-
-    + FD_SUB_VERSION 1→3'
-  处理情况: ''
-  处理备注: ''
-  已确认: 1
-  完整性: 未完整
-  与人工备注一致: 无法比较
-  人工备注来源: 差异情况概览.doc 第44条；状态：功能扩充 高风险；状态备注：场景感知熟人特征实时更新 (fd_control_update_scene_feature) + FD_SUB_VERSION 1→3；原表处理情况和处理备注为空
-  其他: 合入者：无跨侧合入；依据：场景特征槽、FD_SUB_VERSION 3 迁移和实时更新仍仅 BC 路径
+  备注: 为熟人人脸加入按日夜场景感知的实时特征更新，维护不同场景下的特征状态和重算入口，并提升存储子版本以承载新增字段与迁移处理。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (share scene-aware familiar feature refresh)'
+  修复提交commit id: 3af682547618d37a5a21e1610d6d532c7bcad43f
+  修复提交change id: I426553ca2bf342c33f39514d81db1dda31404c11
+  修复提交链接: ''
 - 序号: 45
-  commit-id: ca53b60a
   合入时间: '2026-06-18'
+  commit-id: ca53b60a
   标题: '[all]cap:resolve the DOS attack caused by the connect interface(3/4)'
+  类型: 无差异
   Change-Id: I826a3fdc25a36011caabf4f61cc9a831ee115550
-  状态: '常电有cp
-
-    改动不一致'
-  状态备注: https://gerrit.ce.tp-link.com/c/base/private/NVMP/CAP/+/18141
-  处理情况: 无需处理
-  处理备注: 物理合并消去了差异
-  已确认: 1
-  完整性: 完整（无需进行）
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第45条；状态：常电有cp 改动不一致；状态备注：https://gerrit.ce.tp-link.com/c/base/private/NVMP/CAP/+/18141；处理情况：无需处理；处理备注：物理合并消去了差异
-  其他: 复核：原提交的 Base64 输出长度检查在 bb3085b8 后处于共用路径，AC 有对应修复；其后未靠针对本笔的定向化学修复收敛。人工“物理合并消去了差异、无需处理”一致；Gerrit 链接未单独核实不影响本结论。
+  备注: 修正 Base64 编码解码调用方的输出长度与容量检查，防止输入过长时缓冲区被错误使用；face_snapshot 范围同步调整相关长度处理，属于跨模块安全修复系列。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 46
-  commit-id: 439b9c8b
   合入时间: '2026-06-29'
+  commit-id: 439b9c8b
   标题: '[all] fss: fixed - face latest time update anomaly.'
+  类型: 无差异
   Change-Id: I752abbfd4cb70c12b4afbe03096451336886e985
-  状态: '常电有cp
-
-    常电已同步'
-  状态备注: https://gerrit.ce.tp-link.com/c/base/private/NVMP/CAP/+/25464
-  处理情况: '无差异，
-
-    无需处理'
-  处理备注: ''
-  已确认: 1
-  完整性: 完整（无需进行）
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第46条；状态：常电有cp 常电已同步；状态备注：https://gerrit.ce.tp-link.com/c/base/private/NVMP/CAP/+/25464；处理情况：无差异， 无需处理
-  其他: 复核：原提交的 last_occur_timestamp 更新比较在 bb3085b8 后处于共用路径，AC 有对应修复；其后未靠针对本笔的定向化学修复收敛。人工“常电已同步、无差异、无需处理”一致；Gerrit 链接未单独核实不影响本结论。
+  备注: 修正人脸最近出现时间的更新条件，确保新识别事件按时间先后刷新 last_occur_timestamp，避免旧时间覆盖新记录而影响排序、展示或统计。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 47
-  commit-id: ce7ab9a6
   合入时间: '2026-07-02'
+  commit-id: ce7ab9a6
   标题: '[ALL]nvmp|cap: Wrap localtime_r/gmtime_r, unify time conversion APIs across NVMP platform[3/4]'
+  类型: 无差异
   Change-Id: I2e8c267870f913cae7c1e2d7cbe60251a93656f2
-  状态: '常电有cp
-
-    常电已同步'
-  状态备注: https://gerrit.ce.tp-link.com/c/base/private/NVMP/CAP/+/21307
-  处理情况: '无差异，
-
-    无需处理'
-  处理备注: ''
-  已确认: 1
-  完整性: 完整（无需进行）
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第47条；状态：常电有cp 常电已同步；状态备注：https://gerrit.ce.tp-link.com/c/base/private/NVMP/CAP/+/21307；处理情况：无差异， 无需处理
-  其他: 复核：原提交的 fd_statistics.c 两处 nvmp_localtime_safe 调用及失败处理在 bb3085b8 后处于共用路径，AC 有对应修复；其后未靠针对本笔的定向化学修复收敛。人工“常电已同步、无差异、无需处理”一致；Gerrit 链接未单独核实不影响本结论。
+  备注: 将 face_snapshot 报表中的本地时间转换改用 nvmp_localtime_safe 等安全包装，并处理转换失败分支，统一 NVMP 跨模块的线程安全时间接口。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 48
-  commit-id: 7012ac55
   合入时间: '2026-07-06'
+  commit-id: 7012ac55
   标题: '[all]cap: support enhanced package detection [2/5]'
+  类型: 功能-包裹检测相关
   Change-Id: I240de748b1a16e3db889571168f985c508b827be
-  状态: '功能扩充
+  备注: 为增强包裹检测增加与人脸快照相关的联动处理和结果接口，使包裹事件可利用人脸检测信息完善告警或历史记录，相关代码受产品功能配置控制。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (publish face result under package feature) (2/5)
 
-    电池机专属'
-  状态备注: 包裹检测，完全被宏包裹
-  处理情况: 需要评审；暂缓跨侧合入
-  处理备注: EN_PKGD_SUPPORT 当前为电池机能力；BC 消息号 AMS_VDR_RESULT_BASE + 136 用于 AMS_VDR_EN_PKGD_FACE_RESULT，AC 同一编号用于 AMS_VDR_FCD_END。若仅在现有电池机配置启用，编号不会跨产品运行时冲突；若允许 AC 也启用增强包裹检测，需同步 libdms 消息定义和消费者。face_control.c 的包裹检测发送与 HUB 通知共用外层 BC_ON_AC 守卫；只把守卫移到 HUB 通知外侧不会减少分支宏，直接删除守卫又会改变 AC 的 HUB 通知路径。此前未保留去分支宏补丁。
-  已确认: 1
-  完整性: 未完整
-  与人工备注一致: 否
-  人工备注来源: 差异情况概览.doc 第48条；状态：功能扩充 电池机专属；状态备注：包裹检测，完全被宏包裹；处理情况：仅电池持有宏，相关提交可全部去除BC_ON_AC；处理备注：EN_PKGD_SUPPORT
-  其他: 合入者：无跨侧合入；依据：增强包裹人脸结果转发仍受 BC_ON_AC 守卫。人工备注基于仅电池机持有 EN_PKGD_SUPPORT，现有产品条件下有合理性；但当前修复历史尚未执行去宏，且该判断不覆盖未来 AC 开启该功能的消息契约，故与实际处理结果不一致。
+    [nvmp] libdms: assign nonconflicting AC package face message ID (1/5)'
+  修复提交commit id: '4becda9ead63455254d97c665e6f2ce898ba8cd2
+
+    8d87bce991b6821bfc980bc6585fc4be885b48db'
+  修复提交change id: 'I240de748b1a16e3db889571168f985c508b827be
+
+    Ie59cb80ed7ebf3340caaf20d78d81cb70e0dd1a8'
+  修复提交链接: ''
 - 序号: 49
-  commit-id: e933738e
   合入时间: '2026-07-08'
+  commit-id: e933738e
   标题: '[cap] fd_statistics: fix null pointer memset compile error in monthly mode'
+  类型: 无差异
   Change-Id: Iaea853e8e0fa1ec8a2f0f28ca5a37d809f56fe19
-  状态: Bug修复
-  状态备注: 常电代码逻辑有差别，同位置无此Bug
-  处理情况: ''
-  处理备注: '分歧根因是常电:747e518a37f12c26f4ea872e98a8d3a7363aad4c
-
-    对应部分的代码未同步合入电池机分支'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: 差异情况概览.doc 第49条；状态：Bug修复；状态备注：常电代码逻辑有差别，同位置无此Bug；处理备注：分歧根因是常电:747e518a37f12c26f4ea872e98a8d3a7363aad4c 对应部分的代码未同步合入电池机分支
-  其他: 合入者：f96c4216 的统计整合结果；依据：月报空指针场景改由已初始化栈数组覆盖；来源对照：人工备注引用 AC 747e518a3 的月报固定数组实现；f96c4216 物理合并将该实现引入，当前共用 31+1 栈数组，来源链对应
+  备注: 修复月报模式初始化报表数组时对空指针执行 memset 的错误，恢复有效内存分配与清零流程，使 fd_statistics 在严格编译检查下正常通过。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 50
-  commit-id: 6bf25ceb
   合入时间: '2026-07-21'
+  commit-id: 6bf25ceb
   标题: '[cap] en_pkgd|face_snapshot: update package history when face detected (1/2)'
+  类型: 功能-包裹检测相关
   Change-Id: I4ec2600fa4bd9c8dea2c84da2b813e4c62029800
-  状态: '功能扩充
-
-    电池机专属'
-  状态备注: 包裹检测，但未完全被宏包裹，需考虑影响
-  处理情况: AI排查：暂缓；本地与云端包裹历史须同源完整处理
-  处理备注: 原提交同时涉及本地 pkg_history 调用和云端 pushable 路径；只移动本地调用不能认定为完整 face_snapshot 合入，试做提交已删除。继续评审配套 NSD 消费契约。
-  已确认: 1
-  完整性: 未完整
-  与人工备注一致: 无法比较
-  人工备注来源: 差异情况概览.doc 第50条；状态：功能扩充 电池机专属；状态备注：包裹检测，但未完全被宏包裹，需考虑影响；原表处理情况和处理备注为空
-  其他: 合入者：无有效新增修复；依据：包裹历史更新及 pushable 策略仍为 BC 路径，配套 NSD 来源 59e87f54。AI 排查试做仅解除本地调用守卫，不能覆盖整笔来源，未保留该提交。
+  备注: 在检测到人脸时更新本地包裹历史记录，将增强包裹检测与人脸事件关联，供后续包裹事件展示或查询使用，并维护相关历史状态。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (share package history pushability) (1/2)'
+  修复提交commit id: 3cbed9cb411e12415830e9bd797fede78e6e2117
+  修复提交change id: Id23c259b8f83c4359afdd715d7b4261f8adb43d5
+  修复提交链接: ''
 - 序号: 51
-  commit-id: b8e8a802
   合入时间: '2026-07-22'
+  commit-id: b8e8a802
   标题: '[cap] en_pkgd: add macro control for local package history maintainance logic'
+  类型: 功能-包裹检测相关
   Change-Id: I8690851ee6b8f9a87cfd35882871e1b8337f3000
-  状态: '功能扩充
-
-    电池机专属'
-  状态备注: 包裹检测，完全被宏包裹
-  处理情况: AI排查提交：face_snapshot 内已修复合入；产品功能链仍需评审
-  处理备注: '修复提交：b5973b68fb93fff5bb1ef0b6ccec8a7c9ac026b2，[cap] face_snapshot: remove branch macros (本地包裹历史仅按功能宏控制)，Change-Id: Ic3d4fa4917904df9c2acc62a66a0bcc609bef73d；本地包裹历史调用保持 EN_PKGD_SUPPORT 与 LOCAL_PKG_HISTORY_SUPPORT 双宏条件，BC 原 skip_msgpush 跳转点不变。'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 无法比较
-  人工备注来源: 差异情况概览.doc 第51条；状态：功能扩充 电池机专属；状态备注：包裹检测，完全被宏包裹；原表处理情况和处理备注为空
-  其他: 合入者：b5973b68fb93fff5bb1ef0b6ccec8a7c9ac026b2；依据：原提交的本地维护条件现在独立于 BC_ON_AC，且减少一组分支宏；当前产品仅电池机具备 EN_PKGD_SUPPORT，BC 行为不变。BC#50 的云端 pushable 范围仍独立待评审。
+  备注: 为增强包裹检测的本地历史维护增加功能宏控制，使包裹历史写入和相关调用只在启用对应能力的产品配置下编译和运行。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (本地包裹历史仅按功能宏控制)'
+  修复提交commit id: b5973b68fb93fff5bb1ef0b6ccec8a7c9ac026b2
+  修复提交change id: Ic3d4fa4917904df9c2acc62a66a0bcc609bef73d
+  修复提交链接: ''
 - 序号: 52
+  合入时间: '2026-07-23'
   commit-id: 3ec3c0ef
-  合入时间: '2026-07-23'
   标题: '[ALL] CAP|cap: Fix NAND firmware packaging and add battery cam branch compatibility [3/5]'
+  类型: 099物理合并
   Change-Id: I4e051b965b15c45c98afa5385ace8646717e7d3b
-  状态: 分支合并提交
-  状态备注: '原状态：功能扩充
-
-    电池机专属。支持使用nand flash的机型在电池机分支上编译，完全被宏包裹'
-  处理情况: "物理合并，不参与讨论"
-  处理备注: 为 BC 分支补 AC_ON_BC 的 NAND 编译兼容；原功能判断仍按文档记录。
-  已确认: 1
-  完整性: "不适用（物理合并）"
-  与人工备注一致: "是"
-  人工备注来源: "差异情况概览.doc 第52条；状态：功能扩充 电池机专属；状态备注：支持使用nand flash的机型在电池机分支上编译，完全被宏包裹；原表处理情况和处理备注为空；用户 2026-10-17 修订人工处理情况：物理合并，不参与讨论。"
-  其他: "物理合并提交：NAND 打包与电池机兼容路径按原提交保留，属于本次讨论边界之后的跨模块/系列提交；不作为其他原提交的功能修复者，也不参与化学合入完成度判定。"
+  备注: 调整 NAND Flash 固件打包与电池机分支兼容代码，face_snapshot 范围补充相关产品条件和编译保护，使使用 NAND 的机型能够在该分支构建。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 53
-  commit-id: a8aed44e
   合入时间: '2026-07-23'
+  commit-id: a8aed44e
   标题: '[ALL] CAP|log : adapt module-based logging and unify msg_debug interface[3/4]'
+  类型: 098日志宏相关
   Change-Id: I2caa064ba803ce9129a1590f173b9183ee73ab5d
-  状态: 分支合并提交
-  状态备注: '原状态：Bug修复
-
-    常电已同步。统一 msg_debug
-
-    接口为模块化入参；补充并对齐日志模块/子模块枚举，覆盖 ；批量适配 tp_package 多模块日志宏'
-  处理情况: "跨模块日志宏相关，无需处理"
-  处理备注: '初次日志接口整合；其后被 #56 回退、由 #57 重提。'
-  已确认: 1
-  完整性: 不适用（跨模块日志）
-  与人工备注一致: "是"
-  人工备注来源: "差异情况概览.doc 第53条；状态：Bug修复 常电已同步；状态备注：统一 msg_debug 接口为模块化入参；补充并对齐日志模块/子模块枚举，覆盖 ；批量适配 tp_package 多模块日志宏；原表处理情况和处理备注为空；用户 2026-10-17 修订人工处理情况：跨模块日志宏相关，无需处理。"
-  其他: "跨模块日志宏系列首次引入，之后经 03c33af8 回退、8f72dafc 重提；按用户结论，跨模块日志宏相关，无需在 face_snapshot 原功能合入中单独处理。"
+  备注: 将 CAP 多模块日志调用适配为按模块分类的 msg_debug 接口，补充模块与子模块枚举，并批量更新 tp_package 内的打印宏及参数调用方式。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 54
+  合入时间: '2026-07-27'
   commit-id: 80f2e265
-  合入时间: '2026-07-27'
   标题: '[all] face_snapshot: malloc correct image size for face image'
+  类型: Bug修复
   Change-Id: I416304b8d3a107d80815a26560ac533f882abc4e
-  状态: Bug修复
-  状态备注: 常电有冲突，is_alg_model_md5_changed()已删除
-  处理情况: ''
-  处理备注: '[cap]
-
-    face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce
-
-    multiple divergences between two branches) (41603) · Gerrit Code Review
-
-    Change-Id:
-
-    I466a3b3002237b35350b3f7752435abbc7d92e24'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第54条；状态：Bug修复；状态备注：常电有冲突，is_alg_model_md5_changed()已删除；处理备注：[cap] face_snapshot: remove some AC_ON_BC
-    and BC_ON_AC macros(reduce multiple divergences between two branches) (41603) · Gerrit Code Review Change-Id: I466a3b3002237b35350b3f7752435abbc7d92e24'
-  其他: 合入者：0f9dad1bd；依据：按真实 image_len 分配及失败检查已共用；来源对照：人工备注的 Change-Id 对应当前分支 0f9dad1bd
+  备注: 读取人脸快照时按文件记录的实际图片长度分配缓冲区；当旧数据图片超过当前 max_img_len 时分配足够空间，避免越界访问、异常重启或开机循环。
+  是否需要评审: 0
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches)'
+  修复提交commit id: 0f9dad1bdb179a2f318486c953cc7369e44a9bd0
+  修复提交change id: I466a3b3002237b35350b3f7752435abbc7d92e24
+  修复提交链接: ''
 - 序号: 55
-  commit-id: 1186c186
   合入时间: '2026-07-27'
+  commit-id: 1186c186
   标题: '[All] cap/fss: fix crash during app get snapshot that size larger than max_img_len'
+  类型: Bug修复
   Change-Id: I39aeebf0dbf50149e2737f1059fffc679d5da97b
-  状态: Bug修复
-  状态备注: '1.以后如果人脸快照的大小大于max_img_len，则不应保存
-
-    2.对于大于默认max_img_len的已保存快照，malloc正确的大小以从内存中读取它，从而避免设备崩溃。'
-  处理情况: ''
-  处理备注: '[cap]
-
-    face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce
-
-    multiple divergences between two branches) (41603) · Gerrit Code Review
-
-    Change-Id:
-
-    I466a3b3002237b35350b3f7752435abbc7d92e24'
-  已确认: 1
-  完整性: 完整
-  与人工备注一致: 是
-  人工备注来源: '差异情况概览.doc 第55条；状态：Bug修复；状态备注：1.以后如果人脸快照的大小大于max_img_len，则不应保存 2.对于大于默认max_img_len的已保存快照，malloc正确的大小以从内存中读取它，从而避免设备崩溃。；处理备注：[cap]
-    face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches) (41603) · Gerrit
-    Code Review Change-Id: I466a3b3002237b35350b3f7752435abbc7d92e24'
-  其他: 合入者：0f9dad1bd；依据：快照读取按真实长度并预留加密余量已共用；来源对照：人工备注的 Change-Id 对应当前分支 0f9dad1bd
+  备注: 限制新保存的人脸快照不超过 max_img_len，同时兼容读取历史上已经保存的超大图片，按其实际大小分配内存，避免 App 请求快照时发生崩溃。
+  是否需要评审: 0
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches)'
+  修复提交commit id: 0f9dad1bdb179a2f318486c953cc7369e44a9bd0
+  修复提交change id: I466a3b3002237b35350b3f7752435abbc7d92e24
+  修复提交链接: ''
 - 序号: 56
-  commit-id: 03c33af8
   合入时间: '2026-07-28'
+  commit-id: 03c33af8
   标题: 'Revert "Merge "[ALL] CAP|log : adapt module-based logging and unify msg_debug interface[3/4]" into develop/bc_develop_220927"'
+  类型: 098日志宏相关
   Change-Id: Ifbb3e2e4ff11c1eada5256a758283a6e16f815d1
-  状态: 更改回退
-  状态备注: 'Revert "Merge "[ALL] CAP|log :
-
-    adapt module-based logging and unify msg_debug
-
-    interface[3/4]" into develop/bc_develop_220927"'
-  处理情况: "跨模块日志宏相关，无需处理"
-  处理备注: ''
-  已确认: 1
-  完整性: 不适用（跨模块日志）
-  与人工备注一致: "是"
-  人工备注来源: "差异情况概览.doc 第56条；状态：更改回退；状态备注：Revert \"Merge \"[ALL] CAP|log : adapt module-based logging and unify msg_debug interface[3/4]\" into develop/bc_develop_220927\"；原表处理情况和处理备注为空；用户 2026-10-17 修订人工处理情况：跨模块日志宏相关，无需处理。"
-  其他: "跨模块日志宏系列的中间回退提交；按用户结论，无需在 face_snapshot 原功能合入中单独处理。"
+  备注: 回退此前合入的模块化日志接口改动，撤销相关打印宏与调用适配，使代码暂时恢复到该日志系列引入前的接口状态，供后续重新提交。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 57
-  commit-id: 8f72dafc
   合入时间: '2026-07-30'
+  commit-id: 8f72dafc
   标题: '[ALL] CAP|log : adapt module-based logging and unify msg_debug interface[3/4]'
+  类型: 098日志宏相关
   Change-Id: I8120f0c06d9010b73c82d1cf8fea63bee0afa8d6
-  状态: 分支合并提交
-  状态备注: 原状态：日志接口重提。此前日志改动回退后重提；需按最终接口核对。
-  处理情况: "跨模块日志宏相关，无需处理"
-  处理备注: ''
-  已确认: 0
-  完整性: "不适用（跨模块日志）"
-  与人工备注一致: "是"
-  人工备注来源: "原 .doc 无此补录提交；用户 2026-10-17 同一消息给出两种处理情况，随后明确选择“跨模块日志宏相关，无需处理”。实际提交关系：a8aed44e 首次引入，03c33af8 回退，8f72dafc 重提；008b2df2、102ba4b1 后续整理 face 日志宏。此处只记录来源链，不将物理合并当作功能修复。"
-  其他: "跨模块日志宏系列的重提提交：此前 a8aed44e 引入、03c33af8 回退，之后 008b2df2 与 102ba4b1 继续整理宏。用户最终确认无需在 face_snapshot 原功能合入中单独处理；此结论不表示逐模块日志接口已复审。"
+  备注: 在前一笔日志改动被回退后重新引入模块化 msg_debug 接口适配，更新 CAP 多模块日志宏和调用参数，使日志按模块和子模块分类输出。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 58
-  commit-id: b9ede403
   合入时间: '2026-08-17'
+  commit-id: b9ede403
   标题: '[fss] face_control: Save unselected familiar face detection notify list'
+  类型: Bug修复
   Change-Id: If5a4871ca10e15c140e3063af40982b1328e1726
-  状态: Bug修复
-  状态备注: 取消勾选熟人通知时写回对应 face info。
-  处理情况: "已做修复，待合入，无需评审"
-  处理备注: "实际修复：0f9dad1bdb179a2f318486c953cc7369e44a9bd0，[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches)，Change-Id: I466a3b3002237b35350b3f7752435abbc7d92e24。"
-  已确认: 0
-  完整性: 完整
-  与人工备注一致: "是"
-  人工备注来源: "用户 2026-10-17 指定人工处理情况；AI 核对的实际修复：CAP 0f9dad1bdb179a2f318486c953cc7369e44a9bd0，[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches)，Change-Id: I466a3b3002237b35350b3f7752435abbc7d92e24。"
-  其他: "复核：原提交的取消勾选熟人通知后逐条持久化 face info，在物理合并后仍有 BC_ON_AC 守卫；当前 CAP 0f9dad1bdb179a2f318486c953cc7369e44a9bd0，[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches)，Change-Id: I466a3b3002237b35350b3f7752435abbc7d92e24 解除该守卫，使两侧共用写回逻辑。用户指定 0f9dad1b 为实际修复来源，与代码相符。"
+  备注: 在用户取消勾选熟人检测消息通知时，将更新后的 user_notify 状态逐条写回对应 face_info 存储记录，避免仅修改内存而重启后恢复旧通知状态。
+  是否需要评审: 0
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove some AC_ON_BC and BC_ON_AC macros(reduce multiple divergences between two branches)'
+  修复提交commit id: 0f9dad1bdb179a2f318486c953cc7369e44a9bd0
+  修复提交change id: I466a3b3002237b35350b3f7752435abbc7d92e24
+  修复提交链接: ''
 - 序号: 59
-  commit-id: 48e74a27
   合入时间: '2026-08-25'
+  commit-id: 48e74a27
   标题: '[all] face_control: include HUB fields for familiar and unfamiliar recongition events'
+  类型: 功能扩充
   Change-Id: I2acb4fe53d43c115eac702a2faec9eb3eec23a1d
-  状态: 功能扩充
-  状态备注: HUB 人脸告警增加 msgAgent 字段。
-  处理情况: 暂缓合入；需要评审
-  处理备注: 用户指定该笔暂缓合入；前次 HUB msgAgent 修复提交已删除。
-  已确认: 0
-  完整性: 未完整
-  与人工备注一致: 无法比较
-  人工备注来源: 无；第59条为 YAML 补录记录，原始 .doc 不含此提交
-  其他: 当前没有针对 48e74a27 的有效修复提交；AC 的 HUB 告警格式仍无 msgAgent，BC 路径保留原实现；按用户要求暂缓评审。
+  备注: 为熟人和陌生人人脸识别事件补充 HUB 所需的消息字段，通过 msgAgent 等参数控制告警消息构造，使 HUB 接收的事件携带正确的来源信息。
+  是否需要评审: 1
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (share HUB msgAgent fields in face alarms)'
+  修复提交commit id: 14fce986881fca63024c386f13a70ef8092ebfbf
+  修复提交change id: I2acb4fe53d43c115eac702a2faec9eb3eec23a1d
+  修复提交链接: ''
 - 序号: 60
+  合入时间: '2026-09-11'
   commit-id: be46f651
-  合入时间: '2026-09-11'
   标题: '[cap] face_snapshot: merge AC logic in BC (feature/storage basis)'
+  类型: 099物理合并
   Change-Id: I31125b41501323c9441c8f0e7f772c50fe6078eb
-  状态: 分支合并提交
-  状态备注: AC 特征与存储基础代码进入 BC。
-  处理情况: "物理合并，不参与讨论"
-  处理备注: ''
-  已确认: 0
-  完整性: "不适用（物理合并）"
-  与人工备注一致: "是"
-  人工备注来源: "无；第60条为 YAML 补录记录，原始 .doc 不含此提交；用户 2026-10-17 修订人工处理情况：物理合并，不参与讨论。"
-  其他: "物理合并提交：将 AC 特征与存储基础保留在 BC，形成后续待核的分支代码；不作为任何原提交的功能修复者，也不参与化学合入完成度判定。"
+  备注: 将 AC 侧人脸特征和存储基础代码物理放入 BC 分支，在编译条件下保留双方既有实现，为后续逐项分析分歧提供同一代码基线。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 61
+  合入时间: '2026-09-11'
   commit-id: f96c4216
-  合入时间: '2026-09-11'
   标题: '[cap] face_snapshot: merge AC logic in BC (fd_statistics family + pss storage + default config)'
+  类型: 099物理合并
   Change-Id: I4e5be5bdca8e775f8096f7873b0bc1a1e34ecf0c
-  状态: 分支合并提交
-  状态备注: AC 统计、PSS 存储与默认配置代码进入 BC。
-  处理情况: "物理合并，不参与讨论"
-  处理备注: ''
-  已确认: 0
-  完整性: "不适用（物理合并）"
-  与人工备注一致: "是"
-  人工备注来源: "无；第61条为 YAML 补录记录，原始 .doc 不含此提交；用户 2026-10-17 修订人工处理情况：物理合并，不参与讨论。"
-  其他: "物理合并提交：将 AC 统计、PSS 存储与默认配置保留在 BC，形成后续待核的分支代码；不作为任何原提交的功能修复者，也不参与化学合入完成度判定。"
+  备注: 将 AC 侧报表统计、人形快照存储和默认配置物理放入 BC 分支，同时保留原有 BC 实现，形成可对照的文件级合并基线。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 62
-  commit-id: bb3085b8
   合入时间: '2026-09-11'
+  commit-id: bb3085b8
   标题: '[cap] face_snapshot: merge AC logic in BC (face_control)'
+  类型: 099物理合并
   Change-Id: Ic7279770f65b7f851a94ee2c7799d005a5dc5a5a
-  状态: 分支合并提交
-  状态备注: AC face_control 代码进入 BC。
-  处理情况: "物理合并，不参与讨论"
-  处理备注: ''
-  已确认: 0
-  完整性: "不适用（物理合并）"
-  与人工备注一致: "是"
-  人工备注来源: "无；第62条为 YAML 补录记录，原始 .doc 不含此提交；用户 2026-10-17 修订人工处理情况：物理合并，不参与讨论。"
-  其他: "物理合并提交：将 AC face_control 代码保留在 BC，形成后续待核的分支代码；不作为任何原提交的功能修复者，也不参与化学合入完成度判定。"
+  备注: 将 AC 侧 face_control 人脸控制代码物理放入 BC 分支，使用分支条件保留通知、识别和配置等两侧路径，作为后续逻辑合并的起点。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 63
+  合入时间: '2026-09-14'
   commit-id: 13f832c7
-  合入时间: '2026-09-14'
   标题: '[CAP] face_control: fix compile error'
+  类型: 编译修复
   Change-Id: I19f9ddc269c1c37368abcacea7f8401f08c5e25c
-  状态: 编译修复
-  状态备注: 为 BC 分包上传路径的函数增加前置声明。
-  处理情况: 待按分析终点复核
-  处理备注: ''
-  已确认: 0
-  完整性: 未完整
-  与人工备注一致: 无法比较
-  人工备注来源: 无；第63条为 YAML 补录记录，原始 .doc 不含此提交
-  其他: '合入者：无跨侧合入；依据：分包上传的两个前置声明仍仅 BC 可见；随 #34 待核'
+  备注: 补充 face_control 分包上传路径使用的函数前置声明，修复该能力在特定 BC 编译配置下因先调用后声明造成的编译错误。
+  是否需要评审: 0
+  是否需要处理: 1
+  是否已做修复提交: 1
+  修复提交是否已合入: 0
+  修复提交标题: '[cap] face_snapshot: remove branch macros (share packetized face info API) (1/2)'
+  修复提交commit id: f8cae5d3814959afe76a85312b8869c24a8e5112
+  修复提交change id: I21590c9367e9d94365fac0d7d2670d6102508e0d
+  修复提交链接: ''
 - 序号: 64
-  commit-id: 1c851e95
   合入时间: '2026-09-14'
+  commit-id: 1c851e95
   标题: '[cap] face_snapshot: clean redundant macro guards and optimize function layout in face_control'
+  类型: 099物理合并
   Change-Id: Ia38ad1abaaaf1b27eee9dd33991dc8d718b0d64c
-  状态: 分支合并提交
-  状态备注: 清理 face_control 中的冗余宏保护并调整函数布局。
-  处理情况: "物理合并，不参与讨论"
-  处理备注: ''
-  已确认: 0
-  完整性: "不适用（物理合并）"
-  与人工备注一致: "是"
-  人工备注来源: "无；第64条为 YAML 补录记录，原始 .doc 不含此提交；用户 2026-10-17 修订人工处理情况：物理合并，不参与讨论。"
-  其他: "物理合并/整理提交，清理已有 AC/BC 宏残差并调整 face_control 布局；不作为其他原功能提交的修复来源，也不参与本轮原提交合入完成度讨论。"
+  备注: 清理 face_control 中空白或重复的 AC/BC 宏保护块，调整局部函数和变量布局，并统一部分仅有排版差异的代码，使物理合并后的文件更易维护。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 65
-  commit-id: 3e40aa26
   合入时间: '2026-09-22'
+  commit-id: 3e40aa26
   标题: '[all] face_control: add qualified face tags for pss recognition'
+  类型: 无差异
   Change-Id: If66eba34f0cef80d6834fd2ad7986b53c7d397e6
-  状态: 功能扩充
-  状态备注: PSS 识别增加合格人脸事件和视频标签。
-  处理情况: "对两分支都生效的修复提交，无需后续处理"
-  处理备注: ''
-  已确认: 0
-  完整性: 完整
-  与人工备注一致: "是"
-  人工备注来源: "无；第65条为 YAML 补录记录，原始 .doc 不含此提交；用户 2026-10-17 修订人工处理情况：对两分支都生效的修复提交，无需后续处理。"
-  其他: "原提交在双方共用的 FACE_PSS_SUPPORT 路径增加 PSS 多人选择与合格人脸事件/标签；按用户结论，属于对两分支均生效的修复，无需再做 AC/BC 定向处理。跨模块消费行为未在本笔复审。"
+  备注: 为 PSS 识别结果加入合格人脸标签、多人选择和事件字段，使视频或报表消费端能够区分人形快照关联的人脸质量与识别状态。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 66
-  commit-id: 8491c28e
   合入时间: '2026-09-21'
+  commit-id: 8491c28e
   标题: '[all]cap:Fixed the error in determining the fd in err_exit'
+  类型: 099物理合并
   Change-Id: Ia28fea5b1b63f8146d857ecbcff25f66326e1041
-  状态: 分支合并提交
-  状态备注: 此前人脸代码合入后，修正 PSS 图片复制错误退出路径中的文件描述符判断。
-  处理情况: "物理合并，不参与讨论"
-  处理备注: ''
-  已确认: 0
-  完整性: "不适用（物理合并）"
-  与人工备注一致: "是"
-  人工备注来源: "无；第66条为 YAML 补录记录，原始 .doc 不含此提交；用户 2026-10-17 修订人工处理情况：物理合并，不参与讨论。"
-  其他: "用户将该合并后文件描述符判断更正提交归类为物理合并；不作为其他原功能提交的合入来源，也不参与本轮原提交合入完成度讨论。保留原提交代码事实，不据此推定可改写错误路径。"
+  备注: 修正 PSS 图片复制函数错误退出路径中的文件描述符判断，调整关闭条件，避免打开失败后的描述符处理与物理合并代码不一致。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 67
+  合入时间: '2026-09-29'
   commit-id: d2230f73
-  合入时间: '2026-09-29'
   标题: '[FSS] cap: support preferred face image (4/6)'
+  类型: 功能扩充
   Change-Id: I7245a65208ede4410905167205fae643754345f1
-  状态: 功能扩充
-  状态备注: 支持优选人脸图片与 HUB 缩略图推送，原提交为跨仓系列 (4/6)。
-  处理情况: 截至分析终点已存在；跨仓功能链待复核
-  处理备注: ''
-  已确认: 0
-  完整性: 完整（无需进行）
-  与人工备注一致: 无法比较
-  人工备注来源: 无；第67条为 YAML 补录记录，原始 .doc 不含此提交
-  其他: 合入者：d2230f73 自身；依据：优选人脸图路径按 HUB_STORAGE_SUPPORT_FACE_DETECT 产品宏编译，无 AC/BC 守卫；修复判定：优选人脸图支持由 d2230f73 按 HUB_STORAGE_SUPPORT_FACE_DETECT
-    产品宏直接加入共用 face_control 路径；之后未对该功能做 AC/BC 化学修复
+  备注: 增加优选人脸图片和向 HUB 推送人脸缩略图的支持，在 AI 增强配置变化时通知算法重载，并处理设备休眠前待发快照的发送。
+  是否需要评审: ''
+  是否需要处理: ''
+  是否已做修复提交: 截至分析终点已存在；跨仓功能链待复核
+  修复提交是否已合入: ''
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 68
+  合入时间: '2026-09-28'
   commit-id: af085704
-  合入时间: '2026-09-28'
   标题: '[All] cap/pss: remove some AC_ON_BC and BC_ON_AC macro'
+  类型: 099物理合并
   Change-Id: I6182932bd64189a3f508a5d2ddca21a0613f8f8b
-  状态: 分支合并提交
-  状态备注: 清理 PSS 图片存储中 AC_ON_BC、BC_ON_AC 重复代码。
-  处理情况: "物理合并，不参与讨论"
-  处理备注: ''
-  已确认: 0
-  完整性: "不适用（物理合并）"
-  与人工备注一致: "是"
-  人工备注来源: "无；第68条为 YAML 补录记录，原始 .doc 不含此提交；用户 2026-10-17 修订人工处理情况：物理合并，不参与讨论。"
-  其他: "用户将 PSS 存储重复宏整理提交归类为物理合并；不作为其他原功能提交的合入来源，也不参与本轮原提交合入完成度讨论。"
+  备注: 清理 PSS 图片存储文件中重复的 AC_ON_BC、BC_ON_AC 条件代码，统一文件复制、偏移计算和错误处理的相同部分，减少物理合并残留分支。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 69
+  合入时间: '2026-09-28'
   commit-id: 93fe4562
-  合入时间: '2026-09-28'
   标题: '[All] pss: remove persistent backup data files for pss'
+  类型: Bug修复
   Change-Id: Ia9997d8a42fe27121c8fa991ddae43f6a0b2866e
-  状态: Bug修复
-  状态备注: 删除 PSS 图片数据的持久备份文件，减少 Flash 占用。
-  处理情况: 截至分析终点已存在；存储行为待复核
-  处理备注: ''
-  已确认: 0
-  完整性: 部分
-  与人工备注一致: 无法比较
-  人工备注来源: 无；第69条为 YAML 补录记录，原始 .doc 不含此提交
-  其他: 合入者：93fe4562 自身；依据：PSS 备份文件清理已引入，但 repair_old_img_storage_files 仍有 AC/BC 路径差异
+  备注: 调整 PSS 图片存储持久化策略，删除不再需要的备份数据文件，降低人形快照持久存储占用及 Flash 写入负担。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 70
+  合入时间: '2026-09-28'
   commit-id: ef46bb67
-  合入时间: '2026-09-28'
   标题: '[pss] cap | face_snapshot: cleaning expired person snapshot'
+  类型: 无差异
   Change-Id: If692387a69cbaf0dc45849bc6a24de1d8de73223
-  状态: Bug修复
-  状态备注: 删除人脸时清理已过期的人形快照。
-  处理情况: "对两分支都生效的修复提交，无需后续处理"
-  处理备注: ''
-  已确认: 0
-  完整性: 完整（无需进行）
-  与人工备注一致: "是"
-  人工备注来源: "无；第70条为 YAML 补录记录，原始 .doc 不含此提交；用户 2026-10-17 修订人工处理情况：对两分支都生效的修复提交，无需后续处理。"
-  其他: "原提交在双方共用的 FACE_PSS_SUPPORT 路径清理人脸删除时关联的过期 PDR 图像；对两分支均生效，无需后续 AC/BC 处理。"
+  备注: 删除人脸时同步检查关联的人形快照，对已过期的 PSS 图像执行清理，避免人脸记录消失后仍长期保留无效图片。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 71
+  合入时间: '2026-09-28'
   commit-id: aaad1b34
-  合入时间: '2026-09-28'
   标题: '[pss] cap | face_snapshot: merge pss while merging face'
+  类型: 无差异
   Change-Id: I534caa94f2f0c13d1fc35347ea0d90b217113691
-  状态: Bug修复
-  状态备注: 合并人脸时同步合并对应 PSS 数据与特征。
-  处理情况: "对两分支都生效的修复提交，无需后续处理"
-  处理备注: ''
-  已确认: 0
-  完整性: 完整（无需进行）
-  与人工备注一致: "是"
-  人工备注来源: "无；第71条为 YAML 补录记录，原始 .doc 不含此提交；用户 2026-10-17 修订人工处理情况：对两分支都生效的修复提交，无需后续处理。"
-  其他: "原提交在双方共用的 FACE_PSS_SUPPORT 路径处理合并人脸时的 PSS 数据与特征；对两分支均生效，无需后续 AC/BC 处理。"
+  备注: 在人脸合并流程中同步处理对应的 PSS 数据和特征，将旧人脸的人形快照资料合并或转移到目标人脸，避免资料与人脸 ID 脱节。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 72
+  合入时间: '2026-09-28'
   commit-id: 3ffa086f
-  合入时间: '2026-09-28'
   标题: '[pss] cap | face_snapshot: clean pdr_storage during fd_control_deinitialize_all'
+  类型: 无差异
   Change-Id: I4173f4fcde65b895a36130c06522cb13136f549e
-  状态: Bug修复
-  状态备注: 清空人脸库时同步清理 PDR 存储。
-  处理情况: "对两分支都生效的修复提交，无需后续处理"
-  处理备注: ''
-  已确认: 0
-  完整性: 完整（无需进行）
-  与人工备注一致: "是"
-  人工备注来源: "无；第72条为 YAML 补录记录，原始 .doc 不含此提交；用户 2026-10-17 修订人工处理情况：对两分支都生效的修复提交，无需后续处理。"
-  其他: "原提交在双方共用的 FACE_PSS_SUPPORT 路径清空人脸库时清理 PDR_STORAGE_DIR；对两分支均生效，无需后续 AC/BC 处理。"
+  备注: 在人脸控制模块执行清空或停用人脸库时同步清理 PDR 存储目录，避免原人脸已删除而人形快照数据仍留在本地。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 73
-  commit-id: 6913374f
   合入时间: '2026-09-28'
+  commit-id: 6913374f
   标题: '[All] pss: implement clean person ss'
+  类型: 无差异
   Change-Id: I860591ea1384a306b7362c95e6b3b44a5a02170f
-  状态: 功能完善
-  状态备注: 实现过期人形快照清理；原提交指出电池机只在开机时判断。
-  处理情况: "对两分支都生效的修复提交，无需后续处理"
-  处理备注: ''
-  已确认: 0
-  完整性: 完整（无需进行）
-  与人工备注一致: "是"
-  人工备注来源: "无；第73条为 YAML 补录记录，原始 .doc 不含此提交；用户 2026-10-17 修订人工处理情况：对两分支都生效的修复提交，无需后续处理。"
-  其他: "原提交在双方共用的 FACE_PSS_SUPPORT 路径实现过期人形快照清理；对两分支均生效，无需后续 AC/BC 处理。"
+  备注: 实现过期人形快照的清理流程，按保存时间和产品运行周期检查 PSS 资料，删除已过期的人员快照以控制存储占用。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 74
+  合入时间: '2026-09-29'
   commit-id: 29e88837
-  合入时间: '2026-09-29'
   标题: '[cap] fix: scope the face-info lock to BC and add the missing FSS_ERROR macro'
+  类型: 099物理合并
   Change-Id: Ie39cbc95426ab3cefee2bcb8c1798563bd99ab56
-  状态: 分支合并提交
-  状态备注: 修复物理合并遗留的 face info 锁作用域和 AC 侧 FSS_ERROR 定义。
-  处理情况: "物理合并，不参与讨论"
-  处理备注: ''
-  已确认: 0
-  完整性: "不适用（物理合并）"
-  与人工备注一致: "是"
-  人工备注来源: "无；第74条为 YAML 补录记录，原始 .doc 不含此提交；用户 2026-10-17 修订人工处理情况：物理合并，不参与讨论。"
-  其他: "用户将合并后 face info 锁作用域及 FSS_ERROR 定义修整归类为物理合并；不作为其他原功能提交的合入来源，也不参与本轮原提交合入完成度讨论。"
+  备注: 修整物理合并后的 face_info 锁声明作用域，并补充缺失的 FSS_ERROR 日志宏定义，修复不同产品编译条件下的声明和打印问题。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 75
-  commit-id: 9fec8a3d
   合入时间: '2026-09-29'
+  commit-id: 9fec8a3d
   标题: '[All] face_snapshot: remove some AC_ON_BC and BC_ON_AC macro'
+  类型: 099物理合并
   Change-Id: I1593e0b1f4504d81b46efcd2f2c294ef2d95ff17
-  状态: 分支合并提交
-  状态备注: 收敛 face_control、face_feature 中的 AC_ON_BC、BC_ON_AC 重复代码。
-  处理情况: 分支合并提交；截至分析终点已存在，待复核消宏范围
-  处理备注: ''
-  已确认: 0
-  完整性: 完整
-  与人工备注一致: 无法比较
-  人工备注来源: 无；第75条为 YAML 补录记录，原始 .doc 不含此提交
-  其他: 范围：限定清理范围；合入者：9fec8a3d 自身；依据：该笔移除的重复守卫已消；face_control 仍有其他功能差异
+  备注: 合并 face_control 与 face_feature 中功能相同的 AC/BC 条件分支，统一函数名称、变量初始化和部分代码布局，减少重复宏代码。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 76
-  commit-id: 008b2df2
   合入时间: '2026-10-13'
+  commit-id: 008b2df2
   标题: '[CAP] log: drop MODULE_LOG_CONTROL and consolidate duplicated print macros'
+  类型: 098日志宏相关
   Change-Id: I1cfe9d19859d89cdbc79b8022236a9655bab22ec
-  状态: 分支合并提交
-  状态备注: 跨模块删除旧日志签名分支并合并 AC/BC 重复打印宏；face_storage.h 受影响。
-  处理情况: "跨模块日志宏相关，无需处理"
-  处理备注: ''
-  已确认: 0
-  完整性: 不适用（跨模块日志）
-  与人工备注一致: "是"
-  人工备注来源: "无；第76条为 YAML 补录记录，原始 .doc 不含此提交；用户 2026-10-17 修订人工处理情况：跨模块日志宏相关，无需处理。"
-  其他: "跨模块日志宏整理提交；face_storage.h 日志宏已在分析终点共用。按用户结论，无需在 face_snapshot 原功能合入中单独处理。"
+  备注: 从 CAP 多模块日志路径移除旧的 MODULE_LOG_CONTROL 判断，合并重复打印宏并统一调用形式，face_snapshot 范围涉及存储头文件的 FSS 日志定义。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''
 - 序号: 77
-  commit-id: 102ba4b1
   合入时间: '2026-10-14'
+  commit-id: 102ba4b1
   标题: '[CAP] log: unify module print macros and merge duplicated AC/BC definitions'
+  类型: 098日志宏相关
   Change-Id: Ie50c885b20f43d0d1b631be626750b073fba3a99
-  状态: 分支合并提交
-  状态备注: 跨模块统一日志封装、修复两侧参数顺序差异并合并重复宏。
-  处理情况: "跨模块日志宏相关，无需处理"
-  处理备注: ''
-  已确认: 0
-  完整性: 不适用（跨模块日志）
-  与人工备注一致: "是"
-  人工备注来源: "无；第77条为 YAML 补录记录，原始 .doc 不含此提交；用户 2026-10-17 修订人工处理情况：跨模块日志宏相关，无需处理。"
-  其他: "跨模块日志宏整理及分析终点提交；face_snapshot 日志宏已共用。按用户结论，无需在 face_snapshot 原功能合入中单独处理。"
+  备注: 统一 CAP 各模块的日志打印封装，修正 AC/BC 分支间宏参数顺序差异并合并重复定义，face_snapshot 范围使 FSS 日志宏采用单一接口。
+  是否需要评审: 0
+  是否需要处理: 0
+  是否已做修复提交: 0
+  修复提交是否已合入: 0
+  修复提交标题: ''
+  修复提交commit id: ''
+  修复提交change id: ''
+  修复提交链接: ''

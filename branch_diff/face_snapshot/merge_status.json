@@ -8,7 +8,7 @@
   },
   "target": {
     "branch": "face_snapshot_battery_macro_review_1017",
-    "head": "fe2b6991bda45f3262e684cfcdc81fdc12623b0e"
+    "head": "14fce986881fca63024c386f13a70ef8092ebfbf"
   },
   "baseline_date": "2026-10-14",
   "status_definitions": {
@@ -23,24 +23,18 @@
   },
   "last_action": {
     "date": "2026-10-17",
-    "kind": "manual_disposition_reconciliation",
-    "summary": "按用户修订后续提交的人工处理情况：b9ede403 归属 0f9dad1b；物理合并排除修复来源；五笔共用 PSS 修复无需后续处理；跨模块日志宏组不参与本轮。8f72dafc 的冲突口径已由用户最终确认为“跨模块日志宏相关，无需处理”。",
+    "kind": "batch_merge_repair_and_relation_rebuild",
+    "summary": "按差异情况概览 2.0 中“是否需要处理=1、是否已做修复提交=0”的九笔来源逐笔试合入或确认覆盖；形成 CAP 8 笔、NVMP 3 笔源码提交；13f832c7 由 1a03e632 的共用声明修复覆盖。同步重建当前 CAP 分支的多对多关系图。",
     "affected": [
-      "BC#58",
-      "BC#64",
-      "BC#65",
-      "BC#53",
-      "BC#56",
-      "YAML#66",
-      "YAML#68",
-      "YAML#70",
-      "YAML#71",
-      "YAML#72",
-      "YAML#73",
-      "YAML#74",
-      "YAML#76",
-      "YAML#77",
-      "BC#57"
+      "BC#15",
+      "BC#17",
+      "BC#38",
+      "BC#34",
+      "BC#44",
+      "BC#47",
+      "BC#50",
+      "BC#59",
+      "BC#63"
     ]
   },
   "entries": [
@@ -447,7 +441,7 @@
       "source_commit": "d161ecab8a886dde5f153763e0fb4874c56be083",
       "source_title": "[all]face_snapshot|hub:add hub support and skip tapocare msgpush when face is detected(2/2)",
       "status": "merged_partial",
-      "note": "用户人工处理情况改为“尚未做相关提交，需要评审”。截至当前 CAP 分支，未找到以 d161ecab 为来源的定向修复提交；HUB 告警发送与云端路由仍分支化，需评审。51eed3eac07649a4d35241d5f253ca6dc4e64356 针对 AC 来源收敛 HUB 配置重载，虽有代码范围交集，不计作本笔修复；按原提交来源核对，一致性为是。"
+      "note": "AI排查提交已修复，需要评审：1fe8c3eb04ec8c55ca178942a4e59beaf8cae0b7 使 HUB 存储配置变化在 AC、BC 路径都触发配置重载，去除两处 AC_ON_BC 守卫。告警 JSON 字段后由 BC#59 的 14fce986881fca63024c386f13a70ef8092ebfbf 共用；消息 ID 与转发路由仍有分支差异，待 HUB 消费端复核。"
     },
     {
       "id": "BC#16",
@@ -464,8 +458,8 @@
       "index": 17,
       "source_commit": "645eb8f0acaafdb55b06f81b0c0801191432b3db",
       "source_title": "[all]face snapshot:face detect msg push when upto push threshold(1/2)",
-      "status": "deferred",
-      "note": "原提交 645eb8f0acaafdb55b06f81b0c0801191432b3db 的配套 NVMP BC (2/2) 是 764b4d966，增加 FSS_MSG_PUSH 数据模型。目标 BC 路径保留闪存计数/唤醒判断，AC 路径保留原 60 秒与内存列表策略；跨侧修改会改变推送次数和时机，暂缓。"
+      "status": "merged_complete",
+      "note": "AI排查提交已修复，需要评审：57f773bf4fbf3733deb66c069b8377b8baea52dd。电池机独有的闪存推送计数、唤醒判断与定时落盘按 TP_TAPO_BATTERY_CAM 选择；常电维持原列表计数与 60 秒过滤。已确认 NVMP 配套提交 764b4d966 为当前祖先，HUB 消息格式/路由仍维持原守卫，属于其他来源范围。"
     },
     {
       "id": "BC#18",
@@ -617,8 +611,8 @@
       "index": 34,
       "source_commit": "1403e6830e471144cf71112c23175731edee6025",
       "source_title": "[all] cap/fss: support pss (2/2)",
-      "status": "no_merge_fix",
-      "note": "人工修订为 PSS 仅电池机有，建议直接使用电池机文件，需要评审。be46f651、f96c4216、bb3085b8 只完成物理合并，不是本笔功能修复者；历史分支的 48ecd95e 不在当前复审分支祖先。当前尚无针对 1403e683 完整逻辑合入的有效修复，PSS 文件策略待评审。"
+      "status": "merged_partial",
+      "note": "AI排查提交已修复，需要评审：CAP 72d2316c742f775ce3852b9ad973d98156248e6d，NVMP 08394c9137cb6e55fbba7fddc28725d1aca30c5c。PSS 结果类型不再受 BC_ON_AC 守卫，CAP 在 FACE_PSS_SUPPORT 下共用人脸数量校验。PSS 存储文件仍有 AC/BC 实现差异；按用户建议直接选用电池机文件尚未实施，需单独核对迁移与错误路径。"
     },
     {
       "id": "BC#35",
@@ -653,8 +647,8 @@
       "index": 38,
       "source_commit": "1a03e63298ff39ec1b1890dce4999fea31322b10",
       "source_title": "[all] face_control: Support doFaceInfoAddPacketized API (1/2)",
-      "status": "deferred",
-      "note": "人工修订为尚未做相关提交、需要评审。当前 CAP 分包上传 API/DS 模板仍受 BC_ON_AC 路径保护；未找到以 1a03e632 为来源、在当前复审分支祖先中的定向合入提交。NVMP 配套接口和产品传输需求仍需评审。"
+      "status": "merged_partial",
+      "note": "AI排查提交已修复，需要评审：CAP f8cae5d3814959afe76a85312b8869c24a8e5112，NVMP 7960a68bea5ae60f89d80eafdc9f407fe649f5fc。分片上传请求、缓存和 DS API 已向 AC 路径开放；NVMP 将字段纳入共用模型。AC 的 JPEG 特征提取依赖尚未确认，AC 路径遇 JPEG 配置返回参数错误，YUV 路径可执行；完整产品构建和设备验证待评审。"
     },
     {
       "id": "BC#39",
@@ -707,8 +701,8 @@
       "index": 44,
       "source_commit": "bb3848b5598b600095f3665859111b6d59f7b9b6",
       "source_title": "[ALL] face_snapshot: add scene-aware real-time feature update for familiar faces",
-      "status": "deferred",
-      "note": "场景特征更新 `bb3848b5` 按用户意见暂缓。"
+      "status": "merged_complete",
+      "note": "AI排查提交已修复，需要评审：3af682547618d37a5a21e1610d6d532c7bcad43f。将场景标签字段、相似度及日夜查询、熟人实时特征更新和 v1/v2 到 v3 的存储迁移对 AC/BC 共用，并将两侧默认存储子版本设为 3；PSS 复合结果传入其 FSS 子结果，避免指针解释错误。涉及持久化格式和识别行为，仍需产品构建、升级及设备验证。"
     },
     {
       "id": "BC#45",
@@ -734,8 +728,8 @@
       "index": 47,
       "source_commit": "7012ac55e8970c87146e8e5f740454d2c4d84350",
       "source_title": "[all]cap: support enhanced package detection [2/5]",
-      "status": "deferred",
-      "note": "原 CAP `7012ac55e8970c87146e8e5f740454d2c4d84350` `(2/5)` 新增 en_pkgd 模块并在 face_control.c 通过 EN_PKGD_SUPPORT 向其发送人脸结果；本地 NVMP 配套 `(1/5)` 为 `16d21a671d5d3332c47c33b5e662ad3d2973d914`。目前 EN_PKGD_SUPPORT 仅电池机持有，AC/BC 的 +136 消息号差异在现有产品配置下不会运行时冲突；若未来 AC 开启该功能仍须确定 libdms 消息与消费者契约。包裹检测发送与 HUB 通知共用 BC_ON_AC 守卫：只移动守卫不能减少分支宏，直接删除会改变 AC 的 HUB 通知路径。原人工去宏判断未落实；暂缓合入，BC 原逻辑保留。"
+      "status": "merged_partial",
+      "note": "AI排查提交已修复，需要评审：CAP 4becda9ead63455254d97c665e6f2ce898ba8cd2，NVMP 8d87bce991b6821bfc980bc6585fc4be885b48db。人脸结果发送按 EN_PKGD_SUPPORT 功能宏编译，去掉 face_control 中的 BC_ON_AC 外层守卫；AC 消息号使用当前 AC 表未占用的 +153，避免与 FCD_END 的 +136 冲突。包裹模块其余跨仓消息契约及 AC 产品配置尚未闭合，不宣称整个 2/5 功能完成。"
     },
     {
       "id": "BC#48",
@@ -761,8 +755,8 @@
       "index": 50,
       "source_commit": "6bf25ceb87ec8e0967db1f54f6802149f3e38d79",
       "source_title": "[cap] en_pkgd|face_snapshot: update package history when face detected (1/2)",
-      "status": "deferred",
-      "note": "原 CAP `6bf25ceb87ec8e0967db1f54f6802149f3e38d79` `(1/2)` 为 EN_PKGD_SUPPORT 调整人脸 IoT pushable 与本地 pkg_history 更新，并同时修改 en_pkgd 模块。该逻辑需包裹历史模块、云端消费者及另一半系列契约；当前仅在 BC 产品路径保留，暂缓跨入 AC。后续 BC #51 改变本地维护启用条件，须同组核对。"
+      "status": "merged_partial",
+      "note": "AI排查提交已修复，需要评审：3cbed9cb411e12415830e9bd797fede78e6e2117。在 EN_PKGD_SUPPORT 下，AC/BC 推送路径均可携带 pushable=0 并继续到本地包裹历史维护；无包裹功能配置维持原短路。en_pkgd 模块的已有处理函数未改；云端消费与其他消息号契约尚待评审。"
     },
     {
       "id": "BC#51",
@@ -842,8 +836,8 @@
       "index": 59,
       "source_commit": "48e74a2785dc75597636ea35f1e8e7d180036d5c",
       "source_title": "[all] face_control: include HUB fields for familiar and unfamiliar recongition events",
-      "status": "deferred",
-      "note": "原提交 `48e74a2785dc75597636ea35f1e8e7d180036d5c` 在 HUB_MANAGE_SUPPORT 下根据 hub_storage/AI 状态计算 msgAgent 并写入熟人、陌生人告警 JSON；目标 BC 路径已有，AC 的告警 JSON 不含 msgAgent。消息消费者与 AC HUB 代理协议未核对，暂缓改变 AC 消息格式。"
+      "status": "merged_complete",
+      "note": "AI排查提交已修复，需要评审：14fce986881fca63024c386f13a70ef8092ebfbf。HUB_MANAGE_SUPPORT 下 AC/BC 共用含 msgAgent 的 JSON 格式与配置计算，熟人和陌生人告警均传此字段；未启用 HUB 时格式维持原值。HUB 消息 ID 和转发路径仍维持两侧原实现，消费者协议需产品联调。"
     },
     {
       "id": "BC#60",
@@ -878,8 +872,8 @@
       "index": 63,
       "source_commit": "13f832c751368d15618ae7d9209634f6657d7429",
       "source_title": "[CAP] face_control: fix compile error",
-      "status": "deferred",
-      "note": "原补丁 `13f832c751368d15618ae7d9209634f6657d7429` 仅为 BC #38 的 face_info_add_req_parse / face_info_process_add_or_change 增加前置声明；当前 BC 路径已有声明且 AC 路径无对应包上传函数。随 BC #38 及 NVMP `b4b44c924be1b804889147c764942f81e3df1d9c` 一起暂缓跨侧合并，BC 编译修复保留。"
+      "status": "merged_complete",
+      "note": "AI排查提交已修复，需要评审：CAP f8cae5d3814959afe76a85312b8869c24a8e5112 在开放分片 API 时将 face_info_add_req_parse 与 face_info_process_add_or_change 的前置声明一并放入 AC/BC 共用区，完整覆盖本笔原提交的两行编译修复，无需另造重复提交。"
     },
     {
       "id": "BC#64",
