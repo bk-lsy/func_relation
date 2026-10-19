@@ -2,7 +2,7 @@
 
 ## 动态合入状态
 
-按分支查看的 15 列提交概览位于 [`AC 侧 YAML`](../face_snapshot-new/ac侧提交概览.yaml) 和 [`BC 侧 YAML`](../face_snapshot-new/bc侧提交概览.yaml)；表格可用 `python3 branch_diff/yaml_to_xlsx.py <YAML 路径>` 生成。AC 概览现以 CAP `develop/develop_sz0519` 为规范来源：`6f4f42d7` 与已有的 `2fc6094a` 同补丁而不单列，其余六笔 release 分支独有提交均替换为 develop 分支中同 Change-Id、同焦点路径补丁的提交，补录 `0871bd20`。`commits.md`、`scope.json`、进度 JSON 及等价关系仍记录 2026-10-09 的 release 分支历史快照；它们的 AC 编号不可直接用于新概览。修复来源仅在核实当前工作分支的对应提交后填写。
+AC、BC 的 15 列提交概览分别位于 [`AC 侧 YAML`](../face_snapshot-new/ac侧提交概览.yaml) 和 [`BC 侧 YAML`](../face_snapshot-new/bc侧提交概览.yaml)；运行 `python3 branch_diff/yaml_to_xlsx.py` 统一生成含 AC、BC 两个工作表的 [`差异情况概览.xlsx`](../face_snapshot-new/差异情况概览.xlsx)；仅“类型”为“无差异”的数据行标浅绿。AC 概览现以 CAP `develop/develop_sz0519` 为规范来源：`6f4f42d7` 与已有的 `2fc6094a` 同补丁而不单列，其余六笔 release 分支独有提交均替换为 develop 分支中同 Change-Id、同焦点路径补丁的提交，补录 `0871bd20`。`commits.md`、`scope.json`、进度 JSON 及等价关系仍记录 2026-10-09 的 release 分支历史快照；它们的 AC 编号不可直接用于新概览。修复来源仅在核实当前工作分支的对应提交后填写。
 
 2026-10-18 起，CAP `test/face_snapshot_battery_macro_review_1017` 上规范 AC 来源的试合入记录，以 AC 概览中的修复提交列和 `merge_status.json` 的 `canonical_ac_trial_1017` 为准。旧 `entries` 与 `merge_relations.json` 继续对应历史分支及旧 AC 索引；试合入提交不直接连到旧索引的关系图。当前九笔候选中七笔已提交试合入，一笔确认无需新增修复，一笔 HUB 消息契约待评审。
 
